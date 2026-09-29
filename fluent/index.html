@@ -349,9 +349,34 @@ button{cursor:pointer}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv{opacity:1;transform:none}.ln>span{transform:none}
 }
+/* preloader */
+.fpre{position:fixed;inset:0;z-index:200;background:var(--navy);color:var(--cream);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,3.4vw,52px);clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.77,0,.175,1)}
+.fpre.out{clip-path:inset(0 0 100% 0)}
+.fpre__top{display:flex;justify-content:space-between;gap:16px;font-family:var(--head);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.fpre__top b{color:var(--pink)}.fpre__top span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:10px;vertical-align:middle}
+.fpre__n{position:relative;align-self:flex-end;font-family:var(--head);font-weight:800;font-size:clamp(140px,30vw,440px);line-height:.8;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
+.fpre__n .o{color:transparent;-webkit-text-stroke:2px rgba(255,155,180,.6)}
+.fpre__n .f{position:absolute;inset:0;color:var(--pink);clip-path:inset(calc(100% - var(--p,0%)) -20% -10% -20%)}
+.fpre__bar{position:absolute;left:0;bottom:0;height:3px;background:var(--pink);width:var(--p,0%)}
+@media (prefers-reduced-motion:reduce){.fpre{display:none}}
 </style>
 </head>
 <body class="no-js">
+<noscript><style>.fpre{display:none!important}</style></noscript>
+<div class="fpre" id="fpre" aria-hidden="true">
+  <div class="fpre__top"><span>FLUENT · школа английского</span><span><b>IELTS 7+</b> за 4–6 месяцев</span></div>
+  <div class="fpre__n"><span class="o" id="fpreO">00</span><span class="f" id="fpreF">00</span></div>
+  <div class="fpre__bar"></div>
+</div>
+<script>
+(function(){var el=document.getElementById('fpre');if(!el)return;
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.remove();return;}
+var o=document.getElementById('fpreO'),f=document.getElementById('fpreF'),t0=performance.now(),D=1300,done=false;
+document.documentElement.style.overflow='hidden';
+function end(){if(done)return;done=true;el.classList.add('out');document.documentElement.style.overflow='';setTimeout(function(){el.remove()},1100);}
+function tick(t){var p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3),n=String(Math.round(e*100)).padStart(2,'0');o.textContent=n;f.textContent=n;el.style.setProperty('--p',(e*100)+'%');p<1?requestAnimationFrame(tick):setTimeout(end,180);}
+requestAnimationFrame(tick);setTimeout(end,3000);})();
+</script>
 
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
