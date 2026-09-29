@@ -4,14 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0E0D0B" />
-  <title>Станислав — сайты, которые продают поток</title>
+  <title>Станислав Максимов — сайты, которые продают поток</title>
   <meta name="description" content="Делаю сайты для онлайн-школ, курсов и ивентов: оффер, программа, тарифы и заявка в одной ссылке. Фикс-цена, 9–12 дней, возврат 100%. Бесплатный разбор вашего лендинга." />
-  <meta property="og:title" content="Станислав — сайты, которые продают поток до первого звонка" />
+  <meta property="og:title" content="Станислав Максимов — сайты, которые продают поток" />
   <meta property="og:description" content="Оффер, программа, тарифы и заявка в одной ссылке. Пришлите лендинг или посты — покажу, где теряются заявки." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="./course-site-preview.png" />
-  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="./assets/favicon.png" />
+  <meta property="og:image" content="https://stanislavmv.com/assets/brand/og-cover.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://stanislavmv.com/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="./assets/favicon.svg?v=sm1" type="image/svg+xml" />
+  <link rel="icon" href="./assets/favicon-32.png?v=sm1" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="./assets/favicon.png?v=sm1" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -79,9 +84,10 @@
     .hdr.is-hidden{transform:translateY(-110%)}
     .hdr.is-solid{background:rgba(14,13,11,.94);border-bottom:1px solid var(--line)}
     .hdr__row{display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .logo{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:-.01em}
-    .logo img{width:34px;height:auto}
-    .logo__sep{width:1px;height:22px;background:var(--line-2)}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+    .logo__mark{width:36px;height:36px;flex:none;color:var(--ink);transition:color .3s}
+    .logo:hover .logo__mark{color:var(--acc)}
+    @media (max-width:400px){.logo{font-size:15px;gap:10px}.logo__mark{width:32px;height:32px}.burger{padding:0 14px}.burger>span{display:none}}
     .nav{display:flex;gap:30px}
     .nav a{position:relative;font-size:15px;color:var(--mute);transition:color .3s}
     .nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
@@ -425,7 +431,7 @@
 <body>
 
   <div class="preloader" aria-hidden="true">
-    <div class="preloader__top mono"><span>Станислав</span><span>Сайты для онлайн-школ</span></div>
+    <div class="preloader__top mono"><span>Станислав Максимов</span><span>Сайты для онлайн-школ</span></div>
     <div class="preloader__num">000</div>
     <div class="preloader__bar"></div>
   </div>
@@ -437,10 +443,9 @@
 
   <header class="hdr" id="hdr">
     <div class="wrap hdr__row">
-      <a href="#top" class="logo" aria-label="Станислав — на главную">
-        <img src="images/logo-stanislav.png" alt="" width="64" height="58" />
-        <span class="logo__sep" aria-hidden="true"></span>
-        <span>Станислав</span>
+      <a href="#top" class="logo" aria-label="Станислав Максимов — на главную">
+        <svg class="logo__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="7.5" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" transform="translate(1.25 1)"><path d="M47.9 30.4A15 15 0 1 0 33 49.5A14.5 14.5 0 1 1 18.8 68.9"/><path d="M47.5 64V21.5L63.5 57L79.5 21.5V78.5"/></g></svg>
+        <span>Станислав Максимов</span>
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="#cases">Кейсы</a>
@@ -701,7 +706,7 @@
               <li>Подключаю домен, хостинг, аналитику и проверяю каждую форму</li>
               <li>Передаю все доступы и остаюсь на связи после запуска</li>
             </ul>
-            <div class="about__sig mono"><img src="images/logo-stanislav.png" alt="" width="64" height="58" />Станислав — дизайн, тексты, код</div>
+            <div class="about__sig mono"><img src="images/logo-stanislav.png" alt="Подпись Станислава" width="64" height="58" loading="lazy" decoding="async" />Станислав Максимов — дизайн, тексты, код</div>
           </div>
         </div>
       </div>
@@ -842,7 +847,7 @@
       </div>
       <div class="ftr__giant" aria-hidden="true">Станислав</div>
       <div class="ftr__legal mono">
-        <span>© Станислав, <span id="yr">2026</span></span>
+        <span>© Станислав Максимов, <span id="yr">2026</span></span>
         <a href="./privacy-policy.html">Политика конфиденциальности</a>
         <a href="#top" id="toTop">Наверх ↑</a>
       </div>
@@ -999,7 +1004,8 @@
       root.classList.add("has-cursor");
       const cur = $(".cursor"), dot = $(".cursor__dot"), ring = $(".cursor__ring");
       let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
-      addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate3d(${mx}px,${my}px,0)`; }, { passive: true });
+      cur.style.opacity = 0; let seen = false;
+      addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; if (!seen) { seen = true; rx = mx; ry = my; ring.style.transform = `translate3d(${rx}px,${ry}px,0)`; cur.style.opacity = 1; } dot.style.transform = `translate3d(${mx}px,${my}px,0)`; }, { passive: true });
       const loop = () => { const dx = mx - rx, dy = my - ry; if (Math.abs(dx) > .1 || Math.abs(dy) > .1) { rx += dx * .18; ry += dy * .18; ring.style.transform = `translate3d(${rx.toFixed(1)}px,${ry.toFixed(1)}px,0)`; } requestAnimationFrame(loop); };
       requestAnimationFrame(loop);
       document.addEventListener("pointerover", e => {
@@ -1009,7 +1015,7 @@
         cur.classList.toggle("is-link", !v && !!l);
       });
       document.addEventListener("pointerleave", () => cur.style.opacity = 0);
-      document.addEventListener("pointerenter", () => cur.style.opacity = 1);
+      document.addEventListener("pointerenter", () => { if (seen) cur.style.opacity = 1; });
 
       $$("[data-magnetic]").forEach(el => {
         const s = el.classList.contains("orb") ? .35 : .25;
