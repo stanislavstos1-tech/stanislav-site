@@ -1,0 +1,162 @@
+/* Early font + layout — prevents hero/button jumps before main CSS loads */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZthiI2B.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlSHYjedg.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYg.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107.06%;
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Oswald Fallback';
+  src: local('Arial Narrow'), local('Arial');
+  size-adjust: 82%;
+  ascent-override: 130%;
+  descent-override: 35%;
+  line-gap-override: 0%;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow-x: clip;
+  scrollbar-gutter: stable;
+  scroll-behavior: auto;
+}
+
+.hero__title,
+.hero__lead,
+.hero__offer {
+  opacity: 1;
+}
+
+body {
+  font-family: 'Inter', 'Inter Fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+.hero__title,
+.section-heading__title {
+  font-family: 'Oswald', 'Oswald Fallback', 'Arial Narrow', Arial, sans-serif;
+  font-synthesis: none;
+}
+
+.hero__title,
+.hero__title--prose {
+  font-size: clamp(52px, 7.8vw, 92px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+@media (max-width: 1280px) {
+  .hero__title,
+  .hero__title--prose {
+    font-size: clamp(44px, 7vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.06em;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__title,
+  .hero__title--prose {
+    font-size: 50px;
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+  }
+}
+
+.hero__lead {
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.55;
+}
+
+.hero__offer {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.hero__trust {
+  display: flex;
+  align-items: center;
+  min-height: calc(3.25rem + 10px);
+  padding: calc(1.125rem + 5px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero__trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: clamp(16px, 4vw, 48px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(11px, 1.4vw, 13px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.btn {
+  font-family: 'Inter', 'Inter Fallback', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-synthesis: none;
+}

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.DS_Store
+*.log
+.env
+.env.local
+.vite/
+lead-server/
+assets/composite_iphone.py
+assets/iphone17-*.png
+assets/mads-iphone-screen.png
+mads-app/src/*.full-backup.tsx
+mads-app/src/rollback-honest/

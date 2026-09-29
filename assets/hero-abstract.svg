@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 720" fill="none" aria-hidden="true">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c4694f" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#c4694f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="matte-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3d3a36"/>
+      <stop offset="100%" stop-color="#121110"/>
+    </linearGradient>
+    <linearGradient id="matte-light" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d9cdb2"/>
+      <stop offset="100%" stop-color="#8a7560"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="ribbon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a85a45" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#d9cdb2" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#a85a45" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28"/>
+    </filter>
+  </defs>
+
+  <rect width="640" height="720" fill="#0d0d0d"/>
+
+  <ellipse cx="320" cy="380" rx="220" ry="200" fill="url(#glow)" filter="url(#blur)" opacity="0.45"/>
+
+  <!-- Floating ribbon -->
+  <path d="M80 420 C180 280, 320 520, 460 340 S620 180, 580 120" stroke="url(#ribbon-grad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M120 520 C240 420, 360 580, 500 460" stroke="url(#ribbon-grad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+
+  <!-- Glass slab -->
+  <rect x="340" y="140" width="180" height="240" rx="24" fill="url(#glass)" stroke="rgba(255,255,255,0.1)" stroke-width="1" transform="rotate(12 430 260)"/>
+
+  <!-- Torus ring -->
+  <ellipse cx="260" cy="320" rx="110" ry="110" fill="none" stroke="url(#matte-light)" stroke-width="28" opacity="0.85"/>
+  <ellipse cx="260" cy="320" rx="110" ry="110" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+  <!-- Matte cube -->
+  <path d="M120 480 L220 420 L320 480 L220 540 Z" fill="url(#matte-dark)"/>
+  <path d="M220 420 L320 480 L320 580 L220 520 Z" fill="#1a1816"/>
+  <path d="M120 480 L220 540 L220 520 L320 580 L320 480 L220 420" fill="none" stroke="rgba(217,205,178,0.15)" stroke-width="1"/>
+  <path d="M120 480 L220 540 L320 580" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Cylinder -->
+  <ellipse cx="480" cy="520" rx="52" ry="18" fill="#2a2622"/>
+  <rect x="428" y="420" width="104" height="100" fill="url(#matte-dark)"/>
+  <ellipse cx="480" cy="420" rx="52" ry="18" fill="#4a443c"/>
+  <ellipse cx="480" cy="420" rx="52" ry="18" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+  <!-- Accent dots -->
+  <circle cx="520" cy="180" r="6" fill="#c4694f" opacity="0.7"/>
+  <circle cx="100" cy="240" r="4" fill="#d9cdb2" opacity="0.5"/>
+</svg>

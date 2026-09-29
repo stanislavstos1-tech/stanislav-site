@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050505" />
+    <meta
+      name="description"
+      content="Я, Станислав, делаю лендинги для курсов, школ и онлайн-ивентов. Собираю оффер, программу, тарифы и заявку в одну ссылку. Лендинг от 30 000 ₽."
+    />
+    <title>Станислав — сайты для курсов и онлайн-школ</title>
+    <link rel="icon" href="./assets/favicon.svg?v=20260823j" type="image/svg+xml" />
+    <link rel="icon" href="./assets/favicon.png?v=20260823j" type="image/png" sizes="256x256" />
+    <link rel="apple-touch-icon" href="./assets/favicon.png?v=20260823j" />
+    <meta property="og:title" content="Станислав — сайты для курсов и онлайн-школ" />
+    <meta
+      property="og:description"
+      content="Соберу оффер, программу, преподавателей, тарифы и запись на поток в одной ссылке."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./course-site-preview.svg" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYAZthiI2B.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlSHYjedg.woff2"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      crossorigin
+      href="https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYg.woff2"
+    />
+    <link rel="stylesheet" href="./fonts-critical.css?v=20260822ae" />
+    <link rel="stylesheet" href="./styles.css?v=20260929a" />
+    <script>
+      document.documentElement.classList.add("is-booting");
+      if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+      window.addEventListener(
+        "pageshow",
+        (event) => {
+          if (event.persisted) {
+            window.scrollTo(0, 0);
+          }
+        },
+        { passive: true }
+      );
+    </script>
+  </head>
+
+  <body>
+    <header id="header" class="site-header top-nav">
+      <div class="top-nav-shell">
+        <div class="top-nav-bg" aria-hidden="true"></div>
+        <div class="top-nav-bar">
+          <div class="top-nav-start">
+            <a href="#top" class="top-nav-logo" aria-label="Станислав">
+              <img
+                class="top-nav-logo-img"
+                src="images/logo-stanislav.png"
+                alt=""
+                width="64"
+                height="58"
+                decoding="async"
+              />
+              <span class="top-nav-logo-divider" aria-hidden="true"></span>
+              <span class="top-nav-logo-wordmark">
+                <span class="top-nav-logo-name">Станислав</span>
+              </span>
+            </a>
+          </div>
+          <nav class="top-nav-center top-nav-menu" id="site-nav" aria-label="Основная навигация">
+            <a class="top-nav-link" href="#cases">Кейсы</a>
+            <a class="top-nav-link" href="#about">Обо мне</a>
+            <a class="top-nav-link" href="#pricing">Цены</a>
+            <a class="top-nav-link" href="#process">Как работаю</a>
+          </nav>
+          <div class="top-nav-end top-nav-actions">
+            <a class="top-nav-cta" href="#contact">Написать</a>
+          </div>
+          <button
+            type="button"
+            id="burger"
+            class="top-nav-burger"
+            aria-label="Открыть меню"
+            aria-expanded="false"
+            aria-controls="side-menu"
+          >
+            <span class="top-nav-burger__label">Меню</span>
+            <span class="top-nav-burger__plus" aria-hidden="true">+</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="menu-overlay" class="menu-overlay" aria-hidden="true">
+      <nav id="side-menu" class="side-menu" aria-label="Меню сайта">
+        <button type="button" id="menu-close" class="side-menu-close" aria-label="Закрыть меню">
+          <span class="side-menu-close__label">Закрыть</span>
+          <span class="side-menu-close__icon" aria-hidden="true">×</span>
+        </button>
+
+        <div class="side-menu-inner">
+          <a href="#top" class="side-menu-logo" aria-label="Станислав">
+            <img
+              class="side-menu-logo-img"
+              src="images/logo-stanislav.png"
+              alt=""
+              width="72"
+              height="64"
+              decoding="async"
+            />
+          </a>
+
+          <ul class="side-menu-links">
+            <li><a class="side-nav-link" href="#cases">Кейсы <span class="side-nav-link__arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="side-nav-link" href="#about">Обо мне <span class="side-nav-link__arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="side-nav-link" href="#pricing">Цены <span class="side-nav-link__arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="side-nav-link" href="#process">Как работаю <span class="side-nav-link__arrow" aria-hidden="true">→</span></a></li>
+          </ul>
+
+          <div class="side-menu-foot">
+            <a class="side-menu-book" href="#contact">Написать</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__bg" aria-hidden="true">
+          <div class="hero-tools">
+            <div class="hero-tools__glow"></div>
+            <ul class="hero-tools__list">
+              <li class="hero-tools__item hero-tools__item--hammer">
+                <span class="hero-tools__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5 3.5l6 6-3.5 3.5-6-6 3.5-3.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M4 20l7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M3 21l2-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </li>
+              <li class="hero-tools__item hero-tools__item--roller">
+                <span class="hero-tools__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="5" width="14" height="5" rx="2.5" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M10 10v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M7 18h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M19 7v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </li>
+              <li class="hero-tools__item hero-tools__item--wrench">
+                <span class="hero-tools__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.7 6.3a4.5 4.5 0 0 0-6.1 6.1L3 18l3 3 5.6-5.6a4.5 4.5 0 0 0 6.1-6.1l-2.1 2.1-2.9-2.9 2.1-2.2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </li>
+              <li class="hero-tools__item hero-tools__item--level">
+                <span class="hero-tools__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="9" width="20" height="6" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="7" cy="12" r="1.5" fill="currentColor"/>
+                    <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                    <circle cx="17" cy="12" r="1.5" fill="currentColor"/>
+                  </svg>
+                </span>
+              </li>
+              <li class="hero-tools__item hero-tools__item--trowel">
+                <span class="hero-tools__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 20c4-1 7-4 8-8l5-5a2.8 2.8 0 0 0-4-4l-5 5c-4 1-7 4-8 8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M13 7l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </li>
+              <li class="hero-tools__item hero-tools__item--drill">
+                <span class="hero-tools__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 4h8v6H8V4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M10 10v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M14 10v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M9 13h6v4H9v-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M11 17v3M13 17v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero__enter">
+          <div class="container hero__inner">
+            <div class="hero__content">
+              <div class="hero__block hero__block--hook">
+                <p class="hero__eyebrow">Сайты для курсов, школ и онлайн-ивентов</p>
+                <h1 id="hero-title" class="hero__title hero__title--prose">
+                  Покажите программу и тарифы до первой заявки.
+                </h1>
+              </div>
+
+              <div class="hero__block hero__block--pitch hero__fade">
+                <p class="hero__lead">
+                  Соберу оффер, программу, спикеров, форматы и запись на поток в одной
+                  ссылке. Тёплый человек сам дойдёт до тарифа и оставит заявку —
+                  без каши из постов и бесконечных «а что входит?».
+                </p>
+              </div>
+
+              <div class="hero__block hero__block--cta hero__fade">
+                <div class="hero__actions">
+                  <a class="btn btn--primary btn--compact btn--has-icon" href="#contact">
+                    <span class="btn__label">Разобрать мой курс</span>
+                    <span class="btn__icon" aria-hidden="true">↗</span>
+                  </a>
+                  <a class="btn btn--ghost btn--compact" href="./mads/index.html">
+                    Посмотреть сайт курса
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__trust" aria-label="Клиенты">
+            <div class="container">
+              <ul class="hero__trust-list">
+                <li>Авторы курсов</li>
+                <li>Онлайн-школы</li>
+                <li>Образовательные агентства</li>
+                <li>Организаторы ивентов</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cases cases--solo cases--early" id="cases" aria-labelledby="cases-title">
+        <div class="container">
+          <header class="section-heading section-heading--center">
+            <p class="section-heading__eyebrow">Готовые проекты</p>
+            <h2 id="cases-title" class="section-heading__title">Посмотрите, что получает школа</h2>
+          </header>
+
+          <p class="cases__intro">
+            Сайт не заменяет прогрев в соцсетях. Он помогает превратить переход из
+            рекламы или рассылки в заявку на поток.
+          </p>
+
+          <div class="cases__grid cases__grid--solo">
+            <article class="case-card">
+              <a class="case-card__media case-card__media--sitefill" href="./fluent/index.html">
+                <img
+                  class="case-card__photo"
+                  src="./fluent-site-preview.png?v=1"
+                  alt="Сайт школы английского FLUENT — подготовка к IELTS"
+                  width="1432"
+                  height="1080"
+                  loading="eager"
+                />
+              </a>
+              <div class="case-card__body">
+                <p class="case-card__eyebrow">Демо-проект: школа английского и IELTS</p>
+                <h3 class="case-card__name">
+                  <a href="./fluent/index.html">FLUENT — английский, который открывает двери</a>
+                </h3>
+                <p class="case-card__result">
+                  Лендинг языковой школы, который сам отвечает на вопросы и записывает
+                  на пробный урок — даже ночью, когда менеджер не на связи.
+                </p>
+                <div class="case-card__story">
+                  <section>
+                    <span>01 / Задача</span>
+                    <h4>Много вопросов до первой заявки</h4>
+                    <p>Родители и студенты спрашивают одно и то же: цены, формат, сколько времени нужно до нужного балла.</p>
+                  </section>
+                  <section>
+                    <span>02 / Решение</span>
+                    <h4>ИИ-ассистент и тест на уровень</h4>
+                    <p>Ассистент отвечает на частые вопросы и собирает заявку, а мини-тест подсказывает, с какого курса начать.</p>
+                  </section>
+                  <section>
+                    <span>03 / Результат</span>
+                    <h4>Заявка без переписки</h4>
+                    <p>Человек видит программу IELTS, тарифы в ₸ и ₽ и записывается сам — прямо в чате или через форму.</p>
+                  </section>
+                </div>
+                <ul class="case-card__proof" aria-label="Состав проекта">
+                  <li><strong>ИИ</strong><span>ассистент в чате</span></li>
+                  <li><strong>₸ / ₽</strong><span>цены для KZ и РФ</span></li>
+                  <li><strong>Адаптив</strong><span>под разные устройства</span></li>
+                </ul>
+                <div class="case-card__actions">
+                  <a class="case-card__link" href="./fluent/index.html">Посмотреть готовый сайт ↗</a>
+                </div>
+              </div>
+            </article>
+            <article class="case-card">
+              <a class="case-card__media case-card__media--sitefill" href="./mads/index.html">
+                <img
+                  class="case-card__photo"
+                  src="./course-site-preview.png?v=2"
+                  alt="Сайт курса srez — маркетинг от стратегии до кампании"
+                  width="1432"
+                  height="1080"
+                  loading="lazy"
+                />
+              </a>
+              <div class="case-card__body">
+                <p class="case-card__eyebrow">Кейс: курс по маркетингу</p>
+                <h3 class="case-card__name">
+                  <a href="./mads/index.html">srez — маркетинг: от стратегии до кампании</a>
+                </h3>
+                <p class="case-card__result">
+                  До разработки программа, тарифы и спикеры были размазаны по постам:
+                  человек не понимал формат потока и писал «а что входит?».
+                </p>
+                <div class="case-card__story">
+                  <section>
+                    <span>01 / Было</span>
+                    <h4>Поток не собирался в одну картину</h4>
+                    <p>Нельзя было сразу увидеть программу, чем тарифы отличаются и когда старт.</p>
+                  </section>
+                  <section>
+                    <span>02 / Сделано</span>
+                    <h4>Собрал понятный путь до заявки</h4>
+                    <p>Оформил оффер, программу, форматы, цены, преподавателей и запись на поток.</p>
+                  </section>
+                  <section>
+                    <span>03 / Теперь</span>
+                    <h4>Одна ссылка вместо длинной переписки</h4>
+                    <p>Человек сам изучает курс, тариф и дедлайн — и оставляет заявку уже с пониманием продукта.</p>
+                  </section>
+                </div>
+                <ul class="case-card__proof" aria-label="Состав проекта">
+                  <li><strong>36</strong><span>уроков в программе</span></li>
+                  <li><strong>2</strong><span>формата обучения</span></li>
+                  <li><strong>Адаптив</strong><span>под разные устройства</span></li>
+                </ul>
+                <div class="case-card__actions">
+                  <a class="case-card__link" href="./mads/index.html">Посмотреть готовый сайт ↗</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="sales-section pain" aria-labelledby="pain-title">
+        <div class="container">
+          <header class="section-heading">
+            <p class="section-heading__eyebrow">Почему теряются клиенты</p>
+            <h2 id="pain-title" class="section-heading__title">
+              Хорошая программа мало — её нужно собрать в одну ссылку
+            </h2>
+          </header>
+          <div class="sales-grid sales-grid--pain">
+            <article class="sales-card">
+              <span class="sales-card__num">01</span>
+              <h3>Посты не продают поток</h3>
+              <p>Лента не держит программу, спикеров, тарифы и дедлайн старта в одном месте.</p>
+            </article>
+            <article class="sales-card">
+              <span class="sales-card__num">02</span>
+              <h3>Вы отвечаете на одни и те же вопросы</h3>
+              <p>Каждому заново: когда старт, что входит в тариф и чем поток с куратором отличается от записей.</p>
+            </article>
+            <article class="sales-card">
+              <span class="sales-card__num">03</span>
+              <h3>Запись забирает более понятный конкурент</h3>
+              <p>Он может быть слабее по экспертизе, но уже показал расписание, цены и форму. Человек выбирает того, кому проще поверить.</p>
+            </article>
+          </div>
+          <div class="sales-cta">
+            <p>Я соберу всё в одной ссылке: человек сам изучит программу и оставит заявку на консультацию.</p>
+            <a class="btn btn--primary btn--compact" href="#contact">Разобрать мою ситуацию</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="sales-section solution" aria-labelledby="solution-title">
+        <div class="container">
+          <header class="section-heading section-heading--center">
+            <p class="section-heading__eyebrow">Что увидит ваш студент</p>
+            <h2 id="solution-title" class="section-heading__title">
+              Я закрою основные вопросы до первой оплаты
+            </h2>
+          </header>
+          <div class="sales-grid sales-grid--features">
+            <article class="sales-card"><h3>Что это за продукт</h3><p>Сформулирую оффер без каши: для кого курс, какой результат и за какой срок.</p></article>
+            <article class="sales-card"><h3>Как проходит обучение</h3><p>Покажу формат, практику, мини-группы и чем живой поток отличается от самостоятельной версии.</p></article>
+            <article class="sales-card"><h3>Сколько это стоит</h3><p>Разложу тарифы, рассрочку и количество мест — без бесконечных «напишите в директ».</p></article>
+            <article class="sales-card"><h3>Кому верить</h3><p>Соберу автора, кураторов, спикеров и отзывы так, чтобы экспертиза читалась сразу.</p></article>
+            <article class="sales-card"><h3>Куда писать</h3><p>Сделаю короткую заявку. Человек не будет искать ваш контакт в сторис.</p></article>
+            <article class="sales-card sales-card--accent"><h3>Что получите вы</h3><p>Готовую ссылку для рекламы, рассылки и прогрева — вместо длинных объяснений в чате.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <div class="container about__layout">
+          <header class="section-heading section-heading--compact">
+            <p class="section-heading__eyebrow">Почему работают со мной</p>
+            <h2 id="about-title" class="section-heading__title">
+              Вы общаетесь напрямую со мной
+            </h2>
+          </header>
+          <div class="about__body">
+            <p class="about__lead">
+              Я не передаю задачу менеджеру или случайному исполнителю. Сам разбираюсь
+              в ваших услугах, пишу тексты, проектирую, верстаю и довожу сайт до запуска.
+              Вам не придётся повторять одно и то же разным людям.
+            </p>
+            <ul class="about__facts">
+              <li>Лично изучу продукт, воронку и конкурентов в вашей нише</li>
+              <li>Сам напишу тексты на языке студента, а не веб-разработчика</li>
+              <li>Соберу программу, тарифы, команду и отзывы в один маршрут</li>
+              <li>Соберу мобильную версию, которую удобно открыть из рекламы</li>
+              <li>Подключу домен, хостинг, аналитику и проверю каждую форму</li>
+              <li>Передам все доступы и останусь на связи после запуска</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="pricing" id="pricing" aria-labelledby="pricing-title">
+        <div class="container">
+          <header class="section-heading">
+            <p class="section-heading__eyebrow">Цены</p>
+            <h2 id="pricing-title" class="section-heading__title">
+              Я фиксирую цену до начала работы
+            </h2>
+          </header>
+
+          <p class="pricing__lead">
+            Сайт стоит меньше, чем стоит недобор потока, и остаётся вашим
+            инструментом для рекламы, рассылки и прогрева. Вы заранее увидите,
+            что входит в проект, когда получите первую версию и сколько заплатите.
+          </p>
+
+          <div class="pricing__grid">
+            <article class="pricing-card">
+              <h3 class="pricing-card__title">Сайт для заявок</h3>
+              <p class="pricing-card__price">от 30 000 ₽</p>
+              <p class="pricing-card__term">9–12 рабочих дней</p>
+              <p class="pricing-card__text">
+                Для курса, школы или потока, которому уже тесно в постах. Я соберу
+                оффер, программу, тарифы и доверие на одной странице и приведу к заявке.
+              </p>
+              <ul class="pricing-card__list">
+                <li>анализ ниши, структура и тексты</li>
+                <li>программа, тарифы, команда и отзывы</li>
+                <li>мобильная версия и заявка</li>
+                <li>домен, хостинг и запуск</li>
+              </ul>
+              <a class="pricing-card__link" href="#contact">Рассчитать лендинг ↗</a>
+            </article>
+
+            <article class="pricing-card pricing-card--featured">
+              <h3 class="pricing-card__title">Сайт для роста</h3>
+              <p class="pricing-card__price">от 45 000 ₽</p>
+              <p class="pricing-card__term">12–16 рабочих дней</p>
+              <p class="pricing-card__text">
+                Для школы с несколькими продуктами. Я разделю линейку так, чтобы
+                человек не путался, оформлю подробную программу и подготовлю сайт к рекламе.
+              </p>
+              <ul class="pricing-card__list">
+                <li>отдельные страницы продуктов и потоков</li>
+                <li>тарифы, рассрочка или квиз</li>
+                <li>перенос и полная переработка контента</li>
+                <li>аналитика и техническая подготовка к рекламе</li>
+              </ul>
+              <a class="pricing-card__link" href="#contact">Обсудить большой сайт ↗</a>
+            </article>
+          </div>
+
+          <p class="pricing__note">
+            Сначала изучу задачу. Если вам достаточно одной страницы, не стану продавать
+            дорогой многостраничный сайт и функции, которые не помогут получать обращения.
+          </p>
+        </div>
+      </section>
+
+      <section class="process" id="process" aria-labelledby="process-title">
+        <div class="container">
+          <header class="section-heading">
+            <p class="section-heading__eyebrow">Как я работаю</p>
+            <h2 id="process-title" class="section-heading__title">
+              От сообщения мне до готового сайта
+            </h2>
+          </header>
+
+          <ol class="process__list">
+            <li class="process-step">
+              <h3 class="process-step__title">
+                <span class="card-num">01.</span> Разбираюсь в задаче
+              </h3>
+              <p class="process-step__text">
+                Вы тратите 15–20 минут и рассказываете о курсе. Я изучаю ленту,
+                старый сайт, программу и предложения конкурентов.
+              </p>
+            </li>
+            <li class="process-step">
+              <h3 class="process-step__title">
+                <span class="card-num">02.</span> Собираю сайт
+              </h3>
+              <p class="process-step__text">
+                Готовлю структуру, тексты и дизайн сразу в работающей версии. Её можно
+                открыть с телефона и проверить до оплаты следующего этапа.
+              </p>
+            </li>
+            <li class="process-step">
+              <h3 class="process-step__title">
+                <span class="card-num">03.</span> Вношу правки
+              </h3>
+              <p class="process-step__text">
+                Вы присылаете замечания одним сообщением. Я дорабатываю тексты, фотографии
+                и мобильную версию без перекладывания задачи между специалистами.
+              </p>
+            </li>
+            <li class="process-step">
+              <h3 class="process-step__title">
+                <span class="card-num">04.</span> Запускаю
+              </h3>
+              <p class="process-step__text">
+                Подключаю домен и хостинг, проверяю формы и передаю вам полный доступ.
+                Показываю, как пользоваться сайтом. Ссылку можно ставить в рекламу, рассылку и соцсети.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="sales-section faq" aria-labelledby="faq-title">
+        <div class="container faq__layout">
+          <header class="section-heading section-heading--compact">
+            <p class="section-heading__eyebrow">Частые вопросы</p>
+            <h2 id="faq-title" class="section-heading__title">Закрываю сомнения до оплаты</h2>
+          </header>
+          <div class="faq__list">
+            <details class="faq__item">
+              <summary>У меня нет текстов. Что делать?</summary>
+              <p>Я напишу тексты сам. От вас нужны факты о программе, тарифах и формате обучения.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Фотографии спикеров сырые. Они подойдут?</summary>
+              <p>Да. Я выберу сильные кадры, обработаю их и оформлю команду без дешёвых фотостоков.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Можно собрать тарифы и рассрочку?</summary>
+              <p>Да. Разложу форматы, помесячный платёж и полную стоимость так, чтобы человек выбрал сам.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Сайт будет работать на телефоне?</summary>
+              <p>Да. Я проектирую мобильную версию в первую очередь: студенты переходят на сайт из рекламы и мессенджеров.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Можно переделать старый сайт?</summary>
+              <p>Да. Я покажу, что можно сохранить, а что мешает заявкам и требует полной переработки.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Зачем мне сайт, если есть соцсети?</summary>
+              <p>Соцсети греют внимание, но ограничивают подачу. Ссылка на сайт показывает программу, тарифы и команду и помогает тем, кто готов платить, а не только смотреть сторис.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Сколько времени потребуется от меня?</summary>
+              <p>В начале — короткий разговор. Вы присылаете программу, тарифы, факты о спикерах и другую информацию, которая уже есть. Остальное я беру на себя и показываю готовыми этапами.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Что будет после запуска?</summary>
+              <p>Я передам домен, хостинг и все доступы. Если обнаружится моя техническая ошибка, исправлю её без дополнительной оплаты.</p>
+            </details>
+            <details class="faq__item">
+              <summary>Что, если я не приму готовую работу?</summary>
+              <p>Если после согласованных правок я не смогу довести проект до результата, который мы зафиксировали перед началом работы, и вы не примете готовый сайт, верну 100% внесённой оплаты. Гарантия действует до подтверждения приёмки работы, а не в любой момент после запуска.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <div class="container contact__layout contact__layout--direct">
+          <div class="contact__intro">
+            <header class="section-heading section-heading--compact">
+              <p class="section-heading__eyebrow">Следующий шаг</p>
+              <h2 id="contact-title" class="section-heading__title">
+                Пришлите лендинг или посты — покажу, где теряются заявки
+              </h2>
+            </header>
+            <p class="contact__text">
+              Я лично посмотрю текущую страницу курса или прогрев, отмечу места, где
+              не хватает ясности, и предложу следующий шаг. Если сайт вам не нужен — скажу прямо.
+              Отвечу в течение рабочего дня.
+            </p>
+            <nav class="contact__channels" aria-label="Быстрая связь">
+              <a class="contact__channel" id="contact-telegram" data-telegram-link href="https://t.me/stanislav5621" target="_blank" rel="noopener noreferrer"><span>Telegram</span></a>
+              <a class="contact__channel contact__channel--vk" href="https://vk.ru/id1025918815" target="_blank" rel="noopener noreferrer"><span>VK</span></a>
+            </nav>
+            <p class="contact__channels-note">Пишите напрямую — сообщение получу лично я.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>© Станислав, 2026</p>
+        <nav aria-label="Подвал">
+          <a href="#cases">Кейсы</a>
+          <a href="#about">Обо мне</a>
+          <a href="#pricing">Цены</a>
+          <a href="#process">Как работаю</a>
+          <a href="#contact">Написать</a>
+        </nav>
+      </div>
+      <div class="container site-footer__legal">
+        <a href="./privacy-policy.html">Политика конфиденциальности</a>
+      </div>
+    </footer>
+
+    <script src="./js/page-enter.js?v=20260822ae" defer></script>
+    <script src="./script.js?v=20260901g" defer></script>
+  </body>
+</html>
