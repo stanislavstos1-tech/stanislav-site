@@ -246,13 +246,24 @@
     /* features */
     .feats{border-top:1px solid var(--line)}
     .feat{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:clamp(22px,2.6vw,38px) 0;border-bottom:1px solid var(--line);position:relative}
-    .feat>*{transition:transform .6s var(--ease),color .3s}
-    .feat::before{content:"";position:absolute;inset:0;background:var(--acc);transform:scaleY(0);transform-origin:bottom;transition:transform .7s var(--ease);z-index:-1}
-    .feat:hover::before{transform:scaleY(1)}
-    .feat:hover{color:var(--acc-ink)}
-    .feat:hover>*{transform:translateX(20px)}
-    .feat:hover .feat__n,.feat:hover p{color:var(--acc-ink)}
     .feat__n{grid-column:1/2;color:var(--mute);padding-top:.6em}
+    /* heading "voice swap": grotesk rolls up, amber serif italic rolls in */
+    .roll{display:block;position:relative;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
+    .roll__a,.roll__b{display:block}
+    .roll__b{position:absolute;left:0;top:0;width:100%;visibility:hidden;font-family:var(--f-serif);font-style:italic;font-weight:500;font-size:1.06em;letter-spacing:-.02em;color:var(--acc);transform:translateY(115%)}
+    @media (hover:hover) and (pointer:fine){
+      .roll__b{visibility:visible}
+      .roll__a,.roll__b{transition:transform .8s var(--ease)}
+      .feat>*{transition:opacity .5s var(--ease),color .4s ease}
+      .feat::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:right;transition:transform .9s var(--ease)}
+      .feats:hover .feat>*{opacity:.28}
+      .feats:hover .feat:hover>*,.feat:focus-within>*{opacity:1}
+      .feat:hover::after,.feat:focus-within::after{transform:scaleX(1);transform-origin:left}
+      .feat:hover .roll__a,.feat:focus-within .roll__a{transform:translateY(-115%)}
+      .feat:hover .roll__b,.feat:focus-within .roll__b{transform:none}
+      .feat:hover .feat__n{color:var(--acc)}
+      .feat:hover p{color:var(--ink)}
+    }
     .feat h3{grid-column:2/8;margin:0;font-size:clamp(1.6rem,3.3vw,3.4rem);font-weight:600;letter-spacing:-.045em;line-height:1}
     .feat p{grid-column:8/13;margin:0;color:var(--mute);align-self:center;max-width:44ch;transition:color .3s}
     .feat--you h3 .serif{font-weight:400}
@@ -662,12 +673,12 @@
           <h2 class="sec-title rv" id="what-title"><span class="line"><span>Закрываю вопросы</span></span><span class="line"><span>до <span class="serif">первой оплаты</span></span></span></h2>
         </header>
         <div class="feats">
-          <div class="feat fade"><span class="feat__n mono">01</span><h3>Что это за продукт</h3><p>Оффер без каши: для кого курс, какой результат и за какой срок.</p></div>
-          <div class="feat fade"><span class="feat__n mono">02</span><h3>Как проходит обучение</h3><p>Формат, практика, мини-группы и чем живой поток отличается от записей.</p></div>
-          <div class="feat fade"><span class="feat__n mono">03</span><h3>Сколько это стоит</h3><p>Тарифы, рассрочка и количество мест — без «напишите в директ».</p></div>
-          <div class="feat fade"><span class="feat__n mono">04</span><h3>Кому верить</h3><p>Автор, кураторы, спикеры и отзывы — так, чтобы экспертиза читалась сразу.</p></div>
-          <div class="feat fade"><span class="feat__n mono">05</span><h3>Куда писать</h3><p>Короткая заявка. Человек не ищет ваш контакт в сторис.</p></div>
-          <div class="feat feat--you fade"><span class="feat__n mono">06</span><h3>Что получите <span class="serif">вы</span></h3><p>Готовую ссылку для рекламы, рассылки и прогрева — вместо длинных объяснений в чате.</p></div>
+          <div class="feat fade"><span class="feat__n mono">01</span><h3><span class="roll"><span class="roll__a">Что это за продукт</span><span class="roll__b" aria-hidden="true">Что это за продукт</span></span></h3><p>Оффер без каши: для кого курс, какой результат и за какой срок.</p></div>
+          <div class="feat fade"><span class="feat__n mono">02</span><h3><span class="roll"><span class="roll__a">Как проходит обучение</span><span class="roll__b" aria-hidden="true">Как проходит обучение</span></span></h3><p>Формат, практика, мини-группы и чем живой поток отличается от записей.</p></div>
+          <div class="feat fade"><span class="feat__n mono">03</span><h3><span class="roll"><span class="roll__a">Сколько это стоит</span><span class="roll__b" aria-hidden="true">Сколько это стоит</span></span></h3><p>Тарифы, рассрочка и количество мест — без «напишите в директ».</p></div>
+          <div class="feat fade"><span class="feat__n mono">04</span><h3><span class="roll"><span class="roll__a">Кому верить</span><span class="roll__b" aria-hidden="true">Кому верить</span></span></h3><p>Автор, кураторы, спикеры и отзывы — так, чтобы экспертиза читалась сразу.</p></div>
+          <div class="feat fade"><span class="feat__n mono">05</span><h3><span class="roll"><span class="roll__a">Куда писать</span><span class="roll__b" aria-hidden="true">Куда писать</span></span></h3><p>Короткая заявка. Человек не ищет ваш контакт в сторис.</p></div>
+          <div class="feat feat--you fade"><span class="feat__n mono">06</span><h3><span class="roll"><span class="roll__a">Что получите <span class="serif">вы</span></span><span class="roll__b" aria-hidden="true">Что получите вы</span></span></h3><p>Готовую ссылку для рекламы, рассылки и прогрева — вместо длинных объяснений в чате.</p></div>
         </div>
       </div>
     </section>
