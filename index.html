@@ -14,7 +14,7 @@
   <link rel="apple-touch-icon" href="./assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add("js");if("scrollRestoration"in history)history.scrollRestoration="manual";</script>
   <style>
     :root{
@@ -33,9 +33,8 @@
       --ease-io:cubic-bezier(.77,0,.175,1);
     }
     *,*::before,*::after{box-sizing:border-box}
-    html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
-    html.lenis,html.lenis body{height:auto}
-    .lenis.lenis-smooth{scroll-behavior:auto!important}
+    html{-webkit-text-size-adjust:100%}
+    [id]{scroll-margin-top:84px}
     body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-sans);font-size:17px;line-height:1.55;
       -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
     img{display:block;max-width:100%;height:auto}
@@ -49,10 +48,9 @@
     .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
     /* grain */
-    .grain{position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.05;contain:strict;
+    .grain{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.05;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size:220px 220px}
-    @media (max-width:1023px),(hover:none){.grain{display:none}}
 
     /* preloader */
     .preloader{display:none}
@@ -130,11 +128,12 @@
 
     /* hero */
     .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-top:120px;overflow:hidden}
-    .hero>.wrap{width:100%}
+    .hero>.wrap{width:100%;position:relative;z-index:1}
+    @media (min-width:1024px) and (hover:hover){.hero__title{will-change:transform}}
     .hero__glow{position:absolute;width:62vmax;height:62vmax;left:50%;top:40%;border-radius:50%;pointer-events:none;
       background:radial-gradient(circle,rgba(var(--acc-rgb),.13) 0%,rgba(var(--acc-rgb),.04) 35%,transparent 65%);transform:translate3d(-50%,-50%,0);will-change:transform,opacity}
     .hero__meta{display:flex;justify-content:space-between;gap:20px;color:var(--mute);margin-bottom:clamp(28px,5vh,64px)}
-    .hero__title{will-change:transform;margin:0;font-weight:700;font-size:clamp(2.7rem,8.4vw,10.5rem);line-height:.9;letter-spacing:-.055em}
+    .hero__title{margin:0;font-weight:700;font-size:clamp(2.7rem,8.4vw,10.5rem);line-height:.9;letter-spacing:-.055em}
     .hero__title .serif{font-weight:400;letter-spacing:-.03em;color:var(--acc);padding-right:.05em}
     .hero__title .indent{padding-left:12vw}
     .hero__bottom{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-top:clamp(32px,6vh,72px);padding-bottom:clamp(24px,4vh,44px)}
@@ -158,8 +157,10 @@
     .js.is-ready .hero .h-fade{opacity:1;transform:none}
 
     /* marquee */
-    .marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:26px;white-space:nowrap;user-select:none}
-    .marquee__track{display:inline-flex;will-change:transform}
+    .marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:26px;white-space:nowrap;user-select:none;contain:layout paint}
+    .marquee__track{display:inline-flex;will-change:transform;animation:mq 38s linear infinite;animation-play-state:paused}
+    .marquee.is-on .marquee__track{animation-play-state:running}
+    @keyframes mq{to{transform:translate3d(-25%,0,0)}}
     .marquee__item{display:inline-flex;align-items:center;gap:36px;padding-right:36px;font-size:clamp(1.8rem,4.2vw,4rem);font-weight:600;letter-spacing:-.04em;line-height:1}
     .marquee__item .serif{color:var(--mute);font-weight:400}
     .marquee__item i{width:.32em;height:.32em;border-radius:50%;background:var(--acc);display:inline-block}
@@ -176,6 +177,9 @@
     /* manifesto */
     .manifesto__text{margin:0;font-size:clamp(1.8rem,4.1vw,4.6rem);line-height:1.08;letter-spacing:-.04em;font-weight:600;max-width:22ch;margin-left:auto;margin-right:0;text-indent:20%}
     .manifesto__text .w{display:inline}
+    .js .manifesto__text.is-split .w{opacity:.14;transition:opacity .35s ease}
+
+    .js .manifesto__text.is-split .w.on{opacity:1}
     .manifesto__text .serif{font-weight:400;color:var(--acc)}
     .manifesto__sign{display:flex;justify-content:space-between;margin-top:clamp(48px,6vw,90px);color:var(--mute);border-top:1px solid var(--line);padding-top:18px}
 
@@ -188,7 +192,7 @@
     .hs-intro p{color:var(--mute);max-width:34ch;margin:0}
     .hs-progress{height:1px;background:var(--line);position:relative;margin-top:28px}
     .hs-progress i{position:absolute;inset:0;background:var(--acc);transform-origin:left;transform:scaleX(0)}
-    .case{flex:0 0 min(84vw,1320px);display:grid;grid-template-columns:calc(var(--ch) * .7333) 1fr;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--bg-2);min-height:var(--ch);--ch:min(84vh,780px)}
+    .case{contain:layout paint;flex:0 0 min(84vw,1320px);display:grid;grid-template-columns:calc(var(--ch) * .7333) 1fr;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--bg-2);min-height:var(--ch);--ch:min(84vh,780px)}
     .case__media{position:relative;display:block;overflow:hidden;background:#e9e7e1}
     .case__media img{width:100%;height:100%;object-fit:cover;object-position:top left;transform:scale(1.02);transition:transform 1.4s var(--ease)}
     .case:hover .case__media img{transform:scale(1.07)}
@@ -275,7 +279,7 @@
     .process__head p{color:var(--mute);max-width:34ch;margin:0}
     .steps{grid-column:7/13;list-style:none;margin:0;padding:0 0 0 36px;position:relative}
     .steps::before,.steps__fill{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:var(--line)}
-    .steps__fill{background:var(--acc);transform-origin:top;transform:scaleY(0)}
+    .steps__fill{background:var(--acc);transform-origin:top;transform:scaleY(0);will-change:transform}
     .step{padding:0 0 clamp(56px,7vw,110px);position:relative}
     .step:last-child{padding-bottom:0}
     .step::before{content:"";position:absolute;left:-41px;top:10px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--line-2)}
@@ -310,6 +314,7 @@
     .guarantee__seal{width:92px;height:92px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;font-weight:800;font-size:26px;letter-spacing:-.04em;position:relative}
     .guarantee__seal svg{position:absolute;inset:-14px;width:120px;height:120px;animation:spin 18s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
+    .guarantee__seal:not(.is-vis) svg,.scroll-ind:not(.is-vis) i::after{animation-play-state:paused}
     .guarantee h3{margin:0 0 6px;font-size:clamp(1.3rem,1.8vw,1.8rem);letter-spacing:-.03em}
     .guarantee p{margin:0;color:var(--mute);max-width:70ch;font-size:15.5px}
 
@@ -418,7 +423,6 @@
   </style>
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
 
   <div class="preloader" aria-hidden="true">
     <div class="preloader__top mono"><span>Станислав</span><span>Сайты для онлайн-школ</span></div>
@@ -473,6 +477,7 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
+      <div class="grain" aria-hidden="true"></div>
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="wrap">
         <div class="hero__meta mono h-fade">
@@ -556,8 +561,8 @@
         <article class="case">
           <a class="case__media case__media--art" href="./mads/index.html" data-cursor="view" aria-label="Открыть сайт srez">
             <picture>
-              <source media="(max-width: 1023px)" srcset="./assets/cases/case-srez-wide.jpg" width="2400" height="1200" />
-              <img src="./assets/cases/case-srez-tall.jpg" alt="Сайт курса srez — маркетинг от стратегии до кампании" width="1650" height="2250" loading="lazy" decoding="async" />
+              <source media="(max-width: 1023px)" srcset="./assets/cases/case-srez-wide.jpg" width="1400" height="700" />
+              <img src="./assets/cases/case-srez-tall.jpg" alt="Сайт курса srez — маркетинг от стратегии до кампании" width="1100" height="1500" loading="lazy" decoding="async" />
             </picture>
           </a>
           <div class="case__body">
@@ -580,8 +585,8 @@
         <article class="case">
           <a class="case__media case__media--art" href="./fluent/index.html" data-cursor="view" aria-label="Открыть сайт FLUENT">
             <picture>
-              <source media="(max-width: 1023px)" srcset="./assets/cases/case-fluent-wide.jpg" width="2400" height="1200" />
-              <img src="./assets/cases/case-fluent-tall.jpg" alt="Сайт школы английского FLUENT — подготовка к IELTS" width="1650" height="2250" loading="lazy" decoding="async" />
+              <source media="(max-width: 1023px)" srcset="./assets/cases/case-fluent-wide.jpg" width="1400" height="700" />
+              <img src="./assets/cases/case-fluent-tall.jpg" alt="Сайт школы английского FLUENT — подготовка к IELTS" width="1100" height="1500" loading="lazy" decoding="async" />
             </picture>
           </a>
           <div class="case__body">
@@ -847,7 +852,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <script>
   (() => {
     const root = document.documentElement;
@@ -858,37 +862,27 @@
     const $$ = (s, c = document) => [...c.querySelectorAll(s)];
     $("#yr").textContent = new Date().getFullYear();
 
-    /* ---------- smooth scroll ---------- */
-    let lenis = null;
-    if (!reduce && window.Lenis) {
-      lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, syncTouch: false });
-      if (G && ST) {
-        G.registerPlugin(ST);
-        lenis.on("scroll", ST.update);
-        G.ticker.add(t => lenis.raf(t * 1000));
-        G.ticker.lagSmoothing(0);
-      } else {
-        const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
-        requestAnimationFrame(raf);
-      }
-    } else if (G && ST) G.registerPlugin(ST);
+    /* ---------- native scroll + ScrollTrigger ---------- */
+    if (G && ST) {
+      G.registerPlugin(ST);
+      ST.config({ ignoreMobileResize: true });
+    }
     window.scrollTo(0, 0);
 
     /* ---------- anchors + mobile menu ---------- */
     const burger = $("#burger");
-    const closeMenu = () => { root.classList.remove("menu-open"); burger.setAttribute("aria-expanded", "false"); lenis && lenis.start(); };
+    const closeMenu = () => { root.classList.remove("menu-open"); burger.setAttribute("aria-expanded", "false"); };
     burger.addEventListener("click", () => {
       const open = root.classList.toggle("menu-open");
       burger.setAttribute("aria-expanded", String(open));
-      lenis && (open ? lenis.stop() : lenis.start());
+      document.body.style.overflow = open ? "hidden" : "";
     });
     $$('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
       const id = a.getAttribute("href");
       const el = id === "#top" ? document.body : $(id);
       if (!el) return;
-      e.preventDefault(); closeMenu();
-      if (lenis) lenis.scrollTo(el, { offset: id === "#top" ? 0 : -20, duration: 1.6 });
-      else el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      e.preventDefault(); closeMenu(); document.body.style.overflow = "";
+      el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     }));
 
     /* ---------- header hide/show ---------- */
@@ -930,27 +924,14 @@
     }), { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
     $$(".rv, .fade").forEach(el => io.observe(el));
 
-    /* ---------- marquee (velocity-reactive) ---------- */
+    /* ---------- marquee (CSS animation, runs only when visible) ---------- */
     const mq = $("#marquee");
     const item = mq.firstElementChild;
     for (let i = 0; i < 3; i++) mq.appendChild(item.cloneNode(true));
     if (!reduce) {
-      let x = 0, w = item.offsetWidth, dir = 1, running = false, last = 0;
-      addEventListener("resize", () => w = item.offsetWidth);
-      const loop = now => {
-        if (!running) return;
-        const dt = Math.min(2, (now - (last || now)) / 16.667); last = now;
-        const v = lenis ? lenis.velocity : 0;
-        if (Math.abs(v) > .5) dir = v > 0 ? 1 : -1;
-        x -= (0.6 + Math.min(Math.abs(v) * 0.35, 14)) * dir * dt;
-        if (x <= -w) x += w; if (x > 0) x -= w;
-        mq.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
-        requestAnimationFrame(loop);
-      };
-      new IntersectionObserver(([en]) => {
-        if (en.isIntersecting && !running) { running = true; last = 0; requestAnimationFrame(loop); }
-        else if (!en.isIntersecting) running = false;
-      }).observe(mq.parentElement);
+      new IntersectionObserver(([en]) => mq.parentElement.classList.toggle("is-on", en.isIntersecting)).observe(mq.parentElement);
+      const visIO = new IntersectionObserver(es => es.forEach(en => en.target.classList.toggle("is-vis", en.isIntersecting)));
+      $$(".guarantee__seal, .scroll-ind").forEach(el => visIO.observe(el));
     }
 
     /* ---------- manifesto word split ---------- */
@@ -971,15 +952,27 @@
 
     /* ---------- GSAP scroll scenes ---------- */
     if (G && ST && !reduce) {
-      G.fromTo($$(".w", man), { opacity: .13 }, {
-        opacity: 1, stagger: .08, ease: "none",
-        scrollTrigger: { trigger: man, start: "top 80%", end: "bottom 40%", scrub: true }
+      const words = $$(".w", man); let lit = 0;
+      const rich = matchMedia("(min-width: 1024px) and (hover: hover)").matches;
+      if (!rich) { man.classList.add("fade"); io.observe(man); }
+      else man.classList.add("is-split");
+      if (rich) ST.create({
+        trigger: man, start: "top 80%", end: "bottom 40%",
+        onUpdate: s => {
+          const n = Math.round(s.progress * words.length);
+          if (n === lit) return;
+          if (n > lit) for (let i = lit; i < n; i++) words[i].classList.add("on");
+          else for (let i = n; i < lit; i++) words[i].classList.remove("on");
+          lit = n;
+        }
       });
 
-      G.to(".hero__glow", { opacity: .25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-      G.to(".hero__title", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-
       const mm = G.matchMedia();
+      mm.add("(min-width: 1024px) and (hover: hover)", () => {
+        const a = G.to(".hero__glow", { opacity: .25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+        const b = G.to(".hero__title", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+        return () => { [a, b].forEach(tw => { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.revert(); }); };
+      });
       mm.add("(min-width: 1024px)", () => {
         root.classList.add("is-pinned-ok");
         const track = $("#hsTrack");
