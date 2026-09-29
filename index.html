@@ -49,7 +49,7 @@
       href="https://fonts.gstatic.com/s/oswald/v57/TK3IWkUHHAIjg75cFRf3bXL8LICs1_Fv40pKlN4NNSeSASz7FmlWHYg.woff2"
     />
     <link rel="stylesheet" href="./fonts-critical.css?v=20260822ae" />
-    <link rel="stylesheet" href="./styles.css?v=20260929a" />
+    <link rel="stylesheet" href="./styles.css?v=20260929b" />
     <script>
       document.documentElement.classList.add("is-booting");
       if ("scrollRestoration" in history) history.scrollRestoration = "manual";
@@ -269,14 +269,18 @@
           <div class="cases__grid cases__grid--solo">
             <article class="case-card">
               <a class="case-card__media case-card__media--sitefill" href="./fluent/index.html">
-                <img
-                  class="case-card__photo"
-                  src="./fluent-site-preview.png?v=1"
-                  alt="Сайт школы английского FLUENT — подготовка к IELTS"
-                  width="1432"
-                  height="1080"
-                  loading="eager"
-                />
+                <picture>
+                  <source media="(max-width: 899px)" srcset="./assets/cases/case-fluent-wide.jpg" width="2400" height="1200" />
+                  <img
+                    class="case-card__photo"
+                    src="./assets/cases/case-fluent-tall.jpg"
+                    alt="Сайт школы английского FLUENT — подготовка к IELTS"
+                    width="1650"
+                    height="2250"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
               </a>
               <div class="case-card__body">
                 <p class="case-card__eyebrow">Демо-проект: школа английского и IELTS</p>
@@ -316,14 +320,18 @@
             </article>
             <article class="case-card">
               <a class="case-card__media case-card__media--sitefill" href="./mads/index.html">
-                <img
-                  class="case-card__photo"
-                  src="./course-site-preview.png?v=2"
-                  alt="Сайт курса srez — маркетинг от стратегии до кампании"
-                  width="1432"
-                  height="1080"
-                  loading="lazy"
-                />
+                <picture>
+                  <source media="(max-width: 899px)" srcset="./assets/cases/case-srez-wide.jpg" width="2400" height="1200" />
+                  <img
+                    class="case-card__photo"
+                    src="./assets/cases/case-srez-tall.jpg"
+                    alt="Сайт курса srez — маркетинг от стратегии до кампании"
+                    width="1650"
+                    height="2250"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </a>
               <div class="case-card__body">
                 <p class="case-card__eyebrow">Кейс: курс по маркетингу</p>
