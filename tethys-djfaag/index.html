@@ -3,753 +3,584 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TETHYS — джип-экспедиции по Мангистау из Актау | Демо-проект</title>
-<meta name="description" content="TETHYS — авторские джип-экспедиции по Мангистау из Актау: Бозжыра, долина шаров Торыш, Шерқала, впадина Карагие. Демо-проект, бренд вымышленный.">
-<meta property="og:title" content="TETHYS — дно океана, которого больше нет">
-<meta property="og:description" content="Джип-экспедиции по Мангистау из Актау. Демо-лендинг.">
-<meta name="theme-color" content="#17110C">
+<title>TETHYS — экспедиции по Мангистау из Актау</title>
+<meta name="description" content="TETHYS — частные экспедиции по Мангистау с выездом из Актау: Бозжыра, Шерқала, Торыш, Карагие, Устюрт.">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="googlebot" content="noindex, nofollow">
+<meta property="og:title" content="TETHYS — экспедиции по Мангистау">
+<meta property="og:description" content="Частные экспедиции по Мангистау с выездом из Актау.">
+<meta property="og:image" content="https://commons.wikimedia.org/wiki/Special:FilePath/Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg?width=1280">
+<meta name="theme-color" content="#151412">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://commons.wikimedia.org">
+<link rel="preconnect" href="https://upload.wikimedia.org">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
 <style>
 :root{
-  --ink:#17110C; --ink2:#221912; --chalk:#F4EEE3; --sand:#E7D8BF; --sand2:#D9C4A2;
-  --clay:#C4552D; --ochre:#D89A4E; --sea:#1F5A5F; --mute:rgba(23,17,12,.58); --mute-l:rgba(244,238,227,.6);
-  --line:rgba(23,17,12,.14); --line-l:rgba(244,238,227,.16);
-  --serif:"Fraunces",Georgia,serif; --sans:"Manrope",system-ui,sans-serif; --mono:"JetBrains Mono",monospace;
-  --pad:clamp(18px,3.6vw,56px); --ease:cubic-bezier(.19,1,.22,1); --ease-io:cubic-bezier(.77,0,.175,1);
+  --bone:#EEE9E0; --bone2:#E4DDD1; --stone:#CFC6B6; --ink:#151412; --ink2:#1D1B18; --bronze:#9A7547; --bronze-l:#C5A477;
+  --mute:rgba(21,20,18,.6); --mute-l:rgba(238,233,224,.62); --line:rgba(21,20,18,.14); --line-l:rgba(238,233,224,.16);
+  --serif:"Cormorant",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  --pad:clamp(20px,4vw,72px); --ease:cubic-bezier(.19,1,.22,1); --ease-io:cubic-bezier(.77,0,.175,1);
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--chalk);color:var(--ink);font:17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--bone);color:var(--ink);font:300 17px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
 button{background:none;border:0;padding:0;cursor:pointer}
-img,svg{display:block;max-width:100%}
-::selection{background:var(--clay);color:var(--chalk)}
-.w{max-width:1680px;margin:0 auto;padding-inline:var(--pad)}
-.mono{font:500 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase}
-.serif{font-family:var(--serif)}
-.it{font-family:var(--serif);font-style:italic;font-weight:300}
+img{display:block;max-width:100%}
+::selection{background:var(--ink);color:var(--bone)}
+.w{max-width:1720px;margin:0 auto;padding-inline:var(--pad)}
+.cap{font:500 11px/1.4 var(--sans);letter-spacing:.22em;text-transform:uppercase}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-/* grain over everything */
-body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.06;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* photo frame: stone placeholder, slow scale */
+.ph{position:relative;overflow:hidden;background:var(--stone)}
+.ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 2.4s var(--ease),opacity 1.2s var(--ease);opacity:0}
+.ph img.ok{opacity:1}
+.ph.in img{transform:scale(1)}
+.ph .credit{position:absolute;right:10px;bottom:8px;font:400 10px/1 var(--sans);letter-spacing:.06em;color:rgba(238,233,224,.75);text-shadow:0 1px 6px rgba(0,0,0,.4);z-index:2}
+.js .clip{clip-path:inset(12% 0 0 0);transition:clip-path 1.6s var(--ease-io)}
+.js .clip.in{clip-path:inset(0)}
 
-/* ---------- preloader ---------- */
+/* preloader */
 .pre{display:none}
-.js .pre{display:flex;position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--chalk);flex-direction:column;justify-content:space-between;padding:var(--pad);
-  transition:clip-path 1.1s var(--ease-io);clip-path:inset(0 0 0 0)}
-.js.loaded .pre{clip-path:inset(0 0 100% 0)}
-.pre__top{display:flex;justify-content:space-between;color:var(--mute-l)}
-.pre__n{align-self:flex-end;font:300 clamp(96px,22vw,360px)/.8 var(--serif);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.pre__n sup{font:500 .12em var(--mono);letter-spacing:.1em;vertical-align:top;margin-left:.3em;color:var(--ochre)}
-.pre__bar{position:absolute;left:0;bottom:0;height:2px;background:var(--clay);width:var(--p,0%)}
+.js .pre{display:flex;position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--bone);align-items:center;justify-content:center;flex-direction:column;gap:28px;
+  transition:opacity .9s var(--ease) .1s,visibility .9s}
+.js.loaded .pre{opacity:0;visibility:hidden}
+.pre b{font:300 clamp(40px,6vw,84px)/1 var(--serif);letter-spacing:.32em;padding-left:.32em}
+.pre i{display:block;width:180px;height:1px;background:var(--line-l);position:relative;overflow:hidden}
+.pre i::after{content:"";position:absolute;inset:0;background:var(--bronze-l);transform-origin:left;transform:scaleX(var(--p,0))}
 
-/* ---------- cursor ---------- */
-.cur{position:fixed;left:0;top:0;z-index:95;pointer-events:none;opacity:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--clay);
-  transition:width .45s var(--ease),height .45s var(--ease),margin .45s var(--ease),background .3s;display:grid;place-items:center;mix-blend-mode:normal}
-.cur span{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--chalk);opacity:0;transition:opacity .3s}
-.cur.on{opacity:1}
-.cur.big{width:96px;height:96px;margin:-48px 0 0 -48px}
-.cur.big span{opacity:1}
-@media (hover:none),(pointer:coarse){.cur{display:none}}
-
-/* ---------- header ---------- */
-.hdr{position:fixed;inset:0 0 auto;z-index:60;color:var(--chalk);transition:transform .7s var(--ease),color .4s}
-.hdr.hide{transform:translateY(-110%)}
-.hdr.dark{color:var(--ink)}
-.hdr__in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:22px}
-.logo{display:flex;align-items:baseline;gap:10px;font:600 22px/1 var(--serif);letter-spacing:.14em}
-.logo i{font:500 10px var(--mono);letter-spacing:.14em;opacity:.65;font-style:normal}
-.nav{display:flex;gap:30px}
-.nav a{position:relative;font-size:15px;font-weight:500}
-.nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .6s var(--ease)}
+/* header */
+.hdr{position:fixed;inset:0 0 auto;z-index:60;color:var(--bone);transition:transform .8s var(--ease),color .5s,background .5s}
+.hdr.hide{transform:translateY(-100%)}
+.hdr.solid{color:var(--ink);background:rgba(238,233,224,.92);backdrop-filter:blur(10px)}
+.hdr__in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-block:26px;border-bottom:1px solid transparent;transition:padding .6s var(--ease)}
+.hdr.solid .hdr__in{padding-block:16px}
+.nav{display:flex;gap:34px}
+.nav a,.hdr__r a{position:relative}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .7s var(--ease)}
 .nav a:hover::after{transform:scaleX(1);transform-origin:left}
-.hdr__r{display:flex;align-items:center;gap:18px}
-.lang{display:flex;gap:10px;opacity:.75}
-.lang b{opacity:1;text-decoration:underline;text-underline-offset:4px}
-.btn{display:inline-flex;align-items:center;gap:12px;height:50px;padding:0 24px;border-radius:50px;font-weight:600;font-size:15px;position:relative;overflow:hidden;isolation:isolate;white-space:nowrap}
-.btn::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;transform:translateY(101%);transition:transform .6s var(--ease)}
-.btn:hover::before{transform:none}
-.btn .ar{display:inline-block;transition:transform .6s var(--ease)}
-.btn:hover .ar{transform:translateX(4px) rotate(-45deg)}
-.btn--clay{background:var(--clay);color:var(--chalk)}.btn--clay::before{background:var(--ink)}
-.btn--line{border:1px solid currentColor}.btn--line::before{background:var(--chalk)}.btn--line:hover{color:var(--ink)}
-.btn--ink{background:var(--ink);color:var(--chalk)}.btn--ink::before{background:var(--clay)}
-.burger{display:none;width:50px;height:50px;border-radius:50%;border:1px solid currentColor;position:relative}
-.burger i{position:absolute;left:15px;right:15px;height:1.5px;background:currentColor;transition:transform .5s var(--ease)}
-.burger i:first-child{top:20px}.burger i:last-child{top:28px}
+.logo{font:400 26px/1 var(--serif);letter-spacing:.34em;padding-left:.34em;justify-self:center}
+.hdr__r{justify-self:end;display:flex;gap:30px;align-items:center}
+.lnk{display:inline-flex;align-items:center;gap:14px;padding-bottom:6px;border-bottom:1px solid currentColor}
+.lnk span{transition:transform .7s var(--ease)}
+.lnk:hover span{transform:translateX(6px)}
+.burger{display:none;width:44px;height:44px;position:relative}
+.burger i{position:absolute;left:10px;right:10px;height:1px;background:currentColor;transition:transform .6s var(--ease)}
+.burger i:first-child{top:18px}.burger i:last-child{top:26px}
 .menu-open .burger i:first-child{transform:translateY(4px) rotate(45deg)}
 .menu-open .burger i:last-child{transform:translateY(-4px) rotate(-45deg)}
-.mmenu{position:fixed;inset:0;z-index:55;background:var(--ink);color:var(--chalk);display:flex;flex-direction:column;justify-content:flex-end;gap:32px;padding:120px var(--pad) 40px;
-  clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease-io);visibility:hidden}
-.menu-open .mmenu{clip-path:inset(0);visibility:visible}
-.mmenu a{font:300 clamp(44px,12vw,72px)/1 var(--serif);letter-spacing:-.03em}
-.mmenu a i{font:500 11px var(--mono);vertical-align:top;margin-right:12px;color:var(--ochre);font-style:normal}
+.mmenu{position:fixed;inset:0;z-index:55;background:var(--ink);color:var(--bone);display:flex;flex-direction:column;justify-content:center;gap:18px;padding:120px var(--pad) 60px;opacity:0;visibility:hidden;transition:opacity .7s var(--ease),visibility .7s}
+.menu-open .mmenu{opacity:1;visibility:visible}
+.mmenu a{font:300 clamp(40px,11vw,64px)/1.1 var(--serif)}
+.mmenu .cap{color:var(--bronze-l);margin-top:24px}
 
-/* ---------- hero ---------- */
-.hero{position:relative;height:100vh;min-height:680px;overflow:hidden;color:var(--chalk);background:#E8B98A}
-.hero__art{position:absolute;inset:0}
-.hero__art svg{width:100%;height:100%}
-.hero__art g{will-change:transform}
-.hero__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,17,12,.28) 0%,rgba(23,17,12,0) 30%,rgba(23,17,12,0) 55%,rgba(23,17,12,.55) 100%),linear-gradient(90deg,rgba(40,24,14,.5) 0%,rgba(40,24,14,.18) 45%,rgba(40,24,14,0) 70%)}
-.hero__in{position:relative;height:100%;display:grid;grid-template-rows:1fr auto;padding-top:120px;padding-bottom:28px}
-.hero__meta{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
-.hero__meta p{margin:0;max-width:300px}
-.hero h1{margin:0;font:300 clamp(54px,9.6vw,184px)/.86 var(--serif);letter-spacing:-.045em}
-.hero h1 .row{display:block;overflow:hidden;padding-bottom:.06em}
-.hero h1 .row>span{display:inline-block}
-.hero h1 em{font-style:italic;font-weight:300;color:#FBE7CB}
-.hero h1 .ind{padding-left:1.1em}
-.js .hero h1 .row>span{transform:translateY(105%);transition:transform 1.4s var(--ease)}
-.js.loaded .hero h1 .row>span{transform:none}
-.js.loaded .hero h1 .row:nth-child(2)>span{transition-delay:.08s}
-.js.loaded .hero h1 .row:nth-child(3)>span{transition-delay:.16s}
-.hero__bot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line-l)}
-.hero__bot .coord{display:flex;gap:36px}
-.scroll-cue{display:flex;align-items:center;gap:12px}
-.scroll-cue i{width:1px;height:40px;background:var(--chalk);position:relative;overflow:hidden;opacity:.7}
-.scroll-cue i::after{content:"";position:absolute;inset:0;background:var(--clay);animation:cue 2.2s var(--ease-io) infinite}
-@keyframes cue{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
-.js .hero .fade{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease) .7s,transform 1s var(--ease) .7s}
-.js.loaded .hero .fade{opacity:1;transform:none}
+/* hero */
+.hero{position:relative;height:100svh;min-height:640px;color:var(--bone);overflow:hidden;background:var(--ink)}
+.hero .ph{position:absolute;inset:0;background:#3a3129}
+.hero .ph img{transform:scale(1.14);transition:transform 3.2s var(--ease),opacity 1.6s var(--ease)}
+.loaded .hero .ph img{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,13,11,.5) 0%,rgba(15,13,11,.05) 35%,rgba(15,13,11,.15) 60%,rgba(15,13,11,.72) 100%)}
+.hero__in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(28px,4vw,56px)}
+.hero h1{margin:0;font:300 clamp(64px,13vw,250px)/.82 var(--serif);letter-spacing:-.02em}
+.hero h1 span{display:block;overflow:hidden}
+.hero h1 span i{display:block;font-style:normal}
+.hero h1 em{font-style:italic;font-weight:300}
+.js .hero h1 span i{transform:translateY(102%);transition:transform 1.6s var(--ease)}
+.js.loaded .hero h1 span i{transform:none}
+.js.loaded .hero h1 span:nth-child(2) i{transition-delay:.1s}
+.hero__row{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-top:clamp(28px,3.4vw,48px);padding-top:22px;border-top:1px solid var(--line-l)}
+.hero__row>*{margin:0}
+.hero__row .lead{grid-column:1/6;font-size:16px;color:rgba(238,233,224,.84);max-width:44ch}
+.hero__row .c1{grid-column:7/10}.hero__row .c2{grid-column:10/13;text-align:right}
+.js .hero .fd{opacity:0;transition:opacity 1.4s var(--ease) .9s}
+.js.loaded .hero .fd{opacity:1}
 
-/* ---------- marquee ---------- */
-.mq{background:var(--ink);color:var(--chalk);overflow:hidden;white-space:nowrap;padding:22px 0;border-bottom:1px solid var(--line-l)}
-.mq__t{display:inline-flex;animation:mq 40s linear infinite}
-.mq__t span{font:300 clamp(28px,3.4vw,52px)/1 var(--serif);letter-spacing:-.02em;padding-right:.6em}
-.mq__t span em{font-style:italic;color:var(--ochre)}
-.mq__t b{color:var(--clay);font-weight:400;padding-right:.6em;font-size:clamp(20px,2vw,30px);align-self:center}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-/* ---------- sections ---------- */
-.sec{padding-block:clamp(90px,12vw,190px)}
-.sec--ink{background:var(--ink);color:var(--chalk)}
-.sec--sand{background:var(--sand)}
-.tag{display:flex;align-items:center;gap:14px;margin-bottom:clamp(28px,4vw,56px)}
-.tag b{color:var(--clay);font-weight:500}
-.tag::after{content:"";width:56px;height:1px;background:currentColor;opacity:.4}
-.h2{margin:0;font:300 clamp(44px,6.6vw,120px)/.92 var(--serif);letter-spacing:-.045em}
-.h2 em{font-style:italic;color:var(--clay)}
-.sec--ink .h2 em{color:var(--ochre)}
-.js .rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+/* sections */
+.sec{padding-block:clamp(100px,13vw,200px)}
+.dark{background:var(--ink);color:var(--bone)}
+.eyebrow{display:flex;gap:18px;align-items:center;margin-bottom:clamp(32px,4vw,60px);color:var(--mute)}
+.dark .eyebrow,.hs .eyebrow,.book .eyebrow{color:var(--mute-l)}
+.eyebrow b{font-weight:500;color:var(--bronze)}
+.dark .eyebrow b,.hs .eyebrow b,.book .eyebrow b{color:var(--bronze-l)}
+.h2{margin:0;font:300 clamp(46px,6.4vw,112px)/.95 var(--serif);letter-spacing:-.015em}
+.h2 em{font-style:italic}
+.js .rv{opacity:0;transform:translateY(30px);transition:opacity 1.4s var(--ease),transform 1.4s var(--ease)}
 .js .rv.in{opacity:1;transform:none}
 .js .ln{display:block;overflow:hidden}
-.js .ln>span{display:inline-block;transform:translateY(105%);transition:transform 1.3s var(--ease)}
-.js .in .ln>span,.js .ln.in>span{transform:none}
-.js .in .ln:nth-child(2)>span{transition-delay:.08s}.js .in .ln:nth-child(3)>span{transition-delay:.16s}
+.js .ln>i{display:block;font-style:normal;transform:translateY(102%);transition:transform 1.5s var(--ease)}
+.js .in .ln>i{transform:none}
+.js .in .ln:nth-child(2)>i{transition-delay:.09s}.js .in .ln:nth-child(3)>i{transition-delay:.18s}
 
-/* ---------- manifesto ---------- */
-.mf{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
-.mf .tag{grid-column:1/4}
-.mf__txt{grid-column:4/13;margin:0;font:300 clamp(30px,3.7vw,64px)/1.12 var(--serif);letter-spacing:-.03em}
-.mf__txt .wd{opacity:.14;transition:opacity .35s}
-.mf__txt .wd.on{opacity:1}
-.mf__txt em{font-style:italic;color:var(--clay)}
-.mf__foot{grid-column:4/13;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:clamp(48px,6vw,96px);padding-top:28px;border-top:1px solid var(--line)}
-.mf__foot p{margin:0;color:var(--mute);font-size:15px;max-width:34ch}
-.mf__foot b{display:block;color:var(--ink);font:400 clamp(34px,3.2vw,52px)/1 var(--serif);letter-spacing:-.03em;margin-bottom:10px}
+/* intro */
+.intro{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:start}
+.intro .eyebrow{grid-column:1/13}
+.intro .h2{grid-column:1/8}
+.intro__txt{grid-column:9/13;padding-top:12px}
+.intro__txt p{margin:0 0 22px;color:var(--mute);max-width:42ch}
+.intro__img{grid-column:9/13;aspect-ratio:3/4;margin-top:clamp(20px,3vw,40px)}
+.intro__img2{grid-column:2/7;aspect-ratio:16/11;margin-top:calc(clamp(80px,12vw,220px)*-1)}
+.intro__sign{grid-column:1/8;margin-top:clamp(40px,5vw,80px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);padding-top:28px}
+.intro__sign b{display:block;font:300 clamp(40px,3.6vw,60px)/1 var(--serif);margin-bottom:10px}
+.intro__sign span{font-size:14px;color:var(--mute)}
 
-/* ---------- places: horizontal ---------- */
-.hs{position:relative;background:var(--ink);color:var(--chalk)}
-.hs__pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
-.hs__head{width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(24px,3vw,44px)}
-.hs__head .h2{font-size:clamp(40px,5vw,88px)}
-.hs__prog{display:flex;align-items:center;gap:14px}
-.hs__prog i{width:160px;height:1px;background:var(--line-l);position:relative}
-.hs__prog i::after{content:"";position:absolute;inset:0;background:var(--chalk);transform-origin:left;transform:scaleX(var(--hp,0))}
-.hs__track{display:flex;gap:clamp(16px,2vw,32px);padding-inline:var(--pad);will-change:transform}
-.pl{flex:0 0 auto;width:min(clamp(300px,30vw,480px),calc((100vh - 430px)*.8));position:relative}
-.pl__art{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:#333}
-.pl__art svg{position:absolute;inset:0;width:100%;height:100%;transition:transform 1.4s var(--ease)}
-.pl:hover .pl__art svg{transform:scale(1.06)}
-.pl__art .depth{position:absolute;left:18px;top:16px;color:var(--ink);background:rgba(244,238,227,.85);backdrop-filter:blur(6px);padding:6px 10px;border-radius:40px}
-.pl__cap{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;margin-top:18px;align-items:baseline}
-.pl__cap .n{color:var(--ochre)}
-.pl__cap h3{margin:0;font:400 clamp(28px,2.4vw,40px)/1 var(--serif);letter-spacing:-.03em}
-.pl__cap p{grid-column:2;margin:6px 0 0;color:var(--mute-l);font-size:15px;max-width:36ch}
-.pl--intro{width:clamp(280px,24vw,380px);display:flex;flex-direction:column;justify-content:flex-end;gap:24px;padding-bottom:12px}
-.pl--intro p{margin:0;color:var(--mute-l);font-size:16px}
-.pl--intro .big{font:300 clamp(60px,6vw,110px)/.9 var(--serif);letter-spacing:-.05em;color:var(--chalk)}
-.pl--intro .big em{font-style:italic;color:var(--ochre)}
+/* places: horizontal */
+.hs{position:relative;background:var(--ink);color:var(--bone)}
+.hs__pin{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,3.4vw,52px)}
+.hs__head{width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.hs__head .h2{font-size:clamp(40px,4.8vw,84px)}
+.hs__prog{display:flex;align-items:center;gap:16px;color:var(--mute-l)}
+.hs__prog i{width:180px;height:1px;background:var(--line-l);position:relative}
+.hs__prog i::after{content:"";position:absolute;inset:0;background:var(--bone);transform-origin:left;transform:scaleX(var(--hp,0))}
+.hs__track{display:flex;gap:clamp(18px,2vw,36px);padding-inline:var(--pad);will-change:transform}
+.pl{flex:0 0 auto;width:min(clamp(300px,28vw,460px),calc((100vh - 400px)*.78))}
+.pl .ph{aspect-ratio:4/5}
+.pl__cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line-l)}
+.pl h3{margin:0;font:300 clamp(28px,2.4vw,40px)/1 var(--serif)}
+.pl__cap .cap{color:var(--mute-l)}
+.pl p{margin:10px 0 0;color:var(--mute-l);font-size:15px;max-width:36ch}
+.pl:hover .ph img{transform:scale(1.04)}
 
-/* ---------- tours ---------- */
-.tr-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
-.tr-head>div{grid-column:1/9}
-.tr-head p{grid-column:9/13;margin:0;color:var(--mute);max-width:38ch}
-.tours{border-top:1px solid var(--line)}
-.tour{border-bottom:1px solid var(--line)}
-.tour__h{width:100%;display:grid;grid-template-columns:80px 1.5fr 1fr 1fr 56px;gap:24px;align-items:center;padding:clamp(24px,3vw,44px) 0;text-align:left;position:relative}
-.tour__h::before{content:"";position:absolute;inset:0 calc(var(--pad)*-1);background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform .8s var(--ease);z-index:-1}
-.tour{position:relative;isolation:isolate}
-.tour__h:hover::before,.tour.open .tour__h::before{transform:scaleY(1)}
-.tour__h:hover,.tour.open .tour__h{color:var(--chalk)}
-.tour__h>*{transition:color .4s}
-.tour__n{color:var(--clay)}
-.tour__t{font:300 clamp(34px,4vw,72px)/1 var(--serif);letter-spacing:-.04em}
-.tour__t em{font-style:italic}
-.tour__d{font-size:15px;color:var(--mute)}
-.tour__h:hover .tour__d,.tour.open .tour__d{color:var(--mute-l)}
-.tour__p{font:400 clamp(20px,1.7vw,28px)/1.1 var(--serif);letter-spacing:-.02em}
-.tour__p small{display:block;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:6px}
-.tour__x{width:56px;height:56px;border-radius:50%;border:1px solid currentColor;position:relative;justify-self:end}
-.tour__x::before,.tour__x::after{content:"";position:absolute;left:50%;top:50%;width:18px;height:1.5px;background:currentColor;transform:translate(-50%,-50%);transition:transform .6s var(--ease)}
-.tour__x::after{transform:translate(-50%,-50%) rotate(90deg)}
-.tour.open .tour__x::after{transform:translate(-50%,-50%) rotate(0)}
-.tour__b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .9s var(--ease);background:var(--ink);color:var(--chalk);margin-inline:calc(var(--pad)*-1)}
-.tour.open .tour__b{grid-template-rows:1fr}
-.tour__b>div{overflow:hidden}
-.tour__in{display:grid;grid-template-columns:80px 1.5fr 2fr;gap:24px;padding:0 var(--pad) clamp(36px,4vw,64px)}
-.tour__art{grid-column:2;aspect-ratio:5/4;border-radius:6px;overflow:hidden;position:relative}
-.tour__art svg{position:absolute;inset:0;width:100%;height:100%}
-.days{grid-column:3;display:flex;flex-direction:column}
-.day{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--line-l)}
+/* full-bleed quote */
+.quote{position:relative;height:110vh;min-height:640px;overflow:hidden;color:var(--bone);display:flex;align-items:center}
+.quote .ph{position:absolute;inset:-10% 0;background:#4a3d31}
+.quote .ph img{transform:none;transition:opacity 1.2s}
+.quote::after{content:"";position:absolute;inset:0;background:rgba(15,13,11,.42)}
+.quote blockquote{position:relative;z-index:2;margin:0;max-width:18ch;font:300 clamp(40px,5.6vw,100px)/1.02 var(--serif)}
+.quote blockquote em{font-style:italic;color:#E6D5B8}
+.quote .cap{position:relative;z-index:2;margin-top:36px;color:rgba(238,233,224,.75)}
+
+/* expeditions */
+.ex-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-bottom:clamp(48px,6vw,96px)}
+.ex-head>div{grid-column:1/9}
+.ex-head p{grid-column:9/13;margin:0;color:var(--mute);max-width:40ch}
+.ex{border-top:1px solid var(--ink)}
+.row{border-bottom:1px solid var(--line)}
+.row__h{width:100%;display:grid;grid-template-columns:70px 2fr 1.3fr 1fr 40px;gap:24px;align-items:center;padding:clamp(26px,3vw,42px) 0;text-align:left}
+.row__n{color:var(--bronze)}
+.row__t{font:300 clamp(34px,4vw,68px)/1 var(--serif);transition:transform .9s var(--ease)}
+.row__t em{font-style:italic}
+.row__h:hover .row__t{transform:translateX(14px)}
+.row__d{font-size:15px;color:var(--mute)}
+.row__p{font:400 clamp(20px,1.6vw,26px)/1.1 var(--serif)}
+.row__p small{display:block;margin-bottom:6px}
+.row__x{width:40px;height:40px;position:relative;justify-self:end}
+.row__x::before,.row__x::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:1px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .7s var(--ease)}
+.row__x::after{transform:translate(-50%,-50%) rotate(90deg)}
+.row.open .row__x::after{transform:translate(-50%,-50%) rotate(0)}
+.row__b{display:grid;grid-template-rows:0fr;transition:grid-template-rows 1s var(--ease)}
+.row.open .row__b{grid-template-rows:1fr}
+.row__b>div{overflow:hidden}
+.row__in{display:grid;grid-template-columns:70px 2fr 2.3fr 40px;gap:24px;padding-bottom:clamp(36px,4vw,64px)}
+.row__in .ph{grid-column:2;aspect-ratio:4/3}
+.days{grid-column:3}
+.day{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:18px 0;border-top:1px solid var(--line)}
 .day:first-child{border-top:0;padding-top:0}
-.day b{font:400 22px/1.2 var(--serif);display:block;margin-bottom:4px}
-.day p{margin:0;color:var(--mute-l);font-size:15px}
-.day .mono{color:var(--ochre);padding-top:6px}
-.tour__cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;align-items:center}
-.tour__cta span{color:var(--mute-l);font-size:14px}
+.day b{display:block;font:400 23px/1.25 var(--serif);margin-bottom:4px}
+.day p{margin:0;color:var(--mute);font-size:15px}
+.day .cap{color:var(--bronze);padding-top:7px}
+.row__cta{display:flex;gap:28px;align-items:center;flex-wrap:wrap;margin-top:26px}
+.row__cta span{font-size:14px;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;height:58px;padding:0 30px;background:var(--ink);color:var(--bone);font:500 12px var(--sans);letter-spacing:.2em;text-transform:uppercase;position:relative;overflow:hidden;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;background:var(--bronze);transform:scaleX(0);transform-origin:right;transition:transform .8s var(--ease);z-index:-1}
+.btn:hover::before{transform:scaleX(1);transform-origin:left}
+/* floating preview */
+.fly{position:fixed;left:0;top:0;width:300px;aspect-ratio:4/5;z-index:40;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .5s var(--ease),transform .7s var(--ease);overflow:hidden;background:var(--stone)}
+.fly.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.fly img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0;transition:opacity .5s}
+.fly img.cur{opacity:1}
+@media (hover:none){.fly{display:none}}
 
-/* ---------- numbers ---------- */
+/* numbers */
 .nums{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-l)}
-.num{padding:clamp(28px,3vw,48px) 24px 0 0;border-right:1px solid var(--line-l)}
-.num+.num{padding-left:24px}
-.num:last-child{border-right:0}
-.num b{display:block;font:300 clamp(56px,7vw,128px)/.9 var(--serif);letter-spacing:-.05em;margin-bottom:18px}
-.num b em{font-style:italic;color:var(--ochre)}
+.num{padding:clamp(32px,3.4vw,52px) 24px 0 0;border-right:1px solid var(--line-l)}
+.num+.num{padding-left:24px}.num:last-child{border-right:0}
+.num b{display:block;font:300 clamp(60px,7vw,124px)/.9 var(--serif);margin-bottom:20px}
+.num b small{font-size:.36em;margin-left:.15em;color:var(--bronze-l);font-style:italic}
 .num p{margin:0;color:var(--mute-l);font-size:15px;max-width:26ch}
 
-/* ---------- included ---------- */
+/* included */
 .inc{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
-.inc .h2{grid-column:1/6;position:sticky;top:120px;align-self:start}
-.inc__list{grid-column:7/13;margin:0;padding:0;list-style:none;counter-reset:i}
-.inc__list li{display:grid;grid-template-columns:60px 1fr;gap:18px;padding:28px 0;border-top:1px solid var(--line);counter-increment:i}
-.inc__list li::before{content:"0" counter(i);font:500 12px var(--mono);letter-spacing:.12em;color:var(--clay);padding-top:10px}
-.inc__list b{display:block;font:400 clamp(26px,2.3vw,38px)/1.1 var(--serif);letter-spacing:-.025em;margin-bottom:8px}
-.inc__list p{margin:0;color:var(--mute);max-width:52ch}
+.inc .h2{grid-column:1/6;position:sticky;top:130px;align-self:start}
+.inc ul{grid-column:7/13;margin:0;padding:0;list-style:none;border-top:1px solid var(--ink)}
+.inc li{display:grid;grid-template-columns:70px 1fr;gap:18px;padding:30px 0;border-bottom:1px solid var(--line)}
+.inc li .cap{color:var(--bronze);padding-top:10px}
+.inc li b{display:block;font:400 clamp(26px,2.2vw,36px)/1.15 var(--serif);margin-bottom:8px}
+.inc li p{margin:0;color:var(--mute);max-width:54ch}
 
-/* ---------- faq ---------- */
+/* faq */
 .faq{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
 .faq .h2{grid-column:1/6}
-.faq__list{grid-column:6/13;border-top:1px solid var(--line)}
+.faq__l{grid-column:7/13;border-top:1px solid var(--ink)}
 .q{border-bottom:1px solid var(--line)}
-.q summary{list-style:none;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:26px 0;cursor:pointer;font:400 clamp(21px,1.7vw,28px)/1.25 var(--serif);letter-spacing:-.02em}
+.q summary{list-style:none;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:26px 0;cursor:pointer;font:400 clamp(22px,1.8vw,29px)/1.25 var(--serif)}
 .q summary::-webkit-details-marker{display:none}
-.q summary i{flex:0 0 40px;height:40px;border-radius:50%;border:1px solid var(--line);position:relative;transition:background .4s,border-color .4s}
-.q summary i::before,.q summary i::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%);transition:transform .5s var(--ease),background .4s}
-.q summary i::after{transform:translate(-50%,-50%) rotate(90deg)}
-.q[open] summary i{background:var(--clay);border-color:var(--clay)}
-.q[open] summary i::before,.q[open] summary i::after{background:var(--chalk)}
-.q[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
-.q p{margin:0 0 26px;color:var(--mute);max-width:62ch}
+.q summary i{flex:0 0 22px;height:22px;position:relative}
+.q summary i::before,.q summary i::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--ink);transition:transform .6s var(--ease)}
+.q summary i::after{transform:rotate(90deg)}
+.q[open] summary i::after{transform:rotate(0)}
+.q p{margin:0 0 28px;color:var(--mute);max-width:62ch}
 
-/* ---------- booking ---------- */
-.book{background:var(--clay);color:var(--chalk);border-radius:clamp(18px,2.4vw,36px);margin-inline:clamp(8px,1.2vw,18px);overflow:hidden;position:relative}
-.book__in{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding-block:clamp(70px,9vw,140px)}
-.book .h2{grid-column:1/7;color:var(--chalk)}
-.book .h2 em{color:var(--ink)}
-.book__side{grid-column:1/6;margin-top:40px;display:flex;flex-direction:column;gap:22px}
-.book__side p{margin:0;max-width:40ch;color:rgba(244,238,227,.82)}
-.book__side .contacts{display:flex;flex-direction:column;gap:8px;font:400 clamp(22px,1.8vw,30px)/1.2 var(--serif)}
-.form{grid-column:8/13;grid-row:1/3;background:var(--chalk);color:var(--ink);border-radius:20px;padding:clamp(24px,2.6vw,40px);display:flex;flex-direction:column;gap:18px;align-self:start}
-.form h3{margin:0 0 4px;font:400 30px/1.1 var(--serif);letter-spacing:-.02em}
-.fl{display:flex;flex-direction:column;gap:8px}
-.fl label,.fl .lb{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
-.fl input,.fl select{height:54px;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:18px;outline:0;border-radius:0;padding:0;transition:border-color .3s}
-.fl input:focus,.fl select:focus{border-color:var(--clay)}
-.fl-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.step{display:flex;align-items:center;justify-content:space-between;height:54px;border-bottom:1px solid var(--line)}
-.step button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);font-size:20px;line-height:1;transition:background .3s,color .3s}
-.step button:hover{background:var(--ink);color:var(--chalk)}
-.step output{font:400 26px var(--serif)}
-.form .btn{justify-content:space-between;height:60px;margin-top:6px}
-.form__legal{margin:0;font-size:12.5px;color:var(--mute)}
-.form__ok{display:none;flex-direction:column;gap:10px;padding:40px 0}
-.form__ok b{font:300 56px/1 var(--serif);letter-spacing:-.04em}
-.form.sent .form__ok{display:flex}.form.sent>:not(.form__ok){display:none}
+/* booking */
+.book{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;background:var(--ink);color:var(--bone)}
+.book .ph{min-height:560px;background:#2f3a3d}
+.book .ph img{position:absolute;inset:0}
+.book__f{padding:clamp(60px,7vw,120px) var(--pad);display:flex;flex-direction:column;justify-content:center}
+.book__f .h2{margin-bottom:22px}
+.book__f>p{margin:0 0 44px;color:var(--mute-l);max-width:44ch}
+.form{display:flex;flex-direction:column;gap:26px;max-width:560px}
+.fl{display:flex;flex-direction:column;gap:6px}
+.fl label,.fl .lb{font:500 10.5px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--mute-l)}
+.fl input,.fl select{height:52px;border:0;border-bottom:1px solid var(--line-l);background:transparent;color:var(--bone);font:300 20px var(--serif);outline:0;border-radius:0;padding:0;transition:border-color .4s}
+.fl select option{color:var(--ink)}
+.fl input::placeholder{color:rgba(238,233,224,.35)}
+.fl input:focus,.fl select:focus{border-color:var(--bronze-l)}
+.fl.err input{border-color:#C0715A}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.step{display:flex;align-items:center;justify-content:space-between;height:52px;border-bottom:1px solid var(--line-l)}
+.step button{width:34px;height:34px;border:1px solid var(--line-l);font-size:18px;line-height:1;transition:background .4s,color .4s}
+.step button:hover{background:var(--bone);color:var(--ink)}
+.step output{font:300 24px var(--serif)}
+.form .btn{background:var(--bone);color:var(--ink);margin-top:10px}
+.form .btn:hover{color:var(--bone)}
+.legal{margin:0;font-size:12.5px;color:var(--mute-l)}
+.ok{display:none}
+.form.sent>*{display:none}.form.sent .ok{display:block}
+.ok b{display:block;font:300 64px/1 var(--serif);margin-bottom:14px}
+.ok p{margin:0;color:var(--mute-l)}
+.contacts{display:flex;gap:40px;flex-wrap:wrap;margin-top:56px;padding-top:26px;border-top:1px solid var(--line-l)}
+.contacts div{display:flex;flex-direction:column;gap:6px}
+.contacts .cap{color:var(--bronze-l)}
+.contacts a{font:400 22px var(--serif)}
 
-/* ---------- footer ---------- */
-.ftr{background:var(--ink);color:var(--chalk);padding-top:clamp(70px,8vw,120px);overflow:hidden;margin-top:clamp(8px,1.2vw,18px)}
-.ftr__grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px;padding-bottom:60px}
-.ftr__grid p{margin:0;color:var(--mute-l);font-size:15px;max-width:36ch}
-.ftr__grid h4{margin:0 0 14px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ochre)}
-.ftr__grid a{display:block;margin-bottom:6px;font-size:15px}
-.ftr__grid a:hover{color:var(--ochre)}
-.ftr__word{font:300 clamp(90px,23vw,420px)/.74 var(--serif);letter-spacing:-.06em;white-space:nowrap;text-align:center;margin-bottom:-.06em;
-  background:linear-gradient(180deg,var(--chalk) 10%,rgba(244,238,227,.08) 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
-.ftr__word em{font-style:italic}
-.ftr__bot{display:flex;justify-content:space-between;gap:20px;padding-block:22px;border-top:1px solid var(--line-l);color:var(--mute-l)}
+/* footer */
+.ftr{background:var(--ink);color:var(--bone);border-top:1px solid var(--line-l);overflow:hidden}
+.ftr__word{font:300 clamp(70px,17vw,320px)/.8 var(--serif);letter-spacing:.16em;padding-left:.16em;text-align:center;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(238,233,224,.28);margin-top:clamp(60px,7vw,110px)}
+.ftr__g{display:grid;grid-template-columns:2fr 1fr 1fr 2fr;gap:24px;padding-block:60px 40px}
+.ftr__g p,.ftr__g a{margin:0;display:block;font-size:14px;color:var(--mute-l)}
+.ftr__g a{margin-bottom:6px}.ftr__g a:hover{color:var(--bone)}
+.ftr__g .cap{color:var(--bronze-l);margin-bottom:16px;display:block}
+.credits a{font-size:12.5px!important;line-height:1.5}
+.ftr__b{display:flex;justify-content:space-between;gap:20px;padding-block:24px;border-top:1px solid var(--line-l);color:var(--mute-l)}
 
-/* ---------- responsive ---------- */
+/* responsive */
 @media (max-width:1100px){
-  .nav,.lang{display:none}.burger{display:block}
-  .tour__h{grid-template-columns:48px 1fr 56px}
-  .tour__d,.tour__p{grid-column:2}
-  .tour__x{grid-column:3;grid-row:1}
-  .tour__in{grid-template-columns:1fr;padding-left:calc(var(--pad) + 0px)}
-  .tour__art,.days{grid-column:1}
+  .nav{display:none}.burger{display:block}
+  .hdr__in{grid-template-columns:auto 1fr auto}
+  .logo{justify-self:start;padding-left:0}
+  .hdr__r .lnk{display:none}
+  .row__h{grid-template-columns:44px 1fr 40px}
+  .row__d,.row__p{grid-column:2}.row__x{grid-column:3;grid-row:1}
+  .row__in{grid-template-columns:1fr}.row__in .ph,.days{grid-column:1}
 }
 @media (max-width:900px){
-  .hdr .btn{display:none}
-  .hero__meta p:last-child{display:none}
-  .hero__bot .coord span:nth-child(2){display:none}
-  .mf,.tr-head,.inc,.faq,.book__in{grid-template-columns:1fr}
-  .mf>*,.tr-head>*,.inc>*,.faq>*,.book__in>*{grid-column:1!important}
-  .mf__foot{grid-template-columns:1fr}
+  .hero__row .c1{display:none}.hero__row .lead{grid-column:1/13}.hero__row .c2{grid-column:1/13;text-align:left}
+  .intro>*,.ex-head>*,.inc>*,.faq>*{grid-column:1/-1!important}
+  .intro,.ex-head,.inc,.faq{grid-template-columns:1fr}
+  .intro__img2{margin-top:0}
+  .intro__sign{grid-template-columns:1fr}
   .inc .h2{position:static}
-  .form{grid-row:auto}
-  .book__side{margin-top:0}
   .hs{height:auto!important}
-  .hs__pin{position:static;height:auto;padding-block:90px}
-  .hs__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .hs__pin{position:static;height:auto;padding-block:100px}
+  .hs__track{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;scrollbar-width:none}
   .hs__track::-webkit-scrollbar{display:none}
-  .pl{scroll-snap-align:start;width:78vw}
-  .pl--intro{display:none}
+  .pl{width:80vw;scroll-snap-align:start}
   .hs__prog{display:none}
+  .quote{height:auto;padding-block:140px}
   .nums{grid-template-columns:1fr 1fr}
   .num{border-right:0;padding:28px 12px 28px 0!important;border-bottom:1px solid var(--line-l)}
-  .num:nth-child(odd){border-right:1px solid var(--line-l)}
-  .num:nth-child(even){padding-left:16px!important}
-  .ftr__grid{grid-template-columns:1fr 1fr}
-  .ftr__grid>div:first-child{grid-column:1/-1}
-  .ftr__bot{flex-direction:column}
-  .fl-row{grid-template-columns:1fr}
+  .num:nth-child(odd){border-right:1px solid var(--line-l)}.num:nth-child(even){padding-left:16px!important}
+  .book{grid-template-columns:1fr}.book .ph{min-height:60vh}
+  .two{grid-template-columns:1fr}
+  .ftr__g{grid-template-columns:1fr 1fr}.ftr__g>div:first-child,.ftr__g>div:last-child{grid-column:1/-1}
+  .ftr__b{flex-direction:column}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .js .rv,.js .ln>span,.js .hero h1 .row>span,.js .hero .fade{opacity:1;transform:none}
-  .js .pre{display:none}
-  .mf__txt .wd{opacity:1}
+  .js .rv,.js .ln>i,.js .hero h1 span i,.js .hero .fd{opacity:1;transform:none}
+  .js .clip{clip-path:none}.js .pre{display:none}
 }
 </style>
 </head>
 <body>
-<div class="pre" aria-hidden="true">
-  <div class="pre__top mono"><span>TETHYS · Мангистау</span><span>Спуск на дно океана</span></div>
-  <div class="pre__n"><span id="preN">−000</span><sup>м</sup></div>
-  <div class="pre__bar"></div>
-</div>
-<div class="cur" aria-hidden="true"><span></span></div>
+<div class="pre" aria-hidden="true"><b>TETHYS</b><i></i><span class="cap" style="color:var(--mute-l)">Мангистау · Актау</span></div>
 
 <header class="hdr" id="hdr">
   <div class="w hdr__in">
-    <a href="#top" class="logo" aria-label="TETHYS — на главную">TETHYS <i>Mangystau</i></a>
-    <nav class="nav" aria-label="Основное меню">
-      <a href="#places">Места</a><a href="#tours">Маршруты</a><a href="#included">Что входит</a><a href="#faq">Вопросы</a>
-    </nav>
-    <div class="hdr__r">
-      <div class="lang mono" aria-label="Язык"><b>RU</b><span>KZ</span><span>EN</span></div>
-      <a href="#book" class="btn btn--line">Собрать поездку <span class="ar">→</span></a>
-      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><i></i><i></i></button>
-    </div>
+    <nav class="nav cap" aria-label="Основное меню"><a href="#places">Места</a><a href="#expeditions">Экспедиции</a><a href="#included">Сервис</a><a href="#faq">Вопросы</a></nav>
+    <a href="#top" class="logo" aria-label="TETHYS — на главную">TETHYS</a>
+    <div class="hdr__r cap"><span>RU</span><a href="#book" class="lnk">Запрос <span>→</span></a><button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><i></i><i></i></button></div>
   </div>
 </header>
-<nav class="mmenu" aria-label="Мобильное меню">
-  <a href="#places"><i>01</i>Места</a><a href="#tours"><i>02</i>Маршруты</a><a href="#included"><i>03</i>Что входит</a><a href="#book"><i>04</i>Бронь</a>
-</nav>
+<nav class="mmenu" aria-label="Мобильное меню"><a href="#places">Места</a><a href="#expeditions">Экспедиции</a><a href="#included">Сервис</a><a href="#book">Запрос</a><span class="cap">Актау · Мангистау</span></nav>
 
 <main id="top">
-<!-- HERO -->
 <section class="hero" aria-label="Главный экран">
-  <div class="hero__art" id="heroArt" aria-hidden="true"></div>
-  <div class="hero__shade"></div>
+  <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg?width=1920" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" alt="Бозжыра, плато Устюрт" loading="eager" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
   <div class="w hero__in">
-    <div class="hero__meta mono fade">
-      <p>Джип-экспедиции по&nbsp;Мангистау<br>с&nbsp;выездом из&nbsp;Актау</p>
-      <p style="text-align:right">Сезон: апрель — октябрь<br>Группы до 4 человек в машине</p>
-    </div>
-    <div>
-      <h1><span class="row"><span>Дно океана,</span></span><span class="row ind"><span><em>которого</em></span></span><span class="row"><span>больше нет</span></span></h1>
-      <div class="hero__bot mono fade">
-        <div class="coord"><span>43°39′ N · 51°10′ E</span><span>Актау → Устюрт</span></div>
-        <div class="scroll-cue"><i></i>Листайте</div>
-      </div>
+    <h1><span><i>Мангистау</i></span><span><i><em>дно Тетиса</em></i></span></h1>
+    <div class="hero__row cap fd">
+      <p class="lead" style="text-transform:none;letter-spacing:0;font:300 16px/1.6 var(--sans)">Частные экспедиции по плато Устюрт и побережью Каспия. Один внедорожник, один гид, ваш темп — с выездом из Актау.</p>
+      <p class="c1">43°39′ N — 51°10′ E</p>
+      <p class="c2">Сезон · апрель — октябрь</p>
     </div>
   </div>
 </section>
 
-<div class="mq" aria-hidden="true"><div class="mq__t" id="mq">
-  <span>Бозжыра</span><b>✦</b><span><em>Торыш</em></span><b>✦</b><span>Шерқала</span><b>✦</b><span>Карагие <em>−132&nbsp;м</em></span><b>✦</b><span>Туйесу</span><b>✦</b><span><em>Устюрт</em></span><b>✦</b><span>Каспий</span><b>✦</b>
-</div></div>
-
-<!-- MANIFESTO -->
-<section class="sec" aria-labelledby="mf-t">
-  <div class="w mf">
-    <p class="tag mono"><b>01</b> Почему Мангистау</p>
-    <h2 class="sr" id="mf-t">Почему Мангистау</h2>
-    <p class="mf__txt" id="mf">Миллионы лет назад здесь шумел океан <em>Тетис.</em> Он ушёл и оставил белые каньоны, каменные шары и впадину на 132&nbsp;метра ниже уровня моря. Мы показываем это так, как видят местные: без толпы, на своей машине, с ночёвкой там, где нет ни одного фонаря.</p>
-    <div class="mf__foot">
-      <p class="rv"><b>1 гид</b>Родом из Мангистау. Знает дороги, которых нет на картах, и людей, у которых можно попросить воды.</p>
-      <p class="rv"><b>4×4</b>Внедорожник на каждую группу. Никаких автобусов и пересадок: едем туда, куда не доезжают экскурсии.</p>
-      <p class="rv"><b>0 толпы</b>Выезжаем до рассвета и приезжаем к скалам раньше всех. Закат — только ваш.</p>
+<section class="sec" aria-labelledby="in-t">
+  <div class="w intro">
+    <p class="eyebrow cap"><b>I</b> Территория</p>
+    <h2 class="h2" id="in-t"><span class="ln"><i>Там, где было море,</i></span><span class="ln"><i>остались <em>скалы</em></i></span><span class="ln"><i>и тишина</i></span></h2>
+    <div class="intro__txt rv">
+      <p>Миллионы лет назад Мангистау лежал на дне океана Тетис. Вода ушла, а меловые берега превратились в каньоны, столовые горы и поля каменных шаров.</p>
+      <p>Мы возим небольшими группами, выезжаем до рассвета и выбираем точки, где в этот час никого нет. Никаких автобусов и расписаний на табличке.</p>
     </div>
+    <div class="intro__sign">
+      <div class="rv"><b>−132 м</b><span>дно впадины Карагие</span></div>
+      <div class="rv"><b>1 : 4</b><span>один гид на четырёх гостей</span></div>
+      <div class="rv"><b>5 дней</b><span>самый длинный маршрут</span></div>
+    </div>
+    <div class="ph intro__img clip"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D1%8B%D0%B7%D1%8B%D0%BB%D0%BA%D1%83%D0%BF_%D0%BD%D0%B0_%D1%80%D0%B0%D1%81%D1%81%D0%B2%D0%B5%D1%82%D0%B5.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D1%8B%D0%B7%D1%8B%D0%BB%D0%BA%D1%83%D0%BF_%D0%BD%D0%B0_%D1%80%D0%B0%D1%81%D1%81%D0%B2%D0%B5%D1%82%D0%B5.jpg" alt="Кызылкуп на рассвете" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:%D0%9A%D1%8B%D0%B7%D1%8B%D0%BB%D0%BA%D1%83%D0%BF_%D0%BD%D0%B0_%D1%80%D0%B0%D1%81%D1%81%D0%B2%D0%B5%D1%82%D0%B5.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
+    <div class="ph intro__img2 clip"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg" alt="Горы Айракты" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
   </div>
 </section>
 
-<!-- PLACES -->
 <section class="hs" id="places" aria-labelledby="pl-t">
   <div class="hs__pin">
     <div class="w hs__head">
-      <div><p class="tag mono"><b>02</b> Места</p><h2 class="h2" id="pl-t">Шесть <em>ландшафтов</em>,<br>одна поездка</h2></div>
-      <div class="hs__prog mono"><span id="hsN">01</span><i id="hsBar"></i><span>06</span></div>
+      <div><p class="eyebrow cap"><b>II</b> Места</p><h2 class="h2" id="pl-t"><span class="ln"><i>Шесть точек</i></span><span class="ln"><i>на <em>карте тишины</em></i></span></h2></div>
+      <div class="hs__prog cap"><span id="hsN">01</span><i id="hsBar"></i><span>06</span></div>
     </div>
     <div class="hs__track" id="hsTrack">
-      <div class="pl pl--intro"><p class="big">Тянуть <em>вбок</em></p><p>От белых клыков Бозжыры до Каспия у Актау — всё, что увидите за пять дней.</p></div>
-      <article class="pl" data-cursor="Смотреть"><div class="pl__art" data-scene="bozzhyra"><span class="depth mono">Устюрт</span></div>
-        <div class="pl__cap"><span class="n mono">01</span><h3>Бозжыра</h3><p>Белые «клыки» и каньоны, которые меняют цвет каждый час.</p></div></article>
-      <article class="pl" data-cursor="Смотреть"><div class="pl__art" data-scene="torysh"><span class="depth mono">Шары до 4 м</span></div>
-        <div class="pl__cap"><span class="n mono">02</span><h3>Долина Торыш</h3><p>Поле каменных шаров — конкреции, выросшие на дне древнего моря.</p></div></article>
-      <article class="pl" data-cursor="Смотреть"><div class="pl__art" data-scene="sherkala"><span class="depth mono">Гора-юрта</span></div>
-        <div class="pl__cap"><span class="n mono">03</span><h3>Шерқала</h3><p>Одинокая гора, похожая на юрту с одной стороны и на льва — с другой.</p></div></article>
-      <article class="pl" data-cursor="Смотреть"><div class="pl__art" data-scene="karagiye"><span class="depth mono">−132 м</span></div>
-        <div class="pl__cap"><span class="n mono">04</span><h3>Впадина Карагие</h3><p>Одна из самых глубоких впадин суши. Звёзды здесь начинаются от горизонта.</p></div></article>
-      <article class="pl" data-cursor="Смотреть"><div class="pl__art" data-scene="tuyesu"><span class="depth mono">Пески</span></div>
-        <div class="pl__cap"><span class="n mono">05</span><h3>Туйесу</h3><p>Песчаный массив посреди каменной степи. Босиком на закате.</p></div></article>
-      <article class="pl" data-cursor="Смотреть"><div class="pl__art" data-scene="caspian"><span class="depth mono">Актау</span></div>
-        <div class="pl__cap"><span class="n mono">06</span><h3>Каспий</h3><p>Финал в Актау: скалистый берег и солнце, которое садится прямо в море.</p></div></article>
+      <article class="pl"><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fangs_of_Bozzhyra.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Fangs_of_Bozzhyra.jpg" alt="Клыки Бозжыры" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Fangs_of_Bozzhyra.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div><div class="pl__cap"><h3>Бозжыра</h3><span class="cap">01</span></div><p>Белые «клыки» и каньоны на краю Устюрта. Цвет скал меняется каждый час.</p></article>
+      <article class="pl"><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg" alt="Шерқала" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div><div class="pl__cap"><h3>Шерқала</h3><span class="cap">02</span></div><p>Одинокая гора в степи: с одной стороны — юрта, с другой — спящий лев.</p></article>
+      <article class="pl"><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" alt="Конкреции Торыша" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div><div class="pl__cap"><h3>Торыш</h3><span class="cap">03</span></div><p>Долина каменных шаров — конкреции, выросшие на дне древнего моря.</p></article>
+      <article class="pl"><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Karagiye_Depression.JPG?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Karagiye_Depression.JPG" alt="Впадина Карагие" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:View_of_Karagiye_Depression.JPG" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div><div class="pl__cap"><h3>Карагие</h3><span class="cap">04</span></div><p>Впадина на 132 метра ниже уровня моря — в получасе от Актау.</p></article>
+      <article class="pl"><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" alt="Кызылкуп" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div><div class="pl__cap"><h3>Кызылкуп</h3><span class="cap">05</span></div><p>Полосатые склоны: белый мел, розовая глина и охра в одном срезе.</p></article>
+      <article class="pl"><div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg" alt="Закат над Каспием, Актау" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div><div class="pl__cap"><h3>Каспий</h3><span class="cap">06</span></div><p>Финал в Актау: скалистый берег и солнце, которое садится в море.</p></article>
     </div>
   </div>
 </section>
 
-<!-- TOURS -->
-<section class="sec" id="tours" aria-labelledby="tr-t">
+<section class="quote" aria-label="Цитата">
+  <div class="ph" id="qPh"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg?width=1920" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" alt="Долина Бозжыра" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
   <div class="w">
-    <div class="tr-head">
-      <div><p class="tag mono"><b>03</b> Маршруты</p><h2 class="h2" id="tr-t"><span class="ln"><span>Три маршрута —</span></span><span class="ln"><span>от <em>дня</em> до недели</span></span></h2></div>
-      <p class="rv">Цена — за машину с гидом и водителем, до 4 гостей. Старт и финиш в Актау, из аэропорта заберём сами.</p>
+    <blockquote class="rv">Здесь время измеряют <em>не часами,</em> а слоями породы</blockquote>
+    <p class="cap rv">Долина Бозжыра · Мангистау</p>
+  </div>
+</section>
+
+<section class="sec" id="expeditions" aria-labelledby="ex-t">
+  <div class="w">
+    <div class="ex-head">
+      <div><p class="eyebrow cap"><b>III</b> Экспедиции</p><h2 class="h2" id="ex-t"><span class="ln"><i>Три маршрута.</i></span><span class="ln"><i>Один <em>стандарт</em></i></span></h2></div>
+      <p class="rv">Стоимость указана за внедорожник с гидом, до четырёх гостей. Старт и финиш — Актау; встречаем в аэропорту.</p>
     </div>
-    <div class="tours">
-      <div class="tour open">
-        <button class="tour__h" aria-expanded="true" data-cursor="Открыть">
-          <span class="tour__n mono">01</span>
-          <span class="tour__t">Белый <em>день</em></span>
-          <span class="tour__d">1 день · Бозжыра · ~12 часов</span>
-          <span class="tour__p"><small>за машину</small>от 180 000 ₸</span>
-          <span class="tour__x" aria-hidden="true"></span>
-        </button>
-        <div class="tour__b"><div><div class="tour__in">
-          <div class="tour__art" data-scene="bozzhyra2"></div>
+    <div class="ex">
+      <div class="row open" data-img="0">
+        <button class="row__h" aria-expanded="true"><span class="row__n cap">01</span><span class="row__t">Белый <em>день</em></span><span class="row__d">1 день · Бозжыра · 12 часов</span><span class="row__p"><small class="cap">за машину</small>от 180 000 ₸</span><span class="row__x" aria-hidden="true"></span></button>
+        <div class="row__b"><div><div class="row__in">
+          <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" alt="Бозжыра" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
           <div class="days">
-            <div class="day"><span class="mono">05:30</span><div><b>Выезд из Актау</b><p>Забираем из отеля, кофе в термосе, дорога на восток к Устюрту.</p></div></div>
-            <div class="day"><span class="mono">10:00</span><div><b>Бозжыра сверху</b><p>Смотровые на плато и спуск к «клыкам». Время на фото без спешки.</p></div></div>
-            <div class="day"><span class="mono">14:00</span><div><b>Обед в каньоне</b><p>Плов на костре, тень под скалой, час тишины.</p></div></div>
-            <div class="day"><span class="mono">20:00</span><div><b>Закат и дорога домой</b><p>Ловим последний свет на обрыве и возвращаемся в Актау к ночи.</p></div></div>
-            <div class="tour__cta"><a href="#book" class="btn btn--clay" data-tour="Белый день">Выбрать маршрут <span class="ar">→</span></a><span>Включено: машина, гид, обед, вода</span></div>
+            <div class="day"><span class="cap">05:30</span><div><b>Выезд из Актау</b><p>Забираем из отеля. Термос с кофе, дорога на восток к Устюрту.</p></div></div>
+            <div class="day"><span class="cap">10:00</span><div><b>Бозжыра с плато</b><p>Смотровые над каньоном, спуск к «клыкам», время на съёмку без спешки.</p></div></div>
+            <div class="day"><span class="cap">14:00</span><div><b>Обед в каньоне</b><p>Горячий обед у скалы, час тишины в тени.</p></div></div>
+            <div class="day"><span class="cap">20:00</span><div><b>Закат и возвращение</b><p>Последний свет на обрыве, дорога в Актау к ночи.</p></div></div>
+            <div class="row__cta"><a href="#book" class="btn" data-tour="Белый день">Запросить даты <span>→</span></a><span>Машина, гид, обед, вода</span></div>
           </div>
         </div></div></div>
       </div>
-      <div class="tour">
-        <button class="tour__h" aria-expanded="false" data-cursor="Открыть">
-          <span class="tour__n mono">02</span>
-          <span class="tour__t">Три <em>горизонта</em></span>
-          <span class="tour__d">3 дня · Бозжыра, Торыш, Шерқала</span>
-          <span class="tour__p"><small>за машину</small>от 520 000 ₸</span>
-          <span class="tour__x" aria-hidden="true"></span>
-        </button>
-        <div class="tour__b"><div><div class="tour__in">
-          <div class="tour__art" data-scene="torysh2"></div>
+      <div class="row" data-img="1">
+        <button class="row__h" aria-expanded="false"><span class="row__n cap">02</span><span class="row__t">Три <em>горизонта</em></span><span class="row__d">3 дня · Шерқала, Торыш, Бозжыра</span><span class="row__p"><small class="cap">за машину</small>от 520 000 ₸</span><span class="row__x" aria-hidden="true"></span></button>
+        <div class="row__b"><div><div class="row__in">
+          <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg" alt="Шерқала" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
           <div class="days">
-            <div class="day"><span class="mono">День 1</span><div><b>Шерқала и Торыш</b><p>Гора-юрта днём, долина шаров к вечеру. Ночь в кемпинге под скалами.</p></div></div>
-            <div class="day"><span class="mono">День 2</span><div><b>Бозжыра целиком</b><p>Плато, каньоны и «клыки» с разных сторон. Рассвет и закат — в одном месте.</p></div></div>
-            <div class="day"><span class="mono">День 3</span><div><b>Обратно к морю</b><p>Меловые склоны по пути и вечер на берегу Каспия в Актау.</p></div></div>
-            <div class="tour__cta"><a href="#book" class="btn btn--clay" data-tour="Три горизонта">Выбрать маршрут <span class="ar">→</span></a><span>Включено: машина, гид, питание, кемпинг</span></div>
+            <div class="day"><span class="cap">День 1</span><div><b>Шерқала и Торыш</b><p>Гора-юрта днём, долина шаров к вечеру. Ночь в кемпинге под скалами.</p></div></div>
+            <div class="day"><span class="cap">День 2</span><div><b>Бозжыра целиком</b><p>Плато, каньоны и «клыки» с разных сторон. Рассвет и закат в одном месте.</p></div></div>
+            <div class="day"><span class="cap">День 3</span><div><b>К морю</b><p>Меловые склоны по пути и вечер на берегу Каспия в Актау.</p></div></div>
+            <div class="row__cta"><a href="#book" class="btn" data-tour="Три горизонта">Запросить даты <span>→</span></a><span>Машина, гид, питание, кемпинг</span></div>
           </div>
         </div></div></div>
       </div>
-      <div class="tour">
-        <button class="tour__h" aria-expanded="false" data-cursor="Открыть">
-          <span class="tour__n mono">03</span>
-          <span class="tour__t">Большой <em>Тетис</em></span>
-          <span class="tour__d">5 дней · весь Мангистау + Устюрт</span>
-          <span class="tour__p"><small>за машину</small>от 890 000 ₸</span>
-          <span class="tour__x" aria-hidden="true"></span>
-        </button>
-        <div class="tour__b"><div><div class="tour__in">
-          <div class="tour__art" data-scene="karagiye2"></div>
+      <div class="row" data-img="2">
+        <button class="row__h" aria-expanded="false"><span class="row__n cap">03</span><span class="row__t">Большой <em>Тетис</em></span><span class="row__d">5 дней · Мангистау и Устюрт</span><span class="row__p"><small class="cap">за машину</small>от 890 000 ₸</span><span class="row__x" aria-hidden="true"></span></button>
+        <div class="row__b"><div><div class="row__in">
+          <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG" alt="Впадина Карагие" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Karagiye_Depression.JPG" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
           <div class="days">
-            <div class="day"><span class="mono">День 1</span><div><b>Карагие и Шерқала</b><p>Спуск на 132 метра ниже моря и гора-юрта на закате.</p></div></div>
-            <div class="day"><span class="mono">День 2</span><div><b>Торыш и подземная мечеть</b><p>Долина шаров и тишина Бекет-Ата.</p></div></div>
-            <div class="day"><span class="mono">День 3</span><div><b>Бозжыра</b><p>Весь день на плато, ночь в каньоне у костра.</p></div></div>
-            <div class="day"><span class="mono">День 4</span><div><b>Туйесу</b><p>Пески посреди степи, звёзды без единого фонаря.</p></div></div>
-            <div class="day"><span class="mono">День 5</span><div><b>Каспий</b><p>Возвращение в Актау и прощальный закат над морем.</p></div></div>
-            <div class="tour__cta"><a href="#book" class="btn btn--clay" data-tour="Большой Тетис">Выбрать маршрут <span class="ar">→</span></a><span>Включено: всё, кроме перелёта</span></div>
+            <div class="day"><span class="cap">День 1</span><div><b>Карагие и Шерқала</b><p>Спуск на 132 метра ниже моря и гора-юрта на закате.</p></div></div>
+            <div class="day"><span class="cap">День 2</span><div><b>Торыш и Бекет-Ата</b><p>Долина шаров и тишина подземной мечети.</p></div></div>
+            <div class="day"><span class="cap">День 3</span><div><b>Бозжыра</b><p>Весь день на плато, ночь в каньоне у костра.</p></div></div>
+            <div class="day"><span class="cap">День 4</span><div><b>Кызылкуп и Айракты</b><p>Полосатые склоны и каменные «замки» в мягком вечернем свете.</p></div></div>
+            <div class="day"><span class="cap">День 5</span><div><b>Каспий</b><p>Возвращение в Актау и прощальный закат над морем.</p></div></div>
+            <div class="row__cta"><a href="#book" class="btn" data-tour="Большой Тетис">Запросить даты <span>→</span></a><span>Всё, кроме перелёта</span></div>
           </div>
         </div></div></div>
       </div>
     </div>
   </div>
 </section>
+<div class="fly" id="fly" aria-hidden="true"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" alt="" loading="lazy" decoding="async"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg" alt="" loading="lazy" decoding="async"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG" alt="" loading="lazy" decoding="async"></div>
 
-<!-- NUMBERS -->
-<section class="sec sec--ink" aria-labelledby="nm-t">
+<section class="sec dark" aria-labelledby="nm-t">
   <div class="w">
-    <p class="tag mono"><b>04</b> В цифрах</p>
-    <h2 class="h2" id="nm-t" style="margin-bottom:clamp(40px,5vw,80px)"><span class="ln"><span>Место, где <em>цифры</em></span></span><span class="ln"><span>звучат как фантастика</span></span></h2>
+    <p class="eyebrow cap"><b>IV</b> Масштаб</p>
+    <h2 class="h2" id="nm-t" style="margin-bottom:clamp(48px,6vw,96px)"><span class="ln"><i>Цифры, в которые</i></span><span class="ln"><i><em>сложно поверить</em></i></span></h2>
     <div class="nums">
-      <div class="num rv"><b><span data-count="132">0</span><em>м</em></b><p>ниже уровня моря — дно впадины Карагие</p></div>
-      <div class="num rv"><b>4<em>×</em>4</b><p>только внедорожники: грунтовки, солончаки и спуски в каньоны</p></div>
-      <div class="num rv"><b><span data-count="4">0</span></b><p>гостя максимум в одной машине — чтобы у каждого было окно</p></div>
-      <div class="num rv"><b><span data-count="5">0</span><em>дн</em></b><p>самый длинный маршрут — весь Мангистау от Устюрта до Каспия</p></div>
+      <div class="num rv"><b><span data-count="132">0</span><small>м</small></b><p>ниже уровня моря — дно впадины Карагие</p></div>
+      <div class="num rv"><b>4×4</b><p>только подготовленные внедорожники</p></div>
+      <div class="num rv"><b><span data-count="4">0</span></b><p>гостя максимум в машине — у каждого своё окно</p></div>
+      <div class="num rv"><b><span data-count="6">0</span></b><p>ландшафтов за одну экспедицию — от плато до моря</p></div>
     </div>
   </div>
 </section>
 
-<!-- INCLUDED -->
 <section class="sec" id="included" aria-labelledby="inc-t">
   <div class="w inc">
-    <h2 class="h2" id="inc-t"><span class="ln"><span>Вам —</span></span><span class="ln"><span><em>только</em> смотреть</span></span></h2>
-    <ul class="inc__list">
-      <li class="rv"><div><b>Встреча в аэропорту Актау</b><p>Встречаем с табличкой, помогаем с багажом, отвозим в отель или сразу в степь.</p></div></li>
-      <li class="rv"><div><b>Внедорожник и водитель</b><p>Подготовленная машина, запас воды и топлива, спутниковая связь на дальних маршрутах.</p></div></li>
-      <li class="rv"><div><b>Местный гид</b><p>Рассказывает про геологию, легенды и людей Мангистау — и знает, где лучший свет в 18:40.</p></div></li>
-      <li class="rv"><div><b>Еда у костра</b><p>Завтраки, горячие обеды и ужины. Бешбармак, плов, шубат — по желанию.</p></div></li>
-      <li class="rv"><div><b>Кемпинг с комфортом</b><p>Палатки, спальники, коврики и складная мебель. Вам нужна только тёплая кофта.</p></div></li>
+    <h2 class="h2" id="inc-t"><span class="ln"><i>Сервис,</i></span><span class="ln"><i>который <em>не видно</em></i></span></h2>
+    <ul>
+      <li class="rv"><span class="cap">01</span><div><b>Встреча в аэропорту Актау</b><p>Встречаем у выхода, помогаем с багажом и везём в отель или сразу в степь.</p></div></li>
+      <li class="rv"><span class="cap">02</span><div><b>Внедорожник и водитель</b><p>Подготовленная машина, запас воды и топлива, спутниковая связь на дальних участках.</p></div></li>
+      <li class="rv"><span class="cap">03</span><div><b>Местный гид</b><p>Родом из Мангистау: геология, легенды, люди — и точное время, когда свет ложится на скалы.</p></div></li>
+      <li class="rv"><span class="cap">04</span><div><b>Кухня у огня</b><p>Завтраки, горячие обеды и ужины из местных продуктов. Учтём ограничения по питанию.</p></div></li>
+      <li class="rv"><span class="cap">05</span><div><b>Лагерь</b><p>Палатки, спальники, мебель и свет. С собой — только тёплая одежда на вечер.</p></div></li>
     </ul>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="sec sec--sand" id="faq" aria-labelledby="faq-t">
+<section class="sec" id="faq" style="background:var(--bone2)" aria-labelledby="faq-t">
   <div class="w faq">
-    <h2 class="h2" id="faq-t"><span class="ln"><span>Спросите</span></span><span class="ln"><span><em>до</em> поездки</span></span></h2>
-    <div class="faq__list">
-      <details class="q" open><summary>Когда лучше ехать?<i></i></summary><p>С апреля по июнь и с сентября по октябрь: тепло, но не жарко. Летом едем рано утром и вечером, а днём отдыхаем в тени.</p></details>
-      <details class="q"><summary>Что взять с собой?<i></i></summary><p>Удобную обувь, головной убор, солнцезащитный крем и тёплую кофту на вечер — в степи ночью прохладно. Остальное у нас.</p></details>
-      <details class="q"><summary>Есть ли связь в дороге?<i></i></summary><p>Мобильная связь пропадает на Устюрте. У гида есть спутниковый телефон, а родным можно написать из мест, где сеть появляется.</p></details>
-      <details class="q"><summary>Можно с детьми?<i></i></summary><p>Да. Однодневный маршрут подходит детям от 6 лет, многодневные — от 10. Детские кресла дадим.</p></details>
-      <details class="q"><summary>Как оплатить?<i></i></summary><p>Предоплата 30% после согласования дат, остальное — в день старта. Условия отмены пришлём заранее.</p></details>
+    <h2 class="h2" id="faq-t"><span class="ln"><i>Перед</i></span><span class="ln"><i><em>поездкой</em></i></span></h2>
+    <div class="faq__l">
+      <details class="q" open><summary>Когда лучше ехать?<i></i></summary><p>Апрель — июнь и сентябрь — октябрь: тепло, но без жары. Летом выезжаем раньше и отдыхаем в тени в полдень.</p></details>
+      <details class="q"><summary>Что взять с собой?<i></i></summary><p>Удобную обувь, головной убор, солнцезащитный крем и тёплую кофту на вечер. Остальное — наша забота.</p></details>
+      <details class="q"><summary>Есть ли связь?<i></i></summary><p>На Устюрте мобильная связь пропадает. У гида есть спутниковый телефон для экстренных случаев.</p></details>
+      <details class="q"><summary>Можно с детьми?<i></i></summary><p>Однодневный маршрут — с 6 лет, многодневные — с 10. Детские кресла предоставим.</p></details>
+      <details class="q"><summary>Как проходит оплата?<i></i></summary><p>Предоплата 30% после согласования дат, остаток — в день старта. Условия отмены присылаем заранее.</p></details>
     </div>
   </div>
 </section>
 
-<!-- BOOK -->
 <section class="book" id="book" aria-labelledby="bk-t">
-  <div class="w book__in">
-    <h2 class="h2" id="bk-t"><span class="ln"><span>Соберём</span></span><span class="ln"><span>поездку <em>под вас</em></span></span></h2>
-    <div class="book__side rv">
-      <p>Оставьте контакты — в течение часа пришлём маршрут, даты и точную стоимость. Без предоплаты за консультацию.</p>
-      <div class="contacts"><a href="tel:+77000000000">+7 700 000 00 00</a><a href="#book">WhatsApp · Telegram</a></div>
-      <p class="mono" style="opacity:.8">Актау, Мангистауская область</p>
-    </div>
+  <div class="ph clip"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Caspian_Sea_Kazakhstan_Mangistau.jpg?width=1920" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Caspian_Sea_Kazakhstan_Mangistau.jpg" alt="Каспийское море, Мангистау" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Caspian_Sea_Kazakhstan_Mangistau.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
+  <div class="book__f">
+    <p class="eyebrow cap"><b>V</b> Запрос</p>
+    <h2 class="h2" id="bk-t"><span class="ln"><i>Соберём</i></span><span class="ln"><i><em>вашу</em> экспедицию</i></span></h2>
+    <p>Ответим в течение часа: маршрут, даты и точная стоимость. Консультация ни к чему не обязывает.</p>
     <form class="form" id="form" novalidate>
-      <h3>Заявка на поездку</h3>
-      <div class="fl"><label for="f-n">Имя</label><input id="f-n" name="name" autocomplete="name" placeholder="Как к вам обращаться"></div>
-      <div class="fl"><label for="f-p">Телефон / WhatsApp</label><input id="f-p" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="18"></div>
-      <div class="fl-row">
-        <div class="fl"><label for="f-t">Маршрут</label><select id="f-t" name="tour"><option>Белый день</option><option>Три горизонта</option><option>Большой Тетис</option><option>Свой маршрут</option></select></div>
+      <div class="fl"><label for="f-n">Имя</label><input id="f-n" autocomplete="name" placeholder="Как к вам обращаться"></div>
+      <div class="fl"><label for="f-p">Телефон / WhatsApp</label><input id="f-p" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="18"></div>
+      <div class="two">
+        <div class="fl"><label for="f-t">Маршрут</label><select id="f-t"><option>Белый день</option><option>Три горизонта</option><option>Большой Тетис</option><option>Индивидуальный</option></select></div>
         <div class="fl"><span class="lb" id="g-l">Гостей</span><div class="step" role="group" aria-labelledby="g-l"><button type="button" data-d="-1" aria-label="Меньше">−</button><output id="guests">2</output><button type="button" data-d="1" aria-label="Больше">+</button></div></div>
       </div>
-      <div class="fl"><label for="f-d">Даты</label><input id="f-d" name="dates" placeholder="Например, 10–13 мая"></div>
-      <button type="submit" class="btn btn--ink">Отправить заявку <span class="ar">→</span></button>
-      <p class="form__legal">Демо-форма: данные никуда не отправляются.</p>
-      <div class="form__ok" role="status"><b>Рахмет!</b><p>Гид напишет вам в течение часа.</p></div>
+      <div class="fl"><label for="f-d">Желаемые даты</label><input id="f-d" placeholder="Например, 10–13 мая"></div>
+      <button class="btn" type="submit">Отправить запрос <span>→</span></button>
+      <p class="legal">Демо-форма: данные никуда не отправляются.</p>
+      <div class="ok" role="status"><b>Рахмет.</b><p>Мы свяжемся с вами в течение часа.</p></div>
     </form>
+    <div class="contacts"><div><span class="cap">Телефон</span><a href="tel:+77000000000">+7 700 000 00 00</a></div><div><span class="cap">Офис</span><a href="#book">Актау, Мангистау</a></div></div>
   </div>
 </section>
 </main>
 
 <footer class="ftr">
-  <div class="w ftr__grid">
-    <div><a href="#top" class="logo" style="margin-bottom:18px">TETHYS <i>Mangystau</i></a><p>Джип-экспедиции по Мангистау с выездом из Актау. Демо-проект: бренд, цены и контакты вымышлены.</p></div>
-    <div><h4>Маршруты</h4><a href="#tours">Белый день</a><a href="#tours">Три горизонта</a><a href="#tours">Большой Тетис</a></div>
-    <div><h4>Места</h4><a href="#places">Бозжыра</a><a href="#places">Торыш</a><a href="#places">Карагие</a></div>
-    <div><h4>Связь</h4><a href="tel:+77000000000">+7 700 000 00 00</a><a href="#book">Instagram</a><a href="#book">WhatsApp</a></div>
+  <div class="ftr__word" aria-hidden="true">TETHYS</div>
+  <div class="w ftr__g">
+    <div><span class="cap">TETHYS</span><p>Частные экспедиции по Мангистау с выездом из Актау. Демо-проект: бренд, цены и контакты вымышлены.</p></div>
+    <div><span class="cap">Маршруты</span><a href="#expeditions">Белый день</a><a href="#expeditions">Три горизонта</a><a href="#expeditions">Большой Тетис</a></div>
+    <div><span class="cap">Связь</span><a href="tel:+77000000000">+7 700 000 00 00</a><a href="#book">WhatsApp</a><a href="#book">Instagram</a></div>
+    <div class="credits"><span class="cap">Фотографии</span><a href="https://commons.wikimedia.org/wiki/File:Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Southeast view on Bozjyra, Manğystaw region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D1%8B%D0%B7%D1%8B%D0%BB%D0%BA%D1%83%D0%BF_%D0%BD%D0%B0_%D1%80%D0%B0%D1%81%D1%81%D0%B2%D0%B5%D1%82%D0%B5.jpg" target="_blank" rel="noopener">Кызылкуп на рассвете</a><a href="https://commons.wikimedia.org/wiki/File:Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg" target="_blank" rel="noopener">Airakty Shomanai Mountains in Mangystau Region, Kazakhstan (April 2024)</a><a href="https://commons.wikimedia.org/wiki/File:Fangs_of_Bozzhyra.jpg" target="_blank" rel="noopener">Fangs of Bozzhyra</a><a href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Sherkala, Mangistau, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" target="_blank" rel="noopener">Конкреции в Западном Казахстане. Concretions. Western Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:View_of_Karagiye_Depression.JPG" target="_blank" rel="noopener">View of Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" target="_blank" rel="noopener">Kyzylkup site at Ustyurt Nature Reserve</a><a href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Aktau Sunset over the Caspian Sea</a><a href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Bozzhyra valley, Mangistau region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Karagiye_Depression.JPG" target="_blank" rel="noopener">Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Caspian_Sea_Kazakhstan_Mangistau.jpg" target="_blank" rel="noopener">Caspian Sea Kazakhstan Mangistau</a><p style="margin-top:10px;font-size:12px">Wikimedia Commons, свободные лицензии (CC BY-SA и др.). Автор и лицензия — на странице каждого файла.</p></div>
   </div>
-  <div class="ftr__word" aria-hidden="true">Mangy<em>stau</em></div>
-  <div class="w ftr__bot mono"><span>© 2026 TETHYS · демо-проект</span><span>Дизайн и код — Stanislav Maksimov</span></div>
+  <div class="w ftr__b cap"><span>© 2026 TETHYS</span><span>Дизайн и код — Stanislav Maksimov</span></div>
 </footer>
 
 <script>
 (() => {
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const root = document.documentElement;
+  const root = document.documentElement, RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- procedural Mangystau landscapes (SVG) ---------- */
-  const rng = s => () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
-  // mesa: flat plateaus broken by steep cliffs (the Ustyurt chink look)
-  function mesa(W, H, base, amp, seed, rough = 3) {
-    const r = rng(seed); let x = -20, y = base - r() * amp, d = `M${x},${H} L${x},${y}`;
-    while (x < W + 20) {
-      const L = 40 + r() * 170;
-      for (let i = 0; i < L; i += 14) d += ` L${(x + i).toFixed(1)},${(y + (r() - .5) * rough).toFixed(1)}`;
-      x += L; const ny = base - r() * amp, cliff = 6 + r() * 22;
-      d += ` L${x.toFixed(1)},${y.toFixed(1)} L${(x + cliff * .35).toFixed(1)},${(y + (ny - y) * .7).toFixed(1)} L${(x + cliff).toFixed(1)},${ny.toFixed(1)}`;
-      x += cliff; y = ny;
-    }
-    return d + ` L${W + 20},${H} Z`;
-  }
-  // dune: smooth wave sum
-  function dune(W, H, base, amp, seed) {
-    const r = rng(seed), f1 = 1 + r() * 2, f2 = 3 + r() * 3, p1 = r() * 6, p2 = r() * 6;
-    let d = `M-10,${H} L-10,${base}`;
-    for (let x = -10; x <= W + 10; x += 12) {
-      const y = base - amp * (.6 * Math.sin(x / W * Math.PI * f1 + p1) + .4 * Math.sin(x / W * Math.PI * f2 + p2));
-      d += ` L${x},${y.toFixed(1)}`;
-    }
-    return d + ` L${W + 10},${H} Z`;
-  }
-  function strata(id, W, H, color, gap = 9, op = .35) {
-    let s = `<g clip-path="url(#${id})" stroke="${color}" stroke-width="1.2" opacity="${op}" fill="none">`;
-    for (let y = 0; y < H; y += gap) s += `<path d="M0 ${y} Q ${W / 2} ${y + 6} ${W} ${y}"/>`;
-    return s + '</g>';
-  }
-  const SC = {
-    hero:      { W: 1600, H: 900, sky: ['#EFC89C', '#F6E4C8'], sun: [1180, 360, 110, '#FFF3DF'], layers: [
-      { k: 'mesa', b: 520, a: 90, c: '#E2B98E', s: 3 }, { k: 'mesa', b: 610, a: 120, c: '#D29B6A', s: 9, st: '#B97E52' },
-      { k: 'mesa', b: 700, a: 110, c: '#B06A42', s: 21, st: '#8F5231' }, { k: 'dune', b: 820, a: 26, c: '#5B3423', s: 5 }] },
-    bozzhyra:  { W: 800, H: 1000, sky: ['#DDE7E6', '#F5E9D6'], sun: [600, 250, 60, '#FFF8EC'], fangs: '#EFE6D6', layers: [
-      { k: 'mesa', b: 520, a: 60, c: '#E9DDCA', s: 4 }, { k: 'mesa', b: 690, a: 140, c: '#F1E9DC', s: 12, st: '#CDBCA2' },
-      { k: 'mesa', b: 830, a: 80, c: '#D8C3A3', s: 31, st: '#B89D78' }, { k: 'dune', b: 930, a: 18, c: '#A88760', s: 2 }] },
-    torysh:    { W: 800, H: 1000, sky: ['#F0C592', '#F6DDBA'], sun: [220, 300, 80, '#FFEBD0'], balls: '#7A4B32', layers: [
-      { k: 'mesa', b: 560, a: 50, c: '#D49A68', s: 7 }, { k: 'dune', b: 700, a: 30, c: '#B97A4E', s: 8 }, { k: 'dune', b: 860, a: 20, c: '#8E5738', s: 3 }] },
-    sherkala:  { W: 800, H: 1000, sky: ['#CFDCDA', '#F1E3CC'], sun: [640, 220, 50, '#FFF6E6'], yurt: '#E6D2B2', layers: [
-      { k: 'mesa', b: 690, a: 40, c: '#E1CCAA', s: 14 }, { k: 'dune', b: 800, a: 22, c: '#CDAE84', s: 6 }, { k: 'dune', b: 920, a: 14, c: '#A98460', s: 11 }] },
-    karagiye:  { W: 800, H: 1000, sky: ['#241E36', '#B65A45'], sun: [400, 640, 70, '#F5B27A'], stars: 1, layers: [
-      { k: 'mesa', b: 560, a: 70, c: '#5B3A45', s: 5 }, { k: 'mesa', b: 700, a: 90, c: '#3F2A36', s: 17, st: '#5A3C47' }, { k: 'dune', b: 900, a: 16, c: '#1E1620', s: 9 }] },
-    tuyesu:    { W: 800, H: 1000, sky: ['#F4DDB3', '#FBEFD9'], sun: [560, 280, 70, '#FFFBF1'], layers: [
-      { k: 'dune', b: 560, a: 40, c: '#EACB95', s: 2 }, { k: 'dune', b: 680, a: 60, c: '#DDB374', s: 5 }, { k: 'dune', b: 810, a: 50, c: '#C9934F', s: 8 }, { k: 'dune', b: 930, a: 30, c: '#A8733A', s: 13 }] },
-    caspian:   { W: 800, H: 1000, sky: ['#2F5E66', '#F2A870'], sun: [400, 560, 90, '#FCE2B6'], sea: '#1F4C53', layers: [
-      { k: 'mesa', b: 820, a: 60, c: '#3A2A22', s: 19 }] },
-  };
-  SC.bozzhyra2 = { ...SC.bozzhyra, W: 1000, H: 800 }; SC.torysh2 = { ...SC.torysh, W: 1000, H: 800 }; SC.karagiye2 = { ...SC.karagiye, W: 1000, H: 800 };
-  let uid = 0;
-  function scene(name, parallax) {
-    const c = SC[name], { W, H } = c, sy = H / 1000; let id = 'g' + (++uid), s = '';
-    s += `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c.sky[0]}"/><stop offset="1" stop-color="${c.sky[1]}"/></linearGradient>
-      <radialGradient id="${id}b" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#B98763"/><stop offset="1" stop-color="${c.balls || '#000'}"/></radialGradient></defs>`;
-    s += `<rect width="${W}" height="${H}" fill="url(#${id}s)"/>`;
-    if (c.stars) { const r = rng(7); s += '<g fill="#F4EEE3">'; for (let i = 0; i < 90; i++) s += `<circle cx="${(r() * W).toFixed(0)}" cy="${(r() * H * .45).toFixed(0)}" r="${(r() * 1.4 + .3).toFixed(2)}" opacity="${(r() * .8 + .2).toFixed(2)}"/>`; s += '</g>'; }
-    const [sx, sy0, sr, sc] = c.sun; s += `<g data-d="0.05"><circle cx="${sx * W / (c.W === 1600 ? 1600 : W)}" cy="${sy0 * sy}" r="${sr}" fill="${sc}" opacity=".95"/></g>`;
-    if (c.sea) {
-      s += `<rect y="${H * .6}" width="${W}" height="${H * .4}" fill="${c.sea}"/>`;
-      for (let i = 0; i < 16; i++) { const y = H * .6 + 8 + i * 14, w = 160 - i * 7; s += `<rect x="${W / 2 - w / 2}" y="${y}" width="${w}" height="2" fill="#FCE2B6" opacity="${.7 - i * .04}"/>`; }
-    }
-    c.layers.forEach((L, i) => {
-      const lid = id + 'l' + i, d = L.k === 'mesa' ? mesa(W, H, L.b * sy, L.a * sy, L.s + uid * 3) : dune(W, H, L.b * sy, L.a * sy, L.s + uid);
-      s += `<g data-d="${(0.12 + i * 0.1).toFixed(2)}"><clipPath id="${lid}"><path d="${d}"/></clipPath><path d="${d}" fill="${L.c}"/>${L.st ? strata(lid, W, H, L.st, 10) : ''}`;
-      if (c.fangs && i === 1) {
-        const by = L.b * sy + 30;
-        const f = (x, w, h) => { const tx = x + w * .12, ty = by - h;
-          const edge = `M${x - w},${by} C${x - w * .98},${by - h * .62} ${tx - w * .5},${ty + h * .04} ${tx},${ty} C${tx + w * .45},${ty + h * .06} ${x + w * .92},${by - h * .58} ${x + w},${by} Z`;
-          return `<path d="${edge}" fill="${c.fangs}"/>` +
-                 `<path d="M${tx},${ty} C${tx + w * .45},${ty + h * .06} ${x + w * .92},${by - h * .58} ${x + w},${by} L${x + w * .2},${by} C${x + w * .25},${by - h * .5} ${tx + w * .12},${ty + h * .3} ${tx},${ty} Z" fill="${L.st}"/>`; };
-        s += f(W * .36, 95, 270 * sy) + f(W * .62, 80, 205 * sy);
-      }
-      if (c.yurt && i === 0) {
-        const cx = W * .52, by = L.b * sy + 10, r = W * .3;
-        s += `<clipPath id="${lid}y"><path d="M${cx - r},${by} C${cx - r},${by - r * 1.25} ${cx + r},${by - r * 1.25} ${cx + r},${by} Z"/></clipPath><path d="M${cx - r},${by} C${cx - r},${by - r * 1.25} ${cx + r},${by - r * 1.25} ${cx + r},${by} Z" fill="${c.yurt}"/>` + strata(lid + 'y', W, H, '#C4A67E', 12, .45);
-      }
-      s += '</g>';
-    });
-    if (c.balls) {
-      const r = rng(3); s += '<g data-d="0.5">';
-      [...Array(11)].map(() => ({ x: r() * W, y: H * (.72 + r() * .26), rad: 18 + r() * 60 })).sort((a, b) => a.y - b.y)
-        .forEach(b => s += `<ellipse cx="${b.x.toFixed(0)}" cy="${(b.y + b.rad * .9).toFixed(0)}" rx="${(b.rad * 1.1).toFixed(0)}" ry="${(b.rad * .22).toFixed(0)}" fill="#000" opacity=".22"/><circle cx="${b.x.toFixed(0)}" cy="${b.y.toFixed(0)}" r="${b.rad.toFixed(0)}" fill="url(#${id}b)"/>`);
-      s += '</g>';
-    }
-    return s + '</svg>';
-  }
-  $('#heroArt').innerHTML = scene('hero');
-  $$('[data-scene]').forEach(el => el.insertAdjacentHTML('afterbegin', scene(el.dataset.scene)));
+  /* photos: Commons thumbnail → original → keep stone placeholder */
+  $$('img[data-src]').forEach(img => {
+    img.addEventListener('load', () => img.classList.add('ok'));
+    img.addEventListener('error', () => { if (img.dataset.src && img.src !== img.dataset.src) img.src = img.dataset.src; else img.remove(); });
+    if (img.complete && img.naturalWidth) img.classList.add('ok');
+  });
 
-  /* ---------- preloader ---------- */
-  const pre = $('.pre'), preN = $('#preN');
-  const done = () => { root.classList.add('loaded'); setTimeout(() => pre && pre.remove(), 1200); };
+  /* preloader */
+  const pre = $('.pre'), bar = pre && $('i', pre);
+  const done = () => root.classList.add('loaded');
   if (RM || !pre) done(); else {
-    const t0 = performance.now(), D = 1500;
-    const tick = t => { const p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3);
-      preN.textContent = '−' + String(Math.round(e * 132)).padStart(3, '0'); pre.style.setProperty('--p', e * 100 + '%');
-      p < 1 ? requestAnimationFrame(tick) : setTimeout(done, 250); };
-    requestAnimationFrame(tick); setTimeout(done, 3500);
+    const t0 = performance.now(), D = 1400;
+    const tick = t => { const p = Math.min(1, (t - t0) / D); bar.style.setProperty('--p', 1 - Math.pow(1 - p, 3)); p < 1 ? requestAnimationFrame(tick) : setTimeout(done, 200); };
+    requestAnimationFrame(tick); setTimeout(done, 3200);
   }
 
-  /* ---------- reveals ---------- */
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px' });
-  $$('.rv, .h2').forEach(el => io.observe(el));
-
-  /* counters */
+  /* reveals */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+  $$('.rv,.h2,.clip,.ph').forEach(el => io.observe(el));
   const cio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; cio.unobserve(e.target);
     const el = e.target, to = +el.dataset.count, t0 = performance.now();
-    const f = t => { const p = Math.min(1, (t - t0) / 1600); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 4))); p < 1 && requestAnimationFrame(f); };
-    RM ? el.textContent = to : requestAnimationFrame(f); }), { threshold: .6 });
+    const f = t => { const p = Math.min(1, (t - t0) / 1800); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 4))); p < 1 && requestAnimationFrame(f); };
+    RM ? (el.textContent = to) : requestAnimationFrame(f); }), { threshold: .6 });
   $$('[data-count]').forEach(el => cio.observe(el));
 
-  /* manifesto: split words, light them up with scroll */
-  const mf = $('#mf');
-  (function split(node) { [...node.childNodes].forEach(n => {
-    if (n.nodeType === 3) { const f = document.createDocumentFragment(); n.textContent.split(/(\s+)/).forEach(w => { if (!w) return; if (/^\s+$/.test(w)) f.append(w); else { const s = document.createElement('span'); s.className = 'wd'; s.textContent = w; f.append(s); } }); n.replaceWith(f); }
-    else if (n.nodeType === 1) split(n); }); })(mf);
-  const words = $$('.wd', mf);
-
-  /* ---------- scroll loop ---------- */
-  const hdr = $('#hdr'), hero = $('.hero'), heroLayers = $$('#heroArt g[data-d]'), hs = $('.hs'), track = $('#hsTrack'), hsBar = $('#hsBar'), hsN = $('#hsN');
-  let lastY = scrollY, mx = 0, my = 0, cmx = 0, cmy = 0;
+  /* scroll loop */
+  const hdr = $('#hdr'), hero = $('.hero'), hs = $('.hs'), track = $('#hsTrack'), hsBar = $('#hsBar'), hsN = $('#hsN'), qPh = $('#qPh'), quote = $('.quote');
+  let lastY = scrollY;
   const wide = () => innerWidth > 900;
-  function sizeHS() { hs.style.height = wide() ? (track.scrollWidth - innerWidth + innerHeight) + 'px' : ''; }
+  const sizeHS = () => { hs.style.height = wide() ? (track.scrollWidth - innerWidth + innerHeight) + 'px' : ''; };
+  addEventListener('resize', sizeHS); addEventListener('load', sizeHS); sizeHS();
   function frame() {
     const y = scrollY, vh = innerHeight;
-    // header: hide on scroll down, dark over light sections
-    if (y > lastY + 4 && y > 200 && !root.classList.contains('menu-open')) hdr.classList.add('hide');
-    else if (y < lastY - 4 || y <= 200) hdr.classList.remove('hide');
+    if (y > lastY + 4 && y > 300 && !root.classList.contains('menu-open')) hdr.classList.add('hide');
+    else if (y < lastY - 4 || y <= 300) hdr.classList.remove('hide');
     lastY = y;
-    const overHero = y < hero.offsetHeight - 60, hsR = hs.getBoundingClientRect(), overInk = hsR.top <= 40 && hsR.bottom > 40;
-    const ink = $$('.sec--ink,.ftr').some(s => { const r = s.getBoundingClientRect(); return r.top <= 40 && r.bottom > 40; });
-    hdr.classList.toggle('dark', !overHero && !overInk && !ink);
-    // hero parallax (scroll + mouse)
-    cmx += (mx - cmx) * .06; cmy += (my - cmy) * .06;
-    if (y < vh * 1.2 && !RM) heroLayers.forEach(g => { const d = +g.dataset.d; g.style.transform = `translate(${(cmx * d * -40).toFixed(2)}px, ${(y * d * .9 + cmy * d * -20).toFixed(2)}px)`; });
-    // manifesto words
-    const mr = mf.getBoundingClientRect(), mp = Math.min(1, Math.max(0, (vh * .85 - mr.top) / (mr.height + vh * .35)));
-    const on = Math.round(mp * words.length); words.forEach((w, i) => w.classList.toggle('on', i < on || RM));
-    // horizontal places
+    const onDark = [hero, hs, quote, ...$$('.dark,.book,.ftr')].some(s => { const r = s.getBoundingClientRect(); return r.top <= 60 && r.bottom > 60; });
+    hdr.classList.toggle('solid', !onDark && y > 40);
     if (wide()) {
-      const total = hs.offsetHeight - vh, p = Math.min(1, Math.max(0, -hsR.top / total));
+      const r = hs.getBoundingClientRect(), p = Math.min(1, Math.max(0, -r.top / (hs.offsetHeight - vh)));
       track.style.transform = `translate3d(${-(track.scrollWidth - innerWidth) * p}px,0,0)`;
       hsBar.style.setProperty('--hp', p); hsN.textContent = String(Math.min(6, 1 + Math.floor(p * 6))).padStart(2, '0');
     }
+    if (!RM) { const r = quote.getBoundingClientRect(); if (r.bottom > 0 && r.top < vh) qPh.style.transform = `translate3d(0,${((r.top + r.height / 2 - vh / 2) * -.12).toFixed(1)}px,0)`; }
     requestAnimationFrame(frame);
   }
-  addEventListener('resize', sizeHS); addEventListener('load', sizeHS); sizeHS();
-  addEventListener('mousemove', e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
   requestAnimationFrame(frame);
 
-  /* ---------- cursor ---------- */
-  const cur = $('.cur'), curT = $('span', cur); let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
-  addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; cur.classList.add('on'); });
-  (function mv() { cx += (tx - cx) * .2; cy += (ty - cy) * .2; cur.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(mv); })();
-  document.addEventListener('mouseover', e => { const t = e.target.closest('[data-cursor]'); cur.classList.toggle('big', !!t); if (t) curT.textContent = t.dataset.cursor; });
-
-  /* ---------- menu ---------- */
+  /* menu */
   const burger = $('#burger');
-  burger.addEventListener('click', () => { const o = root.classList.toggle('menu-open'); burger.setAttribute('aria-expanded', o); });
+  burger.addEventListener('click', () => burger.setAttribute('aria-expanded', root.classList.toggle('menu-open')));
   $$('.mmenu a').forEach(a => a.addEventListener('click', () => { root.classList.remove('menu-open'); burger.setAttribute('aria-expanded', false); }));
 
-  /* ---------- tours accordion ---------- */
-  $$('.tour__h').forEach(h => h.addEventListener('click', () => {
-    const t = h.parentElement, open = !t.classList.contains('open');
-    $$('.tour').forEach(o => { o.classList.remove('open'); $('.tour__h', o).setAttribute('aria-expanded', false); });
-    if (open) { t.classList.add('open'); h.setAttribute('aria-expanded', true); }
+  /* expeditions: accordion + floating preview */
+  $$('.row__h').forEach(h => h.addEventListener('click', () => {
+    const r = h.parentElement, open = !r.classList.contains('open');
+    $$('.row').forEach(o => { o.classList.remove('open'); $('.row__h', o).setAttribute('aria-expanded', false); });
+    if (open) { r.classList.add('open'); h.setAttribute('aria-expanded', true); }
   }));
+  const fly = $('#fly'), flyImgs = $$('img', fly); let fx = 0, fy = 0, tx = 0, ty = 0;
+  addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+  (function mv() { fx += (tx - fx) * .12; fy += (ty - fy) * .12; fly.style.left = fx + 'px'; fly.style.top = fy + 'px'; requestAnimationFrame(mv); })();
+  $$('.row__h').forEach(h => {
+    h.addEventListener('mouseenter', () => { if (h.parentElement.classList.contains('open')) return; const i = +h.parentElement.dataset.img; flyImgs.forEach((im, k) => im.classList.toggle('cur', k === i)); fly.classList.add('on'); });
+    h.addEventListener('mouseleave', () => fly.classList.remove('on'));
+    h.addEventListener('click', () => fly.classList.remove('on'));
+  });
   $$('[data-tour]').forEach(a => a.addEventListener('click', () => { $('#f-t').value = a.dataset.tour; }));
 
-  /* ---------- form ---------- */
+  /* form */
   const out = $('#guests');
   $$('.step button').forEach(b => b.addEventListener('click', () => { out.value = out.textContent = Math.min(12, Math.max(1, +out.textContent + +b.dataset.d)); }));
   const ph = $('#f-p');
   ph.addEventListener('input', () => { let d = ph.value.replace(/\D/g, ''); if (d[0] === '8') d = '7' + d.slice(1); if (d && d[0] !== '7') d = '7' + d; d = d.slice(0, 11);
-    const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)]; ph.value = d ? '+7' + (p[0] ? ' (' + p[0] : '') + (p[0].length === 3 ? ') ' : '') + p[1] + (p[2] ? '-' + p[2] : '') + (p[3] ? '-' + p[3] : '') : ''; });
-  $('#form').addEventListener('submit', e => { e.preventDefault(); const f = e.currentTarget, n = $('#f-n'), okP = ph.value.replace(/\D/g, '').length === 11;
-    n.style.borderColor = n.value.trim() ? '' : 'var(--clay)'; ph.style.borderColor = okP ? '' : 'var(--clay)';
-    if (n.value.trim() && okP) f.classList.add('sent'); });
-
-  /* ---------- marquee: duplicate for seamless loop ---------- */
-  const mq = $('#mq'); mq.innerHTML += mq.innerHTML;
+    const p = [d.slice(1, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)];
+    ph.value = d ? '+7' + (p[0] ? ' (' + p[0] : '') + (p[0].length === 3 ? ') ' : '') + p[1] + (p[2] ? '-' + p[2] : '') + (p[3] ? '-' + p[3] : '') : ''; });
+  $('#form').addEventListener('submit', e => { e.preventDefault(); const n = $('#f-n'), okN = !!n.value.trim(), okP = ph.value.replace(/\D/g, '').length === 11;
+    n.parentElement.classList.toggle('err', !okN); ph.parentElement.classList.toggle('err', !okP);
+    if (okN && okP) e.currentTarget.classList.add('sent'); });
 })();
 </script>
 </body>
