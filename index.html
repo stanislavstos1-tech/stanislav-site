@@ -381,7 +381,8 @@
     .ftr__row a:hover{color:var(--ink)}
     .ftr__giant{will-change:transform;font-weight:800;font-size:16.2vw;line-height:.78;letter-spacing:-.065em;text-transform:uppercase;margin:clamp(40px,6vw,90px) 0 0;white-space:nowrap;
       background:linear-gradient(180deg,var(--ink) 30%,rgba(236,232,223,.05) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;transform:translateX(-.04em);padding-bottom:.06em}
-    .ftr__legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--dim);padding-block:18px 26px;border-top:1px solid var(--line)}
+    .ftr__giant{pointer-events:none;-webkit-user-select:none;user-select:none}
+    .ftr__legal{position:relative;z-index:2;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--dim);padding-block:18px 26px;border-top:1px solid var(--line)}
     .ftr__legal a:hover{color:var(--ink)}
 
     /* responsive */
