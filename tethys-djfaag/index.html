@@ -9,7 +9,7 @@
 <meta name="googlebot" content="noindex, nofollow">
 <meta property="og:title" content="TETHYS — здесь был океан. Теперь — Мангистау">
 <meta property="og:description" content="Экспедиции по Мангистау с выездом из Актау.">
-<meta property="og:image" content="https://commons.wikimedia.org/wiki/Special:FilePath/Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg?width=1280">
+<meta property="og:image" content="https://stanislavmv.com/tethys-djfaag/photos/aktau.webp">
 <meta name="theme-color" content="#0B0B0B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,10 +233,10 @@ img{display:block;max-width:100%}
 .send:hover{background:#333}
 .send svg{width:18px;height:18px}
 .legal{margin:2px 0 0;font-size:12px;color:#8a8a86}
-.ok{display:none}
-.form.sent>*{display:none}.form.sent .ok{display:block}
-.ok b{display:block;font-size:clamp(70px,7vw,130px)}
-.ok p{margin:8px 0 0}
+.done{display:none}
+.form.sent>*{display:none}.form.sent .done{display:block}
+.done b{display:block;font-size:clamp(70px,7vw,130px)}
+.done p{margin:8px 0 0}
 .soc{display:flex;gap:6px;margin-top:auto;padding-top:32px}
 .soc a{width:44px;height:44px;border:1px solid rgba(11,11,11,.22);display:grid;place-items:center;transition:background .3s,color .3s}
 .soc a:hover{background:var(--k);color:var(--w)}
@@ -344,7 +344,7 @@ img{display:block;max-width:100%}
     <a href="#expeditions"><span><span class="word">Торыш</span> <span class="ip "><img src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" alt="" loading="eager" decoding="async"></span></span></a>
     <a href="#expeditions"><span><span class="ip "><img src="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Karagiye_Depression.JPG?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Karagiye_Depression.JPG" alt="" loading="eager" decoding="async"></span> <span class="word">Карагие</span></span></a>
     <a href="#expeditions"><span><span class="word">Кызылкуп</span> <span class="ip ip--sq"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" alt="" loading="eager" decoding="async"></span></span></a>
-    <a href="#expeditions"><span><span class="ip ip--sk"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg" alt="" loading="eager" decoding="async"></span> <i class="word">Каспий</i></span></a>
+    <a href="#expeditions"><span><span class="ip ip--sk"><img src="photos/aktau.webp" data-src="photos/aktau.webp" alt="" loading="eager" decoding="async"></span> <i class="word">Каспий</i></span></a>
   </div>
   <div class="stack__cap"><span>Шесть ландшафтов Мангистау</span><span>Плато Устюрт → побережье Каспия</span></div>
 </section>
@@ -399,7 +399,7 @@ img{display:block;max-width:100%}
         <div class="fl-row"><div class="step" role="group" aria-label="Количество гостей"><span>Гостей</span><button type="button" data-d="-1" aria-label="Меньше">−</button><output id="guests">2</output><button type="button" data-d="1" aria-label="Больше">+</button></div>
           <button class="send" type="submit" aria-label="Отправить заявку"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10h14M11 4l6 6-6 6"/></svg></button></div>
         <p class="legal">Демо-форма: данные никуда не отправляются.</p>
-        <div class="ok" role="status"><b class="D">Рахмет!</b><p>Мы свяжемся с вами в течение часа.</p></div>
+        <div class="done" role="status"><b class="D">Рахмет!</b><p>Мы свяжемся с вами в течение часа.</p></div>
       </form>
       <div class="soc">
         <a href="#contact" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
@@ -411,14 +411,14 @@ img{display:block;max-width:100%}
     <div class="sh__r">
       <ul class="D cities"><li>Актау</li><li>Бозжыра</li><li>Шерқала</li><li><i>Карагие</i></li><li>Устюрт</li></ul>
       <div class="det"><h3 class="D">Контакты</h3><p>Актау<br>Мангистауская область<br>Казахстан</p><p><a href="tel:+77000000000">+7 700 000 00 00</a><br><a href="#contact">hello@tethys.kz</a></p></div>
-      <div class="ph det__ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg" alt="Актау, Каспий" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
+      <div class="ph det__ph"><img src="photos/aktau.webp" data-src="photos/aktau.webp" alt="Актау, Каспий" loading="lazy" decoding="async"></div>
       <nav class="D sh__nav" aria-label="Меню в подвале"><a href="#places">Места</a><a href="#expeditions">Туры</a><a href="#about">О нас</a><a href="#faq">Вопросы</a><a href="#top">Наверх</a></nav>
     </div>
   </div>
 </section>
 <footer class="light ftr">
   <div class="ftr__b"><span class="D logo">TETHYS</span><span>© 2026 TETHYS · демо-проект: бренд, цены и контакты вымышлены</span><span>Дизайн и код — Stanislav Maksimov</span></div>
-  <details class="cred"><summary>Фото: Wikimedia Commons, свободные лицензии — источники</summary><div class="credits"><a href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Aktau Sunset over the Caspian Sea</a><a href="https://commons.wikimedia.org/wiki/File:Fangs_of_Bozzhyra.jpg" target="_blank" rel="noopener">Fangs of Bozzhyra</a><a href="https://commons.wikimedia.org/wiki/File:Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Southeast view on Bozjyra, Manğystaw region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Sherkala, Mangistau, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" target="_blank" rel="noopener">Конкреции в Западном Казахстане. Concretions. Western Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:View_of_Karagiye_Depression.JPG" target="_blank" rel="noopener">View of Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" target="_blank" rel="noopener">Kyzylkup site at Ustyurt Nature Reserve</a><a href="https://commons.wikimedia.org/wiki/File:Shakpak-Ata.jpg" target="_blank" rel="noopener">Shakpak-Ata</a><a href="https://commons.wikimedia.org/wiki/File:Sor_Tuzbair,_Mangistau,_Kazakhstan,_November_2024.jpg" target="_blank" rel="noopener">Sor Tuzbair, Mangistau, Kazakhstan, November 2024</a><a href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Bozzhyra valley, Mangistau region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg" target="_blank" rel="noopener">Airakty Shomanai Mountains in Mangystau Region, Kazakhstan (April 2024)</a><p style="margin-top:10px;font-size:12px">Wikimedia Commons, свободные лицензии (CC BY-SA и др.). Автор и лицензия — на странице каждого файла.</p></div></details>
+  <details class="cred"><summary>Фото: Wikimedia Commons, свободные лицензии — источники</summary><div class="credits"><a href="https://commons.wikimedia.org/wiki/File:Fangs_of_Bozzhyra.jpg" target="_blank" rel="noopener">Fangs of Bozzhyra</a><a href="https://commons.wikimedia.org/wiki/File:Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Southeast view on Bozjyra, Manğystaw region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Sherkala, Mangistau, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" target="_blank" rel="noopener">Конкреции в Западном Казахстане. Concretions. Western Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:View_of_Karagiye_Depression.JPG" target="_blank" rel="noopener">View of Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" target="_blank" rel="noopener">Kyzylkup site at Ustyurt Nature Reserve</a><a href="https://commons.wikimedia.org/wiki/File:Shakpak-Ata.jpg" target="_blank" rel="noopener">Shakpak-Ata</a><a href="https://commons.wikimedia.org/wiki/File:Sor_Tuzbair,_Mangistau,_Kazakhstan,_November_2024.jpg" target="_blank" rel="noopener">Sor Tuzbair, Mangistau, Kazakhstan, November 2024</a><a href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Bozzhyra valley, Mangistau region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg" target="_blank" rel="noopener">Airakty Shomanai Mountains in Mangystau Region, Kazakhstan (April 2024)</a><p style="margin-top:10px;font-size:12px">Wikimedia Commons, свободные лицензии (CC BY-SA и др.). Автор и лицензия — на странице каждого файла.</p></div></details>
 </footer>
 
 <script>
@@ -510,7 +510,7 @@ img{display:block;max-width:100%}
       route: ['Торыш', 'Кокала', 'Айракты', 'Бозжыра', 'Кызылкуп', 'Бокты'], chips: ['Все главные места', 'Сотни км бездорожья'],
       lead: 'Все главные ландшафты Мангистау за пять дней: сотни километров бездорожья, ночёвки под звёздами и ни одного автобуса.',
       prog: [['День 1', 'Торыш и Кокала', 'Встреча в Актау, шары и обед в придорожном кафе.'], ['День 2', 'Айракты и Бозжыра', 'Долина «замков», вечер на плато.'], ['День 3', 'Бозжыра', 'Каньоны и «клыки» с разных сторон.'], ['День 4', 'Кызылкуп и Бокты', 'Полосатые склоны и пирамида Бокты.'], ['День 5', 'Обратно', 'Бекет-Ата по пути и возвращение в Актау.']] },
-    { id: 'nedelya', n: 'Неделя на дне океана', d: 7, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg?width=1280', start: '09:00', dur: '7 дней / 6 ночей', lvl: 'Средний', price: 990, per: 'за человека',
+    { id: 'nedelya', n: 'Неделя на дне океана', d: 7, img: 'photos/aktau.webp', start: '09:00', dur: '7 дней / 6 ночей', lvl: 'Средний', price: 990, per: 'за человека',
       route: ['Капамсай', 'Шакпак-Ата', 'Торыш', 'Тузбаир', 'Бозжыра', 'Кызылкуп', 'Каспий'], chips: ['≈ 1500 км', 'Весь полуостров'],
       lead: 'Полный Мангистау за неделю — около 1500 километров от каньонов у Каспия до края Устюрта. Для тех, кто хочет увидеть всё.',
       prog: [['День 1', 'Капамсай и Шакпак-Ата', 'Каньон и подземная мечеть.'], ['День 2', 'Жыгылган и Торыш', 'Обрыв над морем, долина шаров.'], ['День 3', 'Айракты и Шерқала', 'Долина «замков» и гора-юрта.'], ['День 4', 'Тузбаир', 'Солончак и меловые стены.'], ['День 5', 'Бозжыра', 'Весь день на плато.'], ['День 6', 'Клыки, Кызылкуп, Бокты', 'Кульминация поездки.'], ['День 7', 'Каспий', 'Возвращение и прощальный закат в Актау.']] },
