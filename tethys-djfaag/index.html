@@ -158,7 +158,7 @@ img{display:block;max-width:100%}
 .card__b{display:flex;flex-direction:column;gap:12px;padding:20px 20px 18px;flex:1}
 .card h3{margin:0;font-size:clamp(34px,2.6vw,44px)}
 .route{margin:0;font-size:13px;line-height:1.5;color:var(--w);font-weight:600}
-.route span{color:var(--g);margin:0 4px}
+.route span{color:var(--g)}
 .card__d{margin:0;font-size:15px;line-height:1.5;color:#b4b4ae}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips span{font-size:12.5px;padding:5px 9px;border:1px solid var(--line);color:#cfcfca}
@@ -187,6 +187,49 @@ img{display:block;max-width:100%}
 .sbar--dr{position:absolute;top:80px;bottom:96px;right:8px;color:var(--k)}
 .dr:not(.on) .sbar--dr{display:none}
 @media (hover:none),(pointer:coarse){.sbar{display:none}}
+/* date picker */
+.dp{position:relative}
+.dp input{cursor:pointer;padding-right:44px;caret-color:transparent}
+.dp input:focus{border-color:var(--k)}
+.dp__ico{position:absolute;right:14px;top:14px;width:20px;height:20px;pointer-events:none;color:var(--k)}
+.cal{position:absolute;left:0;bottom:calc(100% + 10px);z-index:30;width:360px;background:var(--k);color:var(--w);padding:18px 18px 16px;box-shadow:0 30px 70px -20px rgba(0,0,0,.55);
+  opacity:0;transform:translateY(10px);transition:opacity .35s var(--ease),transform .5s var(--ease)}
+.cal.open{opacity:1;transform:none}
+.cal[hidden]{display:block;visibility:hidden;pointer-events:none}
+.cal__h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.cal__m{font:900 34px/.9 var(--d);text-transform:uppercase;letter-spacing:-.01em;-webkit-text-stroke:.012em currentColor}
+.cal__m i{font-style:italic;color:#8a8a86;margin-left:.2em}
+.cal__nav{display:flex;gap:6px}
+.cal__nav button{width:40px;height:40px;border:1px solid rgba(241,241,239,.22);color:var(--w);display:grid;place-items:center;transition:background .25s,color .25s,border-color .25s}
+.cal__nav button:hover:not(:disabled){background:var(--w);color:var(--k);border-color:var(--w)}
+.cal__nav button:disabled{opacity:.25;cursor:default}
+.cal__nav svg{width:16px;height:16px}
+.cal__wd,.cal__g{display:grid;grid-template-columns:repeat(7,1fr)}
+.cal__wd span{font:600 11px var(--s);letter-spacing:.08em;text-transform:uppercase;color:#8a8a86;text-align:center;padding-bottom:8px}
+.cal__g{border-top:1px solid rgba(241,241,239,.16);padding-top:6px;row-gap:2px}
+.cal__d{height:42px;font:900 20px/1 var(--d);color:var(--w);position:relative;transition:background .2s,color .2s}
+.cal__d:hover:not(:disabled){background:rgba(241,241,239,.14)}
+.cal__d.today::after{content:"";position:absolute;left:50%;bottom:6px;width:4px;height:4px;margin-left:-2px;background:currentColor}
+.cal__d:disabled{color:#4a4a47;cursor:default;text-decoration:line-through;text-decoration-thickness:1px}
+.cal__d.in{background:rgba(241,241,239,.16)}
+.cal__d.pv{background:rgba(241,241,239,.09)}
+.cal__d.s,.cal__d.e,.cal__d.s:hover,.cal__d.e:hover{background:var(--w);color:var(--k)}
+.cal__f{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(241,241,239,.16)}
+.cal__sum{font-size:13px;line-height:1.35;color:#b4b4ae;min-height:2.7em;display:flex;flex-direction:column;justify-content:center}
+.cal__sum b{font:900 20px/1 var(--d);text-transform:uppercase;color:var(--w);margin-bottom:3px}
+.cal__btns{display:flex;gap:6px;flex:0 0 auto}
+.cal__btns button{height:40px;padding:0 14px;font:600 13px var(--s);border:1px solid rgba(241,241,239,.22);color:var(--w)}
+.cal__btns .ok{background:var(--w);color:var(--k);border-color:var(--w)}
+.cal__btns .ok:disabled{opacity:.3}
+.cal__note{margin-top:10px;font-size:11.5px;color:#8a8a86}
+.cal__bg{display:none}
+@media (max-width:900px){
+  .cal{position:fixed;left:0;right:0;bottom:0;width:auto;padding:20px 16px calc(16px + env(safe-area-inset-bottom));transform:translateY(100%);z-index:90}
+  .cal.open{transform:none}
+  .cal__bg{display:block;position:fixed;inset:0;z-index:89;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s}
+  .cal__bg.open{opacity:1;pointer-events:auto}
+  .cal__d{height:46px}
+}
 /* drawer */
 .dr{position:fixed;inset:0;z-index:80;visibility:hidden}
 .dr.on{visibility:visible}
@@ -429,7 +472,7 @@ img{display:block;max-width:100%}
         </div>
         <div class="two">
           <div class="fl"><label for="f-t" class="sr">Маршрут</label><select id="f-t"></select></div>
-          <div class="fl"><label for="f-d" class="sr">Даты</label><input id="f-d" placeholder="Даты, например 10–13 мая"></div>
+          <div class="fl dp"><label for="f-d" class="sr">Даты</label><input id="f-d" readonly placeholder="Выберите даты" aria-haspopup="dialog" aria-expanded="false" autocomplete="off"><svg class="dp__ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4" width="15" height="13.5"/><path d="M2.5 8h15M6.5 2v4M13.5 2v4"/></svg><div class="cal" id="cal" role="dialog" aria-label="Календарь" data-i18n-skip hidden></div></div>
         </div>
         <div class="fl-row"><div class="step" role="group" aria-label="Количество гостей"><span>Гостей</span><button type="button" data-d="-1" aria-label="Меньше">−</button><output id="guests">2</output><button type="button" data-d="1" aria-label="Больше">+</button></div>
           <button class="send" type="submit" aria-label="Отправить заявку"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10h14M11 4l6 6-6 6"/></svg></button></div>
@@ -569,7 +612,7 @@ img{display:block;max-width:100%}
       <div class="ph"><img src="${t.img}" data-src="${fp(t.img)}" alt="${t.n}" loading="lazy" decoding="async"><span class="badge">${dword(t.d)}</span><span class="badge badge--r">Выезд ${t.start}</span></div>
       <div class="card__b">
         <h3 class="D">${t.n}</h3>
-        <p class="route">${t.route.join('<span>→</span>')}</p>
+        <p class="route">${t.route.join(' <span>→</span> ')}</p>
         <p class="card__d">${t.lead}</p>
         <div class="chips"><span>${t.dur}</span><span>${t.lvl}</span>${t.chips.map(c => `<span>${c}</span>`).join('')}</div>
         <div class="card__f"><div class="price"><small>от</small><b>${usd(t.price)}</b><small>${t.per}</small></div><span class="more">Подробнее →</span></div>
@@ -595,7 +638,7 @@ img{display:block;max-width:100%}
           <div>Длительность<b>${t.dur}</b></div><div>Выезд<b>${t.start}, Актау</b></div><div>Сложность<b>${t.lvl}</b></div>
           <div>Группа<b>${multi ? 'от 2 человек' : 'до 3 гостей'}</b></div><div>Сезон<b>апрель — октябрь</b></div><div>Цена<b>от ${usd(t.price)}</b></div>
         </div>
-        <p class="route" style="color:var(--k)">${t.route.join('<span>→</span>')}</p>
+        <p class="route" style="color:var(--k)">${t.route.join(' <span>→</span> ')}</p>
         <h4>Программа</h4>
         <ol class="prog">${t.prog.map(([a, b, c]) => `<li><span>${a}</span><div><b>${b}</b><p>${c}</p></div></li>`).join('')}</ol>
         <div class="lists">
@@ -656,6 +699,98 @@ img{display:block;max-width:100%}
     const drBar = makeBar($('.dr__p'), $('#dr'), 'sbar--dr');
     grid.addEventListener('click', () => setTimeout(() => { drBar.upd(); drBar.wake(); }, 60));
   }
+
+  /* date picker: tour-aware range calendar */
+  (function () {
+    const inp = $('#f-d'), cal = $('#cal'), sel = $('#f-t'); if (!inp || !cal) return;
+    const bg = document.createElement('div'); bg.className = 'cal__bg'; document.body.appendChild(bg);
+    const L = {
+      ru: { m: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'], g: ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'],
+        w: ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'], ok: 'Готово', rs: 'Сбросить', p1: 'Выберите дату начала', p2: 'Выберите дату окончания', note: 'Сезон: апрель — октябрь. Выезд из Актау.', ph: 'Выберите даты',
+        dn: n => n + ' ' + (n % 10 === 1 && n % 100 !== 11 ? 'день' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 'дня' : 'дней'), prev: 'Предыдущий месяц', next: 'Следующий месяц' },
+      en: { m: ['January','February','March','April','May','June','July','August','September','October','November','December'], w: ['Mo','Tu','We','Th','Fr','Sa','Su'],
+        ok: 'Done', rs: 'Reset', p1: 'Pick a start date', p2: 'Pick an end date', note: 'Season: April — October. Departures from Aktau.', ph: 'Pick dates', dn: n => n + (n === 1 ? ' day' : ' days'), prev: 'Previous month', next: 'Next month' },
+      kk: { m: ['Қаңтар','Ақпан','Наурыз','Сәуір','Мамыр','Маусым','Шілде','Тамыз','Қыркүйек','Қазан','Қараша','Желтоқсан'], w: ['Дс','Сс','Ср','Бс','Жм','Сб','Жс'],
+        ok: 'Дайын', rs: 'Тазалау', p1: 'Басталу күнін таңдаңыз', p2: 'Аяқталу күнін таңдаңыз', note: 'Маусым: сәуір — қазан. Ақтаудан шығу.', ph: 'Күндерді таңдаңыз', dn: n => n + ' күн', prev: 'Алдыңғы ай', next: 'Келесі ай' }
+    };
+    const lang = () => L[(window.i18nLang && window.i18nLang()) || 'ru'] || L.ru;
+    const lg = () => (window.i18nLang && window.i18nLang()) || 'ru';
+    const D0 = d => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const add = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+    const same = (a, b) => a && b && a.getTime() === b.getTime();
+    const today = D0(new Date()), SEASON = m => m >= 3 && m <= 9;           // April..October
+    const ok = d => d >= today && SEASON(d.getMonth());
+    const tourDays = () => { const i = sel.selectedIndex; return i >= 0 && i < TOURS.length ? TOURS[i].d : 0; };  // 0 = free range
+    let view, start = null, end = null, hover = null;
+    const firstOpen = () => { let d = new Date(today.getFullYear(), today.getMonth(), 1); for (let i = 0; i < 24 && !(SEASON(d.getMonth()) && (d.getFullYear() > today.getFullYear() || d.getMonth() >= today.getMonth())); i++) d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+      if (d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear() && !ok(add(today, 1)) && !ok(today)) d = new Date(d.getFullYear(), d.getMonth() + 1, 1); return d; };
+    const fmtD = d => { const l = lg(), T = lang(); return l === 'en' ? T.m[d.getMonth()] + ' ' + d.getDate() : d.getDate() + ' ' + (l === 'ru' ? T.g : T.m.map(x => x.toLowerCase()))[d.getMonth()]; };
+    const fmtR = (a, b) => { const l = lg(), T = lang(), y = a.getFullYear() !== today.getFullYear() ? ' ' + a.getFullYear() : '';
+      if (!b || same(a, b)) return fmtD(a) + y;
+      if (a.getMonth() === b.getMonth()) return (l === 'en' ? T.m[a.getMonth()] + ' ' + a.getDate() + '–' + b.getDate() : a.getDate() + '–' + fmtD(b)) + y;
+      return fmtD(a) + ' — ' + fmtD(b) + y; };
+    const nDays = () => start && end ? Math.round((end - start) / 864e5) + 1 : 0;
+    function pick(d) {
+      const n = tourDays();
+      if (n) { start = d; end = add(d, n - 1); }
+      else if (!start || end) { start = d; end = null; }
+      else if (d < start) { start = d; }
+      else end = d;
+      render();
+    }
+    function render() {
+      const T = lang(), y = view.getFullYear(), m = view.getMonth(), n = tourDays();
+      const first = (new Date(y, m, 1).getDay() + 6) % 7, len = new Date(y, m + 1, 0).getDate();
+      const pvEnd = n && hover ? add(hover, n - 1) : (!n && start && !end && hover && hover > start ? hover : null), pvStart = n && hover ? hover : start;
+      let g = ''; for (let i = 0; i < first; i++) g += '<span></span>';
+      for (let d = 1; d <= len; d++) {
+        const dt = new Date(y, m, d), c = ['cal__d'];
+        if (same(dt, today)) c.push('today');
+        if (same(dt, start)) c.push('s'); if (same(dt, end)) c.push('e');
+        if (start && end && dt > start && dt < end) c.push('in');
+        else if (pvEnd && pvStart && dt >= pvStart && dt <= pvEnd && !same(dt, start) && !same(dt, end)) c.push('pv');
+        g += `<button type="button" class="${c.join(' ')}" data-t="${dt.getTime()}" ${ok(dt) && (!n || ok(add(dt, n - 1))) ? '' : 'disabled'} aria-label="${fmtD(dt)}">${d}</button>`;
+      }
+      let pv = new Date(y, m, 1); for (let i = 0; i < 12; i++) { pv = new Date(pv.getFullYear(), pv.getMonth() - 1, 1); if (SEASON(pv.getMonth())) break; }
+      const prevOk = pv >= new Date(today.getFullYear(), today.getMonth(), 1);
+      const sum = start ? `<b>${fmtR(start, end)}</b>${end ? T.dn(nDays()) : T.p2}` : `<b>—</b>${T.p1}`;
+      cal.innerHTML = `<div class="cal__h"><div class="cal__m">${T.m[m]}<i>${y}</i></div><div class="cal__nav">
+        <button type="button" data-nav="-1" aria-label="${T.prev}" ${prevOk ? '' : 'disabled'}><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 3 5 8l5 5"/></svg></button>
+        <button type="button" data-nav="1" aria-label="${T.next}"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 3 5 5-5 5"/></svg></button></div></div>
+        <div class="cal__wd">${T.w.map(w => `<span>${w}</span>`).join('')}</div><div class="cal__g">${g}</div>
+        <div class="cal__f"><div class="cal__sum">${sum}</div><div class="cal__btns"><button type="button" data-rs>${T.rs}</button><button type="button" class="ok" data-ok ${start && end ? '' : 'disabled'}>${T.ok}</button></div></div>
+        <p class="cal__note">${T.note}</p>`;
+      marks();
+    }
+    const home = cal.parentElement, sheet = matchMedia('(max-width:900px)');
+    function open() { (sheet.matches ? document.body : home).appendChild(cal); if (!view) view = start ? new Date(start.getFullYear(), start.getMonth(), 1) : firstOpen(); render(); cal.hidden = false; requestAnimationFrame(() => { cal.classList.add('open'); bg.classList.add('open'); }); inp.setAttribute('aria-expanded', 'true'); }
+    function close() { cal.classList.remove('open'); bg.classList.remove('open'); inp.setAttribute('aria-expanded', 'false'); setTimeout(() => { if (!cal.classList.contains('open')) cal.hidden = true; }, 400); }
+    function commit() { inp.value = start && end ? fmtR(start, end) + ' · ' + lang().dn(nDays()) : ''; }
+    inp.addEventListener('click', () => cal.classList.contains('open') ? close() : open());
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); open(); const b = cal.querySelector('.cal__d:not(:disabled)'); b && b.focus(); } });
+    cal.addEventListener('click', e => {
+      e.stopPropagation();
+      const nv = e.target.closest('[data-nav]'); if (nv && !nv.disabled) { const st = +nv.dataset.nav; let v = view;
+        for (let i = 0; i < 12; i++) { v = new Date(v.getFullYear(), v.getMonth() + st, 1); if (SEASON(v.getMonth())) break; }   // skip off-season months
+        if (v >= new Date(today.getFullYear(), today.getMonth(), 1)) view = v; render(); return; }
+      const d = e.target.closest('.cal__d'); if (d && !d.disabled) { pick(new Date(+d.dataset.t)); if (start && end && tourDays()) { commit(); } return; }
+      if (e.target.closest('[data-rs]')) { start = end = null; commit(); render(); return; }
+      if (e.target.closest('[data-ok]')) { commit(); close(); inp.focus(); }
+    });
+    function marks() {   // hover preview without rebuilding the grid (keeps clicks intact)
+      const n = tourDays(), pvS = n && hover ? hover : start, pvE = n && hover ? add(hover, n - 1) : (!n && start && !end && hover && hover > start ? hover : null);
+      cal.querySelectorAll('.cal__d').forEach(b => { const dt = new Date(+b.dataset.t);
+        b.classList.toggle('pv', !!(pvE && pvS && dt >= pvS && dt <= pvE && !b.classList.contains('s') && !b.classList.contains('e') && !b.classList.contains('in'))); });
+    }
+    cal.addEventListener('mouseover', e => { const d = e.target.closest('.cal__d'); const h = d && !d.disabled ? new Date(+d.dataset.t) : null; if (!same(h, hover)) { hover = h; marks(); } });
+    cal.addEventListener('mouseleave', () => { hover = null; marks(); });
+    bg.addEventListener('click', close);
+    document.addEventListener('click', e => { if (cal.classList.contains('open') && !e.target.closest('.dp')) close(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && cal.classList.contains('open')) { close(); inp.focus(); } });
+    sel.addEventListener('change', () => { const n = tourDays(); if (start && n) { end = add(start, n - 1); commit(); } else if (start && !n) { end = null; commit(); } if (!cal.hidden) render(); });
+    document.addEventListener('i18n', () => { inp.placeholder = lang().ph; commit(); if (!cal.hidden) render(); });
+    inp.placeholder = lang().ph;
+  })();
 
   /* form */
   const out = $('#guests');
