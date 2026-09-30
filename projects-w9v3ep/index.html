@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Другие проекты — Станислав Максимов</title>
+<meta name="description" content="Примеры сайтов Станислава Максимова: туры, онлайн-школа, онлайн-курс.">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="theme-color" content="#0E0D0B">
+<link rel="icon" href="../assets/favicon.svg?v=sm1" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png?v=sm1" type="image/png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0D0B; --bg-2:#161412; --bg-3:#1E1B18;
+  --ink:#E8E2D6; --mute:#958D80; --dim:#625B51;
+  --line:rgba(232,226,214,.11); --line-2:rgba(232,226,214,.2);
+  --acc:#F4B06A; --acc-ink:#15110C;
+  --sans:"Onest",system-ui,sans-serif; --serif:"Cormorant Garamond",Georgia,serif; --mono:"JetBrains Mono",monospace;
+  --pad:clamp(16px,3.2vw,48px); --ease:cubic-bezier(.19,1,.22,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.w{max-width:1440px;margin:0 auto;padding-inline:var(--pad)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--acc)}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px;border-bottom:1px solid var(--line)}
+.top a{display:inline-flex;align-items:center;gap:10px;color:var(--mute);transition:color .3s}
+.top a:hover{color:var(--ink)}
+.brand{font-weight:600;color:var(--ink)!important;letter-spacing:-.01em;font-size:16px}
+
+.head{padding-block:clamp(56px,8vw,112px) clamp(36px,4vw,56px);display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end}
+.head .mono{grid-column:1/-1;color:var(--acc)}
+.head h1{grid-column:1/9;margin:0;font-size:clamp(46px,7vw,112px);line-height:.95;font-weight:700;letter-spacing:-.045em}
+.head h1 .serif{font-size:1.08em;letter-spacing:-.02em}
+.head p{grid-column:9/13;margin:0;color:var(--mute);font-size:16px;max-width:38ch}
+
+.list{display:flex;flex-direction:column;gap:clamp(20px,2.4vw,32px);padding-bottom:clamp(60px,7vw,100px)}
+.pj{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);background:var(--bg-2);border:1px solid var(--line);border-radius:24px;padding:clamp(14px,1.6vw,22px);transition:border-color .4s,transform .7s var(--ease)}
+.pj:hover{border-color:var(--line-2);transform:translateY(-3px)}
+.shot{position:relative;border-radius:14px;overflow:hidden;background:var(--bg-3);aspect-ratio:16/10}
+.shot .d{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform 1.4s var(--ease)}
+.pj:hover .shot .d{transform:scale(1.03)}
+.shot .m{position:absolute;right:4%;bottom:-6%;width:22%;height:auto;aspect-ratio:390/844;object-fit:cover;object-position:top;border-radius:18px;border:5px solid #0b0b0a;box-shadow:0 20px 50px -10px rgba(0,0,0,.7);transition:transform 1s var(--ease)}
+.pj:hover .shot .m{transform:translateY(-6%)}
+.info{display:flex;flex-direction:column;gap:18px;padding:clamp(4px,1vw,18px) clamp(4px,1vw,12px) 6px 0}
+.info .mono{color:var(--dim)}
+.info h2{margin:0;font-size:clamp(34px,3.4vw,52px);line-height:1;font-weight:700;letter-spacing:-.04em}
+.info h2 .serif{font-size:.9em}
+.niche{margin:-8px 0 0;color:var(--acc);font-size:15px;font-weight:500}
+.info p{margin:0;color:var(--mute);font-size:16px;max-width:44ch}
+.feat{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.feat li{padding:9px 0;border-bottom:1px solid var(--line);font-size:14.5px;display:flex;gap:10px}
+.feat li::before{content:"—";color:var(--dim)}
+.go{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.btn{height:48px;padding:0 22px;border-radius:40px;display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;transition:background .3s,color .3s,border-color .3s}
+.btn--acc{background:var(--acc);color:var(--acc-ink)}
+.btn--acc:hover{background:#f7c28a}
+.btn--line{border:1px solid var(--line-2)}
+.btn--line:hover{border-color:var(--ink)}
+
+.cta{border-top:1px solid var(--line);padding-block:clamp(48px,6vw,80px);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta h3{margin:0;font-size:clamp(28px,3.2vw,48px);line-height:1.05;font-weight:700;letter-spacing:-.035em;max-width:18ch}
+.foot{border-top:1px solid var(--line);padding-block:18px 26px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--dim)}
+
+@media (max-width:900px){
+  .head{grid-template-columns:1fr}.head>*{grid-column:1/-1!important}
+  .pj{grid-template-columns:minmax(0,1fr)}
+  .info{padding:6px 4px 4px}
+}
+</style>
+</head>
+<body>
+<header class="w top">
+  <a href="../index.html" class="brand">Станислав Максимов</a>
+  <a href="../index.html" class="mono">← На главную</a>
+</header>
+
+<main class="w">
+  <section class="head">
+    <p class="mono">Портфолио · по ссылке</p>
+    <h1>Другие <span class="serif">проекты</span></h1>
+    <p>Сайты, которые я собрал под разные ниши. Откройте любой и полистайте — лучше всего с телефона, так их видят клиенты.</p>
+  </section>
+
+  <section class="list" aria-label="Проекты">
+    <article class="pj">
+      <a class="shot" href="../tethys-djfaag/" target="_blank" rel="noopener" aria-label="Открыть TETHYS">
+        <img class="d" src="img/tethys-d.jpg" alt="TETHYS — первый экран" width="1440" height="900" loading="lazy">
+        <img class="m" src="img/tethys-m.jpg" alt="" width="780" height="1688" loading="lazy">
+      </a>
+      <div class="info">
+        <span class="mono">01 · Туризм</span>
+        <h2>TETHYS</h2>
+        <p class="niche">Джип-туры по Мангистау из Актау</p>
+        <p>Каталог туров, где сразу видно маршрут, длительность и цену. Смелая типографика в стиле Awwwards.</p>
+        <ul class="feat">
+          <li>10 туров с фильтром и полной программой по дням</li>
+          <li>Цены в ₸, $ и ₽ — переключатель</li>
+          <li>Бронь в один клик из карточки тура</li>
+        </ul>
+        <div class="go"><a class="btn btn--acc" href="../tethys-djfaag/" target="_blank" rel="noopener">Открыть сайт ↗</a></div>
+      </div>
+    </article>
+
+    <article class="pj">
+      <a class="shot" href="../fluent/index.html" target="_blank" rel="noopener" aria-label="Открыть FLUENT">
+        <img class="d" src="img/fluent-d.jpg" alt="FLUENT — первый экран" width="1440" height="900" loading="lazy">
+        <img class="m" src="img/fluent-m.jpg" alt="" width="780" height="1688" loading="lazy">
+      </a>
+      <div class="info">
+        <span class="mono">02 · Образование</span>
+        <h2>FLUENT</h2>
+        <p class="niche">Школа английского и подготовки к IELTS</p>
+        <p>Лендинг онлайн-школы: форматы, цены, преподаватели, результаты учеников и запись на пробный урок.</p>
+        <ul class="feat">
+          <li>ИИ-ассистент отвечает на вопросы и собирает заявку</li>
+          <li>Мини-тест на уровень английского</li>
+          <li>Цены в ₸ и ₽</li>
+        </ul>
+        <div class="go"><a class="btn btn--acc" href="../fluent/index.html" target="_blank" rel="noopener">Открыть сайт ↗</a></div>
+      </div>
+    </article>
+
+    <article class="pj">
+      <a class="shot" href="../mads/index.html" target="_blank" rel="noopener" aria-label="Открыть srez">
+        <img class="d" src="img/srez-d.jpg" alt="srez — первый экран" width="1440" height="900" loading="lazy">
+        <img class="m" src="img/srez-m.jpg" alt="" width="780" height="1688" loading="lazy">
+      </a>
+      <div class="info">
+        <span class="mono">03 · Онлайн-курс</span>
+        <h2>srez</h2>
+        <p class="niche">Курс маркетинга: от стратегии до кампании</p>
+        <p>Продающий лендинг курса с программой на 36 занятий, тарифами, командой и отзывами выпускников.</p>
+        <ul class="feat">
+          <li>Программа, тарифы и рассрочка на одной странице</li>
+          <li>Живые анимации и 3D-визуал</li>
+          <li>Форма заявки с выбором тарифа</li>
+        </ul>
+        <div class="go"><a class="btn btn--acc" href="../mads/index.html" target="_blank" rel="noopener">Открыть сайт ↗</a></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="cta">
+    <h3>Нужен похожий сайт <span class="serif">для вас?</span></h3>
+    <div class="go"><a class="btn btn--acc" href="https://t.me/stani_dev" target="_blank" rel="noopener noreferrer">Написать в Telegram ↗</a><a class="btn btn--line" href="../index.html#pricing">Цены</a></div>
+  </section>
+</main>
+
+<footer class="w foot mono"><span>© Станислав Максимов, 2026</span><span>Демо-проекты: бренды и цены вымышлены</span></footer>
+</body>
+</html>
