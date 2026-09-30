@@ -168,6 +168,19 @@ img{display:block;max-width:100%}
 .more{height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:10px;background:var(--w);color:var(--k);font:600 14px var(--s);white-space:nowrap;transition:background .3s}
 .card:hover .more{background:#fff}
 .tours__note{margin:22px 0 0;font-size:13px;color:var(--g)}
+/* scrollbars: thin, square, in brand colours */
+html{scrollbar-width:thin;scrollbar-color:rgba(241,241,239,.55) var(--k)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:var(--k)}
+::-webkit-scrollbar-thumb{background:rgba(241,241,239,.4);border:3px solid var(--k);border-radius:0}
+::-webkit-scrollbar-thumb:hover{background:var(--w)}
+::-webkit-scrollbar-button{display:none;width:0;height:0}
+::-webkit-scrollbar-corner{background:transparent}
+.dr__p{scrollbar-width:thin;scrollbar-color:var(--k) transparent}
+.dr__p::-webkit-scrollbar{width:8px}
+.dr__p::-webkit-scrollbar-track{background:transparent;margin-block:0 76px}
+.dr__p::-webkit-scrollbar-thumb{background:rgba(11,11,11,.35);border:2px solid var(--w)}
+.dr__p::-webkit-scrollbar-thumb:hover{background:var(--k)}
 /* drawer */
 .dr{position:fixed;inset:0;z-index:80;visibility:hidden}
 .dr.on{visibility:visible}
