@@ -168,19 +168,25 @@ img{display:block;max-width:100%}
 .more{height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:10px;background:var(--w);color:var(--k);font:600 14px var(--s);white-space:nowrap;transition:background .3s}
 .card:hover .more{background:#fff}
 .tours__note{margin:22px 0 0;font-size:13px;color:var(--g)}
-/* scrollbars: thin, square, in brand colours */
-html{scrollbar-width:thin;scrollbar-color:rgba(241,241,239,.55) var(--k)}
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-track{background:var(--k)}
-::-webkit-scrollbar-thumb{background:rgba(241,241,239,.4);border:3px solid var(--k);border-radius:0}
-::-webkit-scrollbar-thumb:hover{background:var(--w)}
-::-webkit-scrollbar-button{display:none;width:0;height:0}
-::-webkit-scrollbar-corner{background:transparent}
-.dr__p{scrollbar-width:thin;scrollbar-color:var(--k) transparent}
-.dr__p::-webkit-scrollbar{width:8px}
-.dr__p::-webkit-scrollbar-track{background:transparent;margin-block:0 76px}
-.dr__p::-webkit-scrollbar-thumb{background:rgba(11,11,11,.35);border:2px solid var(--w)}
-.dr__p::-webkit-scrollbar-thumb:hover{background:var(--k)}
+/* custom scrollbar (desktop): native hidden, brand bar drawn by JS */
+@media (hover:hover) and (pointer:fine){
+  html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
+  .dr__p{scrollbar-width:none}.dr__p::-webkit-scrollbar{display:none}
+}
+.sbar{position:fixed;right:6px;top:14px;bottom:14px;width:14px;z-index:70;opacity:.0;transition:opacity .6s var(--ease);cursor:pointer}
+.sbar::before{content:"";position:absolute;right:5px;top:0;bottom:0;width:1px;background:currentColor;opacity:.18}
+.sbar.on,.sbar:hover,.sbar.drag{opacity:1}
+.sbar.none{display:none}
+.sbar__th{position:absolute;right:3px;top:0;width:5px;min-height:44px;background:currentColor;will-change:transform;transition:width .35s var(--ease),right .35s var(--ease);cursor:grab}
+.sbar:hover .sbar__th,.sbar.drag .sbar__th{width:9px;right:1px}
+.sbar.drag .sbar__th{cursor:grabbing}
+.sbar__n{position:absolute;right:calc(100% + 10px);top:50%;transform:translate(6px,-50%);font:900 20px/1 var(--d);letter-spacing:.02em;opacity:0;transition:opacity .3s,transform .5s var(--ease);white-space:nowrap}
+.sbar__n::after{content:"%";font-size:.6em;margin-left:1px;vertical-align:top}
+.sbar.on .sbar__n,.sbar:hover .sbar__n,.sbar.drag .sbar__n{opacity:1;transform:translate(0,-50%)}
+.sbar--page{color:#fff;mix-blend-mode:difference}
+.sbar--dr{position:absolute;top:80px;bottom:96px;right:8px;color:var(--k)}
+.dr:not(.on) .sbar--dr{display:none}
+@media (hover:none),(pointer:coarse){.sbar{display:none}}
 /* drawer */
 .dr{position:fixed;inset:0;z-index:80;visibility:hidden}
 .dr.on{visibility:visible}
@@ -614,6 +620,42 @@ html{scrollbar-width:thin;scrollbar-color:rgba(241,241,239,.55) var(--k)}
   $$('[data-close]', dr).forEach(b => b.addEventListener('click', closeTour));
   addEventListener('keydown', e => { if (e.key === 'Escape' && dr.classList.contains('on')) closeTour(); });
   wireImgs(grid);
+
+  /* custom scrollbar: page + tour drawer (desktop only) */
+  function makeBar(sc, host, cls) {
+    const win = sc === window, el = win ? document.documentElement : sc;
+    const tr = document.createElement('div'); tr.className = 'sbar ' + cls; tr.setAttribute('aria-hidden', 'true');
+    tr.innerHTML = '<i class="sbar__th"><b class="sbar__n">00</b></i>'; host.appendChild(tr);
+    const th = tr.firstChild, num = th.firstChild; let hideT, thH = 44;
+    const ch = () => win ? innerHeight : sc.clientHeight, top = () => win ? scrollY : sc.scrollTop;
+    const go = v => (win ? window : sc).scrollTo({ top: v, behavior: 'instant' });
+    function upd() {
+      const max = el.scrollHeight - ch(), H = tr.clientHeight; tr.classList.toggle('none', max < 8);
+      thH = Math.max(44, H * ch() / el.scrollHeight); const p = max > 0 ? top() / max : 0;
+      th.style.height = thH + 'px'; th.style.transform = `translate3d(0,${((H - thH) * p).toFixed(1)}px,0)`;
+      num.textContent = String(Math.round(p * 100)).padStart(2, '0');
+    }
+    function wake() { tr.classList.add('on'); clearTimeout(hideT); hideT = setTimeout(() => tr.classList.remove('on'), 1100); }
+    (win ? window : sc).addEventListener('scroll', () => { upd(); wake(); }, { passive: true });
+    addEventListener('resize', upd);
+    th.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation(); th.setPointerCapture(e.pointerId); tr.classList.add('drag');
+      const y0 = e.clientY, s0 = top(), k = (el.scrollHeight - ch()) / Math.max(1, tr.clientHeight - thH);
+      th.onpointermove = ev => go(s0 + (ev.clientY - y0) * k);
+      th.onpointerup = th.onpointercancel = () => { tr.classList.remove('drag'); th.onpointermove = null; wake(); };
+    });
+    tr.addEventListener('pointerdown', e => {
+      if (e.target !== tr) return; const r = tr.getBoundingClientRect();
+      (win ? window : sc).scrollTo({ top: (e.clientY - r.top - thH / 2) / Math.max(1, r.height - thH) * (el.scrollHeight - ch()), behavior: 'smooth' });
+    });
+    if ('ResizeObserver' in window) new ResizeObserver(upd).observe(win ? document.body : sc.firstElementChild || sc);
+    upd(); return { upd, wake };
+  }
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    makeBar(window, document.body, 'sbar--page');
+    const drBar = makeBar($('.dr__p'), $('#dr'), 'sbar--dr');
+    grid.addEventListener('click', () => setTimeout(() => { drBar.upd(); drBar.wake(); }, 60));
+  }
 
   /* form */
   const out = $('#guests');
