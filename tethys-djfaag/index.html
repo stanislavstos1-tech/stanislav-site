@@ -122,43 +122,72 @@ img{display:block;max-width:100%}
 .mq__t span:nth-child(even){font-style:italic;color:transparent;-webkit-text-stroke:1.5px var(--w)}
 @keyframes mq{to{transform:translateX(-50%)}}
 
-/* expeditions */
-.ex{padding-block:clamp(90px,11vw,170px) 0}
-.ex__h{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(30px,4vw,60px)}
-.ex__h h2{margin:0;font-size:clamp(70px,11vw,220px)}
-.ex__h p{margin:0;max-width:34ch;font-size:16px;color:var(--g);padding-bottom:12px}
-.row{border-top:1.5px solid var(--line)}
-.row:last-child{border-bottom:1.5px solid var(--line)}
-.row__h{width:100%;display:grid;grid-template-columns:90px 1fr auto auto 58px;gap:24px;align-items:center;text-align:left;padding:18px var(--pad);position:relative;isolation:isolate;transition:color .4s}
-.row__h::before{content:"";position:absolute;inset:0;background:var(--w);transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--ease);z-index:-1}
-.row__h:hover::before,.row.open .row__h::before{transform:scaleY(1)}
-.row__h:hover,.row.open .row__h{color:var(--k)}
-.row__n{font-size:34px}
-.row__t{font-size:clamp(56px,7.4vw,150px)}
-.row__d{font-size:16px;text-align:right}
-.row__p{font-size:clamp(34px,2.8vw,52px);text-align:right;min-width:5.2em}
-.row__x{width:58px;height:58px;border:1.5px solid currentColor;position:relative}
-.row__x::before,.row__x::after{content:"";position:absolute;left:50%;top:50%;width:20px;height:2px;background:currentColor;transform:translate(-50%,-50%);transition:transform .6s var(--ease)}
-.row__x::after{transform:translate(-50%,-50%) rotate(90deg)}
-.row.open .row__x::after{transform:translate(-50%,-50%) rotate(0)}
-.row__b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .9s var(--ease);background:var(--w);color:var(--k)}
-.row.open .row__b{grid-template-rows:1fr}
-.row__b>div{overflow:hidden}
-.row__in{display:grid;grid-template-columns:90px 1fr 1fr;gap:24px;padding:10px var(--pad) clamp(40px,4vw,64px)}
-.row__in .ph{grid-column:2;aspect-ratio:4/3}
-.days{display:flex;flex-direction:column}
-.day{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-top:1.5px solid var(--line-d)}
-.day:first-child{border-top:0;padding-top:0}
-.day .D{font-size:30px}
-.day b{display:block;font-size:20px;font-weight:600;margin-bottom:2px}
-.day p{margin:0;color:#55554f;font-size:16px}
-.cta{display:inline-flex;align-items:center;gap:18px;margin-top:22px;border:1.5px solid var(--k);padding:12px 18px 8px;font-size:32px;transition:background .4s,color .4s}
-.cta:hover{background:var(--k);color:var(--w)}
-.fly{position:fixed;left:0;top:0;width:280px;aspect-ratio:4/5;z-index:40;pointer-events:none;opacity:0;transform:translate(12%,-50%) rotate(-4deg) scale(.85);transition:opacity .35s,transform .6s var(--ease);overflow:hidden;background:#2a2a28}
-.fly.on{opacity:1;transform:translate(12%,-50%) rotate(-4deg) scale(1)}
-.fly img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
-.fly img.cur{opacity:1}
-@media (hover:none){.fly{display:none}}
+/* tours catalogue */
+.tours{padding-block:clamp(80px,9vw,140px) clamp(60px,6vw,100px)}
+.tours__h{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:28px}
+.tours__h h2{margin:0;font-size:clamp(64px,9vw,170px)}
+.tours__h p{margin:0;max-width:42ch;font-size:16px;color:var(--g);padding-bottom:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tab{height:44px;padding:0 18px;border:1px solid var(--line);font:600 15px var(--s);color:var(--w);transition:background .3s,color .3s,border-color .3s}
+.tab sup{font-size:11px;color:var(--g);margin-left:2px}
+.tab:hover{border-color:var(--w)}
+.tab.on{background:var(--w);color:var(--k);border-color:var(--w)}
+.tab.on sup{color:#6f6f6a}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{min-width:0}
+.card{display:flex;flex-direction:column;background:#141413;border:1px solid var(--line);cursor:pointer;transition:border-color .4s,transform .6s var(--ease);text-align:left}
+.card:hover{border-color:rgba(241,241,239,.5);transform:translateY(-4px)}
+.card.hide{display:none}
+.card .ph{aspect-ratio:16/11}
+.card .ph img{transition:opacity .9s var(--ease),transform 1.4s var(--ease)}
+.card:hover .ph img{transform:scale(1.05)}
+.badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--w);color:var(--k);font:900 18px/1 var(--d);text-transform:uppercase;padding:7px 10px 5px}
+.badge--r{left:auto;right:12px;background:rgba(11,11,11,.72);color:var(--w);font:600 12px/1 var(--s);padding:8px 10px;backdrop-filter:blur(6px)}
+.card__b{display:flex;flex-direction:column;gap:12px;padding:20px 20px 18px;flex:1}
+.card h3{margin:0;font-size:clamp(34px,2.6vw,44px)}
+.route{margin:0;font-size:13px;line-height:1.5;color:var(--w);font-weight:600}
+.route span{color:var(--g);margin:0 4px}
+.card__d{margin:0;font-size:15px;line-height:1.5;color:#b4b4ae}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:12.5px;padding:5px 9px;border:1px solid var(--line);color:#cfcfca}
+.card__f{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.price b{display:block;font:900 34px/1 var(--d)}
+.price small{font-size:12.5px;color:var(--g)}
+.more{height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:10px;background:var(--w);color:var(--k);font:600 14px var(--s);white-space:nowrap;transition:background .3s}
+.card:hover .more{background:#fff}
+.tours__note{margin:22px 0 0;font-size:13px;color:var(--g)}
+/* drawer */
+.dr{position:fixed;inset:0;z-index:80;visibility:hidden}
+.dr.on{visibility:visible}
+.dr__bg{position:absolute;inset:0;background:rgba(0,0,0,.6);opacity:0;transition:opacity .5s}
+.dr.on .dr__bg{opacity:1}
+.dr__p{position:absolute;top:0;right:0;bottom:0;width:min(720px,100%);background:var(--w);color:var(--k);overflow-y:auto;overscroll-behavior:contain;transform:translateX(100%);transition:transform .7s var(--ease)}
+.dr.on .dr__p{transform:none}
+.dr__x{position:fixed;top:16px;right:16px;z-index:3;width:44px;height:44px;background:var(--k);color:var(--w);display:grid;place-items:center}
+.dr__x svg{width:18px;height:18px}
+.dr .ph{aspect-ratio:16/9}
+.dr__in{padding:28px clamp(20px,3vw,40px) 40px}
+.dr__in h3{margin:0 0 10px;font-size:clamp(48px,6vw,76px)}
+.dr__lead{margin:0 0 22px;font-size:17px;line-height:1.55;color:#3c3c38}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-d);border-left:1px solid var(--line-d);margin-bottom:28px}
+.facts div{padding:12px 14px;border-right:1px solid var(--line-d);border-bottom:1px solid var(--line-d);font-size:13px;color:#6f6f6a}
+.facts b{display:block;font:900 22px/1.1 var(--d);text-transform:uppercase;color:var(--k);margin-top:4px}
+.dr h4{margin:28px 0 12px;font:900 26px/1 var(--d);text-transform:uppercase}
+.prog{margin:0;padding:0;list-style:none;border-top:1px solid var(--line-d)}
+.prog li{display:grid;grid-template-columns:84px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-d)}
+.prog li>span{font:900 20px/1.2 var(--d);text-transform:uppercase}
+.prog b{display:block;font-size:16px;margin-bottom:2px}
+.prog p{margin:0;font-size:15px;line-height:1.5;color:#55554f}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.lists ul{margin:0;padding:0;list-style:none}
+.lists li{position:relative;padding:7px 0 7px 22px;font-size:15px;line-height:1.45;border-bottom:1px solid var(--line-d)}
+.lists li::before{content:"+";position:absolute;left:0;top:7px;font-weight:600}
+.lists .no li::before{content:"–";color:#8a8a86}
+.dr__cta{position:sticky;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:16px;margin:32px calc(clamp(20px,3vw,40px)*-1) -40px;padding:14px clamp(20px,3vw,40px);background:var(--k);color:var(--w)}
+.dr__cta b{font:900 30px/1 var(--d)}
+.dr__cta small{display:block;font-size:12.5px;color:var(--g)}
+.dr__cta a{height:48px;padding:0 20px;display:inline-flex;align-items:center;background:var(--w);color:var(--k);font:600 15px var(--s)}
+.noscroll{overflow:hidden}
 
 /* numbers (light) */
 .nums{display:grid;grid-template-columns:repeat(4,1fr);border-top:1.5px solid var(--k)}
@@ -234,9 +263,7 @@ img{display:block;max-width:100%}
   .nav{display:none}.clock{display:none}.burger{display:block}
   .hdr__in{grid-template-columns:1fr auto;height:76px}
   .hero{padding-top:76px}
-  .row__h{grid-template-columns:1fr 48px;gap:6px 16px}
-  .row__n{display:none}.row__t{grid-column:1}.row__d,.row__p{grid-column:1;text-align:left}.row__x{grid-column:2;grid-row:1;width:48px;height:48px}
-  .row__in{grid-template-columns:1fr}.row__in .ph{grid-column:1}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:900px){
   .logo{font-size:40px}
@@ -246,7 +273,9 @@ img{display:block;max-width:100%}
   .stats{grid-template-columns:1fr 1fr 1fr;gap:12px}.stats b{font-size:42px;white-space:nowrap}
   .hero h1{font-size:19vw}.hero h1 .ln:nth-child(2){padding-left:0}
   .hero h1 .ip{display:none}
-  .ex__h{flex-direction:column;align-items:flex-start}
+  .tours__h{flex-direction:column;align-items:flex-start}
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .facts{grid-template-columns:1fr 1fr}.lists{grid-template-columns:1fr}
   .nums{grid-template-columns:1fr 1fr}
   .num:nth-child(2){border-right:0}.num:nth-child(-n+2){border-bottom:1.5px solid var(--line-d)}
   .sh__g{grid-template-columns:1fr}.sh__l{border-right:0;border-bottom:1.5px solid var(--line-d)}
@@ -265,13 +294,13 @@ img{display:block;max-width:100%}
   <div class="w hdr__in">
     <a href="#top" class="logo D" aria-label="TETHYS — на главную">TETHYS</a>
     <nav class="nav D" aria-label="Основное меню">
-      <a href="#places"><span data-t="Места">Места</span></a><a href="#expeditions"><span data-t="Экспедиции">Экспедиции</span></a><a href="#about"><span data-t="О нас">О нас</span></a><a href="#faq"><span data-t="Вопросы">Вопросы</span></a><a href="#contact"><span data-t="Контакты">Контакты</span></a>
+      <a href="#places"><span data-t="Места">Места</span></a><a href="#expeditions"><span data-t="Туры">Туры</span></a><a href="#about"><span data-t="О нас">О нас</span></a><a href="#faq"><span data-t="Вопросы">Вопросы</span></a><a href="#contact"><span data-t="Контакты">Контакты</span></a>
     </nav>
     <div class="clock D" aria-label="Время в Актау">Актау <span id="clock">--:--</span></div>
     <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
-<nav class="mmenu D" aria-label="Мобильное меню"><a href="#places">Места</a><a href="#expeditions">Экспедиции</a><a href="#about">О нас</a><a href="#contact">Контакты</a><p style="font:500 16px var(--s);text-transform:none">Выезд из Актау · апрель — октябрь</p></nav>
+<nav class="mmenu D" aria-label="Мобильное меню"><a href="#places">Места</a><a href="#expeditions">Туры</a><a href="#about">О нас</a><a href="#contact">Контакты</a><p style="font:500 16px var(--s);text-transform:none">Выезд из Актау · апрель — октябрь</p></nav>
 
 <main id="top">
 <section class="hero" aria-label="Главный экран">
@@ -279,10 +308,33 @@ img{display:block;max-width:100%}
     <h1 class="D"><span class="ln"><span>Здесь был <i>океан...</i></span></span><span class="ln"><span><i>Теперь</i> <span class="ip ip--sk"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Fangs_of_Bozzhyra.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Fangs_of_Bozzhyra.jpg" alt="" loading="eager" decoding="async"></span> Мангистау</span></span></h1>
   </div>
   <div class="w hero__b fd">
-    <p>Экспедиции на внедорожниках с выездом из Актау — Бозжыра, Шерқала, Торыш, Карагие и Каспий.</p>
-    <a href="#places" class="sqbtn" aria-label="Листать вниз"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v15M4 11l6 6 6-6"/></svg></a>
+    <p>Джип-туры по Мангистау на 1–7 дней с выездом из Актау: Бозжыра, Торыш, Шерқала, Карагие, Тузбаир и Каспий. <a href="#expeditions" style="text-decoration:underline;text-underline-offset:4px">Смотреть туры →</a></p>
+    <a href="#expeditions" class="sqbtn" aria-label="К турам"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v15M4 11l6 6 6-6"/></svg></a>
   </div>
 </section>
+
+<section class="tours" id="expeditions" aria-labelledby="ex-t">
+  <div class="w tours__h">
+    <h2 class="D" id="ex-t">Туры <i>из Актау</i></h2>
+    <p>Выберите маршрут — в карточке сразу видно, куда едем, сколько длится и сколько стоит. Нажмите «Подробнее», чтобы открыть программу по часам.</p>
+  </div>
+  <div class="w tabs" role="tablist" aria-label="Длительность тура">
+    <button class="tab on" role="tab" aria-selected="true" data-f="all">Все <sup id="cAll"></sup></button>
+    <button class="tab" role="tab" aria-selected="false" data-f="1">1 день <sup id="c1"></sup></button>
+    <button class="tab" role="tab" aria-selected="false" data-f="2-3">2–3 дня <sup id="c23"></sup></button>
+    <button class="tab" role="tab" aria-selected="false" data-f="4-7">4–7 дней <sup id="c47"></sup></button>
+  </div>
+  <div class="w grid" id="grid"></div>
+  <p class="w tours__note">Цены — демо. Однодневные туры — за машину до 3 гостей, многодневные — за человека при группе от 2. Индивидуальный маршрут соберём по запросу.</p>
+</section>
+
+<div class="dr" id="dr" aria-hidden="true">
+  <div class="dr__bg" data-close></div>
+  <aside class="dr__p" role="dialog" aria-modal="true" aria-labelledby="drT">
+    <button class="dr__x" data-close aria-label="Закрыть"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l12 12M16 4 4 16"/></svg></button>
+    <div id="drBody"></div>
+  </aside>
+</div>
 
 <section class="light" id="places" aria-labelledby="pl-t">
   <h2 class="sr" id="pl-t">Места</h2>
@@ -309,51 +361,6 @@ img{display:block;max-width:100%}
 
 <div class="mq D" aria-hidden="true"><div class="mq__t" id="mq"><span>Актау</span><span>Устюрт</span><span>Бозжыра</span><span>Торыш</span><span>Шерқала</span><span>Карагие</span></div></div>
 
-<section class="ex" id="expeditions" aria-labelledby="ex-t">
-  <div class="w ex__h"><h2 class="D" id="ex-t">Экспеди<i>ции</i></h2><p>Цена — за внедорожник с гидом, до четырёх гостей. Старт и финиш в Актау, встречаем в аэропорту.</p></div>
-  <div class="rows">
-    <div class="row" data-img="0">
-      <button class="row__h D" aria-expanded="false"><span class="row__n">01</span><span class="row__t">Белый <i>день</i></span><span class="row__d" style="font:500 16px var(--s);text-transform:none">1 день<br>Бозжыра</span><span class="row__p">180 000 ₸</span><span class="row__x" aria-hidden="true"></span></button>
-      <div class="row__b"><div><div class="row__in">
-        <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" alt="Бозжыра" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
-        <div class="days">
-          <div class="day"><span class="D">05:30</span><div><b>Выезд из Актау</b><p>Забираем из отеля, термос с кофе, дорога на восток к Устюрту.</p></div></div>
-          <div class="day"><span class="D">10:00</span><div><b>Бозжыра с плато</b><p>Смотровые над каньоном, спуск к «клыкам», съёмка без спешки.</p></div></div>
-          <div class="day"><span class="D">14:00</span><div><b>Обед в каньоне</b><p>Горячий обед у скалы и час тишины в тени.</p></div></div>
-          <div class="day"><span class="D">20:00</span><div><b>Закат и возвращение</b><p>Последний свет на обрыве, в Актау — к ночи.</p></div></div>
-          <a href="#contact" class="cta D" data-tour="Белый день">Запросить даты →</a>
-        </div>
-      </div></div></div>
-    </div>
-    <div class="row" data-img="1">
-      <button class="row__h D" aria-expanded="false"><span class="row__n">02</span><span class="row__t">Три <i>горизонта</i></span><span class="row__d" style="font:500 16px var(--s);text-transform:none">3 дня<br>Шерқала · Торыш · Бозжыра</span><span class="row__p">520 000 ₸</span><span class="row__x" aria-hidden="true"></span></button>
-      <div class="row__b"><div><div class="row__in">
-        <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg" alt="Шерқала" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
-        <div class="days">
-          <div class="day"><span class="D">День 1</span><div><b>Шерқала и Торыш</b><p>Гора-юрта днём, долина шаров к вечеру, ночь в лагере под скалами.</p></div></div>
-          <div class="day"><span class="D">День 2</span><div><b>Бозжыра целиком</b><p>Плато, каньоны и «клыки» — рассвет и закат в одном месте.</p></div></div>
-          <div class="day"><span class="D">День 3</span><div><b>К морю</b><p>Меловые склоны по пути и вечер на берегу Каспия.</p></div></div>
-          <a href="#contact" class="cta D" data-tour="Три горизонта">Запросить даты →</a>
-        </div>
-      </div></div></div>
-    </div>
-    <div class="row" data-img="2">
-      <button class="row__h D" aria-expanded="false"><span class="row__n">03</span><span class="row__t">Большой <i>Тетис</i></span><span class="row__d" style="font:500 16px var(--s);text-transform:none">5 дней<br>Мангистау и Устюрт</span><span class="row__p">890 000 ₸</span><span class="row__x" aria-hidden="true"></span></button>
-      <div class="row__b"><div><div class="row__in">
-        <div class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG?width=1280" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG" alt="Впадина Карагие" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Karagiye_Depression.JPG" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
-        <div class="days">
-          <div class="day"><span class="D">День 1</span><div><b>Карагие и Шерқала</b><p>Спуск на 132 метра ниже моря и гора-юрта на закате.</p></div></div>
-          <div class="day"><span class="D">День 2</span><div><b>Торыш и Бекет-Ата</b><p>Долина шаров и тишина подземной мечети.</p></div></div>
-          <div class="day"><span class="D">День 3</span><div><b>Бозжыра</b><p>Весь день на плато, ночь в каньоне у костра.</p></div></div>
-          <div class="day"><span class="D">День 4</span><div><b>Кызылкуп и Айракты</b><p>Полосатые склоны и каменные «замки» в вечернем свете.</p></div></div>
-          <div class="day"><span class="D">День 5</span><div><b>Каспий</b><p>Возвращение в Актау и прощальный закат над морем.</p></div></div>
-          <a href="#contact" class="cta D" data-tour="Большой Тетис">Запросить даты →</a>
-        </div>
-      </div></div></div>
-    </div>
-  </div>
-</section>
-<div class="fly" id="fly" aria-hidden="true"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" alt="" loading="lazy" decoding="async"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg" alt="" loading="lazy" decoding="async"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Karagiye_Depression.JPG" alt="" loading="lazy" decoding="async"></div>
 
 <section class="light" aria-labelledby="in-t" style="margin-top:clamp(90px,11vw,170px)">
   <h2 class="h D" id="in-t">Всё <i>включено</i></h2>
@@ -386,7 +393,7 @@ img{display:block;max-width:100%}
           <div class="fl"><label for="f-p" class="sr">Телефон</label><input id="f-p" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="18"></div>
         </div>
         <div class="two">
-          <div class="fl"><label for="f-t" class="sr">Маршрут</label><select id="f-t"><option>Белый день</option><option>Три горизонта</option><option>Большой Тетис</option><option>Индивидуальный</option></select></div>
+          <div class="fl"><label for="f-t" class="sr">Маршрут</label><select id="f-t"></select></div>
           <div class="fl"><label for="f-d" class="sr">Даты</label><input id="f-d" placeholder="Даты, например 10–13 мая"></div>
         </div>
         <div class="fl-row"><div class="step" role="group" aria-label="Количество гостей"><span>Гостей</span><button type="button" data-d="-1" aria-label="Меньше">−</button><output id="guests">2</output><button type="button" data-d="1" aria-label="Больше">+</button></div>
@@ -405,13 +412,13 @@ img{display:block;max-width:100%}
       <ul class="D cities"><li>Актау</li><li>Бозжыра</li><li>Шерқала</li><li><i>Карагие</i></li><li>Устюрт</li></ul>
       <div class="det"><h3 class="D">Контакты</h3><p>Актау<br>Мангистауская область<br>Казахстан</p><p><a href="tel:+77000000000">+7 700 000 00 00</a><br><a href="#contact">hello@tethys.kz</a></p></div>
       <div class="ph det__ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg?width=960" data-src="https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg" alt="Актау, Каспий" loading="lazy" decoding="async"><a class="credit" href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Фото: Wikimedia Commons</a></div>
-      <nav class="D sh__nav" aria-label="Меню в подвале"><a href="#places">Места</a><a href="#expeditions">Экспедиции</a><a href="#about">О нас</a><a href="#faq">Вопросы</a><a href="#top">Наверх</a></nav>
+      <nav class="D sh__nav" aria-label="Меню в подвале"><a href="#places">Места</a><a href="#expeditions">Туры</a><a href="#about">О нас</a><a href="#faq">Вопросы</a><a href="#top">Наверх</a></nav>
     </div>
   </div>
 </section>
 <footer class="light ftr">
   <div class="ftr__b"><span class="D logo">TETHYS</span><span>© 2026 TETHYS · демо-проект: бренд, цены и контакты вымышлены</span><span>Дизайн и код — Stanislav Maksimov</span></div>
-  <details class="cred"><summary>Фото: Wikimedia Commons, свободные лицензии — источники</summary><div class="credits"><a href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Bozzhyra valley, Mangistau region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Sherkala, Mangistau, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Karagiye_Depression.JPG" target="_blank" rel="noopener">Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Aktau Sunset over the Caspian Sea</a><a href="https://commons.wikimedia.org/wiki/File:Fangs_of_Bozzhyra.jpg" target="_blank" rel="noopener">Fangs of Bozzhyra</a><a href="https://commons.wikimedia.org/wiki/File:Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Southeast view on Bozjyra, Manğystaw region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" target="_blank" rel="noopener">Конкреции в Западном Казахстане. Concretions. Western Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:View_of_Karagiye_Depression.JPG" target="_blank" rel="noopener">View of Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" target="_blank" rel="noopener">Kyzylkup site at Ustyurt Nature Reserve</a><p style="margin-top:10px;font-size:12px">Wikimedia Commons, свободные лицензии (CC BY-SA и др.). Автор и лицензия — на странице каждого файла.</p></div></details>
+  <details class="cred"><summary>Фото: Wikimedia Commons, свободные лицензии — источники</summary><div class="credits"><a href="https://commons.wikimedia.org/wiki/File:Aktau_Sunset_over_the_Caspian_Sea.jpg" target="_blank" rel="noopener">Aktau Sunset over the Caspian Sea</a><a href="https://commons.wikimedia.org/wiki/File:Fangs_of_Bozzhyra.jpg" target="_blank" rel="noopener">Fangs of Bozzhyra</a><a href="https://commons.wikimedia.org/wiki/File:Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Southeast view on Bozjyra, Manğystaw region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Sherkala,_Mangistau,_Kazakhstan.jpg" target="_blank" rel="noopener">Sherkala, Mangistau, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG" target="_blank" rel="noopener">Конкреции в Западном Казахстане. Concretions. Western Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:View_of_Karagiye_Depression.JPG" target="_blank" rel="noopener">View of Karagiye Depression</a><a href="https://commons.wikimedia.org/wiki/File:Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg" target="_blank" rel="noopener">Kyzylkup site at Ustyurt Nature Reserve</a><a href="https://commons.wikimedia.org/wiki/File:Shakpak-Ata.jpg" target="_blank" rel="noopener">Shakpak-Ata</a><a href="https://commons.wikimedia.org/wiki/File:Sor_Tuzbair,_Mangistau,_Kazakhstan,_November_2024.jpg" target="_blank" rel="noopener">Sor Tuzbair, Mangistau, Kazakhstan, November 2024</a><a href="https://commons.wikimedia.org/wiki/File:Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg" target="_blank" rel="noopener">Bozzhyra valley, Mangistau region, Kazakhstan</a><a href="https://commons.wikimedia.org/wiki/File:Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg" target="_blank" rel="noopener">Airakty Shomanai Mountains in Mangystau Region, Kazakhstan (April 2024)</a><p style="margin-top:10px;font-size:12px">Wikimedia Commons, свободные лицензии (CC BY-SA и др.). Автор и лицензия — на странице каждого файла.</p></div></details>
 </footer>
 
 <script>
@@ -420,11 +427,13 @@ img{display:block;max-width:100%}
   const root = document.documentElement, RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* photos: Commons thumbnail → original → keep placeholder */
-  $$('img[data-src]').forEach(img => {
+  function wireImgs(scope) { $$('img[data-src]', scope).forEach(img => {
+    if (img.dataset.w) return; img.dataset.w = 1;
     img.addEventListener('load', () => img.classList.add('ok'));
     img.addEventListener('error', () => { if (img.src !== img.dataset.src) img.src = img.dataset.src; else img.style.display = 'none'; });
     if (img.complete && img.naturalWidth) img.classList.add('ok');
-  });
+  }); }
+  wireImgs(document);
 
   /* intro */
   const go = () => root.classList.add('loaded');
@@ -460,21 +469,110 @@ img{display:block;max-width:100%}
   /* marquee */
   const mq = $('#mq'); mq.innerHTML += mq.innerHTML;
 
-  /* expeditions */
-  $$('.row__h').forEach(h => h.addEventListener('click', () => {
-    const r = h.parentElement, open = !r.classList.contains('open');
-    $$('.row').forEach(o => { o.classList.remove('open'); $('.row__h', o).setAttribute('aria-expanded', false); });
-    if (open) { r.classList.add('open'); h.setAttribute('aria-expanded', true); }
+  /* tours: data → cards + drawer */
+  const DAY_INC = ['Внедорожник 4×4 с кондиционером', 'Водитель-гид, местный житель', 'Пикник или обед в пути, вода', 'Входные билеты по программе', 'Трансфер от отеля в Актау и обратно'];
+  const CAMP_INC = ['Внедорожник 4×4, не больше 3 гостей в машине', 'Гид и водитель на всю поездку', 'Трёхразовое питание (кроме завтрака в 1-й день и ужина в последний)', 'Лагерь: палатки, самонадувающиеся коврики, спальники, стол и стулья', 'Встреча в аэропорту или отеле Актау', 'Входные билеты по программе'];
+  const NOT_INC = ['Авиабилеты до Актау', 'Отель в Актау до и после тура', 'Личные расходы и сувениры'];
+  const TOURS = [
+    { id: 'shary', n: 'Шары и замки', d: 1, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/%D0%9A%D0%BE%D0%BD%D0%BA%D1%80%D0%B5%D1%86%D0%B8%D0%B8_%D0%B2_%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%BE%D0%BC_%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D1%82%D0%B0%D0%BD%D0%B5._Concretions._Western_Kazakhstan.JPG?width=1280', start: '09:00', dur: '≈ 12 часов', lvl: 'Лёгкий', price: 340, per: 'за машину',
+      route: ['Актау', 'Торыш', 'Айракты', 'Кокала', 'Шерқала'], chips: ['Каменные шары', 'Закат у Шерқалы'],
+      lead: 'Самый насыщенный день рядом с Актау: поле каменных шаров, «замки» Айракты, пёстрые склоны Кокалы и гора Шерқала в вечернем свете.',
+      prog: [['09:00', 'Выезд из Актау', 'Забираем из отеля, по пути — короткий рассказ о том, как здесь оказалось дно океана.'], ['11:30', 'Долина шаров Торыш', 'Прогулка среди каменных сфер размером с человека и больше.'], ['14:00', 'Айракты и обед', 'Столовые горы-«замки» и пикник в тени.'], ['16:30', 'Кокала', 'Разноцветные глиняные склоны — лучшая точка для портретов.'], ['18:30', 'Шерқала', 'Гора-юрта на закате и дорога домой.']] },
+    { id: 'svyatyni', n: 'Подземные святыни', d: 1, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Shakpak-Ata.jpg?width=1280', start: '09:00', dur: '≈ 10 часов', lvl: 'Лёгкий', price: 340, per: 'за машину',
+      route: ['Актау', 'Капамсай', 'Шакпак-Ата', 'Жыгылган'], chips: ['Мечеть в скале', 'Обрыв над Каспием'],
+      lead: 'Маршрут вдоль Каспия: узкий каньон Капамсай, мечеть Шакпак-Ата, вырубленная в скале, и обрыв Жыгылган — «упавшая земля».',
+      prog: [['09:00', 'Выезд из Актау', 'Едем вдоль побережья на запад полуострова.'], ['11:00', 'Каньон Капамсай', 'Короткий трекинг по дну ущелья.'], ['13:30', 'Шакпак-Ата', 'Подземная мечеть с кельями и древними надписями.'], ['16:00', 'Жыгылган', 'Гигантский провал берега с видом на море, отпечатки древних животных.']] },
+    { id: 'belaya', n: 'Белая Бозжыра', d: 1, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Southeast_view_on_Bozjyra,_Man%C4%9Fystaw_region,_Kazakhstan.jpg?width=1280', start: '06:00', dur: '≈ 16 часов', lvl: 'Средний', price: 430, per: 'за машину',
+      route: ['Актау', 'Карагие', 'Шопан-Ата', 'Бекет-Ата', 'Бозжыра'], chips: ['Две панорамы Бозжыры', 'Бекет-Ата'],
+      lead: 'Длинный, но главный день: впадина Карагие, подземные мечети Шопан-Ата и Бекет-Ата и две верхние панорамы Бозжыры.',
+      prog: [['06:00', 'Ранний выезд', 'Чтобы успеть всё и застать мягкий свет на плато.'], ['07:00', 'Впадина Карагие', '132 метра ниже уровня моря — остановка на смотровой.'], ['11:00', 'Шопан-Ата и Бекет-Ата', 'Места паломничества, подземные мечети в скалах.'], ['16:00', 'Бозжыра сверху', 'Две панорамы на белые каньоны и «клыки».'], ['22:00', 'Возвращение', 'В Актау поздно вечером.']] },
+    { id: 'tuzbair', n: 'Солёное зеркало', d: 1, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sor_Tuzbair,_Mangistau,_Kazakhstan,_November_2024.jpg?width=1280', start: '08:00', dur: '≈ 11 часов', lvl: 'Лёгкий', price: 330, per: 'за машину',
+      route: ['Актау', 'Тузбаир', 'Актау'], chips: ['Фотопрогулка', 'Пикник'],
+      lead: 'Белые меловые стены и солончак, который после дождя превращается в зеркало. День для неспешной фотопрогулки и пикника.',
+      prog: [['08:00', 'Выезд из Актау', 'Дорога через степь к солончаку.'], ['12:00', 'Тузбаир', 'Прогулка вдоль белых обрывов и по соляной корке.'], ['14:30', 'Пикник', 'Обед с видом на белые стены.'], ['19:00', 'Актау', 'Возвращение к ужину.']] },
+    { id: 'tiramisu', n: 'Тирамису и Бокты', d: 1, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kyzylkup_site_at_Ustyurt_Nature_Reserve.jpg?width=1280', start: '06:00', dur: '≈ 16 часов', lvl: 'Средний', price: 430, per: 'за машину',
+      route: ['Актау', 'Карагие', 'Бозжыра', 'Кызылкуп', 'Бокты'], chips: ['Полосатый Кызылкуп', 'Гора с купюры'],
+      lead: 'Бозжыра, полосатые склоны Кызылкупа — «тирамису» из белого мела и красной глины — и гора Бокты, та самая с купюры в 1000 тенге.',
+      prog: [['06:00', 'Выезд из Актау', 'Через впадину Карагие на восток.'], ['11:00', 'Бозжыра', 'Панорамы каньона.'], ['15:00', 'Кызылкуп', 'Прогулка по слоистым склонам.'], ['18:00', 'Бокты', 'Пирамида на закате.'], ['23:00', 'Актау', 'Возвращение ночью.']] },
+    { id: 'step', n: 'Ночь в степи', d: 2, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sherkala,_Mangistau,_Kazakhstan.jpg?width=1280', start: '09:00', dur: '2 дня / 1 ночь', lvl: 'Лёгкий', price: 290, per: 'за человека',
+      route: ['Торыш', 'Кокала', 'Шерқала', 'Айракты'], chips: ['Ночь в палатке', 'Звёзды'],
+      lead: 'Идеальное знакомство с Мангистау без спешки: те же шары и «замки», но с ночёвкой под звёздами и рассветом в степи.',
+      prog: [['День 1', 'Торыш и Кокала', 'Долина шаров, цветные склоны, закат у Шерқалы и ужин у костра.'], ['День 2', 'Айракты', 'Рассвет в лагере, прогулка по долине «замков», возвращение в Актау к вечеру.']] },
+    { id: 'klyki', n: 'Клыки Устюрта', d: 3, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Fangs_of_Bozzhyra.jpg?width=1280', start: '09:00', dur: '3 дня / 2 ночи', lvl: 'Средний', price: 430, per: 'за человека',
+      route: ['Торыш', 'Шерқала', 'Айракты', 'Бозжыра', 'Кызылкуп'], chips: ['Прогулка по краю Клыков', '2 ночи в лагере'],
+      lead: 'Три дня, за которые Мангистау раскрывается полностью: от каменных шаров до стометровых «клыков» Бозжыры и полосатого Кызылкупа.',
+      prog: [['День 1', 'Торыш и Шерқала', 'Шары, гора-юрта, первая ночь в лагере.'], ['День 2', 'Бозжыра', 'Весь день на плато, ночёвка у каньона.'], ['День 3', 'Клыки и Кызылкуп', 'Подъём к «клыкам», прогулка по краю обрыва, Кызылкуп и возвращение в Актау.']] },
+    { id: 'stihii', n: 'Четыре стихии', d: 4, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Bozzhyra_valley,_Mangistau_region,_Kazakhstan.jpg?width=1280', start: '09:00', dur: '4 дня / 3 ночи', lvl: 'Средний', price: 580, per: 'за человека',
+      route: ['Торыш', 'Айракты', 'Тузбаир', 'Бозжыра', 'Бекет-Ата'], chips: ['Солончак Тузбаир', 'Ущелья'],
+      lead: 'Камень, соль, мел и небо: ущелья и солончаки, белые стены Тузбаира и каньоны Бозжыры, три ночи в палатках.',
+      prog: [['День 1', 'Торыш и Айракты', 'Шары, «замки», лагерь.'], ['День 2', 'Тузбаир', 'Солончак и меловые стены.'], ['День 3', 'Бозжыра', 'Каньоны и ночь у «клыков».'], ['День 4', 'Бекет-Ата', 'Подземная мечеть и возвращение в Актау.']] },
+    { id: 'tethys', n: 'Большой Тетис', d: 5, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Airakty_Shomanai_Mountains_in_Mangystau_Region,_Kazakhstan_(April_2024).jpg?width=1280', start: '09:00', dur: '5 дней / 4 ночи', lvl: 'Средний', price: 720, per: 'за человека',
+      route: ['Торыш', 'Кокала', 'Айракты', 'Бозжыра', 'Кызылкуп', 'Бокты'], chips: ['Все главные места', 'Сотни км бездорожья'],
+      lead: 'Все главные ландшафты Мангистау за пять дней: сотни километров бездорожья, ночёвки под звёздами и ни одного автобуса.',
+      prog: [['День 1', 'Торыш и Кокала', 'Встреча в Актау, шары и обед в придорожном кафе.'], ['День 2', 'Айракты и Бозжыра', 'Долина «замков», вечер на плато.'], ['День 3', 'Бозжыра', 'Каньоны и «клыки» с разных сторон.'], ['День 4', 'Кызылкуп и Бокты', 'Полосатые склоны и пирамида Бокты.'], ['День 5', 'Обратно', 'Бекет-Ата по пути и возвращение в Актау.']] },
+    { id: 'nedelya', n: 'Неделя на дне океана', d: 7, img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Aktau_Sunset_over_the_Caspian_Sea.jpg?width=1280', start: '09:00', dur: '7 дней / 6 ночей', lvl: 'Средний', price: 990, per: 'за человека',
+      route: ['Капамсай', 'Шакпак-Ата', 'Торыш', 'Тузбаир', 'Бозжыра', 'Кызылкуп', 'Каспий'], chips: ['≈ 1500 км', 'Весь полуостров'],
+      lead: 'Полный Мангистау за неделю — около 1500 километров от каньонов у Каспия до края Устюрта. Для тех, кто хочет увидеть всё.',
+      prog: [['День 1', 'Капамсай и Шакпак-Ата', 'Каньон и подземная мечеть.'], ['День 2', 'Жыгылган и Торыш', 'Обрыв над морем, долина шаров.'], ['День 3', 'Айракты и Шерқала', 'Долина «замков» и гора-юрта.'], ['День 4', 'Тузбаир', 'Солончак и меловые стены.'], ['День 5', 'Бозжыра', 'Весь день на плато.'], ['День 6', 'Клыки, Кызылкуп, Бокты', 'Кульминация поездки.'], ['День 7', 'Каспий', 'Возвращение и прощальный закат в Актау.']] },
+  ];
+  const dword = n => n === 1 ? '1 день' : n < 5 ? n + ' дня' : n + ' дней';
+  const usd = n => '$' + n.toLocaleString('en-US');
+  const grid = $('#grid'), sel = $('#f-t');
+  const fp = src => src.replace(/\?width=\d+$/, '');
+  grid.innerHTML = TOURS.map(t => `
+    <article class="card" data-d="${t.d}" data-id="${t.id}" tabindex="0" role="button" aria-label="${t.n}: подробнее">
+      <div class="ph"><img src="${t.img}" data-src="${fp(t.img)}" alt="${t.n}" loading="lazy" decoding="async"><span class="badge">${dword(t.d)}</span><span class="badge badge--r">Выезд ${t.start}</span></div>
+      <div class="card__b">
+        <h3 class="D">${t.n}</h3>
+        <p class="route">${t.route.join('<span>→</span>')}</p>
+        <p class="card__d">${t.lead}</p>
+        <div class="chips"><span>${t.dur}</span><span>${t.lvl}</span>${t.chips.map(c => `<span>${c}</span>`).join('')}</div>
+        <div class="card__f"><div class="price"><small>от</small><b>${usd(t.price)}</b><small>${t.per}</small></div><span class="more">Подробнее →</span></div>
+      </div>
+    </article>`).join('');
+  sel.innerHTML = TOURS.map(t => `<option>${t.n} · ${dword(t.d)}</option>`).join('') + '<option>Индивидуальный маршрут</option>';
+  const cnt = f => TOURS.filter(f).length;
+  $('#cAll').textContent = TOURS.length; $('#c1').textContent = cnt(t => t.d === 1); $('#c23').textContent = cnt(t => t.d >= 2 && t.d <= 3); $('#c47').textContent = cnt(t => t.d >= 4);
+  $$('.tab').forEach(tb => tb.addEventListener('click', () => {
+    $$('.tab').forEach(x => { x.classList.toggle('on', x === tb); x.setAttribute('aria-selected', x === tb); });
+    const f = tb.dataset.f;
+    $$('.card').forEach(c => { const d = +c.dataset.d; c.classList.toggle('hide', !(f === 'all' || (f === '1' && d === 1) || (f === '2-3' && d >= 2 && d <= 3) || (f === '4-7' && d >= 4))); });
   }));
-  const fly = $('#fly'), flyImgs = $$('img', fly); let fx = 0, fy = 0, tx = 0, ty = 0;
-  addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-  (function mv() { fx += (tx - fx) * .14; fy += (ty - fy) * .14; fly.style.left = fx + 'px'; fly.style.top = fy + 'px'; requestAnimationFrame(mv); })();
-  $$('.row__h').forEach(h => {
-    h.addEventListener('mouseenter', () => { if (h.parentElement.classList.contains('open')) return; const i = +h.parentElement.dataset.img; flyImgs.forEach((im, k) => im.classList.toggle('cur', k === i)); fly.classList.add('on'); });
-    h.addEventListener('mouseleave', () => fly.classList.remove('on'));
-    h.addEventListener('click', () => fly.classList.remove('on'));
-  });
-  $$('[data-tour]').forEach(a => a.addEventListener('click', () => { $('#f-t').value = a.dataset.tour; }));
+  const dr = $('#dr'), drBody = $('#drBody'); let lastFocus = null;
+  function openTour(id) {
+    const t = TOURS.find(x => x.id === id), multi = t.d > 1;
+    drBody.innerHTML = `
+      <div class="ph"><img src="${t.img}" data-src="${fp(t.img)}" alt="${t.n}"></div>
+      <div class="dr__in">
+        <h3 class="D" id="drT">${t.n}</h3>
+        <p class="dr__lead">${t.lead}</p>
+        <div class="facts">
+          <div>Длительность<b>${t.dur}</b></div><div>Выезд<b>${t.start}, Актау</b></div><div>Сложность<b>${t.lvl}</b></div>
+          <div>Группа<b>${multi ? 'от 2 человек' : 'до 3 гостей'}</b></div><div>Сезон<b>апрель — октябрь</b></div><div>Цена<b>от ${usd(t.price)}</b></div>
+        </div>
+        <p class="route" style="color:var(--k)">${t.route.join('<span>→</span>')}</p>
+        <h4>Программа</h4>
+        <ol class="prog">${t.prog.map(([a, b, c]) => `<li><span>${a}</span><div><b>${b}</b><p>${c}</p></div></li>`).join('')}</ol>
+        <div class="lists">
+          <div><h4>Входит</h4><ul>${(multi ? CAMP_INC : DAY_INC).map(x => `<li>${x}</li>`).join('')}</ul></div>
+          <div class="no"><h4>Не входит</h4><ul>${NOT_INC.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        </div>
+        <h4>Что взять</h4>
+        <p class="dr__lead" style="margin:0">Удобную закрытую обувь, головной убор, солнцезащитный крем, тёплую кофту на вечер${multi ? ', налобный фонарик и личную аптечку' : ''}.</p>
+        <div class="dr__cta"><div><small>${t.per}</small><b>от ${usd(t.price)}</b></div><a href="#contact" data-book="${t.id}">Забронировать</a></div>
+      </div>`;
+    wireImgs(drBody);
+    lastFocus = document.activeElement;
+    dr.classList.add('on'); dr.setAttribute('aria-hidden', 'false'); root.classList.add('noscroll');
+    $('.dr__p').scrollTop = 0; $('.dr__x').focus();
+    $('[data-book]', drBody).addEventListener('click', () => { sel.selectedIndex = TOURS.indexOf(t); closeTour(); });
+  }
+  function closeTour() { dr.classList.remove('on'); dr.setAttribute('aria-hidden', 'true'); root.classList.remove('noscroll'); lastFocus && lastFocus.focus && lastFocus.focus(); }
+  grid.addEventListener('click', e => { const c = e.target.closest('.card'); c && openTour(c.dataset.id); });
+  grid.addEventListener('keydown', e => { const c = e.target.closest('.card'); if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openTour(c.dataset.id); } });
+  $$('[data-close]', dr).forEach(b => b.addEventListener('click', closeTour));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && dr.classList.contains('on')) closeTour(); });
+  wireImgs(grid);
 
   /* form */
   const out = $('#guests');
