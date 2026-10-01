@@ -372,6 +372,22 @@
     .orb small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:8px;opacity:.7}
     .channels{display:flex;justify-content:center;gap:12px;margin-top:28px;flex-wrap:wrap}
     .channels .btn{padding-right:28px}
+    .brief{margin:56px auto 0;max-width:680px;text-align:left;background:var(--bg-2);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:18px}
+    .brief__t{margin:0 0 2px;color:var(--acc);text-align:center}
+    .brief fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+    .brief legend{padding:0;margin-bottom:10px;font-size:13px;color:var(--mute)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chips button{min-height:44px;padding:0 16px;border:1px solid var(--line-2);border-radius:40px;font-size:15px;color:var(--ink);transition:background .25s,color .25s,border-color .25s}
+    .chips button:hover{border-color:var(--ink)}
+    .chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+    .brief__row{display:grid;grid-template-columns:1fr 1.4fr;gap:8px}
+    .brief input{height:48px;border:1px solid var(--line-2);border-radius:14px;background:var(--bg);color:var(--ink);font:400 16px var(--f-sans);padding:0 16px;outline:0;transition:border-color .25s;min-width:0}
+    .brief input::placeholder{color:var(--dim)}
+    .brief input:focus{border-color:var(--acc)}
+    .brief__go{align-self:stretch;justify-content:center}
+    .brief__hint{margin:0;font-size:13px;color:var(--dim);text-align:center}
+    .brief__hint.ok{color:var(--acc)}
+    @media (max-width:700px){.brief__row{grid-template-columns:1fr}}
     .contact__note{margin-top:22px;color:var(--dim)}
 
     /* footer */
@@ -853,6 +869,21 @@
           <a class="btn btn--line btn--sm" href="https://t.me/stani_dev" target="_blank" rel="noopener noreferrer"><span class="btn__txt"><span>@stani_dev</span><span>@stani_dev</span></span></a>
         </div>
         <p class="contact__note mono">Пишите напрямую — сообщение получу лично я</p>
+        <form class="brief fade" id="brief" novalidate>
+          <p class="brief__t mono">или соберите заявку за 20 секунд</p>
+          <fieldset><legend>Что нужно</legend><div class="chips" data-q="need">
+            <button type="button">Лендинг курса</button><button type="button">Сайт школы</button><button type="button">Запуск под ключ</button><button type="button">Пока не знаю</button></div></fieldset>
+          <fieldset><legend>Когда</legend><div class="chips" data-q="when">
+            <button type="button">Срочно, до 2 недель</button><button type="button">В этом месяце</button><button type="button">Пока узнаю</button></div></fieldset>
+          <fieldset><legend>Бюджет</legend><div class="chips" data-q="budget">
+            <button type="button">до 30 000 ₽</button><button type="button">30–60 тыс. ₽</button><button type="button">от 90 тыс. ₽</button><button type="button">Обсудим</button></div></fieldset>
+          <div class="brief__row">
+            <label class="sr" for="b-name">Имя</label><input id="b-name" autocomplete="name" placeholder="Как вас зовут">
+            <label class="sr" for="b-link">Ссылка</label><input id="b-link" inputmode="url" placeholder="Ссылка на курс или соцсети — по желанию">
+          </div>
+          <button class="btn btn--acc brief__go" type="submit"><span class="btn__txt"><span>Отправить в Telegram</span><span>Отправить в Telegram</span></span><span class="btn__ico" aria-hidden="true">↗</span></button>
+          <p class="brief__hint" id="briefHint">Откроется Telegram с готовым сообщением — останется нажать «Отправить». Сайт ничего не сохраняет.</p>
+        </form>
       </div>
     </section>
   </main>
@@ -1083,6 +1114,38 @@
     btns.forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.cur); }); });
     var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
     if (saved && saved !== base) set(saved);
+  })();
+  </script>
+  <script>
+  /* Бриф → Telegram: собираем сообщение и открываем чат с готовым текстом. Сайт ничего не хранит. */
+  (function () {
+    var f = document.getElementById("brief"); if (!f) return;
+    var TG = "stani_dev", hint = document.getElementById("briefHint"), pick = {};
+    f.querySelectorAll(".chips").forEach(function (g) {
+      g.querySelectorAll("button").forEach(function (b) {
+        b.setAttribute("aria-pressed", "false");
+        b.addEventListener("click", function () {
+          var on = b.getAttribute("aria-pressed") !== "true";
+          g.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+          b.setAttribute("aria-pressed", on); pick[g.dataset.q] = on ? b.textContent : "";
+        });
+      });
+    });
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = f.querySelector("#b-name").value.trim(), link = f.querySelector("#b-link").value.trim();
+      var lines = ["Здравствуйте, Станислав! Заявка с сайта:"];
+      if (pick.need) lines.push("• Нужно: " + pick.need);
+      if (pick.when) lines.push("• Сроки: " + pick.when);
+      if (pick.budget) lines.push("• Бюджет: " + pick.budget);
+      if (link) lines.push("• Ссылка: " + link);
+      lines.push(name ? "Меня зовут " + name + "." : "");
+      var text = lines.join("\n").trim();
+      try { navigator.clipboard && navigator.clipboard.writeText(text); } catch (err) {}
+      window.open("https://t.me/" + TG + "?text=" + encodeURIComponent(text), "_blank", "noopener");
+      hint.textContent = "Открываем Telegram… Если сообщение не подставилось — оно скопировано, просто вставьте его в чат.";
+      hint.classList.add("ok");
+    });
   })();
   </script>
 </body>
