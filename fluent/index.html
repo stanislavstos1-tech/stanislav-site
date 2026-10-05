@@ -6,510 +6,604 @@
 <title>FLUENT — школа английского и подготовки к IELTS | Демо-проект</title>
 <meta name="description" content="FLUENT — школа английского и подготовки к IELTS в Москве — очно и онлайн. Мини-группы до 6 человек, пробные экзамены, чат-ассистент подберёт курс за минуту. Демо-проект, школа вымышленная.">
 <meta property="og:title" content="FLUENT — английский, который открывает двери">
-<meta property="og:description" content="Подготовка к IELTS 7+ за 4–6 месяцев. Демо-лендинг онлайн-школы.">
+<meta property="og:description" content="Подготовка к IELTS 7+ за 4–6 месяцев. Демо-лендинг школы английского в Москве.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#1D2440">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#F1EDE6">
 <link rel="preconnect" href="https://images.unsplash.com">
-<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/inter-tight-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* шрифты лежат рядом с сайтом — без запросов к Google */
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-latin-wght-normal.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-cyrillic-wght-normal.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Inter Tight';src:url(fonts/inter-tight-rub-wght.woff2) format('woff2');font-weight:100 900;font-style:normal;font-display:swap;unicode-range:U+20BD}
+@font-face{font-family:'Cormorant Garamond';src:url(fonts/cormorant-garamond-latin-500-italic.woff2) format('woff2');font-weight:500;font-style:italic;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Cormorant Garamond';src:url(fonts/cormorant-garamond-cyrillic-500-italic.woff2) format('woff2');font-weight:500;font-style:italic;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'JetBrains Mono';src:url(fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';src:url(fonts/jetbrains-mono-cyrillic-400-normal.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+/* =========================================================
+   FLUENT — редакционный стиль: бумага, чернила, один акцент.
+   Крупная гротесковая типографика + курсивная антиква для акцентов,
+   тонкие линейки вместо карточек, спокойные анимации появления.
+   ========================================================= */
 :root{
-  --navy:#1D2440; --navy-2:#252D4E; --navy-3:#2F3860; --ink:#141A30;
-  --pink:#FF9BB4; --pink-2:#FFC2D1; --cream:#F6F1EC; --cream-2:#EDE6DF; --lime:#D8FF3C;
-  --txt-light:rgba(246,241,236,.72); --line-d:rgba(246,241,236,.14); --line-l:rgba(29,36,64,.13);
-  --head:"Geologica", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --body:"Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --pad:clamp(20px,4vw,64px); --r:28px; --ease:cubic-bezier(.2,.7,.2,1);
+  --paper:#F1EDE6; --paper-2:#E8E2D8; --paper-3:#DCD4C7;
+  --ink:#121214; --ink-2:#1C1C20; --ink-3:#2A2A30;
+  --acc:#2B3BE6; --acc-2:#5A68FF; --acc-soft:rgba(43,59,230,.1);
+  --mute:rgba(18,18,20,.58); --mute-d:rgba(241,237,230,.6);
+  --line:rgba(18,18,20,.14); --line-d:rgba(241,237,230,.14);
+  --sans:"Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif:"Cormorant Garamond", "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --pad:clamp(20px,3.6vw,56px); --ease:cubic-bezier(.22,.8,.2,1); --ease-io:cubic-bezier(.76,0,.24,1);
+  /* для чата — те же цвета под старыми именами */
+  --navy:var(--ink); --cream:var(--paper); --pink:var(--acc); --lime:var(--acc-2); --head:var(--sans); --body:var(--sans);
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
-body{margin:0;background:var(--navy);color:var(--cream);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:2px solid var(--pink);outline-offset:3px;border-radius:6px}
-::selection{background:var(--pink);color:var(--navy)}
-.wrap{max-width:1680px;margin:0 auto;padding:0 var(--pad)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+::selection{background:var(--acc);color:#fff}
+.wrap{max-width:1720px;margin:0 auto;padding:0 var(--pad)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase}
+em,.it{font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:-.01em}
 
-/* type */
-.tag{display:inline-flex;align-items:center;gap:12px;font-family:var(--head);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.tag b{color:var(--pink);font-weight:700}
-.tag::after{content:"";width:40px;height:1px;background:currentColor;opacity:.4}
-.h2{font-family:var(--head);font-weight:800;font-size:clamp(40px,6.2vw,104px);line-height:.95;letter-spacing:-.035em;margin:22px 0 0}
-.h2 .pk{color:var(--pink)}
-.lead{font-size:clamp(16px,1.3vw,19px);max-width:540px;color:var(--txt-light);margin:0}
-.light .lead{color:rgba(29,36,64,.72)}
-.sec{padding:clamp(80px,10vw,160px) 0;position:relative}
-.light{background:var(--cream);color:var(--navy)}
-.light .tag b{color:var(--navy);background:var(--pink);padding:2px 8px;border-radius:6px}
-.head-row{display:grid;gap:26px;margin-bottom:clamp(44px,5vw,80px)}
-@media (min-width:960px){.head-row{grid-template-columns:7fr 5fr;align-items:end}.head-row .lead{justify-self:end}}
+/* зерно поверх страницы — едва заметная фактура бумаги */
+body::after{content:"";position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 28px;border-radius:999px;font-family:var(--head);font-weight:600;font-size:15px;border:0;transition:transform .35s var(--ease),background-color .35s,color .35s;will-change:transform}
-.btn:hover{transform:translateY(-3px)}
-.btn--pink{background:var(--pink);color:var(--navy)}
-.btn--pink:hover{background:var(--pink-2)}
-.btn--line{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
-.btn--line:hover{background:var(--cream);color:var(--navy)}
-.light .btn--line:hover{background:var(--navy);color:var(--cream)}
-.btn--navy{background:var(--navy);color:var(--cream)}
-.btn--navy:hover{background:var(--navy-3)}
-.btn .ar{display:inline-block;transition:transform .35s var(--ease)}
-.btn:hover .ar{transform:translateX(4px)}
+/* прогресс прокрутки */
+.progress{position:fixed;left:0;top:0;right:0;height:2px;z-index:70;background:var(--acc);transform-origin:0 50%;transform:scaleX(0);pointer-events:none}
 
-/* header */
-.hdr{position:fixed;inset:0 0 auto 0;z-index:50;transition:background-color .35s,border-color .35s;border-bottom:1px solid transparent}
-.hdr.is-solid{background:rgba(29,36,64,.97);border-color:var(--line-d)}
-.hdr__in{display:flex;align-items:center;justify-content:space-between;height:80px;gap:20px}
-.logo{font-family:var(--head);font-weight:800;font-size:26px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
-.logo i{width:12px;height:12px;border-radius:50%;background:var(--pink);display:inline-block}
-.nav{display:none;gap:34px;font-size:15px}
-.nav a{opacity:.8;transition:opacity .25s}
-.nav a:hover{opacity:1}
+/* ---------- заголовки секций ---------- */
+.sh{display:flex;align-items:center;gap:14px;color:var(--mute)}
+.dark .sh,.blue .sh{color:var(--mute-d)}
+.sh b{font-weight:500;color:var(--acc)}
+.dark .sh b{color:var(--acc-2)}.blue .sh b{color:#fff}
+.sh::after{content:"";flex:1;max-width:120px;height:1px;background:currentColor;opacity:.35}
+.h2{font-family:var(--sans);font-weight:500;font-size:clamp(44px,7.2vw,132px);line-height:.92;letter-spacing:-.042em;margin:26px 0 0}
+.h2 em{font-size:1.06em;letter-spacing:-.02em;line-height:.8}
+.h2 .acc{color:var(--acc)}.dark .h2 .acc{color:var(--acc-2)}
+.lead{font-size:clamp(16px,1.25vw,19px);line-height:1.55;max-width:520px;color:var(--mute);margin:0}
+.dark .lead,.blue .lead{color:var(--mute-d)}
+.sec{padding:clamp(96px,11vw,190px) 0;position:relative}
+.dark{background:var(--ink);color:var(--paper)}
+.blue{background:var(--acc);color:#fff}
+.head-row{display:grid;gap:28px;margin-bottom:clamp(52px,6vw,110px)}
+@media (min-width:960px){.head-row{grid-template-columns:minmax(0,8fr) minmax(0,4fr);align-items:end}.head-row .lead{justify-self:end}}
+
+/* ---------- кнопки ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:60px;padding:0 8px 0 28px;border-radius:999px;font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:-.01em;border:0;overflow:hidden;isolation:isolate;transition:color .5s var(--ease)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;transform:translateY(101%);transition:transform .55s var(--ease)}
+.btn:hover::before{transform:none}
+.btn .ar{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;font-size:17px;transition:transform .55s var(--ease),background-color .5s,color .5s}
+.btn:hover .ar{transform:rotate(-45deg)}
+.btn--ink,.btn--navy{background:var(--ink);color:var(--paper)}
+.btn--ink::before,.btn--navy::before{background:var(--acc)}
+.btn--ink .ar,.btn--navy .ar{background:var(--paper);color:var(--ink)}
+.btn--paper,.btn--pink{background:var(--paper);color:var(--ink)}
+.btn--paper::before,.btn--pink::before{background:var(--acc-2)}
+.btn--paper:hover,.btn--pink:hover{color:#fff}
+.btn--paper .ar,.btn--pink .ar{background:var(--ink);color:var(--paper)}
+.btn--line{background:transparent;color:inherit;box-shadow:inset 0 0 0 1px currentColor;padding:0 28px;justify-content:center}
+.btn--line::before{background:currentColor}
+.btn--line:hover{color:var(--acc)}
+.blue .btn--line:hover{color:var(--acc)}
+.btn--block{width:100%}
+.link-u{position:relative;display:inline-flex;align-items:center;gap:10px;font-size:15px;padding:6px 0}
+.link-u::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform-origin:right;transition:transform .55s var(--ease)}
+.link-u:hover::after{transform:scaleX(0)}
+
+/* ---------- шапка ---------- */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:60;transition:background-color .4s,border-color .4s,transform .5s var(--ease);border-bottom:1px solid transparent}
+.hdr.is-solid{background:rgba(241,237,230,.86);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-color:var(--line)}
+.hdr__in{display:flex;align-items:center;justify-content:space-between;height:76px;gap:20px}
+.logo{display:flex;align-items:baseline;gap:4px;font-weight:600;font-size:22px;letter-spacing:-.03em}
+.logo sup{font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:0;color:var(--mute)}
+.nav{display:none;gap:4px}
+.nav a{position:relative;padding:8px 14px;font-size:14px;border-radius:999px;transition:background-color .3s}
+.nav a:hover{background:rgba(18,18,20,.06)}
+.hdr__r{display:flex;align-items:center;gap:10px}
+.hdr__ph{display:none;font-size:14px;color:var(--mute)}
 .hdr__cta{display:none}
-.burger{width:48px;height:48px;border-radius:50%;border:1px solid var(--line-d);background:transparent;display:grid;place-items:center;position:relative;z-index:62}
-.burger span{display:block;width:18px;height:1.5px;background:var(--cream);position:relative;transition:background .3s}
-.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:var(--cream);transition:transform .35s var(--ease)}
+.burger{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:transparent;display:grid;place-items:center;position:relative;z-index:62}
+.burger span{display:block;width:18px;height:1.5px;background:var(--ink);position:relative;transition:background .3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:1.5px;background:var(--ink);transition:transform .45s var(--ease)}
 .burger span::before{top:-6px}.burger span::after{top:6px}
+.menu-open .burger{border-color:var(--line-d)}
 .menu-open .burger span{background:transparent}
-.menu-open .burger span::before{transform:translateY(6px) rotate(45deg)}
-.menu-open .burger span::after{transform:translateY(-6px) rotate(-45deg)}
-@media (min-width:1080px){.nav{display:flex}.hdr__cta{display:inline-flex;min-height:46px;padding:0 22px;font-size:14px}.burger{display:none}}
-.mnav{position:fixed;inset:0;z-index:61;background:var(--navy);padding:110px var(--pad) 40px;display:flex;flex-direction:column;justify-content:space-between;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility 0s .35s}
-.menu-open .mnav{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.menu-open .burger span::before{background:var(--paper);transform:translateY(6px) rotate(45deg)}
+.menu-open .burger span::after{background:var(--paper);transform:translateY(-6px) rotate(-45deg)}
+@media (min-width:1080px){.nav{display:flex}.hdr__cta{display:inline-flex;min-height:48px;padding:0 6px 0 20px;font-size:14px}.hdr__cta .ar{width:36px;height:36px}.burger{display:none}}
+@media (min-width:1280px){.hdr__ph{display:inline}}
+.mnav{position:fixed;inset:0;z-index:61;background:var(--ink);color:var(--paper);padding:110px var(--pad) 36px;display:flex;flex-direction:column;justify-content:space-between;clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .7s var(--ease-io),visibility 0s .7s}
+.menu-open .mnav{clip-path:inset(0);visibility:visible;transition-delay:0s}
 .menu-open{overflow:hidden}
-.menu-open .hdr{z-index:63;background:transparent;border-color:transparent}
-.mnav nav{display:grid;gap:4px}
-.mnav nav a{font-family:var(--head);font-weight:700;font-size:clamp(38px,10vw,64px);letter-spacing:-.03em;line-height:1.15}
-.mnav nav a:hover{color:var(--pink)}
-.mnav__foot{display:grid;gap:14px}
+.menu-open .chat-fab,.menu-open .chat-tease{opacity:0;pointer-events:none}
+.menu-open .hdr{z-index:63;background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--paper)}
+.menu-open .logo sup{color:var(--mute-d)}
+.mnav nav{display:grid}
+.mnav nav a{display:flex;align-items:baseline;gap:14px;padding:6px 0;border-bottom:1px solid var(--line-d);font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(40px,11vw,72px);line-height:1.05;letter-spacing:-.02em}
+.mnav nav a span{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--mute-d)}
+.mnav__foot{display:grid;gap:14px;color:var(--mute-d);font-size:14px}
 
-/* hero */
-.hero{position:relative;padding:clamp(120px,14vw,180px) 0 clamp(56px,6vw,90px);overflow:hidden}
-.hero__big{position:absolute;right:-2vw;top:clamp(90px,9vw,120px);font-family:var(--head);font-weight:800;font-size:clamp(220px,34vw,620px);line-height:.8;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:2px rgba(255,155,180,.55);pointer-events:none;user-select:none}
-@media (max-width:760px){.hero__big{top:auto;bottom:34%;right:-6vw;opacity:.55}}
-.hero__in{position:relative}
-.hero .tag{color:var(--txt-light)}
-.hero h1{font-family:var(--head);font-weight:800;font-size:clamp(50px,7.2vw,132px);line-height:.92;letter-spacing:-.04em;margin:26px 0 0;max-width:12.5ch}
-.hero h1 .pk{color:var(--pink)}
-.hero__row{display:grid;gap:26px;margin-top:clamp(26px,3vw,44px);max-width:620px}
+/* ---------- первый экран ---------- */
+.hero{position:relative;padding:clamp(120px,13vw,170px) 0 clamp(40px,5vw,72px)}
+.hero__meta{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--line);color:var(--mute)}
+.hero__meta b{font-weight:500;color:var(--ink)}
+.hero__meta .live{display:inline-flex;align-items:center;gap:8px}
+.hero__meta .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 0 rgba(43,59,230,.5);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(43,59,230,0)}100%{box-shadow:0 0 0 0 rgba(43,59,230,0)}}
+.hero__t{margin:clamp(28px,4vw,56px) 0 0;font-weight:500;font-size:clamp(50px,9.6vw,184px);line-height:.9;letter-spacing:-.048em}
+.hero__t em{font-size:1.04em;letter-spacing:-.03em;color:var(--acc)}
+.hero__t .ln:nth-child(2)>span{padding-left:clamp(0px,8vw,150px)}
+.hero__t .ln:nth-child(3)>span{display:flex;align-items:center;flex-wrap:wrap;gap:0 .22em}
+.hero__pill{display:inline-block;vertical-align:middle;width:1.7em;height:.74em;margin:0;border-radius:999px;overflow:hidden;background:var(--paper-3);position:relative;top:-.04em}
+.hero__pill img{width:100%;height:100%;object-fit:cover;transform:scale(1.25);transition:transform 1.4s var(--ease) .3s}
+.is-in .hero__pill img,.ln.is-in .hero__pill img{transform:none}
+.hero__sup{align-self:flex-start;font-family:var(--mono);font-size:max(11px,.075em);letter-spacing:.02em;font-weight:400;padding:.6em 1em;border:1px solid var(--line);border-radius:999px;margin:.9em 0 0 .3em;white-space:nowrap;line-height:1;text-transform:uppercase}
+.hero__grid{display:grid;gap:30px;margin-top:clamp(40px,5vw,84px)}
+@media (min-width:1000px){.hero__grid{grid-template-columns:minmax(0,4fr) minmax(0,3fr) minmax(0,5fr);align-items:end}}
+.hero__acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px}
+.hero__stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;border-top:1px solid var(--line)}
+.hero__stats div{padding:16px 10px 0 0}
+.hero__stats div+div{padding-left:clamp(10px,1.6vw,24px);border-left:1px solid var(--line)}
+.hero__stats dt{font-weight:500;font-size:clamp(32px,3.6vw,60px);letter-spacing:-.04em;line-height:1}
+.hero__stats dd{margin:8px 0 0;font-size:13px;color:var(--mute);line-height:1.35}
+.badge-rot{position:absolute;right:var(--pad);top:clamp(300px,31vw,560px);width:clamp(104px,9vw,148px);aspect-ratio:1;display:none;place-items:center;border-radius:50%;background:var(--acc);color:#fff;transition:transform .6s var(--ease)}
+.badge-rot:hover{transform:scale(1.06) rotate(8deg)}
+.badge-rot svg{position:absolute;inset:6%;width:88%;height:88%;animation:spin 18s linear infinite;fill:currentColor;font:500 9.6px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.badge-rot span{font-size:clamp(22px,2vw,30px);line-height:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (min-width:760px){.badge-rot{display:grid}}
 
-.hero__acts{display:flex;flex-wrap:wrap;gap:14px}
-.hero__card{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;margin-top:clamp(40px,5vw,72px);max-width:520px;padding:14px;border-radius:24px;background:var(--navy-2);border:1px solid var(--line-d)}
-.hero__card img{width:120px;height:120px;object-fit:cover;border-radius:16px}
-@media (max-width:600px){.hero__card{grid-template-columns:84px 1fr;margin-right:72px}.hero__card img{width:84px;height:84px}}
-
-.hero__card p{margin:0;font-size:15px;color:var(--txt-light)}
-.hero__card b{display:block;font-family:var(--head);font-size:18px;color:var(--cream);margin-bottom:4px}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:clamp(48px,6vw,90px);border-top:1px solid var(--line-d)}
-.stat{padding:22px 12px 0 0;border-right:1px solid var(--line-d)}
-.stat+.stat{padding-left:clamp(12px,2.4vw,40px)}
-.stat:last-child{border-right:0}
-.stat b{display:block;font-family:var(--head);font-weight:800;font-size:clamp(32px,4.6vw,76px);letter-spacing:-.04em;line-height:1}
-.stat span{display:block;margin-top:8px;font-size:clamp(12px,1vw,14px);color:var(--txt-light)}
-
-/* marquee */
-.mq{background:var(--pink);color:var(--navy);overflow:hidden;contain:layout paint;padding:clamp(18px,2vw,28px) 0}
-.mq__track{display:flex;width:max-content;animation:mq 34s linear infinite}
+/* ---------- бегущая строка ---------- */
+.mq{background:var(--ink);color:var(--paper);overflow:hidden;contain:layout paint;padding:clamp(20px,2.2vw,34px) 0;border-top:1px solid var(--ink)}
+.mq__track{display:flex;width:max-content;animation:mq 46s linear infinite}
 .js-mq .mq__track{animation-play-state:paused}.js-mq .mq.on .mq__track{animation-play-state:running}
-.mq__g{display:flex;align-items:center;gap:clamp(22px,3vw,48px);padding-right:clamp(22px,3vw,48px);font-family:var(--head);font-weight:800;font-size:clamp(28px,3.8vw,60px);letter-spacing:-.03em;white-space:nowrap}
-.mq__g i{font-style:normal;width:.42em;height:.42em;border-radius:50%;background:var(--navy);display:inline-block}
+.mq__g{display:flex;align-items:center;gap:clamp(24px,3vw,52px);padding-right:clamp(24px,3vw,52px);font-weight:500;font-size:clamp(30px,4.4vw,78px);letter-spacing:-.04em;white-space:nowrap;line-height:1}
+.mq__g em{font-size:1.08em;color:var(--acc-2)}
+.mq__g i{font-style:normal;font-size:.5em;color:var(--mute-d)}
 @keyframes mq{to{transform:translate3d(-50%,0,0)}}
 
-/* who */
-.who__grid,.fmt__grid,.res__grid,.price__grid,.quiz,.book,.faq__grid,.foot__top{grid-template-columns:minmax(0,1fr)}
-.who__grid{display:grid;gap:20px}
-@media (min-width:900px){.who__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.who{background:#fff;border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease)}
-.who:hover{transform:translateY(-4px)}
-.who__img{aspect-ratio:4/3;overflow:hidden;background:var(--cream-2)}
-.who__img img{width:100%;height:100%;object-fit:cover}
-.who__b{padding:26px 26px 30px;display:flex;flex-direction:column;gap:12px;flex:1}
-.who__n{font-family:var(--head);font-size:13px;font-weight:700;color:rgba(29,36,64,.5)}
-.who h3{margin:0;font-family:var(--head);font-weight:700;font-size:clamp(24px,2vw,30px);letter-spacing:-.02em;line-height:1.1}
-.who p{margin:0;color:rgba(29,36,64,.72)}
-.who__goal{margin-top:auto;padding-top:14px;border-top:1px solid var(--line-l);font-size:14px;display:flex;justify-content:space-between;gap:10px}
-.who__goal b{font-family:var(--head)}
+/* ---------- для кого ---------- */
+.who__grid{display:grid;gap:clamp(40px,4vw,28px)}
+@media (min-width:900px){.who__grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,32px)}.who:nth-child(2){margin-top:clamp(60px,8vw,140px)}.who:nth-child(3){margin-top:clamp(30px,4vw,70px)}}
+.who__img{aspect-ratio:4/5;overflow:hidden;background:var(--paper-3)}
+.who__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.who:hover .who__img img{transform:scale(1.04)}
+.who__b{display:grid;gap:10px;padding-top:20px}
+.who__top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;color:var(--mute);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.who__top b{font-weight:500;color:var(--acc)}
+.who h3{margin:6px 0 0;font-weight:500;font-size:clamp(26px,2.3vw,38px);letter-spacing:-.03em;line-height:1}
+.who p{margin:0;color:var(--mute);max-width:44ch}
 
-/* formats */
-.fmt__grid{display:grid;gap:18px}
-@media (min-width:900px){.fmt__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.fmt{position:relative;padding:32px 28px;border-radius:var(--r);background:var(--navy-2);border:1px solid var(--line-d);display:flex;flex-direction:column;gap:16px;transition:transform .4s var(--ease),background-color .4s}
-.fmt:hover{transform:translateY(-4px);background:var(--navy-3)}
-.fmt--hot{background:var(--pink);color:var(--navy);border-color:var(--pink)}
-.fmt--hot:hover{background:var(--pink-2)}
-.fmt__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px}
-.fmt h3{margin:0;font-family:var(--head);font-weight:800;font-size:clamp(28px,2.6vw,40px);letter-spacing:-.03em;line-height:1}
-.badge{font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--lime);color:var(--navy);white-space:nowrap}
-.fmt__meta{display:flex;flex-wrap:wrap;gap:8px}
-.fmt__meta span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid currentColor;opacity:.8}
-.fmt ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.fmt li{display:flex;gap:10px;font-size:15px}
-.fmt li::before{content:"";flex:0 0 8px;height:8px;margin-top:8px;border-radius:50%;background:var(--pink)}
-.fmt--hot li::before{background:var(--navy)}
-.fmt__note{margin-top:auto;font-size:13px;opacity:.7}
-.req{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:20px 26px;border-radius:20px;border:1px dashed var(--line-d);color:var(--txt-light);font-size:15px}
-.req b{color:var(--cream)}
+/* ---------- форматы ---------- */
+.fmt__list{border-top:1px solid var(--line-d)}
+.fmt{position:relative;display:grid;gap:18px 32px;padding:clamp(30px,3.4vw,52px) 0;border-bottom:1px solid var(--line-d);isolation:isolate}
+.fmt::before{content:"";position:absolute;inset:0 calc(var(--pad) * -1);z-index:-1;background:var(--ink-2);transform:scaleY(0);transform-origin:bottom;transition:transform .6s var(--ease)}
+.fmt:hover::before{transform:none}
+@media (min-width:1000px){.fmt{grid-template-columns:minmax(0,1fr) minmax(0,5fr) minmax(0,3fr) minmax(0,4fr);align-items:start}}
+.fmt__n{color:var(--mute-d);padding-top:.9em}
+.fmt h3{margin:0;font-weight:500;font-size:clamp(40px,5vw,88px);letter-spacing:-.045em;line-height:.92}
+.fmt h3 em{color:var(--acc-2)}
+.fmt__tag{display:inline-block;margin-top:14px;padding:7px 12px;border-radius:999px;background:var(--acc);color:#fff}
+.fmt__meta{display:grid;gap:6px;color:var(--mute-d);padding-top:.6em}
+.fmt__meta span::before{content:"— ";opacity:.5}
+.fmt ul{list-style:none;margin:0;padding:.4em 0 0;display:grid;gap:9px;font-size:15px;color:rgba(241,237,230,.86)}
+.fmt li{display:flex;gap:12px}
+.fmt li::before{content:"";flex:0 0 5px;height:5px;margin-top:9px;background:var(--acc-2)}
+.fmt__note{margin:12px 0 0;font-size:13px;color:var(--mute-d)}
+.req{margin-top:clamp(36px,4vw,60px);display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;color:var(--mute-d);font-size:15px;max-width:900px}
+.req b{color:var(--paper);font-weight:500}
 
-/* program */
-.prog__grid{display:grid;gap:0;border-top:1px solid var(--line-l)}
-.prog{display:grid;grid-template-columns:1fr;gap:12px 32px;padding:clamp(26px,3vw,44px) 0;border-bottom:1px solid var(--line-l)}
-@media (min-width:960px){.prog{grid-template-columns:minmax(0,5fr) minmax(0,5fr) minmax(0,3fr);align-items:start}}
-.prog h3{margin:0;font-family:var(--head);font-weight:800;font-size:clamp(40px,5.4vw,92px);letter-spacing:-.045em;line-height:.9;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-.prog h3 small{font-family:var(--body);font-weight:500;font-size:14px;letter-spacing:0;color:rgba(29,36,64,.55)}
-.prog p{margin:0;color:rgba(29,36,64,.78)}
-.prog__facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.prog__facts span{font-size:13px;padding:5px 11px;border-radius:999px;background:var(--cream-2)}
-.prog__plus{font-family:var(--head);font-weight:700;font-size:15px;justify-self:start;padding:10px 16px;border-radius:14px;background:var(--navy);color:var(--cream)}
-@media (min-width:960px){.prog__plus{justify-self:end}}
-.prog__plus b{color:var(--pink)}
-.ac-note{margin-top:34px;display:grid;gap:14px}
-@media (min-width:900px){.ac-note{grid-template-columns:1fr 1fr}}
-.ac-note div{padding:24px 26px;border-radius:22px;background:#fff}
-.ac-note b{display:block;font-family:var(--head);font-size:20px;margin-bottom:6px}
-.ac-note p{margin:0;color:rgba(29,36,64,.72);font-size:15px}
+/* ---------- программа ---------- */
+.prog__grid{display:grid;border-top:1px solid var(--line)}
+@media (min-width:700px){.prog__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1200px){.prog__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.prog{display:flex;flex-direction:column;gap:16px;padding:28px clamp(0px,1.6vw,28px) 34px 0;border-bottom:1px solid var(--line)}
+@media (min-width:700px){.prog{padding-left:clamp(16px,1.6vw,28px)}.prog:nth-child(odd){padding-left:0}.prog+.prog{border-left:1px solid var(--line)}.prog:nth-child(3){border-left:0}}
+@media (min-width:1200px){.prog:nth-child(3){border-left:1px solid var(--line);padding-left:clamp(16px,1.6vw,28px)}.prog:nth-child(odd):not(:first-child){padding-left:clamp(16px,1.6vw,28px)}}
+.prog__top{display:flex;justify-content:space-between;gap:12px;color:var(--mute)}
+.prog h3{margin:clamp(20px,3vw,48px) 0 0;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(46px,4.6vw,82px);letter-spacing:-.02em;line-height:.9}
+.prog p{margin:0;color:var(--mute);font-size:15px}
+.prog__facts{display:flex;flex-wrap:wrap;gap:6px}
+.prog__facts span{font-size:12.5px;padding:5px 10px;border-radius:999px;border:1px solid var(--line)}
+.prog__plus{margin-top:auto;padding-top:22px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-top:1px dashed var(--line)}
+.prog__plus b{font-weight:500;font-size:clamp(28px,2.4vw,40px);letter-spacing:-.03em;word-spacing:.12em;color:var(--acc)}
+.prog__plus span{font-size:13px;color:var(--mute)}
+.ac-note{margin-top:clamp(40px,5vw,72px);display:grid;gap:28px}
+@media (min-width:900px){.ac-note{grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,72px)}}
+.ac-note div{display:grid;grid-template-columns:auto 1fr;gap:6px 18px}
+.ac-note span{grid-row:span 2;color:var(--acc);padding-top:.35em}
+.ac-note b{font-weight:500;font-size:clamp(22px,1.8vw,28px);letter-spacing:-.03em}
+.ac-note p{margin:0;color:var(--mute);font-size:15px}
 
-/* quiz */
-.quiz{display:grid;gap:clamp(28px,4vw,70px)}
-@media (min-width:1000px){.quiz{grid-template-columns:5fr 7fr;align-items:start}}
-.qbox{background:var(--navy-2);border:1px solid var(--line-d);border-radius:var(--r);padding:clamp(24px,3vw,44px);min-height:420px;display:flex;flex-direction:column}
-.qbar{height:4px;border-radius:4px;background:var(--line-d);overflow:hidden}
-.qbar i{display:block;height:100%;width:100%;background:var(--pink);transform-origin:left;transform:scaleX(0);transition:transform .45s var(--ease)}
-.qstep{display:flex;justify-content:space-between;margin:18px 0 22px;font-size:13px;color:var(--txt-light)}
-.qq{font-family:var(--head);font-weight:700;font-size:clamp(22px,2.2vw,32px);line-height:1.2;letter-spacing:-.02em;margin:0 0 22px}
-.qq em{font-style:normal;color:var(--pink)}
-.qopts{display:grid;gap:10px}
+/* ---------- тест ---------- */
+.quiz{display:grid;gap:clamp(36px,5vw,90px)}
+@media (min-width:1000px){.quiz{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}}
+.blue .h2 em{color:#fff}
+.qbox{background:var(--paper);color:var(--ink);border-radius:clamp(20px,2vw,32px);padding:clamp(24px,3vw,48px);min-height:460px;display:flex;flex-direction:column;box-shadow:0 40px 90px -40px rgba(10,14,60,.55)}
+.qbar{height:2px;background:var(--line);overflow:hidden}
+.qbar i{display:block;height:100%;width:100%;background:var(--acc);transform-origin:left;transform:scaleX(0);transition:transform .6s var(--ease)}
+.qstep{display:flex;justify-content:space-between;gap:12px;margin:18px 0 clamp(26px,3vw,44px);font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--mute)}
+.qq{font-weight:500;font-size:clamp(24px,2.4vw,38px);line-height:1.12;letter-spacing:-.035em;margin:0 0 clamp(22px,2.4vw,34px)}
+.qq em{color:var(--acc);font-size:1.08em}
+.qopts{display:grid;gap:8px}
 @media (min-width:600px){.qopts{grid-template-columns:1fr 1fr}}
-.qopt{text-align:left;padding:16px 18px;border-radius:16px;background:transparent;border:1px solid var(--line-d);font-size:16px;transition:background-color .25s,border-color .25s,transform .25s var(--ease)}
-.qopt:hover{border-color:var(--pink);transform:translateY(-2px)}
-.qopt.is-pick{background:var(--pink);color:var(--navy);border-color:var(--pink)}
+.qopt{position:relative;text-align:left;padding:18px 20px;border-radius:14px;background:transparent;border:1px solid var(--line);font-size:16px;transition:background-color .3s,border-color .3s,color .3s}
+.qopt:hover{border-color:var(--ink)}
+.qopt.is-pick{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .qres{display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center}
-.qres__lvl{font-family:var(--head);font-weight:800;font-size:clamp(90px,12vw,180px);line-height:.85;letter-spacing:-.05em;color:var(--pink)}
-.qres p{margin:0;color:var(--txt-light);max-width:520px}
-.qres__acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
-.qin{animation:qin .45s var(--ease) both}
-@keyframes qin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.qres>span{font-family:var(--mono);font-size:12px!important;text-transform:uppercase;color:var(--mute)!important}
+.qres__lvl{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(110px,14vw,220px);line-height:.8;letter-spacing:-.03em;color:var(--acc)}
+.qres p{margin:0;color:var(--mute);max-width:520px}
+.qres__acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+.qres__acts .btn--line{color:var(--ink)}
+.qin{animation:qin .55s var(--ease) both}
+@keyframes qin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* teachers */
-.tch__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.6vw,24px)}
+/* ---------- преподаватели ----------
+   все портреты — в одном кадре: одинаковое соотношение сторон и одна точка фокуса */
+.tch__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(12px,1.6vw,24px)}
 @media (min-width:1000px){.tch__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.tch{background:#fff;border-radius:24px;overflow:hidden;transition:transform .4s var(--ease)}
-.tch:hover{transform:translateY(-4px)}
-.tch__img{position:relative;aspect-ratio:4/5;background:var(--cream-2)}
-.tch__img img{width:100%;height:100%;object-fit:cover}
-.tch__score{position:absolute;left:12px;top:12px;padding:6px 12px;border-radius:999px;background:var(--navy);color:var(--pink);font-family:var(--head);font-weight:700;font-size:13px}
-.tch__b{padding:18px 18px 22px}
-.tch h3{margin:0;font-family:var(--head);font-weight:700;font-size:clamp(18px,1.5vw,22px);letter-spacing:-.01em}
-.tch p{margin:6px 0 0;font-size:14px;color:rgba(29,36,64,.65)}
+.tch__img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--paper-3)}
+.tch__img img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;filter:grayscale(1) contrast(1.04);transition:filter .7s var(--ease),transform 1.2s var(--ease)}
+.tch:hover .tch__img img{filter:none;transform:scale(1.03)}
+.tch__score{position:absolute;left:12px;bottom:12px;padding:7px 11px;border-radius:999px;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:11px;text-transform:uppercase}
+.tch__b{padding-top:16px;display:grid;gap:4px}
+.tch__n{color:var(--mute)}
+.tch h3{margin:0;font-weight:500;font-size:clamp(20px,1.7vw,28px);letter-spacing:-.03em;line-height:1.05}
+.tch p{margin:0;font-size:14px;color:var(--mute)}
 
-/* results */
-.res__grid{display:grid;gap:18px}
+/* ---------- результаты ---------- */
+.res__grid{display:grid;border-top:1px solid var(--line-d)}
 @media (min-width:960px){.res__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.res{padding:30px 28px;border-radius:var(--r);background:var(--navy-2);border:1px solid var(--line-d);display:flex;flex-direction:column;gap:18px}
-.res__sc{display:flex;align-items:baseline;gap:14px;font-family:var(--head);font-weight:800;letter-spacing:-.04em}
-.res__sc s{font-size:clamp(36px,3.4vw,54px);color:rgba(246,241,236,.35);text-decoration-thickness:3px}
-.res__sc b{font-size:clamp(64px,6vw,100px);line-height:.9;color:var(--pink)}
-.res__sc span{font-size:24px;color:var(--txt-light)}
-.res q{font-size:17px;quotes:"«" "»";color:var(--cream)}
-.res footer{margin-top:auto;padding-top:16px;border-top:1px solid var(--line-d);display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--txt-light)}
-.res footer b{color:var(--cream);font-family:var(--head)}
+.res{display:flex;flex-direction:column;gap:22px;padding:clamp(28px,3vw,44px) 0;border-bottom:1px solid var(--line-d)}
+@media (min-width:960px){.res{padding:clamp(28px,3vw,44px) clamp(20px,2.4vw,40px);border-bottom:0}.res+.res{border-left:1px solid var(--line-d)}.res:first-child{padding-left:0}.res:last-child{padding-right:0}}
+.res__sc{display:flex;align-items:baseline;gap:16px;font-family:var(--serif);font-style:italic;font-weight:500}
+.res__sc s{font-size:clamp(40px,3.6vw,62px);color:var(--mute-d);text-decoration-thickness:2px}
+.res__sc span{font-family:var(--sans);font-style:normal;font-size:22px;color:var(--mute-d)}
+.res__sc b{font-weight:500;font-size:clamp(84px,8vw,140px);line-height:.85;color:var(--acc-2)}
+.res q{font-size:clamp(17px,1.35vw,21px);line-height:1.45;letter-spacing:-.01em;quotes:"«" "»"}
+.res footer{margin-top:auto;padding-top:18px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--mute-d)}
+.res footer b{color:var(--paper);font-weight:500}
 
-/* pricing */
-.price__grid{display:grid;gap:18px;margin-top:34px}
-@media (min-width:960px){.price__grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}}
-.plan{padding:32px 28px;border-radius:var(--r);background:#fff;display:flex;flex-direction:column;gap:18px;transition:transform .4s var(--ease)}
-.plan:hover{transform:translateY(-4px)}
-.plan--pop{background:var(--navy);color:var(--cream)}
-.plan__top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.plan h3{margin:0;font-family:var(--head);font-weight:700;font-size:24px}
-.plan__p{font-family:var(--head);font-weight:800;font-size:clamp(40px,3.8vw,58px);letter-spacing:-.04em;line-height:1}
-.plan__p small{font-family:var(--body);font-weight:500;font-size:15px;letter-spacing:0;opacity:.6;margin-left:6px}
-.plan ul{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--line-l);display:grid;gap:10px;font-size:15px}
+/* ---------- цены ---------- */
+.price__grid{display:grid;border:1px solid var(--line);border-radius:clamp(20px,2vw,32px);overflow:hidden}
+@media (min-width:960px){.price__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.plan{padding:clamp(28px,3vw,48px);display:flex;flex-direction:column;gap:22px;background:var(--paper)}
+.plan+.plan{border-top:1px solid var(--line)}
+@media (min-width:960px){.plan+.plan{border-top:0;border-left:1px solid var(--line)}}
+.plan--pop{background:var(--ink);color:var(--paper)}
+.plan__top{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:30px}
+.plan h3{margin:0;font-weight:500;font-size:22px;letter-spacing:-.03em}
+.plan__top .mono{padding:7px 11px;border-radius:999px;background:var(--acc);color:#fff}
+.plan__p{font-weight:500;font-size:clamp(48px,4.6vw,80px);letter-spacing:-.045em;line-height:1}
+.plan__p small{display:block;margin-top:10px;font-family:var(--mono);font-size:12px;font-weight:400;letter-spacing:.02em;text-transform:uppercase;color:var(--mute)}
+.plan--pop .plan__p small{color:var(--mute-d)}
+.plan ul{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;gap:11px;font-size:15px}
 .plan--pop ul{border-color:var(--line-d)}
-.plan li{display:flex;gap:10px}
-.plan li::before{content:"✓";color:var(--navy);font-weight:700;background:var(--pink);width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;flex:0 0 20px;margin-top:2px}
+.plan li{display:flex;gap:12px}
+.plan li::before{content:"";flex:0 0 14px;height:1px;margin-top:11px;background:currentColor;opacity:.5}
 .plan .btn{margin-top:auto}
-.price__note{margin-top:22px;font-size:13px;color:rgba(29,36,64,.55)}
+.price__note{margin-top:22px;color:var(--mute)}
 
-/* faq */
+/* ---------- FAQ ---------- */
 .faq__grid{display:grid;gap:40px}
-@media (min-width:1000px){.faq__grid{grid-template-columns:5fr 7fr}}
-.faq details{border-bottom:1px solid var(--line-d)}
-.faq details:first-child{border-top:1px solid var(--line-d)}
-.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-family:var(--head);font-weight:600;font-size:clamp(18px,1.5vw,22px);cursor:pointer}
+@media (min-width:1000px){.faq__grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:first-child{border-top:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:clamp(22px,2vw,30px) 0;font-weight:500;font-size:clamp(19px,1.6vw,26px);letter-spacing:-.02em;line-height:1.2;cursor:pointer;transition:color .3s}
+.faq summary:hover{color:var(--acc)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary i{flex:0 0 36px;height:36px;border-radius:50%;border:1px solid var(--line-d);position:relative;transition:transform .35s var(--ease),background-color .3s}
-.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;background:var(--cream)}
+.faq summary i{flex:0 0 40px;height:40px;border-radius:50%;border:1px solid var(--line);position:relative;transition:transform .5s var(--ease),background-color .4s,border-color .4s}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;margin:-.75px 0 0 -6px;background:var(--ink)}
 .faq summary i::after{transform:rotate(90deg)}
-.faq details[open] summary i{transform:rotate(45deg);background:var(--pink);border-color:var(--pink)}
-.faq details[open] summary i::before,.faq details[open] summary i::after{background:var(--navy)}
-.faq details p{margin:0 0 24px;color:var(--txt-light);max-width:680px}
+.faq details[open] summary i{transform:rotate(45deg);background:var(--acc);border-color:var(--acc)}
+.faq details[open] summary i::before,.faq details[open] summary i::after{background:#fff}
+.faq details p{margin:0 0 28px;color:var(--mute);max-width:640px;animation:qin .5s var(--ease) both}
 
-/* booking */
-.book{display:grid;gap:clamp(30px,4vw,70px)}
-@media (min-width:1000px){.book{grid-template-columns:5fr 6fr;align-items:stretch}}
-.book__img{position:relative;border-radius:var(--r);overflow:hidden;min-height:340px;background:var(--cream-2)}
+/* ---------- запись ---------- */
+.book{display:grid;gap:clamp(36px,4vw,80px)}
+@media (min-width:1000px){.book{grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:stretch}}
+.book__img{position:relative;overflow:hidden;min-height:380px;background:var(--ink-3);border-radius:clamp(20px,2vw,32px)}
 .book__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.book__img span{position:absolute;left:18px;bottom:18px;right:18px;padding:16px 18px;border-radius:18px;background:var(--navy);color:var(--cream);font-size:15px}
-.book__img span b{color:var(--pink);font-family:var(--head)}
-.form{background:#fff;border-radius:var(--r);padding:clamp(26px,3vw,48px);display:grid;gap:18px}
-.form h3{margin:0;font-family:var(--head);font-weight:800;font-size:clamp(28px,2.6vw,42px);letter-spacing:-.03em;line-height:1.05}
-.form__row{display:grid;gap:18px}
+.book__img span{position:absolute;left:16px;bottom:16px;right:16px;padding:16px 18px;border-radius:16px;background:rgba(18,18,20,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--paper);font-size:15px}
+.book__img span b{color:#fff;font-weight:500}
+.form{background:var(--paper);color:var(--ink);border-radius:clamp(20px,2vw,32px);padding:clamp(26px,3.4vw,56px);display:grid;gap:22px}
+.form h3{margin:0;font-weight:500;font-size:clamp(30px,2.8vw,48px);letter-spacing:-.035em;line-height:1}
+.form h3 em{color:var(--acc)}
+.form__row{display:grid;gap:22px}
 @media (min-width:640px){.form__row{grid-template-columns:1fr 1fr}}
-.field{display:grid;gap:8px}
-.field label{font-size:13px;font-weight:600;color:rgba(29,36,64,.65)}
-.field input,.field select{height:56px;padding:0 18px;border-radius:14px;border:1.5px solid var(--line-l);background:var(--cream);color:var(--navy);outline:none;transition:border-color .25s;-webkit-appearance:none;appearance:none;width:100%}
-.field select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%231D2440' stroke-width='1.6'/></svg>");background-repeat:no-repeat;background-position:right 18px center;padding-right:44px}
-.field input:focus,.field select:focus{border-color:var(--navy)}
-.field.is-err input,.field.is-err select{border-color:#E0485C}
-.goals{display:flex;flex-wrap:wrap;gap:8px}
+.field{display:grid;gap:6px}
+.field>label,.field>span{font-family:var(--mono);font-size:11.5px!important;font-weight:400!important;text-transform:uppercase;letter-spacing:.03em;color:var(--mute)!important}
+.field input,.field select{height:54px;padding:0 2px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;color:var(--ink);outline:none;font-size:18px;letter-spacing:-.01em;transition:border-color .3s;-webkit-appearance:none;appearance:none;width:100%}
+.field select{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23121214' stroke-width='1.4'/></svg>");background-repeat:no-repeat;background-position:right 4px center;padding-right:28px}
+.field input:focus,.field select:focus{border-color:var(--ink)}
+.field input::placeholder{color:rgba(18,18,20,.35)}
+.field.is-err input,.field.is-err select{border-color:#D6334A}
+.goals{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .goals label{position:relative}
 .goals input{position:absolute;opacity:0;pointer-events:none}
-.goals span{display:inline-block;padding:10px 16px;border-radius:999px;border:1.5px solid var(--line-l);font-size:14px;cursor:pointer;transition:background-color .25s,color .25s,border-color .25s}
-.goals input:checked+span{background:var(--navy);color:var(--cream);border-color:var(--navy)}
-.goals input:focus-visible+span{outline:2px solid var(--pink);outline-offset:2px}
-.form__legal{font-size:12px;color:rgba(29,36,64,.5);margin:0}
-.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.4;color:rgba(29,36,64,.7);cursor:pointer}
-.consent input{flex:0 0 18px;width:18px;height:18px;margin:0;accent-color:var(--navy)}
-.consent.is-err span{color:#E0485C}
-.form__ok{display:none;text-align:left;gap:10px}
-.form__ok b{font-family:var(--head);font-weight:800;font-size:clamp(30px,3vw,46px);letter-spacing:-.03em;line-height:1.05}
-.form__ok p{margin:0;color:rgba(29,36,64,.7)}
+.goals span{display:inline-block;padding:11px 16px;border-radius:999px;border:1px solid var(--line);font-size:14px;cursor:pointer;transition:background-color .3s,color .3s,border-color .3s}
+.goals span:hover{border-color:var(--ink)}
+.goals input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.goals input:focus-visible+span{outline:2px solid var(--acc);outline-offset:2px}
+.form__legal{font-size:12px;color:var(--mute);margin:0}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.4;color:var(--mute);cursor:pointer}
+.consent input{flex:0 0 18px;width:18px;height:18px;margin:0;accent-color:var(--ink)}
+.consent.is-err span{color:#D6334A}
+.form__ok{display:none;text-align:left;gap:12px}
+.form__ok b{font-weight:500;font-size:clamp(34px,3.4vw,56px);letter-spacing:-.05em;line-height:1}
+.form__ok p{margin:0;color:var(--mute)}
 .form.is-sent>*:not(.form__ok){display:none}
 .form.is-sent .form__ok{display:grid}
 
-/* footer */
-.foot{padding:clamp(64px,8vw,110px) 0 36px;border-top:1px solid var(--line-d)}
-.foot__top{display:grid;gap:36px}
-@media (min-width:900px){.foot__top{grid-template-columns:2fr 1fr 1fr 1.3fr}}
-.foot h4{margin:0 0 14px;font-family:var(--head);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,241,236,.45)}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;color:var(--txt-light)}
-.foot ul a:hover{color:var(--pink)}
-.foot p{margin:14px 0 0;color:var(--txt-light);max-width:360px}
-.foot__word{font-family:var(--head);font-weight:800;font-size:clamp(88px,21vw,380px);letter-spacing:-.06em;line-height:.8;color:var(--pink);margin:clamp(50px,6vw,90px) 0 26px;white-space:nowrap;overflow:hidden}
-.foot__bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:22px;border-top:1px solid var(--line-d);font-size:13px;color:rgba(246,241,236,.5);padding-right:84px}
-.foot__bot .demo{color:var(--pink)}
+/* ---------- подвал ---------- */
+.foot{background:var(--ink);color:var(--paper);padding:clamp(72px,8vw,120px) 0 30px;overflow:hidden}
+.foot__cta{display:grid;gap:26px;padding-bottom:clamp(48px,6vw,90px);border-bottom:1px solid var(--line-d)}
+@media (min-width:900px){.foot__cta{grid-template-columns:1fr auto;align-items:end}}
+.foot__cta p{margin:0;font-weight:500;font-size:clamp(34px,4.4vw,76px);letter-spacing:-.04em;line-height:.95;max-width:14ch}
+.foot__cta p em{color:var(--acc-2)}
+.foot__top{display:grid;gap:36px;padding-top:clamp(40px,5vw,64px)}
+@media (min-width:900px){.foot__top{grid-template-columns:2fr 1fr 1fr 1.4fr}}
+.foot h4{margin:0 0 14px;color:var(--mute-d)}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px}
+.foot ul a{transition:color .3s}
+.foot ul a:hover{color:var(--acc-2)}
+.foot p.foot__about{margin:14px 0 0;color:var(--mute-d);max-width:340px;font-size:15px}
+.foot .logo sup{color:var(--mute-d)}
+.foot__word{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(110px,27vw,520px);letter-spacing:-.04em;line-height:1;color:var(--paper);margin:clamp(40px,5vw,80px) 0 0;padding-bottom:.06em;white-space:nowrap;text-align:center;overflow:hidden}
+.foot__word span{color:var(--acc-2)}
+.foot__bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:26px;margin-top:clamp(24px,3vw,40px);border-top:1px solid var(--line-d);color:var(--mute-d);padding-right:84px}
+.foot__bot .demo{color:var(--acc-2)}
 
-/* reveal */
-.rv{opacity:0;transform:translate3d(0,24px,0);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+/* ---------- появление ---------- */
+.rv{opacity:0;transform:translate3d(0,28px,0);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.is-in{opacity:1;transform:none}
-.ln{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
-.ln>span{display:block;transform:translate3d(0,105%,0);transition:transform .7s var(--ease)}
+.rv-img{clip-path:inset(14% 10% 14% 10%);transition:clip-path 1.3s var(--ease)}
+.rv-img img{transform:scale(1.18);transition:transform 1.6s var(--ease)}
+.rv-img.is-in{clip-path:inset(0)}
+.rv-img.is-in img{transform:none}
+.who:hover .rv-img.is-in img{transform:scale(1.04)}
+.ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
+.ln>span{display:block;transform:translate3d(0,110%,0) rotate(2deg);transform-origin:0 0;transition:transform 1.05s var(--ease)}
 .is-in .ln>span,.ln.is-in>span{transform:none}
-.ln:nth-child(2)>span{transition-delay:.07s}.ln:nth-child(3)>span{transition-delay:.14s}
-.no-js .rv{opacity:1;transform:none}.no-js .ln>span{transform:none}
+.ln:nth-child(2)>span{transition-delay:.08s}.ln:nth-child(3)>span{transition-delay:.16s}
+.no-js .rv{opacity:1;transform:none}.no-js .ln>span{transform:none}.no-js .rv-img{clip-path:none}.no-js .rv-img img{transform:none}
 
-/* ===== chat ===== */
-.chat-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:80;width:64px;height:64px;border-radius:22px;border:0;background:var(--pink);color:var(--navy);display:grid;place-items:center;box-shadow:0 12px 30px rgba(10,14,30,.35);transition:transform .3s var(--ease)}
-.chat-fab:hover{transform:translateY(-3px)}
-.chat-fab svg{width:28px;height:28px}
-.chat-fab__dot{position:absolute;right:-3px;top:-3px;width:16px;height:16px;border-radius:50%;background:var(--lime);border:3px solid var(--navy)}
-.chat-tease{position:fixed;z-index:79;right:calc(max(18px,env(safe-area-inset-right)) + 76px);bottom:calc(max(18px,env(safe-area-inset-bottom)) + 8px);max-width:250px;padding:14px 18px;border-radius:20px 20px 6px 20px;background:#fff;color:var(--navy);font-size:15px;line-height:1.4;box-shadow:0 12px 30px rgba(10,14,30,.3);border:0;text-align:left;opacity:0;transform:translate3d(0,8px,0);pointer-events:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+/* курсор-спутник: только мышь, без «уменьшения движения» */
+.cursor{position:fixed;left:0;top:0;z-index:95;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;opacity:0;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),opacity .3s}
+.cursor.on{opacity:1}
+.cursor.big{width:56px;height:56px;margin:-28px 0 0 -28px}
+
+/* ===== чат ===== */
+.chat-fab{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:80;width:64px;height:64px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);display:grid;place-items:center;box-shadow:0 16px 40px -10px rgba(10,10,20,.5);transition:transform .45s var(--ease),background-color .4s}
+.chat-fab:hover{transform:scale(1.06);background:var(--acc)}
+.chat-fab svg{width:26px;height:26px}
+.chat-fab__dot{position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--acc-2);border:3px solid var(--paper)}
+.chat-tease{position:fixed;z-index:79;right:calc(max(18px,env(safe-area-inset-right)) + 76px);bottom:calc(max(18px,env(safe-area-inset-bottom)) + 8px);max-width:250px;padding:14px 18px;border-radius:20px 20px 6px 20px;background:var(--ink);color:var(--paper);font-size:15px;line-height:1.4;box-shadow:0 16px 40px -10px rgba(10,10,20,.5);border:0;text-align:left;opacity:0;transform:translate3d(0,8px,0);pointer-events:none;transition:opacity .4s var(--ease),transform .4s var(--ease)}
 .chat-tease.is-on{opacity:1;transform:none;pointer-events:auto}
-.chat-tease b{font-family:var(--head);display:block}
+.chat-tease b{display:block;font-weight:500}
 .chat-open .chat-tease{opacity:0;pointer-events:none}
 .chat-open .chat-fab{transform:scale(.9);opacity:0;pointer-events:none}
-.chat{position:fixed;z-index:81;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));width:380px;height:min(600px,calc(100dvh - 36px));background:#F7F7FA;color:var(--navy);border-radius:30px;box-shadow:0 30px 80px rgba(10,14,30,.45);display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translate3d(0,14px,0) scale(.96);transform-origin:bottom right;transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s .3s}
+.chat{position:fixed;z-index:81;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));width:380px;height:min(600px,calc(100dvh - 36px));background:#F7F5F1;color:var(--ink);border-radius:26px;box-shadow:0 40px 100px -20px rgba(10,10,20,.5);display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translate3d(0,14px,0) scale(.96);transform-origin:bottom right;transition:opacity .35s var(--ease),transform .35s var(--ease),visibility 0s .35s}
 .chat-open .chat{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 @media (max-width:600px){.chat{inset:0;width:100%;height:100dvh;border-radius:0}}
-.chat__hd{display:flex;align-items:center;gap:14px;padding:18px 18px 16px;background:#fff;border-bottom:1px solid rgba(29,36,64,.08)}
-.chat__ic{width:48px;height:48px;border-radius:15px;background:var(--navy);color:var(--pink);display:grid;place-items:center;flex:0 0 48px}
-.chat__ic svg{width:24px;height:24px}
+.chat__hd{display:flex;align-items:center;gap:14px;padding:18px 18px 16px;background:#fff;border-bottom:1px solid var(--line)}
+.chat__ic{width:46px;height:46px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;flex:0 0 46px}
+.chat__ic svg{width:22px;height:22px}
 .chat__t{flex:1;min-width:0}
-.chat__t b{display:block;font-family:var(--head);font-weight:700;font-size:18px;line-height:1.2}
-.chat__t span{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(29,36,64,.6)}
+.chat__t b{display:block;font-weight:600;font-size:17px;line-height:1.2;letter-spacing:-.02em}
+.chat__t span{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--mute)}
 .chat__t span::before{content:"";width:8px;height:8px;border-radius:50%;background:#22C55E;flex:0 0 8px}
-.chat__x{width:40px;height:40px;border-radius:50%;border:0;background:#EEF0F5;color:var(--navy);display:grid;place-items:center;flex:0 0 40px}
+.chat__x{width:40px;height:40px;border-radius:50%;border:0;background:var(--paper);color:var(--ink);display:grid;place-items:center;flex:0 0 40px}
 .chat__x svg{width:16px;height:16px}
 .chat__body{flex:1;overflow-y:auto;padding:18px 16px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain;scroll-behavior:smooth}
 .msg{max-width:84%;padding:12px 16px;border-radius:20px;font-size:15px;line-height:1.45;animation:qin .3s var(--ease) both;white-space:pre-line}
-.msg--bot{align-self:flex-start;background:#fff;border-bottom-left-radius:6px;box-shadow:0 2px 10px rgba(29,36,64,.05)}
-.msg--me{align-self:flex-end;background:var(--navy);color:var(--cream);border-bottom-right-radius:6px}
+.msg--bot{align-self:flex-start;background:#fff;border-bottom-left-radius:6px;box-shadow:0 2px 10px rgba(18,18,20,.05)}
+.msg--me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:6px}
 .typing{align-self:flex-start;display:flex;gap:5px;padding:14px 16px;background:#fff;border-radius:20px;border-bottom-left-radius:6px}
-.typing i{width:7px;height:7px;border-radius:50%;background:rgba(29,36,64,.4);animation:dot 1s infinite var(--ease)}
+.typing i{width:7px;height:7px;border-radius:50%;background:rgba(18,18,20,.4);animation:dot 1s infinite var(--ease)}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
 @keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
 .quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
-.quick button{border:1.5px solid rgba(29,36,64,.16);background:#fff;padding:8px 14px;border-radius:999px;font-size:14px;color:var(--navy);transition:background-color .2s,color .2s,border-color .2s}
-.quick button:hover{background:var(--navy);color:var(--cream);border-color:var(--navy)}
-.chat__ft{padding:12px 14px 12px;background:#fff;border-top:1px solid rgba(29,36,64,.08)}
+.quick button{border:1px solid var(--line);background:#fff;padding:8px 14px;border-radius:999px;font-size:14px;color:var(--ink);transition:background-color .2s,color .2s,border-color .2s}
+.quick button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chat__ft{padding:12px 14px;background:#fff;border-top:1px solid var(--line)}
 .chat__form{display:flex;gap:10px}
-.chat__form input{flex:1;min-width:0;height:52px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(29,36,64,.14);background:#F7F7FA;outline:none;font-size:16px;color:var(--navy)}
-.chat__form input:focus{border-color:var(--navy)}
-.chat__send{width:52px;height:52px;border-radius:50%;border:0;background:var(--pink);color:var(--navy);display:grid;place-items:center;flex:0 0 52px;transition:transform .2s var(--ease)}
-.chat__send:hover{transform:translateY(-2px)}
+.chat__form input{flex:1;min-width:0;height:52px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:#F7F5F1;outline:none;font-size:16px;color:var(--ink)}
+.chat__form input:focus{border-color:var(--ink)}
+.chat__send{width:52px;height:52px;border-radius:50%;border:0;background:var(--acc);color:#fff;display:grid;place-items:center;flex:0 0 52px;transition:transform .3s var(--ease)}
+.chat__send:hover{transform:scale(1.06)}
 .chat__send svg{width:20px;height:20px}
-.chat__demo{margin:10px 0 0;text-align:center;font-size:12px;line-height:1.4;color:rgba(29,36,64,.6)}
+.chat__demo{margin:10px 0 0;text-align:center;font-size:12px;line-height:1.4;color:var(--mute)}
 .chat__demo+.chat__pp{margin-top:4px}
-.chat__pp{display:block;text-align:center;margin-top:8px;font-size:12px;color:rgba(29,36,64,.5);text-decoration:underline;text-underline-offset:3px}
+.chat__pp{display:block;text-align:center;margin-top:8px;font-size:12px;color:var(--mute);text-decoration:underline;text-underline-offset:3px}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .rv{opacity:1;transform:none}.ln>span{transform:none}
+  .rv{opacity:1;transform:none}.ln>span{transform:none}.rv-img{clip-path:none}.rv-img img{transform:none}
 }
 </style>
 </head>
 <body class="no-js">
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
-    <a href="#top" class="logo" aria-label="FLUENT — на главную"><i aria-hidden="true"></i>FLUENT</a>
+    <a href="#top" class="logo" aria-label="FLUENT — на главную">FLUENT<sup>®</sup></a>
     <nav class="nav" aria-label="Основное меню">
-      <a href="#formats">Курсы</a><a href="#ielts">IELTS</a><a href="#teachers">Преподаватели</a><a href="#pricing">Цены</a><a href="#faq">FAQ</a>
+      <a href="#formats">Курсы</a><a href="#ielts">IELTS</a><a href="#teachers">Преподаватели</a><a href="#pricing">Цены</a><a href="#faq">Вопросы</a>
     </nav>
-    <a href="#book" class="btn btn--pink hdr__cta">Пробный урок</a>
-    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span></button>
+    <div class="hdr__r">
+      <a href="tel:+74955550147" class="hdr__ph">+7 (495) 555-01-47</a>
+      <a href="#book" class="btn btn--ink hdr__cta">Пробный урок <span class="ar">→</span></a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span></button>
+    </div>
   </div>
 </header>
 
 <div class="mnav" id="mnav" aria-hidden="true">
   <nav aria-label="Мобильное меню">
-    <a href="#formats">Курсы</a><a href="#ielts">IELTS</a><a href="#test">Тест на уровень</a><a href="#teachers">Преподаватели</a><a href="#pricing">Цены</a><a href="#faq">FAQ</a>
+    <a href="#formats"><span>01</span>Курсы</a><a href="#ielts"><span>02</span>IELTS</a><a href="#test"><span>03</span>Тест на уровень</a><a href="#teachers"><span>04</span>Преподаватели</a><a href="#pricing"><span>05</span>Цены</a><a href="#faq"><span>06</span>Вопросы</a>
   </nav>
-  <div class="mnav__foot"><a href="#book" class="btn btn--pink">Бесплатный пробный урок</a><span style="color:var(--txt-light);font-size:14px">+7 (495) 555-01-47 · Москва и онлайн</span></div>
+  <div class="mnav__foot"><a href="#book" class="btn btn--paper">Бесплатный пробный урок <span class="ar">→</span></a><span>+7 (495) 555-01-47 · Москва и онлайн</span></div>
 </div>
 
 <main id="top">
 <!-- HERO -->
 <section class="hero">
-  <div class="hero__big" aria-hidden="true">7.5</div>
-  <div class="wrap hero__in">
-    <span class="tag rv"><b>FLUENT</b> Школа английского и IELTS</span>
-    <h1 aria-label="Английский, который открывает двери">
+  <div class="wrap">
+    <div class="hero__meta mono rv">
+      <span>(Школа английского и IELTS)</span>
+      <span>Москва — очно и онлайн</span>
+      <span class="live">Поток <b>IELTS 7.0</b> — 14 октября · 3 места из 6</span>
+    </div>
+    <h1 class="hero__t" aria-label="Английский, который открывает двери">
       <span class="ln"><span>Английский,</span></span>
-      <span class="ln"><span>который <span class="pk">открывает</span></span></span>
-      <span class="ln"><span>двери</span></span>
+      <span class="ln"><span>который <em>открывает</em></span></span>
+      <span class="ln"><span><span class="hero__pill" aria-hidden="true"><img src="https://images.unsplash.com/photo-1610484826625-ac2be7f1c8c1?auto=format&fit=crop&w=560&h=250&q=75" width="280" height="125" alt="" fetchpriority="high"></span>двери<span class="hero__sup">IELTS 7+ за 4–6 мес.</span></span></span>
     </h1>
-    <div class="hero__row">
-      <p class="lead rv">Готовим к IELTS на 7+ за 4–6 месяцев: мини-группы до 6 человек, пробные экзамены каждый месяц и разбор каждого вашего эссе. В нашем центре в Москве или онлайн из любого города России.</p>
+    <div class="hero__grid">
+      <p class="lead rv">Мини-группы до 6 человек, пробные экзамены каждый месяц и разбор каждого вашего эссе. В нашем центре в Москве или онлайн из любого города России.</p>
       <div class="hero__acts rv">
-        <a href="#test" class="btn btn--line">Пройти тест на уровень</a>
-        <a href="#book" class="btn btn--pink">Бесплатный пробный урок <span class="ar">→</span></a>
+        <a href="#book" class="btn btn--ink">Бесплатный пробный урок <span class="ar">→</span></a>
+        <a href="#test" class="link-u">Тест на уровень — 1 минута</a>
       </div>
+      <dl class="hero__stats rv">
+        <div><dt>1 800+</dt><dd>выпускников с 2017 года</dd></div>
+        <div><dt>7.0</dt><dd>средний итоговый балл</dd></div>
+        <div><dt>89%</dt><dd>сдают с первой попытки</dd></div>
+      </dl>
     </div>
-    <div class="hero__card rv">
-      <img src="https://images.unsplash.com/photo-1610484826625-ac2be7f1c8c1?auto=format&fit=crop&w=300&h=300&q=75" width="120" height="120" alt="Студентка в наушниках занимается английским" fetchpriority="high">
-      <p><b>Следующий поток — 14 октября</b>Группа «IELTS Academic 7.0». Осталось 3 места из 6.</p>
-    </div>
-    <div class="stats">
-      <div class="stat rv"><b>1 800+</b><span>выпускников с 2017 года</span></div>
-      <div class="stat rv"><b>7.0</b><span>средний итоговый балл</span></div>
-      <div class="stat rv"><b>89%</b><span>достигают цели с первой попытки</span></div>
-    </div>
+    <a href="#book" class="badge-rot" aria-label="Записаться на бесплатный пробный урок">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60,60 m-47,0 a47,47 0 1,1 94,0 a47,47 0 1,1 -94,0"/></defs><text><textPath href="#circ">Пробный урок · бесплатно · 45 минут ·</textPath></text></svg>
+      <span aria-hidden="true">↘</span>
+    </a>
   </div>
 </section>
 
 <div class="mq" aria-label="Направления школы">
   <div class="mq__track">
-    <div class="mq__g"><span>IELTS Academic</span><i></i><span>General English</span><i></i><span>Speaking Club</span><i></i><span>Бизнес-английский</span><i></i><span>Подготовка к поступлению</span><i></i></div>
-    <div class="mq__g" aria-hidden="true"><span>IELTS Academic</span><i></i><span>General English</span><i></i><span>Speaking Club</span><i></i><span>Бизнес-английский</span><i></i><span>Подготовка к поступлению</span><i></i></div>
+    <div class="mq__g"><span>IELTS Academic</span><i>✳</i><em>General English</em><i>✳</i><span>Speaking Club</span><i>✳</i><em>Бизнес-английский</em><i>✳</i><span>Поступление за рубеж</span><i>✳</i></div>
+    <div class="mq__g" aria-hidden="true"><span>IELTS Academic</span><i>✳</i><em>General English</em><i>✳</i><span>Speaking Club</span><i>✳</i><em>Бизнес-английский</em><i>✳</i><span>Поступление за рубеж</span><i>✳</i></div>
   </div>
 </div>
 
 <!-- WHO -->
-<section class="sec light" id="who">
+<section class="sec" id="who">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>01</b> Для кого</span><h2 class="h2"><span class="ln"><span>Одна цель —</span></span><span class="ln"><span>разные дороги</span></span></h2></div>
+      <div><span class="sh mono rv"><b>(01)</b> Для кого</span><h2 class="h2"><span class="ln"><span>Одна цель —</span></span><span class="ln"><span><em>разные</em> дороги</span></span></h2></div>
       <p class="lead rv">Школьнику, студенту и взрослому нужен разный английский. Мы начинаем с диагностики и строим план под вашу дату экзамена.</p>
     </div>
     <div class="who__grid">
       <article class="who rv">
-        <div class="who__img"><img loading="lazy" decoding="async" width="800" height="600" src="https://images.unsplash.com/photo-1598981457915-aea220950616?auto=format&fit=crop&w=800&h=600&q=75" alt="Школьница пишет в тетради за партой"></div>
-        <div class="who__b"><span class="who__n">01</span><h3>Школьникам и родителям</h3><p>Подготовка к поступлению в зарубежные и международные вузы с 9–11 класса. Родитель каждый месяц получает отчёт о прогрессе.</p><div class="who__goal"><span>Цель</span><b>6.5–7.5</b></div></div>
+        <div class="who__img rv-img"><img loading="lazy" decoding="async" width="800" height="1000" src="https://images.unsplash.com/photo-1598981457915-aea220950616?auto=format&fit=crop&w=800&h=1000&q=75" alt="Школьница пишет в тетради за партой"></div>
+        <div class="who__b"><div class="who__top mono"><span>01 — школьники</span><span>цель <b>6.5–7.5</b></span></div><h3>Школьникам и родителям</h3><p>Подготовка к поступлению в зарубежные и международные вузы с 9–11 класса. Родитель каждый месяц получает отчёт о прогрессе.</p></div>
       </article>
       <article class="who rv">
-        <div class="who__img"><img loading="lazy" decoding="async" width="800" height="600" src="https://images.unsplash.com/photo-1704829550040-4b9798e74090?auto=format&fit=crop&w=800&h=600&q=75" alt="Студенты у здания университета"></div>
-        <div class="who__b"><span class="who__n">02</span><h3>Для учёбы за рубежом</h3><p>IELTS Academic для бакалавриата, магистратуры и грантов. Помогаем уложиться в дедлайны подачи документов.</p><div class="who__goal"><span>Цель</span><b>7.0+</b></div></div>
+        <div class="who__img rv-img"><img loading="lazy" decoding="async" width="800" height="1000" src="https://images.unsplash.com/photo-1704829550040-4b9798e74090?auto=format&fit=crop&w=800&h=1000&q=75" alt="Студенты у здания университета"></div>
+        <div class="who__b"><div class="who__top mono"><span>02 — студенты</span><span>цель <b>7.0+</b></span></div><h3>Для учёбы за рубежом</h3><p>IELTS Academic для бакалавриата, магистратуры и грантов. Помогаем уложиться в дедлайны подачи документов.</p></div>
       </article>
       <article class="who rv">
-        <div class="who__img"><img loading="lazy" decoding="async" width="800" height="600" src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?auto=format&fit=crop&w=800&h=600&q=75" alt="Мужчина занимается за ноутбуком"></div>
-        <div class="who__b"><span class="who__n">03</span><h3>Для работы и переезда</h3><p>IELTS General для рабочих виз и иммиграционных программ. Занятия вечером и в выходные, без отрыва от работы.</p><div class="who__goal"><span>Цель</span><b>6.0–7.0</b></div></div>
+        <div class="who__img rv-img"><img loading="lazy" decoding="async" width="800" height="1000" src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?auto=format&fit=crop&w=800&h=1000&q=75" alt="Мужчина занимается за ноутбуком"></div>
+        <div class="who__b"><div class="who__top mono"><span>03 — взрослые</span><span>цель <b>6.0–7.0</b></span></div><h3>Для работы и переезда</h3><p>IELTS General для рабочих виз и иммиграционных программ. Занятия вечером и в выходные, без отрыва от работы.</p></div>
       </article>
     </div>
   </div>
 </section>
 
 <!-- FORMATS -->
-<section class="sec" id="formats">
+<section class="sec dark" id="formats">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>02</b> Форматы</span><h2 class="h2"><span class="ln"><span>Учитесь так,</span></span><span class="ln"><span>как <span class="pk">удобно вам</span></span></span></h2></div>
+      <div><span class="sh mono rv"><b>(02)</b> Форматы</span><h2 class="h2"><span class="ln"><span>Учитесь так,</span></span><span class="ln"><span>как <em class="acc">удобно вам</em></span></span></h2></div>
       <p class="lead rv">Все форматы включают вводную диагностику, домашние задания с проверкой и пробный экзамен в условиях, приближенных к реальным.</p>
     </div>
-    <div class="fmt__grid">
+    <div class="fmt__list">
       <article class="fmt rv">
-        <div class="fmt__top"><h3>Мини-группа</h3></div>
-        <div class="fmt__meta"><span>до 6 человек</span><span>12 недель</span><span>2 раза в неделю</span></div>
-        <ul><li>Занятия по 2 часа вечером или в выходные</li><li>Разбор всех четырёх частей экзамена</li><li>Письменные работы с подробной обратной связью</li><li>Пробный экзамен в середине и в конце курса</li></ul>
-        <p class="fmt__note">Оптимально, если до экзамена 3–6 месяцев</p>
-      </article>
-      <article class="fmt fmt--hot rv">
-        <div class="fmt__top"><h3>Индивидуально</h3><span class="badge">Чаще выбирают</span></div>
-        <div class="fmt__meta"><span>1 на 1</span><span>свой график</span><span>от 8 недель</span></div>
-        <ul><li>Программа под вашу дату экзамена и слабые места</li><li>Можно сосредоточиться на Writing или Speaking</li><li>Разговорная практика в каждом уроке</li><li>Преподаватель на связи между занятиями</li></ul>
-        <p class="fmt__note">Для тех, кому нужен результат в сжатые сроки</p>
+        <span class="fmt__n mono">01</span>
+        <div><h3>Мини-группа</h3></div>
+        <div class="fmt__meta mono"><span>до 6 человек</span><span>12 недель</span><span>2 раза в неделю</span></div>
+        <div><ul><li>Занятия по 2 часа вечером или в выходные</li><li>Разбор всех четырёх частей экзамена</li><li>Письменные работы с подробной обратной связью</li><li>Пробный экзамен в середине и в конце курса</li></ul><p class="fmt__note">Оптимально, если до экзамена 3–6 месяцев</p></div>
       </article>
       <article class="fmt rv">
-        <div class="fmt__top"><h3>Интенсив</h3></div>
-        <div class="fmt__meta"><span>до 6 человек</span><span>5 недель</span><span>3 раза в неделю</span></div>
-        <ul><li>Занятия по 2,5 часа, плотный темп</li><li>Стратегии для каждого типа заданий</li><li>Speaking-практика с носителем языка</li><li>Два полных пробных экзамена</li></ul>
-        <p class="fmt__note">Летние потоки и группы перед дедлайнами вузов</p>
+        <span class="fmt__n mono">02</span>
+        <div><h3>Индивидуально</h3><span class="fmt__tag mono">Чаще выбирают</span></div>
+        <div class="fmt__meta mono"><span>1 на 1</span><span>свой график</span><span>от 8 недель</span></div>
+        <div><ul><li>Программа под вашу дату экзамена и слабые места</li><li>Можно сосредоточиться на Writing или Speaking</li><li>Разговорная практика в каждом уроке</li><li>Преподаватель на связи между занятиями</li></ul><p class="fmt__note">Для тех, кому нужен результат в сжатые сроки</p></div>
+      </article>
+      <article class="fmt rv">
+        <span class="fmt__n mono">03</span>
+        <div><h3>Интенсив</h3></div>
+        <div class="fmt__meta mono"><span>до 6 человек</span><span>5 недель</span><span>3 раза в неделю</span></div>
+        <div><ul><li>Занятия по 2,5 часа, плотный темп</li><li>Стратегии для каждого типа заданий</li><li>Speaking-практика с носителем языка</li><li>Два полных пробных экзамена</li></ul><p class="fmt__note">Летние потоки и группы перед дедлайнами вузов</p></div>
       </article>
     </div>
-    <div class="req rv"><b>Нужен уровень от B1.</b><span>Если пока ниже — начните с курса General English: подтянем базу за 2–3 месяца и перейдём к IELTS.</span></div>
+    <p class="req rv"><b>Нужен уровень от B1.</b><span>Если пока ниже — начните с курса General English: подтянем базу за 2–3 месяца и перейдём к IELTS.</span></p>
   </div>
 </section>
 
 <!-- IELTS PROGRAM -->
-<section class="sec light" id="ielts">
+<section class="sec" id="ielts">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>03</b> Программа</span><h2 class="h2"><span class="ln"><span>Четыре части.</span></span><span class="ln"><span>Один план.</span></span></h2></div>
+      <div><span class="sh mono rv"><b>(03)</b> Программа</span><h2 class="h2"><span class="ln"><span>Четыре части.</span></span><span class="ln"><span><em class="acc">Один</em> план.</span></span></h2></div>
       <p class="lead rv">Экзамен оценивает четыре навыка по шкале от 0 до 9 с шагом 0,5. Мы прорабатываем каждый отдельно — и учим распределять время.</p>
     </div>
     <div class="prog__grid">
       <div class="prog rv">
-        <h3>Listening <small>≈ 30 мин · 40 вопросов</small></h3>
-        <div><p>Четыре аудиозаписи — от бытового диалога до академической лекции, каждая звучит один раз. Тренируем предугадывание ответа, работу с ловушками и перенос ответов без потерь.</p><div class="prog__facts"><span>4 части</span><span>британский и австралийский акценты</span></div></div>
-        <span class="prog__plus"><b>+1 балл</b> за 6 недель</span>
+        <div class="prog__top mono"><span>01</span><span>≈ 30 мин · 40 вопросов</span></div>
+        <h3>Listening</h3>
+        <p>Четыре аудиозаписи — от бытового диалога до академической лекции, каждая звучит один раз. Тренируем предугадывание ответа и работу с ловушками.</p>
+        <div class="prog__facts"><span>4 части</span><span>британский и австралийский акценты</span></div>
+        <div class="prog__plus"><b>+1 балл</b><span>за 6 недель</span></div>
       </div>
       <div class="prog rv">
-        <h3>Reading <small>60 мин · 40 вопросов</small></h3>
-        <div><p>Три длинных текста и больше десяти типов заданий. Учим сканировать текст, не читая каждое слово, и находить ответ за 60–90 секунд.</p><div class="prog__facts"><span>True / False / Not Given</span><span>Matching headings</span></div></div>
-        <span class="prog__plus"><b>+1 балл</b> за 6 недель</span>
+        <div class="prog__top mono"><span>02</span><span>60 мин · 40 вопросов</span></div>
+        <h3>Reading</h3>
+        <p>Три длинных текста и больше десяти типов заданий. Учим сканировать текст, не читая каждое слово, и находить ответ за 60–90 секунд.</p>
+        <div class="prog__facts"><span>True / False / Not Given</span><span>Matching headings</span></div>
+        <div class="prog__plus"><b>+1 балл</b><span>за 6 недель</span></div>
       </div>
       <div class="prog rv">
-        <h3>Writing <small>60 мин · 2 задания</small></h3>
-        <div><p>Первое задание — описание графика или письмо от 150 слов, второе — эссе от 250 слов. Проверяем каждую работу по официальным критериям и показываем, где теряются баллы.</p><div class="prog__facts"><span>Task 1 + Task 2</span><span>разбор каждого эссе</span></div></div>
-        <span class="prog__plus"><b>+0.5–1</b> за 8 недель</span>
+        <div class="prog__top mono"><span>03</span><span>60 мин · 2 задания</span></div>
+        <h3>Writing</h3>
+        <p>График или письмо от 150 слов и эссе от 250 слов. Проверяем каждую работу по официальным критериям и показываем, где теряются баллы.</p>
+        <div class="prog__facts"><span>Task 1 + Task 2</span><span>разбор каждого эссе</span></div>
+        <div class="prog__plus"><b>+0.5–1</b><span>за 8 недель</span></div>
       </div>
       <div class="prog rv">
-        <h3>Speaking <small>11–14 мин · 3 части</small></h3>
-        <div><p>Живой разговор с экзаменатором: знакомство, монолог по карточке и дискуссия. Снимаем страх, ставим структуру ответа и расширяем словарь для высоких баллов.</p><div class="prog__facts"><span>монолог 2 минуты</span><span>пробные интервью</span></div></div>
-        <span class="prog__plus"><b>+1 балл</b> за 6 недель</span>
+        <div class="prog__top mono"><span>04</span><span>11–14 мин · 3 части</span></div>
+        <h3>Speaking</h3>
+        <p>Живой разговор с экзаменатором: знакомство, монолог по карточке и дискуссия. Снимаем страх, ставим структуру ответа и расширяем словарь.</p>
+        <div class="prog__facts"><span>монолог 2 минуты</span><span>пробные интервью</span></div>
+        <div class="prog__plus"><b>+1 балл</b><span>за 6 недель</span></div>
       </div>
     </div>
     <div class="ac-note">
-      <div class="rv"><b>IELTS Academic</b><p>Для поступления в бакалавриат и магистратуру, грантовых программ. Тексты сложнее, в Writing — описание графиков и таблиц.</p></div>
-      <div class="rv"><b>IELTS General Training</b><p>Для рабочих виз и переезда. Тексты ближе к повседневным, в Writing — деловое или личное письмо.</p></div>
+      <div class="rv"><span class="mono">A</span><b>IELTS Academic</b><p>Для поступления в бакалавриат и магистратуру, грантовых программ. Тексты сложнее, в Writing — описание графиков и таблиц.</p></div>
+      <div class="rv"><span class="mono">G</span><b>IELTS General Training</b><p>Для рабочих виз и переезда. Тексты ближе к повседневным, в Writing — деловое или личное письмо.</p></div>
     </div>
   </div>
 </section>
 
 <!-- QUIZ -->
-<section class="sec" id="test">
+<section class="sec blue" id="test">
   <div class="wrap">
     <div class="quiz">
       <div>
-        <span class="tag rv"><b>04</b> Тест на уровень</span>
-        <h2 class="h2"><span class="ln"><span>Узнайте уровень</span></span><span class="ln"><span class="pk">за 1 минуту</span></span></h2>
-        <p class="lead rv" style="margin-top:26px">Пять коротких вопросов — и мы подскажем, с какого курса начать. Точный уровень преподаватель определит на бесплатном пробном уроке.</p>
+        <span class="sh mono rv"><b>(04)</b> Тест на уровень</span>
+        <h2 class="h2"><span class="ln"><span>Узнайте уровень</span></span><span class="ln"><span><em>за 1 минуту</em></span></span></h2>
+        <p class="lead rv" style="margin-top:28px">Пять коротких вопросов — и мы подскажем, с какого курса начать. Точный уровень преподаватель определит на бесплатном пробном уроке.</p>
       </div>
       <div class="qbox rv" id="quiz" aria-live="polite"></div>
     </div>
@@ -517,26 +611,26 @@ button{cursor:pointer}
 </section>
 
 <!-- TEACHERS -->
-<section class="sec light" id="teachers">
+<section class="sec" id="teachers">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>05</b> Преподаватели</span><h2 class="h2"><span class="ln"><span>Сдавали сами —</span></span><span class="ln"><span>знают изнутри</span></span></h2></div>
+      <div><span class="sh mono rv"><b>(05)</b> Преподаватели</span><h2 class="h2"><span class="ln"><span>Сдавали сами —</span></span><span class="ln"><span><em>знают</em> изнутри</span></span></h2></div>
       <p class="lead rv">У каждого преподавателя личный балл IELTS от 8.0 и международный сертификат CELTA или DELTA. Раз в год они пересдают экзамен, чтобы знать актуальные задания.</p>
     </div>
     <div class="tch__grid">
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="600" height="750" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&h=750&q=75" alt="Преподаватель Анна Соколова"><span class="tch__score">IELTS 8.5</span></div><div class="tch__b"><h3>Анна Соколова</h3><p>Writing · 9 лет · магистратура в Эдинбурге</p></div></article>
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="600" height="750" src="https://images.unsplash.com/photo-1758685848404-5b2bf607b38d?auto=format&fit=crop&w=600&h=750&q=75" alt="Преподаватель Даниэль Картер"><span class="tch__score">Native</span></div><div class="tch__b"><h3>Даниэль Картер</h3><p>Speaking · 7 лет · носитель, Великобритания</p></div></article>
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="600" height="750" src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2?auto=format&fit=crop&w=600&h=750&q=75" alt="Преподаватель Мария Лебедева"><span class="tch__score">IELTS 8.0</span></div><div class="tch__b"><h3>Мария Лебедева</h3><p>Reading, Listening · 6 лет · Торонто</p></div></article>
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="600" height="750" src="https://images.unsplash.com/photo-1758685847967-c598c3b176b0?auto=format&fit=crop&w=600&h=750&q=75" alt="Преподаватель Екатерина Орлова"><span class="tch__score">IELTS 9.0</span></div><div class="tch__b"><h3>Екатерина Орлова</h3><p>Методист программы · 11 лет · Мельбурн</p></div></article>
+      <article class="tch rv"><div class="tch__img rv-img"><img loading="lazy" decoding="async" width="600" height="800" src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&h=800&q=75" alt="Преподаватель Анна Соколова"><span class="tch__score">IELTS 8.5</span></div><div class="tch__b"><span class="tch__n mono">01 — Writing</span><h3>Анна Соколова</h3><p>9 лет · магистратура в Эдинбурге</p></div></article>
+      <article class="tch rv"><div class="tch__img rv-img"><img loading="lazy" decoding="async" width="600" height="800" src="https://images.unsplash.com/photo-1758685848404-5b2bf607b38d?auto=format&fit=crop&w=600&h=800&q=75" alt="Преподаватель Даниэль Картер"><span class="tch__score">Native</span></div><div class="tch__b"><span class="tch__n mono">02 — Speaking</span><h3>Даниэль Картер</h3><p>7 лет · носитель, Великобритания</p></div></article>
+      <article class="tch rv"><div class="tch__img rv-img"><img loading="lazy" decoding="async" width="600" height="800" src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2?auto=format&fit=crop&w=600&h=800&q=75" alt="Преподаватель Мария Лебедева"><span class="tch__score">IELTS 8.0</span></div><div class="tch__b"><span class="tch__n mono">03 — Reading, Listening</span><h3>Мария Лебедева</h3><p>6 лет · Торонто</p></div></article>
+      <article class="tch rv"><div class="tch__img rv-img"><img loading="lazy" decoding="async" width="600" height="800" src="https://images.unsplash.com/photo-1758685847967-c598c3b176b0?auto=format&fit=crop&w=600&h=800&q=75" alt="Преподаватель Екатерина Орлова"><span class="tch__score">IELTS 9.0</span></div><div class="tch__b"><span class="tch__n mono">04 — Методист</span><h3>Екатерина Орлова</h3><p>11 лет · Мельбурн</p></div></article>
     </div>
   </div>
 </section>
 
 <!-- RESULTS -->
-<section class="sec" id="results">
+<section class="sec dark" id="results">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>06</b> Результаты</span><h2 class="h2"><span class="ln"><span>Было → <span class="pk">стало</span></span></span></h2></div>
+      <div><span class="sh mono rv"><b>(06)</b> Результаты</span><h2 class="h2"><span class="ln"><span>Было → <em class="acc">стало</em></span></span></h2></div>
       <p class="lead rv">Истории выпускников последнего года. Имена изменены, баллы — из официальных сертификатов.</p>
     </div>
     <div class="res__grid">
@@ -548,39 +642,40 @@ button{cursor:pointer}
 </section>
 
 <!-- PRICING -->
-<section class="sec light" id="pricing">
+<section class="sec" id="pricing">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>07</b> Стоимость</span><h2 class="h2"><span class="ln"><span>Прозрачные цены</span></span></h2></div>
+      <div><span class="sh mono rv"><b>(07)</b> Стоимость</span><h2 class="h2"><span class="ln"><span>Прозрачные</span></span><span class="ln"><span><em>цены</em></span></span></h2></div>
+      <p class="lead rv">Без скрытых платежей: учебные материалы и пробные экзамены уже включены в стоимость.</p>
     </div>
     <div class="price__grid">
       <article class="plan rv">
         <div class="plan__top"><h3>Мини-группа</h3></div>
-        <div class="plan__p">14 900 ₽<small>/ месяц</small></div>
+        <div class="plan__p">14 900 ₽<small>в месяц</small></div>
         <ul><li>8 занятий по 2 часа</li><li>Проверка домашних заданий</li><li>Пробный экзамен в конце курса</li><li>Доступ к библиотеке материалов</li></ul>
         <a href="#book" class="btn btn--line">Записаться</a>
       </article>
       <article class="plan plan--pop rv">
-        <div class="plan__top"><h3>Индивидуально</h3><span class="badge">Популярный</span></div>
-        <div class="plan__p">2 500 ₽<small>/ урок 60 мин</small></div>
+        <div class="plan__top"><h3>Индивидуально</h3><span class="mono">Популярный</span></div>
+        <div class="plan__p">2 500 ₽<small>за урок 60 минут</small></div>
         <ul><li>Программа под дату экзамена</li><li>Разбор каждого эссе</li><li>Пробные Speaking-интервью</li><li>Связь с преподавателем в мессенджере</li></ul>
-        <a href="#book" class="btn btn--pink">Записаться <span class="ar">→</span></a>
+        <a href="#book" class="btn btn--paper">Записаться <span class="ar">→</span></a>
       </article>
       <article class="plan rv">
         <div class="plan__top"><h3>Интенсив</h3></div>
-        <div class="plan__p">32 000 ₽<small>/ курс</small></div>
+        <div class="plan__p">32 000 ₽<small>за курс</small></div>
         <ul><li>15 занятий по 2,5 часа</li><li>Практика с носителем</li><li>Два полных пробных экзамена</li><li>План подготовки на месяц после курса</li></ul>
         <a href="#book" class="btn btn--line">Записаться</a>
       </article>
     </div>
-    <p class="price__note rv">Цены демонстрационные и не являются офертой. Пробный урок и диагностика — бесплатно.</p>
+    <p class="price__note mono rv">Цены демонстрационные и не являются офертой · пробный урок и диагностика — бесплатно</p>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="sec faq" id="faq">
+<section class="sec faq" id="faq" style="padding-top:0">
   <div class="wrap faq__grid">
-    <div><span class="tag rv"><b>08</b> Вопросы</span><h2 class="h2"><span class="ln"><span>Частые</span></span><span class="ln"><span class="pk">вопросы</span></span></h2></div>
+    <div><span class="sh mono rv"><b>(08)</b> Вопросы</span><h2 class="h2"><span class="ln"><span>Частые</span></span><span class="ln"><span><em class="acc">вопросы</em></span></span></h2></div>
     <div class="rv">
       <details><summary>Сколько времени нужно, чтобы поднять балл на 1?<i aria-hidden="true"></i></summary><p>В среднем 8–12 недель регулярных занятий с домашними заданиями. Быстрее всего растут Listening и Reading, дольше всего — Writing.</p></details>
       <details><summary>Чем Academic отличается от General?<i aria-hidden="true"></i></summary><p>Listening и Speaking одинаковые. В Academic сложнее тексты для Reading, а в Writing нужно описать график или таблицу. General сдают для работы и переезда, Academic — для учёбы.</p></details>
@@ -593,21 +688,21 @@ button{cursor:pointer}
 </section>
 
 <!-- BOOK -->
-<section class="sec light" id="book">
+<section class="sec dark" id="book">
   <div class="wrap">
     <div class="head-row">
-      <div><span class="tag rv"><b>09</b> Пробный урок</span><h2 class="h2"><span class="ln"><span>Начните</span></span><span class="ln"><span>с бесплатного урока</span></span></h2></div>
+      <div><span class="sh mono rv"><b>(09)</b> Пробный урок</span><h2 class="h2"><span class="ln"><span>Начните</span></span><span class="ln"><span>с <em class="acc">бесплатного</em> урока</span></span></h2></div>
       <p class="lead rv">45 минут с преподавателем: определим уровень, поставим цель по баллам и составим план подготовки. Ни к чему не обязывает.</p>
     </div>
     <div class="book">
-      <div class="book__img rv"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?auto=format&fit=crop&w=900&h=1100&q=75" alt="Девушка делает записи в тетради"><span>Ответим в течение <b>15 минут</b> в рабочее время: ежедневно 9:00–21:00</span></div>
+      <div class="book__img rv rv-img"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?auto=format&fit=crop&w=900&h=1100&q=75" alt="Девушка делает записи в тетради"><span>Ответим в течение <b>15 минут</b> в рабочее время: ежедневно 9:00–21:00</span></div>
       <form class="form rv" id="form" novalidate>
-        <h3>Запись на пробный урок</h3>
+        <h3>Запись на <em>пробный</em> урок</h3>
         <div class="form__row">
           <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" placeholder="Как к вам обращаться"></div>
           <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="18"></div>
         </div>
-        <div class="field"><span style="font-size:13px;font-weight:600;color:rgba(29,36,64,.65)" id="g-label">Цель</span>
+        <div class="field"><span id="g-label">Цель</span>
           <div class="goals" role="radiogroup" aria-labelledby="g-label">
             <label><input type="radio" name="goal" value="IELTS" checked><span>IELTS</span></label>
             <label><input type="radio" name="goal" value="Общий английский"><span>Общий английский</span></label>
@@ -619,7 +714,7 @@ button{cursor:pointer}
           <select id="f-time" name="time"><option>Утро · 9:00–12:00</option><option>День · 12:00–17:00</option><option selected>Вечер · 17:00–21:00</option><option>Выходные</option></select>
         </div>
         <label class="consent" id="f-consent"><input type="checkbox" name="consent"><span>Согласен на обработку персональных данных</span></label>
-        <button type="submit" class="btn btn--navy">Записаться бесплатно <span class="ar">→</span></button>
+        <button type="submit" class="btn btn--ink btn--block">Записаться бесплатно <span class="ar">→</span></button>
         <p class="form__legal">Демо-форма: данные никуда не отправляются.</p>
         <div class="form__ok" role="status"><b>Спасибо!</b><p>Менеджер свяжется с вами в течение 15 минут.</p></div>
       </form>
@@ -630,14 +725,18 @@ button{cursor:pointer}
 
 <footer class="foot">
   <div class="wrap">
-    <div class="foot__top">
-      <div><a href="#top" class="logo"><i aria-hidden="true"></i>FLUENT</a><p>Онлайн-школа английского и подготовки к IELTS. Центр в Москве, онлайн — по всей России.</p></div>
-      <div><h4>Школа</h4><ul><li><a href="#formats">Курсы</a></li><li><a href="#ielts">Программа IELTS</a></li><li><a href="#teachers">Преподаватели</a></li><li><a href="#pricing">Цены</a></li></ul></div>
-      <div><h4>Соцсети</h4><ul><li><a href="#">ВКонтакте</a></li><li><a href="#">Telegram</a></li><li><a href="#">YouTube</a></li></ul></div>
-      <div><h4>Контакты</h4><ul><li><a href="tel:+74955550147">+7 (495) 555-01-47</a></li><li>Москва, ул. Примерная, 12 (адрес вымышленный)</li><li>Ежедневно 9:00–21:00</li></ul></div>
+    <div class="foot__cta">
+      <p>Готовы к <em>7.0</em>? Начнём с пробного урока.</p>
+      <a href="#book" class="btn btn--paper">Записаться <span class="ar">→</span></a>
     </div>
-    <div class="foot__word" aria-hidden="true">fluent.</div>
-    <div class="foot__bot"><span>© 2026 FLUENT</span><span class="demo">Демо-проект, школа вымышленная</span></div>
+    <div class="foot__top">
+      <div><a href="#top" class="logo">FLUENT<sup>®</sup></a><p class="foot__about">Школа английского и подготовки к IELTS. Центр в Москве, онлайн — по всей России.</p></div>
+      <div><h4 class="mono">Школа</h4><ul><li><a href="#formats">Курсы</a></li><li><a href="#ielts">Программа IELTS</a></li><li><a href="#teachers">Преподаватели</a></li><li><a href="#pricing">Цены</a></li></ul></div>
+      <div><h4 class="mono">Соцсети</h4><ul><li><a href="#">ВКонтакте</a></li><li><a href="#">Telegram</a></li><li><a href="#">YouTube</a></li></ul></div>
+      <div><h4 class="mono">Контакты</h4><ul><li><a href="tel:+74955550147">+7 (495) 555-01-47</a></li><li>Москва, ул. Примерная, 12 (адрес вымышленный)</li><li>Ежедневно 9:00–21:00</li></ul></div>
+    </div>
+    <div class="foot__word" aria-hidden="true">fluent<span>.</span></div>
+    <div class="foot__bot mono"><span>© 2026 FLUENT</span><span class="demo">Демо-проект, школа вымышленная</span></div>
   </div>
 </footer>
 
@@ -684,7 +783,7 @@ button{cursor:pointer}
   $$('#mnav a').forEach(a => a.addEventListener('click', () => menu(false)));
 
   /* reveal once */
-  const items = $$('.rv, .ln');
+  const items = $$('.rv, .ln, .rv-img');
   // бегущая строка крутится, только когда её видно
   const mqEl = document.querySelector('.mq');
   if (mqEl && 'IntersectionObserver' in window) { document.documentElement.classList.add('js-mq'); new IntersectionObserver(([e]) => mqEl.classList.toggle('on', e.isIntersecting)).observe(mqEl); }
@@ -692,6 +791,21 @@ button{cursor:pointer}
   else {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -6% 0px', threshold:.08});
     items.forEach(i => io.observe(i));
+  }
+
+  /* прогресс прокрутки — одна запись transform за кадр */
+  const bar = $('#progress');
+  if (bar) { let tick = false; const upd = () => { const h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')'; tick = false; };
+    addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); upd(); }
+
+  /* курсор-спутник: только мышь и только без «уменьшения движения» */
+  if (!reduce && matchMedia('(pointer:fine) and (min-width:1024px)').matches) {
+    const c = document.createElement('div'); c.className = 'cursor'; c.setAttribute('aria-hidden', 'true'); document.body.appendChild(c);
+    let x = -100, y = -100, cx = x, cy = y, run = false;
+    const loop = () => { cx += (x - cx) * .2; cy += (y - cy) * .2; c.style.transform = `translate3d(${cx}px,${cy}px,0)`; if (Math.abs(x - cx) + Math.abs(y - cy) > .3) requestAnimationFrame(loop); else run = false; };
+    addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; c.classList.add('on'); if (!run) { run = true; requestAnimationFrame(loop); } }, { passive: true });
+    document.addEventListener('pointerover', e => c.classList.toggle('big', !!e.target.closest('a,button,summary,label,.qopt')));
+    document.documentElement.addEventListener('pointerleave', () => c.classList.remove('on'));
   }
 
   /* quiz */
@@ -707,7 +821,7 @@ button{cursor:pointer}
   const renderQ = () => {
     if (qi >= Q.length) {
       const [l, t] = lvl(score);
-      box.innerHTML = `<div class="qbar"><i style="transform:scaleX(1)"></i></div><div class="qres qin"><span style="font-size:13px;color:var(--txt-light)">Ваш примерный уровень · ${score} из ${Q.length}</span><div class="qres__lvl">${l}</div><p>${t}</p><div class="qres__acts"><a href="#book" class="btn btn--pink">Записаться на пробный урок <span class="ar">→</span></a><button class="btn btn--line" type="button" id="qAgain">Пройти ещё раз</button></div></div>`;
+      box.innerHTML = `<div class="qbar"><i style="transform:scaleX(1)"></i></div><div class="qres qin"><span style="font-size:13px;color:var(--txt-light)">Ваш примерный уровень · ${score} из ${Q.length}</span><div class="qres__lvl">${l}</div><p>${t}</p><div class="qres__acts"><a href="#book" class="btn btn--ink">Записаться на пробный урок <span class="ar">→</span></a><button class="btn btn--line" type="button" id="qAgain">Пройти ещё раз</button></div></div>`;
       $('#qAgain').addEventListener('click', () => { qi = 0; score = 0; renderQ(); });
       return;
     }
@@ -801,7 +915,7 @@ button{cursor:pointer}
     }
     if (flow === 'phone' && !/\d/.test(raw)) flow = null;
     if (flow === 'phone') {
-      if (raw.replace(/\D/g, '').length < 10) return ['Кажется, в номере не хватает цифр. Напишите его полностью, например +7 700 123 45 67.'];
+      if (raw.replace(/\D/g, '').length < 10) return ['Кажется, в номере не хватает цифр. Напишите его полностью, например +7 916 123 45 67.'];
       lead.phone = raw; flow = 'goal'; return ['Спасибо! И последнее: какая у вас цель?', ['IELTS Academic', 'IELTS General', 'Общий английский', 'Для ребёнка']];
     }
     if (flow === 'goal') { lead.goal = raw; flow = null; return [`Готово! Записал вас на бесплатный пробный урок (цель: ${lead.goal}). Менеджер позвонит в течение 15 минут в рабочее время.`, ['Сколько стоит?', 'Какие форматы?']]; }
