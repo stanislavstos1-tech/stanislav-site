@@ -66,13 +66,32 @@ tr.fresh td{background:rgba(255,155,180,.18)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
 @media (max-width:900px){
-  .stats{grid-template-columns:1fr 1fr}
-  .tbl{background:none;border:0;border-radius:0;overflow:visible}
-  thead{display:none}table,tbody,tr,td{display:block}
-  tr{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:6px 4px;margin-bottom:12px}
-  td{border:0!important;padding:8px 14px}
-  .tabs{width:100%}
-  .top{flex-wrap:wrap}
+  .stats{grid-template-columns:1fr 1fr;gap:10px}
+  .stat{padding:14px 16px;border-radius:18px}.stat b{font-size:30px}
+  .top{flex-direction:column;align-items:stretch;gap:14px;padding:18px 0}
+  .top>span:last-child{display:grid;grid-template-columns:1fr auto;gap:8px}
+  .top>span:last-child #reset{grid-column:1/-1;justify-content:center}
+  .top button,.top a.out{height:44px;justify-content:center}
+  .src{gap:6px}
+  .bar{display:grid;grid-template-columns:1fr 46px;gap:8px}
+  .tabs{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);border-radius:20px;overflow:visible}
+  .tabs button{padding:9px 6px;font-size:13.5px}
+  .bar .q{min-width:0}
+  .btn{padding:0;width:46px;justify-content:center}
+  .btn span{display:none}
+  /* поля 16px — иначе iPhone приближает страницу при вводе */
+  input[type=search],select,textarea,.st,.note textarea{font-size:16px}
+  .tbl{background:none;border:0;border-radius:0;overflow:visible;min-height:70vh}
+  thead{display:none}table,tbody{display:block}
+  tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"who d" "msg msg" "src src" "st st" "note note";
+     background:var(--white);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:10px;gap:8px 12px}
+  td{display:block;border:0!important;padding:0}
+  td.d{grid-area:d;text-align:right;white-space:normal!important;font-size:11px}
+  td.who{grid-area:who}td.msg{grid-area:msg;max-width:none}td.srcc{grid-area:src;font-size:13.5px;color:var(--mute)}
+  td.srcc .mono{display:inline;margin-left:6px}td.srcc br{display:none}
+  td.stc{grid-area:st}td.note{grid-area:note}
+  .st{width:100%;height:44px}
+  .note textarea{height:44px;min-height:44px}
 }
 </style>
 </head>
@@ -91,8 +110,8 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
 
   <div class="bar">
     <nav class="tabs" id="tabs" aria-label="Статус"></nav>
-    <input class="q" type="search" id="q" placeholder="Поиск: имя, телефон, курс" aria-label="Поиск">
-    <button class="btn" id="csv">↓ Excel</button>
+    <input class="q" type="search" id="q" placeholder="Поиск по заявкам" aria-label="Поиск: имя, телефон, курс" enterkeyhint="search">
+    <button class="btn" id="csv" aria-label="Скачать в Excel">↓<span>&nbsp;Excel</span></button>
   </div>
 
   <div class="tbl"><table>
@@ -158,16 +177,17 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
     $('#empty').hidden = list.length > 0;
     $('#rows').innerHTML = list.map(l => `
       <tr data-id="${l.id}" class="${l.id === freshId ? 'fresh' : ''}">
-        <td class="mono" style="white-space:nowrap">#${l.id}<br>${fmt(l.t)}</td>
+        <td class="mono d" style="white-space:nowrap">#${l.id}<br>${fmt(l.t)}</td>
         <td class="who"><b>${esc(l.name)}</b><span>${esc(l.phone)}</span>${l.email ? `<span>${esc(l.email)}</span>` : ''}</td>
         <td class="msg">${esc(l.msg) || '—'}</td>
-        <td>${esc(l.src)}${l.camp ? `<br><span class="mono">${esc(l.camp)}</span>` : ''}</td>
-        <td><select class="st st--${l.st}" aria-label="Статус">${Object.entries(ST).map(([k, v]) => `<option value="${k}" ${k === l.st ? 'selected' : ''}>${v}</option>`).join('')}</select></td>
+        <td class="srcc">${esc(l.src)}${l.camp ? `<br><span class="mono">${esc(l.camp)}</span>` : ''}</td>
+        <td class="stc"><select class="st st--${l.st}" aria-label="Статус">${Object.entries(ST).map(([k, v]) => `<option value="${k}" ${k === l.st ? 'selected' : ''}>${v}</option>`).join('')}</select></td>
         <td class="note"><textarea placeholder="Заметка" aria-label="Заметка">${esc(l.note)}</textarea></td>
       </tr>`).join('');
   }
   $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { tab = b.dataset.tab; render(); } });
   $('#q').addEventListener('input', e => { q = e.target.value.trim(); render(); });
+  $('#q').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur(); });
   $('#rows').addEventListener('change', e => {
     const tr = e.target.closest('tr'), l = leads.find(x => x.id === +tr.dataset.id);
     if (e.target.matches('select')) { l.st = e.target.value; save(); render(); toast('Статус сохранён: ' + ST[l.st]); }
