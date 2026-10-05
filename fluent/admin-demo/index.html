@@ -14,6 +14,7 @@
 <style>
 :root{--navy:#1D2440;--navy-2:#252D4E;--ink:#141A30;--pink:#FF9BB4;--pink-d:#C7375E;--cream:#F6F1EC;--cream-2:#EDE6DF;--white:#fff;--lime:#D8FF3C;
   --mute:rgba(29,36,64,.58);--line:rgba(29,36,64,.12);--head:"Geologica",system-ui,sans-serif;--body:"Onest",system-ui,sans-serif}
+[hidden]{display:none!important}
 *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--navy);font:400 15px/1.5 var(--body);-webkit-font-smoothing:antialiased}
 a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}
 .mono{font:600 11.5px/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
@@ -57,6 +58,7 @@ tr.fresh td{background:rgba(255,155,180,.18)}
 .who b{display:block;font-weight:600}.who span{color:var(--mute);display:block}
 .msg{color:var(--mute);max-width:34ch}
 .st{height:34px;padding:0 12px;border-radius:40px;font-size:13px;font-weight:600;width:auto;cursor:pointer;border:0}
+.st option{background:#fff;color:var(--navy);font-weight:500}
 .st--new{background:#FFE1E9;color:var(--pink-d)}.st--work{background:#E4E8FB;color:#2F3FA8}.st--paid{background:var(--lime);color:var(--ink)}.st--lost{background:var(--cream-2);color:#8A7F75}
 .note textarea{height:34px;min-height:34px;padding:6px 12px;font-size:13px;resize:vertical;border-radius:12px;background:var(--cream)}
 .empty{padding:60px 0;text-align:center;color:var(--mute)}
@@ -76,8 +78,8 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
 </head>
 <body>
 <div class="wrap">
-  <div class="demo"><span><b>Демо-панель.</b> Так выглядят заявки вашей школы. Данные вымышлены — можно кликать, всё работает.</span><a href="../index.html">← Сайт FLUENT</a></div>
-  <header class="top"><span class="logo"><i aria-hidden="true"></i>FLUENT<small>· заявки</small></span><span><button id="newLead">+ Новая заявка</button><a class="out" href="../../index.html#cases">Выйти</a></span></header>
+  <div class="demo"><span><b>Демо-панель.</b> Так выглядят заявки вашей школы. Данные вымышлены — меняйте статусы, пишите заметки, всё сохраняется.</span><a href="../index.html">← Сайт FLUENT</a></div>
+  <header class="top"><span class="logo"><i aria-hidden="true"></i>FLUENT<small>· заявки</small></span><span><a class="out" href="#" id="reset" hidden>Сбросить демо</a><button id="newLead">+ Новая заявка</button><a class="out" href="../../index.html#cases">Выйти</a></span></header>
 
   <section class="stats">
     <div class="stat"><span class="mono">Всего</span><b id="sAll">0</b></div>
@@ -124,6 +126,10 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
   const now = Date.now();
   let id = RAW.length + 26;  // номера как у живой школы, не с единицы
   let leads = RAW.map((r, i) => ({ id: id - i, t: now - r[0] * 36e5, name: r[1], phone: r[2], email: r[3], msg: r[4], src: r[5], camp: r[6], st: r[7], note: r[8] }));
+  // изменения запоминаются в браузере зрителя — после перезагрузки всё на месте
+  const KEY = 'fluent-demo-leads-v1';
+  try { const sv = JSON.parse(localStorage.getItem(KEY) || 'null'); if (sv && Array.isArray(sv.leads)) { leads = sv.leads; id = sv.id; } } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ leads, id })); } catch (e) {} $('#reset').hidden = false; };
   let tab = '', q = '';
   const $ = s => document.querySelector(s);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -164,8 +170,8 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
   $('#q').addEventListener('input', e => { q = e.target.value.trim(); render(); });
   $('#rows').addEventListener('change', e => {
     const tr = e.target.closest('tr'), l = leads.find(x => x.id === +tr.dataset.id);
-    if (e.target.matches('select')) { l.st = e.target.value; render(); toast('Статус: ' + ST[l.st]); }
-    if (e.target.matches('textarea')) { l.note = e.target.value; toast('Заметка сохранена'); }
+    if (e.target.matches('select')) { l.st = e.target.value; save(); render(); toast('Статус сохранён: ' + ST[l.st]); }
+    if (e.target.matches('textarea')) { l.note = e.target.value; save(); toast('Заметка сохранена'); }
   });
   $('#csv').addEventListener('click', () => {
     const cell = v => '"' + String(v).replace(/"/g, '""') + '"';
@@ -180,8 +186,10 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
   let ni = 0;
   $('#newLead').addEventListener('click', () => {
     const r = NEW[ni++ % NEW.length], l = { id: ++id, t: Date.now(), name: r[0], phone: r[1], email: '', msg: r[2], src: r[3], camp: r[4], st: 'new', note: '' };
-    leads.unshift(l); tab = ''; q = ''; $('#q').value = ''; render(l.id); toast('Новая заявка #' + l.id + ' — пришла с сайта');
+    leads.unshift(l); save(); tab = ''; q = ''; $('#q').value = ''; render(l.id); toast('Новая заявка #' + l.id + ' — пришла с сайта');
   });
+  $('#reset').addEventListener('click', e => { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (er) {} location.reload(); });
+  try { $('#reset').hidden = !localStorage.getItem(KEY); } catch (e) {}
   render();
 })();
 </script>
