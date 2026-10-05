@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Панель заявок FLUENT — демо</title>
+<meta name="description" content="Демо панели заявок для сайта онлайн-школы: статусы, источники рекламы, поиск и выгрузка в Excel. Данные вымышлены.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../../assets/favicon.svg?v=sm1" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0D0B;--bg2:#171513;--bg3:#201d1a;--ink:#EDE7DB;--mute:#958D80;--line:rgba(237,231,219,.1);--acc:#F4B06A;--ok:#7BD88F;--work:#7FB4FF;--lost:#E8766B}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Onest,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,3vw,40px)}
+.demo{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px;padding:12px 18px;border-radius:14px;background:rgba(244,176,106,.1);border:1px solid rgba(244,176,106,.35);font-size:14px}
+.demo b{color:var(--acc);font-weight:600}
+.demo a{color:var(--ink);text-underline-offset:3px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 0;border-bottom:1px solid var(--line)}
+.top b{font-size:17px}
+.top span{display:flex;gap:18px;align-items:center}
+.top button{background:none;border:0;cursor:pointer;padding:0}
+.top button:hover{color:var(--ink)}
+input[type=search],select,textarea{width:100%;height:46px;padding:0 14px;background:var(--bg3);border:1px solid var(--line);border-radius:12px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--acc)}
+.btn{height:46px;padding:0 20px;border:1px solid var(--line);border-radius:40px;background:none;color:var(--ink);font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn:hover{border-color:var(--mute)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 18px}
+.stat{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.stat b{display:block;font-size:34px;font-weight:700;letter-spacing:-.03em;margin-top:6px}
+.stat small{font-size:15px;color:var(--mute);font-weight:500}
+.src{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;align-items:center}
+.src span{background:var(--bg2);border:1px solid var(--line);border-radius:40px;padding:6px 12px;font-size:13px}.src span i{font-style:normal;color:var(--acc);margin-left:6px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tabs{display:flex;gap:4px;max-width:100%;overflow-x:auto;scrollbar-width:none;background:var(--bg2);border:1px solid var(--line);border-radius:40px;padding:4px}
+.tabs button{white-space:nowrap;padding:8px 14px;border:0;border-radius:40px;background:none;color:var(--mute);font-size:14px;cursor:pointer}
+.tabs button.on{background:var(--ink);color:var(--bg)}
+.tabs button i{font-style:normal;opacity:.6;margin-left:4px;font-size:12px}
+.bar .q{flex:1;min-width:220px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:500;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr{transition:background .3s}
+tr:hover td{background:rgba(237,231,219,.02)}
+tr.fresh td{background:rgba(244,176,106,.07)}
+.who b{display:block}.who span{color:var(--mute);display:block}
+.msg{color:var(--mute);max-width:34ch}
+.st{height:34px;padding:0 10px;border-radius:40px;font-size:13px;width:auto;cursor:pointer}
+.st--new{border-color:var(--acc);color:var(--acc)}.st--work{border-color:var(--work);color:var(--work)}.st--paid{border-color:var(--ok);color:var(--ok)}.st--lost{border-color:var(--lost);color:var(--lost)}
+.note textarea{height:34px;min-height:34px;padding:6px 10px;font-size:13px;resize:vertical;border-radius:10px}
+.empty{padding:60px 0;text-align:center;color:var(--mute)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:40px;font-size:14px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:9;max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
+@media (max-width:900px){
+  .stats{grid-template-columns:1fr 1fr}
+  thead{display:none}table,tbody,tr,td{display:block}
+  tr{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:6px 4px;margin-bottom:12px}
+  td{border:0;padding:8px 14px}
+  .tabs{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="demo"><span><b>Демо-панель.</b> Так выглядят заявки вашей школы. Данные вымышлены — можно кликать, всё работает.</span><a href="../index.html">← Сайт FLUENT</a></div>
+  <header class="top"><b>Заявки · FLUENT</b><span><button class="mono" id="newLead">+ Новая заявка</button><a class="mono" href="../../index.html#cases" style="text-decoration:none">Выйти</a></span></header>
+
+  <section class="stats">
+    <div class="stat"><span class="mono">Всего</span><b id="sAll">0</b></div>
+    <div class="stat"><span class="mono">За 7 дней</span><b id="sWeek">0</b></div>
+    <div class="stat"><span class="mono">Новые</span><b id="sNew" style="color:var(--acc)">0</b></div>
+    <div class="stat"><span class="mono">Оплатили</span><b style="color:var(--ok)"><span id="sPaid">0</span> <small id="sConv">0%</small></b></div>
+  </section>
+  <div class="src" id="src"></div>
+
+  <div class="bar">
+    <nav class="tabs" id="tabs" aria-label="Статус"></nav>
+    <input class="q" type="search" id="q" placeholder="Поиск: имя, телефон, курс" aria-label="Поиск">
+    <button class="btn" id="csv">↓ Excel</button>
+  </div>
+
+  <table>
+    <thead><tr class="mono"><th>Дата</th><th>Клиент</th><th>Сообщение</th><th>Источник</th><th>Статус</th><th>Заметка</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="empty" id="empty" hidden>Ничего не найдено</p>
+  <footer>Демо-проект: школа и заявки вымышлены. Настоящая панель работает на сервере клиента в России, вход — по паролю. Дизайн и код — Станислав Максимов.</footer>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(() => {
+  const ST = { new: 'Новая', work: 'В работе', paid: 'Оплачено', lost: 'Отказ' };
+  // [часов назад, имя, телефон, почта, сообщение, источник, кампания, статус, заметка]
+  const RAW = [
+    [0.4, 'Алина Сергеева', '+7 (900) 000-14-27', 'alina.s@example.ru', 'Нужен IELTS 7.0 к марту, поступаю в магистратуру', 'vk / cpc', 'ielts-autumn', 'new', ''],
+    [1.2, 'Тимур Ахметов', '+7 (700) 000-38-51', '', 'Пробный урок в субботу?', 'telegram', 'post-ielts', 'new', ''],
+    [3.5, 'Ольга Ким', '+7 (900) 000-77-02', 'olga.kim@example.ru', 'Сыну 11 лет, интересует группа для детей', 'yandex / cpc', 'kids', 'work', 'Перезвонить после 18:00'],
+    [7, 'Дмитрий Орлов', '+7 (900) 000-90-13', '', 'Разговорный клуб — есть вечером?', 'Прямой заход', '', 'work', 'Отправил расписание клубов'],
+    [20, 'Айгерим Нурланова', '+7 (700) 000-25-64', 'aigerim@example.kz', 'IELTS Academic, текущий уровень B1', 'instagram / stories', 'ielts-autumn', 'paid', 'Мини-группа, старт 14-го'],
+    [27, 'Марина Белова', '+7 (900) 000-41-88', '', '', 'vk / cpc', 'trial', 'new', ''],
+    [46, 'Сергей Павлов', '+7 (900) 000-63-29', 'pavlov@example.ru', 'Английский для работы, созвоны с иностранцами', 'yandex / cpc', 'business', 'paid', 'Индивидуально, 2 раза в неделю'],
+    [70, 'Дана Ермекова', '+7 (700) 000-12-90', '', 'Сколько стоит подготовка к IELTS?', 'telegram', 'post-ielts', 'lost', 'Дорого, вернётся весной'],
+    [95, 'Кирилл Зуев', '+7 (900) 000-58-46', '', 'Хочу пройти тест на уровень', 'Прямой заход', '', 'work', ''],
+    [130, 'Елена Громова', '+7 (900) 000-37-15', 'gromova@example.ru', 'Дочь 15 лет, ОГЭ + разговорный', 'vk / cpc', 'kids', 'paid', 'Группа подростков'],
+    [170, 'Арман Сейткали', '+7 (700) 000-84-33', '', 'IELTS General для переезда', 'yandex / cpc', 'ielts-autumn', 'new', ''],
+    [220, 'Наталья Фомина', '+7 (900) 000-29-71', '', 'Пробный урок', 'blog.example.ru', '', 'lost', 'Не отвечает'],
+    [300, 'Павел Литвинов', '+7 (900) 000-66-08', 'litvinov@example.ru', 'Нужен английский с нуля', 'telegram', 'post-zero', 'paid', 'Курс с нуля, вечерняя группа'],
+    [390, 'Жанна Абдуллина', '+7 (700) 000-50-47', '', 'Есть ли рассрочка?', 'vk / cpc', 'trial', 'work', 'Отправил условия рассрочки'],
+  ];
+  const now = Date.now();
+  let id = RAW.length + 26;  // номера как у живой школы, не с единицы
+  let leads = RAW.map((r, i) => ({ id: id - i, t: now - r[0] * 36e5, name: r[1], phone: r[2], email: r[3], msg: r[4], src: r[5], camp: r[6], st: r[7], note: r[8] }));
+  let tab = '', q = '';
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmt = t => { const d = new Date(t), p = n => String(n).padStart(2, '0'); return p(d.getDate()) + '.' + p(d.getMonth() + 1) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes()); };
+  const toast = m => { const el = $('#toast'); el.textContent = m; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2200); };
+
+  function stats() {
+    const all = leads.length, paid = leads.filter(l => l.st === 'paid').length;
+    $('#sAll').textContent = all;
+    $('#sWeek').textContent = leads.filter(l => now - l.t < 7 * 864e5).length;
+    $('#sNew').textContent = leads.filter(l => l.st === 'new').length;
+    $('#sPaid').textContent = paid; $('#sConv').textContent = (all ? Math.round(paid / all * 100) : 0) + '%';
+    const by = {}; leads.forEach(l => by[l.src] = (by[l.src] || 0) + 1);
+    $('#src').innerHTML = '<span class="mono" style="border:0;background:none;padding:6px 0">Источники:</span>' +
+      Object.entries(by).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([s, n]) => `<span>${esc(s)}<i>${n}</i></span>`).join('');
+    $('#tabs').innerHTML = [['', 'Все', all], ...Object.entries(ST).map(([k, v]) => [k, v, leads.filter(l => l.st === k).length])]
+      .map(([k, v, n]) => `<button type="button" data-tab="${k}" class="${tab === k ? 'on' : ''}">${v}<i>${n}</i></button>`).join('');
+  }
+  function view() {
+    const s = q.toLowerCase();
+    return leads.filter(l => (!tab || l.st === tab) && (!s || [l.name, l.phone, l.email, l.msg].join(' ').toLowerCase().includes(s)));
+  }
+  function render(freshId) {
+    stats();
+    const list = view();
+    $('#empty').hidden = list.length > 0;
+    $('#rows').innerHTML = list.map(l => `
+      <tr data-id="${l.id}" class="${l.id === freshId ? 'fresh' : ''}">
+        <td class="mono" style="white-space:nowrap">#${l.id}<br>${fmt(l.t)}</td>
+        <td class="who"><b>${esc(l.name)}</b><span>${esc(l.phone)}</span>${l.email ? `<span>${esc(l.email)}</span>` : ''}</td>
+        <td class="msg">${esc(l.msg) || '—'}</td>
+        <td>${esc(l.src)}${l.camp ? `<br><span class="mono">${esc(l.camp)}</span>` : ''}</td>
+        <td><select class="st st--${l.st}" aria-label="Статус">${Object.entries(ST).map(([k, v]) => `<option value="${k}" ${k === l.st ? 'selected' : ''}>${v}</option>`).join('')}</select></td>
+        <td class="note"><textarea placeholder="Заметка" aria-label="Заметка">${esc(l.note)}</textarea></td>
+      </tr>`).join('');
+  }
+  $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { tab = b.dataset.tab; render(); } });
+  $('#q').addEventListener('input', e => { q = e.target.value.trim(); render(); });
+  $('#rows').addEventListener('change', e => {
+    const tr = e.target.closest('tr'), l = leads.find(x => x.id === +tr.dataset.id);
+    if (e.target.matches('select')) { l.st = e.target.value; render(); toast('Статус: ' + ST[l.st]); }
+    if (e.target.matches('textarea')) { l.note = e.target.value; toast('Заметка сохранена'); }
+  });
+  $('#csv').addEventListener('click', () => {
+    const cell = v => '"' + String(v).replace(/"/g, '""') + '"';
+    const rows = [['№', 'Дата', 'Имя', 'Телефон', 'Почта', 'Сообщение', 'Статус', 'Источник', 'Кампания', 'Заметка']]
+      .concat(view().map(l => [l.id, fmt(l.t), l.name, '\t' + l.phone, l.email, l.msg, ST[l.st], l.src, l.camp, l.note]));
+    const blob = new Blob(['﻿' + rows.map(r => r.map(cell).join(';')).join('\n')], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'fluent-zayavki-demo.csv'; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast('Выгрузка скачана — откроется в Excel');
+  });
+  // имитация новой заявки, как она приходит с сайта
+  const NEW = [['Виктория Лебедева', '+7 (900) 000-31-74', 'Хочу на пробный урок IELTS', 'vk / cpc', 'ielts-autumn'], ['Ерлан Касымов', '+7 (700) 000-46-19', 'Английский для IT, уровень A2', 'telegram', 'post-it'], ['Ксения Морозова', '+7 (900) 000-82-56', 'Разговорный клуб по выходным', 'yandex / cpc', 'club']];
+  let ni = 0;
+  $('#newLead').addEventListener('click', () => {
+    const r = NEW[ni++ % NEW.length], l = { id: ++id, t: Date.now(), name: r[0], phone: r[1], email: '', msg: r[2], src: r[3], camp: r[4], st: 'new', note: '' };
+    leads.unshift(l); tab = ''; q = ''; $('#q').value = ''; render(l.id); toast('Новая заявка #' + l.id + ' — пришла с сайта');
+  });
+  render();
+})();
+</script>
+</body>
+</html>
