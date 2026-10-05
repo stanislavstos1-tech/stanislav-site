@@ -220,6 +220,8 @@
     .hs-end p{font-size:clamp(1.6rem,2.6vw,2.6rem);line-height:1.08;letter-spacing:-.035em;font-weight:600;margin:0}
     .hs-end p .serif{color:var(--acc);font-weight:400}
     .is-pinned-ok .hscroll{height:100vh;display:flex;align-items:center}
+    /* если библиотека анимации не загрузилась — кейсы листаются вбок обычной прокруткой */
+    @media (min-width:1024px){html:not(.is-pinned-ok) .hscroll__track{overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:20px;scrollbar-width:thin}html:not(.is-pinned-ok) .hscroll__track>*{scroll-snap-align:start}}
 
     /* compare */
     .compare{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:28px;overflow:hidden}
@@ -626,6 +628,30 @@
               <li><strong>Панель</strong><span>заявок</span></li>
             </ul>
             <div class="case__links"><a class="case__link" href="./fluent/index.html">Открыть сайт <i aria-hidden="true">↗</i></a><a class="case__link" href="./fluent/admin-demo/">Панель заявок <i aria-hidden="true">↗</i></a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <a class="case__media case__media--art" href="./english-crm/" data-cursor="view" aria-label="Открыть демо CRM для школы английского">
+            <picture>
+              <source media="(max-width: 1023px)" srcset="./assets/cases/case-crm-wide.jpg" width="1400" height="700" />
+              <img src="./assets/cases/case-crm-tall.jpg" alt="CRM для онлайн-школы: экран «Сегодня», расписание и карточка ученика на компьютере и телефоне" width="1100" height="1500" loading="lazy" decoding="async" />
+            </picture>
+          </a>
+          <div class="case__body">
+            <div class="case__kicker mono"><span class="tag">Демо-проект</span><span>CRM для онлайн-школы</span></div>
+            <h3 class="case__name">Lingua CRM — заявки, расписание и оплаты в одном месте</h3>
+            <div class="case__story">
+              <div><span class="mono">Задача</span><p>Заявки теряются в мессенджерах, а кто записан на пробный и у кого кончаются уроки — держится в голове администратора.</p></div>
+              <div><span class="mono">Решение</span><p>Экран «Сегодня» с делами в один клик, воронка заявок, расписание преподавателей, абонементы с автоматическим остатком уроков.</p></div>
+              <div><span class="mono">Результат</span><p>Администратор видит, кому ответить и с кого взять оплату. Владелец — откуда приходят лучшие ученики и сколько платить преподавателям.</p></div>
+            </div>
+            <ul class="case__proof">
+              <li><strong>8</strong><span>разделов: от заявок до отчётов</span></li>
+              <li><strong>4</strong><span>роли с разными правами</span></li>
+              <li><strong>₸ / ₽</strong><span>учёт в тенге и рублях</span></li>
+            </ul>
+            <a class="case__link" href="./english-crm/">Открыть CRM <i aria-hidden="true">↗</i></a>
           </div>
         </article>
 
