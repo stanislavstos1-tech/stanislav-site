@@ -63,7 +63,7 @@ svg{flex:none}
 .b--sec{background:var(--paper);border:1px solid var(--line-2)}.b--sec:hover{border-color:var(--navy)}
 .b--ghost{color:var(--mute)}.b--ghost:hover{background:var(--cream-2);color:var(--navy)}
 .b.ic{width:40px;padding:0}
-.wa{background:#25D366;color:#fff}.wa:hover{background:#1fbf5a}
+.tg{background:#2AABEE;color:#fff}.tg:hover{background:#1f9bdc}
 .fbox{flex:1;max-width:620px;min-width:0;height:42px;border:1px solid var(--line-2);border-radius:12px;background:var(--paper);display:flex;align-items:center;gap:6px;padding:0 6px;cursor:text}
 .fbox:focus-within{border-color:var(--navy);box-shadow:0 0 0 4px rgba(29,36,64,.07)}
 #chips{display:contents}
@@ -129,7 +129,7 @@ svg{flex:none}
 .c-ic{display:flex;gap:2px}
 .c-ic a{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--blue-d)}
 .c-ic a:hover{background:var(--blue-bg)}
-.c-ic a.w{color:#1a9e4b}.c-ic a.w:hover{background:#E3F8EA}
+.c-ic a.w{color:#1f8fcf}.c-ic a.w:hover{background:#E4F4FD}
 .c-ic svg{width:15px;height:15px}
 .c-f{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
 .c-f .add{font-size:13px;color:var(--mute);height:26px;padding:0 6px;margin-left:-6px;border-radius:7px}
@@ -408,7 +408,7 @@ body.open .scrim{opacity:1;pointer-events:auto}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-call" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3 2.5h2.5l1.2 3-1.6 1a8 8 0 0 0 4.4 4.4l1-1.6 3 1.2V13a1 1 0 0 1-1 1A11 11 0 0 1 2 3.5a1 1 0 0 1 1-1z"/></symbol>
-  <symbol id="i-wa" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1.5a6.5 6.5 0 0 0-5.6 9.8L1.5 14.5l3.3-.9A6.5 6.5 0 1 0 8 1.5zm3.2 9.1c-.1.4-.8.7-1.1.8-.3 0-.6.1-2-.5a7.6 7.6 0 0 1-3-2.7c-.2-.3-.7-1-.7-1.9s.5-1.3.6-1.5c.2-.2.4-.2.5-.2h.4c.1 0 .3 0 .4.3l.6 1.4c0 .1.1.2 0 .4l-.3.4-.2.3c.1.1.4.7 1 1.2.7.6 1.2.8 1.4.9.1 0 .3 0 .4-.1l.5-.6c.1-.2.3-.1.4-.1l1.3.6c.2.1.3.1.3.2v.9z"/></symbol>
+  <symbol id="i-tg" viewBox="0 0 16 16"><path fill="currentColor" d="M14.6 2.3 1.9 7.2c-.9.3-.9.9-.2 1.1l3.3 1 1.2 3.8c.2.5.3.7.7.7.3 0 .5-.1.7-.3l1.6-1.6 3.4 2.5c.6.3 1.1.2 1.2-.6l2.1-10.1c.3-1.1-.4-1.6-1.3-1.4zM5.9 9.1l6.4-4c.3-.2.6-.1.4.1L7.3 10l-.2 2.3z"/></symbol>
   <symbol id="i-meet" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="1.5" y="4" width="9" height="8" rx="1.5"/><path d="m10.5 7 4-2.2v6.4l-4-2.2"/></g></symbol>
   <symbol id="i-task" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="11" height="11" rx="2.5"/><path d="m5.5 8 2 2 3.2-4"/></g></symbol>
   <symbol id="i-check" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="2" d="m3.5 8.5 3 3 6-7"/></symbol>
@@ -604,7 +604,7 @@ body.open .scrim{opacity:1;pointer-events:auto}
       <div class="c-t"><b>${esc(l.course)}</b></div>${urgent ? `<i class="cnt ${isLate(l) ? 'late' : 'today'}" title="Дела на сегодня и просроченные">${urgent}</i>` : ''}
       <div class="c-sum ${l.sum ? '' : 'no'}">${money(l.sum) || 'Сумма не указана'}</div>
       <div class="c-mid"><div class="c-who"><b>${esc(l.name)}</b><span>${esc(l.src)} · #${l.id}</span></div>
-        <div class="c-ic"><a href="tel:+${digits(l.phone)}" title="Позвонить: ${esc(l.phone)}" aria-label="Позвонить">${svg('call')}</a><a class="w" href="https://wa.me/${digits(l.phone)}" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">${svg('wa')}</a></div></div>
+        <div class="c-ic"><a href="tel:+${digits(l.phone)}" title="Позвонить: ${esc(l.phone)}" aria-label="Позвонить">${svg('call')}</a><a class="w" href="https://t.me/+${digits(l.phone)}" target="_blank" rel="noopener noreferrer" title="Написать в Telegram" aria-label="Написать в Telegram">${svg('tg')}</a></div></div>
       <div class="c-f">${n ? `<span class="due ${dueCls(n)}" title="${ATYPE[n.type]}: ${esc(n.x)}">${tIcon(n.type)}${dueLabel(n.t)}</span>` : `<button class="add" type="button" data-addact>+ Дело</button>`}${av(l.resp)}</div>
     </div>`;
   };
@@ -777,7 +777,7 @@ body.open .scrim{opacity:1;pointer-events:auto}
   // перерисовка блока без потери введённого текста
   const naRedraw = () => { const x = $('#naX') ? $('#naX').value : ''; $('#na').innerHTML = naHtml(); $('#naX').value = x; };
   const contactHtml = l => `<div class="ph-row"><div><div class="nm">${esc(l.name)}</div><div class="ph">${esc(l.phone)}</div>${l.email ? `<div class="em">${esc(l.email)}</div>` : ''}</div><button class="ibt" type="button" data-cedit aria-label="Изменить контакт" title="Изменить контакт">${svg('edit')}</button></div>
-        <div class="cacts"><a class="b b--sec" href="tel:+${digits(l.phone)}">${svg('call')}Позвонить</a><a class="b wa" href="https://wa.me/${digits(l.phone)}" target="_blank" rel="noopener noreferrer">${svg('wa')}WhatsApp</a><button class="b b--sec" type="button" id="pCopy" aria-label="Скопировать номер" title="Скопировать номер">${svg('copy')}</button></div>`;
+        <div class="cacts"><a class="b b--sec" href="tel:+${digits(l.phone)}">${svg('call')}Позвонить</a><a class="b tg" href="https://t.me/+${digits(l.phone)}" target="_blank" rel="noopener noreferrer" title="Откроет чат, если номер есть в Telegram">${svg('tg')}Telegram</a><button class="b b--sec" type="button" id="pCopy" aria-label="Скопировать номер" title="Скопировать номер">${svg('copy')}</button></div>`;
   const ceditHtml = l => `<form class="cedit" id="cForm" autocomplete="off"><label>Имя<input name="n" value="${esc(l.name)}" maxlength="60"></label><label>Телефон<input name="p" type="tel" inputmode="tel" data-phone value="${esc(phOk(l.phone) ? fmtPh(normPh(l.phone)) : l.phone)}" placeholder="+7 (___) ___-__-__"></label><label>Почта<input name="e" type="email" inputmode="email" value="${esc(l.email)}" maxlength="120" placeholder="необязательно"></label><div class="qa"><button class="b b--ghost" type="button" data-cx>Отмена</button><button class="b b--pri" type="submit">Сохранить</button></div></form>`;
   function open(id, focusAct) {
     const l = find(id); if (!l) return;
@@ -1033,12 +1033,23 @@ body.open .scrim{opacity:1;pointer-events:auto}
   /* ---------- маска телефона для всех полей data-phone ---------- */
   const caretAfter = (v, n) => { let i = 0, c = 0; while (i < v.length && c < n) { if (/\d/.test(v[i])) c++; i++; } return i; };
   const toEnd = el => { const n = el.value.length; el.setSelectionRange(n, n); };
-  document.addEventListener('focusin', e => { const el = e.target; if (el.matches && el.matches('[data-phone]') && !el.value) { el.value = '+7 ('; setTimeout(() => toEnd(el), 0); } });
+  document.addEventListener('focusin', e => { const el = e.target; if (el.matches && el.matches('[data-phone]')) { if (!el.value) { el.value = '+7 ('; setTimeout(() => toEnd(el), 0); } el._pv = el.value; } });
   // касание по полю ставит курсор куда попало — пока номер пустой, держим курсор после «+7 (»
   document.addEventListener('pointerup', e => { const el = e.target; if (el.matches && el.matches('[data-phone]') && normPh(el.value).length <= 1) setTimeout(() => toEnd(el), 0); });
   document.addEventListener('focusout', e => { const el = e.target; if (el.matches && el.matches('[data-phone]') && normPh(el.value).length <= 1) el.value = ''; });
   document.addEventListener('input', e => {
     const el = e.target; if (!el.matches || !el.matches('[data-phone]')) return;
+    // поле было пустым («+7 (»), а вставили или набрали номер целиком — свой префикс не считаем
+    if (normPh(el._pv || '').length <= 1 && !(e.inputType || '').startsWith('delete')) {
+      const ins = el.value.replace(/^\+7 \(/, '');
+      let d;
+      if (ins.length === 1) {   // набирают по одной цифре после «+7 (»
+        // «8» по привычке и «+7» уже стоят в поле — пропускаем; любая другая цифра — код города или оператора (в т.ч. 7xx)
+        if (ins === '+') { el._plus = 1; d = '7'; } else if ((ins === '8' && !el._plus) || (ins === '7' && el._plus)) { el._plus = 0; d = '7'; } else { el._plus = 0; d = /\d/.test(ins) ? '7' + ins : '7'; }
+      } else d = normPh(ins);
+      el.value = d.length > 1 ? fmtPh(d) : '+7 ('; toEnd(el); el._pv = el.value;
+      el.classList.remove('err'); const n = el.nextElementSibling; if (n && n.classList.contains('ferr')) n.remove(); return;
+    }
     let raw = el.value, pos = el.selectionStart;
     const m = raw.match(/^(\d+)\+7\s?\(?(.*)$/); if (m) { raw = '+7 (' + m[1] + m[2]; pos = 4 + m[1].length; }   // цифру набрали перед «+7 (»
     const before = digits(raw.slice(0, pos)).length, d0 = digits(raw);
@@ -1046,6 +1057,7 @@ body.open .scrim{opacity:1;pointer-events:auto}
     el.value = d.length <= 1 && e.inputType && e.inputType.startsWith('delete') ? (d ? '+7 (' : '') : fmtPh(d) + (d.length === 1 ? ' (' : '');
     const c = caretAfter(el.value, Math.min(before + shift, d.length)); el.setSelectionRange(c, c);
     el.classList.remove('err'); const n = el.nextElementSibling; if (n && n.classList.contains('ferr')) n.remove();
+    el._pv = el.value;
   });
   // Backspace перед скобкой или дефисом удаляет цифру, а не символ оформления
   document.addEventListener('keydown', e => {
@@ -1054,7 +1066,7 @@ body.open .scrim{opacity:1;pointer-events:auto}
     e.preventDefault();
     const n = digits(el.value.slice(0, pos)).length; if (n <= 1) return;
     const d = normPh(el.value); const nd = d.slice(0, n - 1) + d.slice(n);
-    el.value = fmtPh(nd); const c = caretAfter(el.value, n - 1); el.setSelectionRange(c, c);
+    el.value = fmtPh(nd); const c = caretAfter(el.value, n - 1); el.setSelectionRange(c, c); el._pv = el.value;
   });
 
   /* ---------- тест-заявка с сайта ---------- */
