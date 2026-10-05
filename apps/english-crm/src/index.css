@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- токены: светлая тема ---------- */
+:root {
+  --c-canvas: #f6f6f3;
+  --c-surface: #ffffff;
+  --c-surface-2: #f1f1ed;
+  --c-surface-3: #e9e9e4;
+  --c-line: rgba(22, 22, 32, 0.08);
+  --c-line-2: rgba(22, 22, 32, 0.14);
+  --c-ink: #17171f;
+  --c-ink-2: #5a5a66;
+  --c-ink-3: #8b8b96;
+  --c-accent: #5b5bd6;
+  --c-accent-hover: #4b4bc4;
+  --c-accent-soft: #ededfb;
+  --c-accent-ink: #3f3fae;
+  --c-ok: #1d7f4f;
+  --c-ok-soft: #e4f3ea;
+  --c-warn: #9a5d06;
+  --c-warn-soft: #fbf0db;
+  --c-bad: #bf342c;
+  --c-bad-soft: #fbe8e6;
+  --c-info: #275fc0;
+  --c-info-soft: #e6eefb;
+  --shadow-card: 0 1px 2px rgba(16, 16, 24, 0.04), 0 1px 1px rgba(16, 16, 24, 0.02);
+  --shadow-pop: 0 16px 40px -12px rgba(16, 16, 24, 0.22), 0 2px 6px rgba(16, 16, 24, 0.05);
+  color-scheme: light;
+}
+/* ---------- тёмная тема ---------- */
+.dark {
+  --c-canvas: #0e0e11;
+  --c-surface: #17171c;
+  --c-surface-2: #1e1e24;
+  --c-surface-3: #27272e;
+  --c-line: rgba(255, 255, 255, 0.07);
+  --c-line-2: rgba(255, 255, 255, 0.13);
+  --c-ink: #ededf1;
+  --c-ink-2: #a3a3ad;
+  --c-ink-3: #74747e;
+  --c-accent: #8282f2;
+  --c-accent-hover: #9696f5;
+  --c-accent-soft: rgba(130, 130, 242, 0.14);
+  --c-accent-ink: #b4b4fa;
+  --c-ok: #5ccf94;
+  --c-ok-soft: rgba(92, 207, 148, 0.12);
+  --c-warn: #f0b45a;
+  --c-warn-soft: rgba(240, 180, 90, 0.13);
+  --c-bad: #f2837a;
+  --c-bad-soft: rgba(242, 131, 122, 0.13);
+  --c-info: #7fa9f5;
+  --c-info-soft: rgba(127, 169, 245, 0.13);
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.02);
+  --shadow-pop: 0 20px 48px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-canvas: var(--c-canvas);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-surface-3: var(--c-surface-3);
+  --color-line: var(--c-line);
+  --color-line-2: var(--c-line-2);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-ink-3: var(--c-ink-3);
+  --color-accent: var(--c-accent);
+  --color-accent-hover: var(--c-accent-hover);
+  --color-accent-soft: var(--c-accent-soft);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-ok: var(--c-ok);
+  --color-ok-soft: var(--c-ok-soft);
+  --color-warn: var(--c-warn);
+  --color-warn-soft: var(--c-warn-soft);
+  --color-bad: var(--c-bad);
+  --color-bad-soft: var(--c-bad-soft);
+  --color-info: var(--c-info);
+  --color-info-soft: var(--c-info-soft);
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+  --radius-card: 16px;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    font-feature-settings: "cv11", "ss01";
+  }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 8px; }
+  ::selection { background: var(--c-accent-soft); }
+  [hidden] { display: none !important; }
+}
+
+@layer utilities {
+  .tnum { font-variant-numeric: tabular-nums; }
+  .scroll-thin { scrollbar-width: thin; scrollbar-color: var(--c-line-2) transparent; }
+  .scroll-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scroll-thin::-webkit-scrollbar-thumb { background: var(--c-line-2); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .safe-b { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+@keyframes pop-in { from { opacity: 0; transform: translateY(4px) scale(0.98); } }
+@keyframes sheet-in { from { transform: translateY(24px); opacity: 0; } }
+@keyframes side-in { from { transform: translateX(24px); opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes flash { 0%, 40% { background: var(--c-accent-soft); } }
+@utility anim-pop { animation: pop-in 0.16s var(--ease-out); }
+@utility anim-sheet { animation: sheet-in 0.2s var(--ease-out); }
+@utility anim-side { animation: side-in 0.2s var(--ease-out); }
+@utility anim-fade { animation: fade-in 0.15s ease-out; }
+@utility anim-flash { animation: flash 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
