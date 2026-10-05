@@ -53,14 +53,15 @@ th{text-align:left;padding:14px 14px 10px;border-bottom:1px solid var(--line)}
 td{padding:14px;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:0}
 tr{transition:background .3s}
-tbody tr:hover td{background:rgba(29,36,64,.025)}
+@media (hover:hover){tbody tr:hover td{background:rgba(29,36,64,.025)}}
 tr.fresh td{background:rgba(255,155,180,.18)}
+.d{white-space:nowrap}.d .num,.d .dt{display:block}
 .who b{display:block;font-weight:600}.who span{color:var(--mute);display:block}
 .msg{color:var(--mute);max-width:34ch}
 .st{height:34px;padding:0 12px;border-radius:40px;font-size:13px;font-weight:600;width:auto;cursor:pointer;border:0}
 .st option{background:#fff;color:var(--navy);font-weight:500}
 .st--new{background:#FFE1E9;color:var(--pink-d)}.st--work{background:#E4E8FB;color:#2F3FA8}.st--paid{background:var(--lime);color:var(--ink)}.st--lost{background:var(--cream-2);color:#8A7F75}
-.note textarea{height:34px;min-height:34px;padding:6px 12px;font-size:13px;resize:vertical;border-radius:12px;background:var(--cream)}
+.note textarea{display:block;height:34px;min-height:34px;padding:7px 12px;font-size:13px;line-height:1.4;resize:none;overflow:hidden;border-radius:12px;background:var(--cream)}
 .empty{padding:60px 0;text-align:center;color:var(--mute)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--navy);color:var(--cream);padding:12px 18px;border-radius:40px;font-size:14px;font-weight:500;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;z-index:9;max-width:calc(100vw - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
@@ -83,15 +84,15 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
   input[type=search],select,textarea,.st,.note textarea{font-size:16px}
   .tbl{background:none;border:0;border-radius:0;overflow:visible;min-height:70vh}
   thead{display:none}table,tbody{display:block}
-  tr{display:grid;grid-template-columns:1fr auto;grid-template-areas:"who d" "msg msg" "src src" "st st" "note note";
+  tr{display:grid;grid-template-columns:1fr;grid-template-areas:"d" "who" "msg" "src" "st" "note";
      background:var(--white);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:10px;gap:8px 12px}
-  td{display:block;border:0!important;padding:0}
-  td.d{grid-area:d;text-align:right;white-space:normal!important;font-size:11px}
+  td{display:block;border:0!important;padding:0;background:none!important}
+  td.d{grid-area:d;font-size:11px}td.d .num,td.d .dt{display:inline}td.d .num{color:var(--pink-d);margin-right:8px}
   td.who{grid-area:who}td.msg{grid-area:msg;max-width:none}td.srcc{grid-area:src;font-size:13.5px;color:var(--mute)}
   td.srcc .mono{display:inline;margin-left:6px}td.srcc br{display:none}
   td.stc{grid-area:st}td.note{grid-area:note}
   .st{width:100%;height:44px}
-  .note textarea{height:44px;min-height:44px}
+  .note textarea{min-height:44px;padding:11px 14px}
 }
 </style>
 </head>
@@ -110,7 +111,7 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
 
   <div class="bar">
     <nav class="tabs" id="tabs" aria-label="Статус"></nav>
-    <input class="q" type="search" id="q" placeholder="Поиск по заявкам" aria-label="Поиск: имя, телефон, курс" enterkeyhint="search">
+    <input class="q" type="search" id="q" placeholder="Имя, телефон или № заявки" aria-label="Поиск: имя, телефон, номер заявки, заметка" enterkeyhint="search">
     <button class="btn" id="csv" aria-label="Скачать в Excel">↓<span>&nbsp;Excel</span></button>
   </div>
 
@@ -167,9 +168,18 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
     $('#tabs').innerHTML = [['', 'Все', all], ...Object.entries(ST).map(([k, v]) => [k, v, leads.filter(l => l.st === k).length])]
       .map(([k, v, n]) => `<button type="button" data-tab="${k}" class="${tab === k ? 'on' : ''}">${v}<i>${n}</i></button>`).join('');
   }
+  // поиск: имя, телефон в любом виде, № заявки, почта, сообщение, заметка, источник, статус
   function view() {
-    const s = q.toLowerCase();
-    return leads.filter(l => (!tab || l.st === tab) && (!s || [l.name, l.phone, l.email, l.msg].join(' ').toLowerCase().includes(s)));
+    const raw = q.toLowerCase(), s = raw.replace(/^#/, ''), dig = s.replace(/\D/g, '');
+    // «#38» или короткое число — это номер заявки
+    if (raw.startsWith('#') || (/^\d{1,4}$/.test(s) && leads.some(l => String(l.id) === s)))
+      return leads.filter(l => (!tab || l.st === tab) && String(l.id) === s);
+    return leads.filter(l => {
+      if (tab && l.st !== tab) return false;
+      if (!s) return true;
+      const text = [l.name, l.phone, l.email, l.msg, l.note, l.src, l.camp, ST[l.st]].join(' ').toLowerCase();
+      return text.includes(s) || (dig.length >= 3 && l.phone.replace(/\D/g, '').includes(dig));
+    });
   }
   function render(freshId) {
     stats();
@@ -177,21 +187,31 @@ footer{padding:28px 0 40px;color:var(--mute);font-size:13px}
     $('#empty').hidden = list.length > 0;
     $('#rows').innerHTML = list.map(l => `
       <tr data-id="${l.id}" class="${l.id === freshId ? 'fresh' : ''}">
-        <td class="mono d" style="white-space:nowrap">#${l.id}<br>${fmt(l.t)}</td>
+        <td class="mono d"><span class="num">#${l.id}</span><span class="dt">${fmt(l.t)}</span></td>
         <td class="who"><b>${esc(l.name)}</b><span>${esc(l.phone)}</span>${l.email ? `<span>${esc(l.email)}</span>` : ''}</td>
         <td class="msg">${esc(l.msg) || '—'}</td>
         <td class="srcc">${esc(l.src)}${l.camp ? `<br><span class="mono">${esc(l.camp)}</span>` : ''}</td>
         <td class="stc"><select class="st st--${l.st}" aria-label="Статус">${Object.entries(ST).map(([k, v]) => `<option value="${k}" ${k === l.st ? 'selected' : ''}>${v}</option>`).join('')}</select></td>
-        <td class="note"><textarea placeholder="Заметка" aria-label="Заметка">${esc(l.note)}</textarea></td>
+        <td class="note"><textarea rows="1" placeholder="Заметка" aria-label="Заметка" enterkeyhint="done">${esc(l.note)}</textarea></td>
       </tr>`).join('');
+    document.querySelectorAll('.note textarea').forEach(grow);
   }
   $('#tabs').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { tab = b.dataset.tab; render(); } });
   $('#q').addEventListener('input', e => { q = e.target.value.trim(); render(); });
   $('#q').addEventListener('keydown', e => { if (e.key === 'Enter') e.target.blur(); });
+  const grow = t => { t.style.height = 'auto'; t.style.height = t.scrollHeight + (t.offsetHeight - t.clientHeight) + 'px'; };
+  document.fonts && document.fonts.ready.then(() => document.querySelectorAll('.note textarea').forEach(grow));
+  let noteT;
+  $('#rows').addEventListener('input', e => {
+    if (!e.target.matches('textarea')) return;
+    grow(e.target);
+    const l = leads.find(x => x.id === +e.target.closest('tr').dataset.id);
+    l.note = e.target.value; clearTimeout(noteT); noteT = setTimeout(save, 400);
+  });
   $('#rows').addEventListener('change', e => {
     const tr = e.target.closest('tr'), l = leads.find(x => x.id === +tr.dataset.id);
     if (e.target.matches('select')) { l.st = e.target.value; save(); render(); toast('Статус сохранён: ' + ST[l.st]); }
-    if (e.target.matches('textarea')) { l.note = e.target.value; save(); toast('Заметка сохранена'); }
+    if (e.target.matches('textarea')) { l.note = e.target.value; save(); if (l.note) toast('Заметка сохранена'); }
   });
   $('#csv').addEventListener('click', () => {
     const cell = v => '"' + String(v).replace(/"/g, '""') + '"';
