@@ -1,8 +1,8 @@
 /* Карточки: заявка, ученик, занятие, группа, преподаватель. Главное действие — всегда первой кнопкой. */
 import { useEffect, useMemo, useState } from 'react';
 import { Phone, Send, CalendarPlus, Wallet, XCircle, RotateCcw, CalendarClock, Check, X, Clock3, MessageSquareText, BellPlus, GraduationCap, ArrowRight, Video, Copy, Pause, LogOut, Play, Repeat, AlertTriangle, UserRound, Users } from 'lucide-react';
-import type { AttendanceMark, ID, LeadStatus, Level } from '../domain/types';
-import { FUNNEL, STATUS_LABEL, LOST_LABEL, METHOD_LABEL, MARK_LABEL, KIND_LABEL, WEEKDAYS, RELATION_LABEL, STUDENT_STATUS_LABEL } from '../domain/labels';
+import type { AttendanceMark, ID, LeadStatus } from '../domain/types';
+import { STATUS_LABEL, LOST_LABEL, METHOD_LABEL, MARK_LABEL, KIND_LABEL, WEEKDAYS, RELATION_LABEL, STUDENT_STATUS_LABEL } from '../domain/labels';
 import { useDB, undo } from '../data/store';
 import * as A from '../data/actions';
 import { balanceMap, contactPhone, groupById, isIndividualStudent, lessonEnd, lessonStudents, lessonTitle, payerOf, studentGroups, teacherById, isOverdue } from '../data/selectors';
@@ -11,7 +11,7 @@ import { digits } from '../lib/phone';
 import { copyText } from '../lib/messaging';
 import { Drawer, toast } from '../ui/overlay';
 import { Badge, Button, LinkButton, SectionLabel, Textarea, Input, Select, Segmented, cx, Avatar, Menu } from '../ui/kit';
-import { ChannelTag, StatusBadge, STATUS_ICON, BalanceBadge } from '../ui/domain';
+import { ChannelTag, StatusBadge, BalanceBadge } from '../ui/domain';
 import { useApp, can } from './ctx';
 
 const undoAction = { label: 'Отменить', run: () => { if (undo()) toast('Изменение отменено', { tone: 'info' }); } };
@@ -81,24 +81,6 @@ export function LeadDrawer({ id }: { id: ID }) {
 
       {sell && next && <div className="mt-4 grid grid-cols-2 gap-2 [&>*:only-child]:col-span-2">{next}</div>}
 
-      {/* этапы воронки — можно перевести одним нажатием */}
-      {sell && (
-        <div className="mt-5">
-          <SectionLabel>Этап</SectionLabel>
-          <div className="no-scrollbar -mx-1 flex gap-1 overflow-x-auto px-1">
-            {FUNNEL.map((st, i) => {
-              const cur = FUNNEL.indexOf(l.status), done = l.status !== 'lost' && i <= cur, I = STATUS_ICON[st];
-              return (
-                <button key={st} type="button" onClick={() => move(id, st)} aria-pressed={l.status === st} title={STATUS_LABEL[st]}
-                  className={cx('flex h-9 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-xs font-medium transition-[background,color] duration-150', l.status === st ? 'bg-accent text-white dark:text-[#101018]' : done ? 'bg-accent-soft text-accent-ink' : 'bg-surface-2 text-ink-2 hover:text-ink')}>
-                  <I className="size-3.5" aria-hidden />{STATUS_LABEL[st]}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
       {trial && (
         <div className="mt-5 flex items-center gap-3 rounded-xl border border-line px-3.5 py-3">
           <span className="grid size-9 place-items-center rounded-[10px] bg-warn-soft text-warn"><CalendarClock className="size-4" aria-hidden /></span>
@@ -126,12 +108,23 @@ export function LeadDrawer({ id }: { id: ID }) {
             <Input value={note} onChange={e => setNote(e.target.value)} placeholder="Что обсудили, о чём договорились" aria-label="Заметка" />
             <Button type="submit" variant="secondary" icon={MessageSquareText} disabled={!note.trim()} aria-label="Добавить заметку" />
           </form>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            <span className="mr-1 inline-flex items-center gap-1 text-xs text-ink-3"><BellPlus className="size-3.5" aria-hidden />Напомнить:</span>
-            <button type="button" className="rounded-full border border-line-2 px-2.5 py-1 text-xs hover:border-ink-3" onClick={() => remind(Math.ceil((Date.now() + 2 * HOUR) / 9e5) * 9e5, 'Связаться: ' + l.name)}>через 2 часа</button>
-            <button type="button" className="rounded-full border border-line-2 px-2.5 py-1 text-xs hover:border-ink-3" onClick={() => remind(tomorrow10, 'Связаться: ' + l.name)}>завтра в 10:00</button>
-            <button type="button" className="rounded-full border border-line-2 px-2.5 py-1 text-xs hover:border-ink-3" onClick={() => remind(at(addDays(Date.now(), 3), '10:00'), 'Связаться: ' + l.name)}>через 3 дня</button>
+        </div>
+      )}
+
+
+      {sell && (
+        <div className="mt-5">
+          <SectionLabel>Напомнить мне</SectionLabel>
+          <div className="flex flex-wrap gap-1.5">
+            {[['через 2 часа', Math.ceil((Date.now() + 2 * HOUR) / 9e5) * 9e5], ['завтра в 10:00', tomorrow10], ['через 3 дня', at(addDays(Date.now(), 3), '10:00')]].map(([label, t]) => (
+              <button key={label} type="button" className="inline-flex h-9 items-center gap-1.5 rounded-full border border-line-2 px-3 text-[13px] hover:border-ink-3" onClick={() => remind(t as number, 'Связаться: ' + l.name)}><BellPlus className="size-3.5 text-ink-3" aria-hidden />{label}</button>
+            ))}
           </div>
+          {db.tasks.some(t => t.leadId === id && !t.done) && (
+            <ul className="mt-2 grid gap-1">
+              {db.tasks.filter(t => t.leadId === id && !t.done).map(t => <li key={t.id} className="flex items-center gap-2 text-[13px] text-ink-2"><Clock3 className="size-3.5 text-ink-3" aria-hidden />{when(t.due)} — {t.title}</li>)}
+            </ul>
+          )}
         </div>
       )}
 
@@ -278,7 +271,6 @@ export function StudentDrawer({ id }: { id: ID }) {
       <div className="mt-5">
         <SectionLabel>Заметки</SectionLabel>
         <Textarea value={note} onChange={e => setNote(e.target.value)} onBlur={() => { if (note !== s.note) { A.updateStudent(id, { note }); toast('Заметка сохранена'); } }} placeholder="Цели, особенности, договорённости с родителями" readOnly={!sell && role !== 'teacher'} />
-        {sell && <div className="mt-2 flex items-center gap-2"><span className="text-xs text-ink-3">Уровень:</span><Segmented size="sm" value={s.level} onChange={v => A.updateStudent(id, { level: v as Level })} options={(['A1', 'A2', 'B1', 'B2', 'C1'] as Level[]).map(x => ({ value: x, label: x }))} /></div>}
       </div>
       {s.leadId && sell && <button type="button" className="mt-5 text-[13px] text-ink-2 underline underline-offset-2" onClick={() => openDrawer({ type: 'lead', id: s.leadId! })}>Открыть исходную заявку</button>}
     </Drawer>

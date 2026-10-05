@@ -6,7 +6,7 @@ import { KIND_LABEL } from '../domain/labels';
 import { useDB } from '../data/store';
 import { saveTeacher } from '../data/actions';
 import { lessonTitle, teacherHours } from '../data/selectors';
-import { MONTHS, addDays, dateShort, hm, startOfWeek, plural, fromKzt, toKzt } from '../lib/format';
+import { MONTHS, addDays, dateShort, hm, startOfWeek, plural } from '../lib/format';
 import { Badge, Button, Card, Input, Segmented, Avatar, cx } from '../ui/kit';
 import { toast } from '../ui/overlay';
 import { useApp } from '../app/ctx';
@@ -79,11 +79,10 @@ export function Teachers() {
 }
 
 function Rates({ t, editable }: { t: Teacher; editable: boolean }) {
-  const db = useDB();
   const { fmt } = useApp();
   const [edit, setEdit] = useState(false);
-  const [g, setG] = useState(String(fromKzt(t.rateGroup, db.settings))), [i, setI] = useState(String(fromKzt(t.rateIndividual, db.settings)));
-  const cur = db.settings.currency === 'RUB' ? '₽' : '₸';
+  const [g, setG] = useState(String(t.rateGroup)), [i, setI] = useState(String(t.rateIndividual));
+  const cur = '₽';
   if (!edit) return (
     <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
       <span>Групповое: <b className="tnum">{fmt(t.rateGroup)}</b></span>
@@ -92,7 +91,7 @@ function Rates({ t, editable }: { t: Teacher; editable: boolean }) {
     </div>
   );
   return (
-    <form className="flex flex-wrap items-end gap-3" onSubmit={e => { e.preventDefault(); saveTeacher(t.id, { rateGroup: toKzt(+g || 0, db.settings), rateIndividual: toKzt(+i || 0, db.settings) }); setEdit(false); toast('Ставки сохранены'); }}>
+    <form className="flex flex-wrap items-end gap-3" onSubmit={e => { e.preventDefault(); saveTeacher(t.id, { rateGroup: +g || 0, rateIndividual: +i || 0 }); setEdit(false); toast('Ставки сохранены'); }}>
       <label className="grid gap-1 text-[13px] text-ink-2">Групповое, {cur}<Input inputMode="numeric" value={g} onChange={e => setG(e.target.value.replace(/\D/g, ''))} className="tnum w-32" /></label>
       <label className="grid gap-1 text-[13px] text-ink-2">Индивидуальное, {cur}<Input inputMode="numeric" value={i} onChange={e => setI(e.target.value.replace(/\D/g, ''))} className="tnum w-32" /></label>
       <Button type="submit" variant="primary" icon={Check}>Сохранить</Button>

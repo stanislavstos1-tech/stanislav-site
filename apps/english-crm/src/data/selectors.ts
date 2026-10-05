@@ -9,13 +9,13 @@ export interface Balance {
   charged: number;
   left: number; // может быть отрицательным — долг
   pricePerLesson: number;
-  debt: number; // ₸
+  debt: number; // ₽
   lastPaymentAt?: number;
 }
 
 export function balanceMap(db: DB): Map<ID, Balance> {
   const m = new Map<ID, Balance>();
-  for (const s of db.students) m.set(s.id, { bought: 0, charged: 0, left: 0, pricePerLesson: 4500, debt: 0 });
+  for (const s of db.students) m.set(s.id, { bought: 0, charged: 0, left: 0, pricePerLesson: 900, debt: 0 });
   const lastSub = new Map<ID, number>();
   for (const sub of db.subscriptions) {
     const b = m.get(sub.studentId); if (!b) continue;

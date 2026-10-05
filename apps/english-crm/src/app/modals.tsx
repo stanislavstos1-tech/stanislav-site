@@ -6,7 +6,7 @@ import { CHANNEL_LABEL, LOST_LABEL, METHOD_LABEL, KIND_LABEL, WEEKDAYS } from '.
 import { useDB, undo } from '../data/store';
 import * as A from '../data/actions';
 import { balanceMap, freeSlots, groupById, hasConflict, isIndividualStudent, lessonTitle, studentGroups, teacherById } from '../data/selectors';
-import { addDays, dateShort, fromKzt, hm, plural, startOfDay, toKzt, at, firstName, isoWeekday } from '../lib/format';
+import { addDays, dateShort, hm, plural, startOfDay, at, firstName, isoWeekday } from '../lib/format';
 import { isFullPhone } from '../lib/phone';
 import { chatLink, copyText } from '../lib/messaging';
 import { Modal, toast } from '../ui/overlay';
@@ -17,7 +17,7 @@ import { DayStrip, TimeGrid, whenLong } from './pickers';
 import { defaultTemplate, messageText, recipientOf } from './message';
 
 const undoAction = { label: 'Отменить', run: () => { if (undo()) toast('Изменение отменено', { tone: 'info' }); } };
-const METHOD_ICON = { cash: Banknote, kaspi: Smartphone, transfer: ArrowRightLeft, card: CreditCard };
+const METHOD_ICON = { cash: Banknote, sbp: Smartphone, transfer: ArrowRightLeft, card: CreditCard };
 
 /* ---------- новая заявка: имя, телефон, канал ---------- */
 export function NewLeadModal() {
@@ -148,7 +148,6 @@ export function LoseModal({ leadId }: { leadId: ID }) {
 export function ConvertModal({ leadId }: { leadId: ID }) {
   const db = useDB();
   const { openModal, openDrawer, fmt } = useApp();
-  const s = db.settings;
   const lead = db.leads.find(l => l.id === leadId)!;
   const [forChild, setForChild] = useState(!!lead.forChild);
   const [studentName, setStudentName] = useState(lead.forChild ? '' : lead.name);
@@ -163,17 +162,17 @@ export function ConvertModal({ leadId }: { leadId: ID }) {
   const pkgs = db.packageTypes.filter(p => p.kind === format);
   const [pkgId, setPkgId] = useState(pkgs[0].id);
   const pkg = db.packageTypes.find(p => p.id === pkgId && p.kind === format) || pkgs[0];
-  const [amount, setAmount] = useState(String(fromKzt(pkg.price, s)));
-  const [method, setMethod] = useState<PayMethod>('kaspi');
+  const [amount, setAmount] = useState(String(pkg.price));
+  const [method, setMethod] = useState<PayMethod>('sbp');
   const [tried, setTried] = useState(false);
-  const setPkg = (id: ID) => { setPkgId(id); const p = db.packageTypes.find(x => x.id === id)!; setAmount(String(fromKzt(p.price, s))); };
+  const setPkg = (id: ID) => { setPkgId(id); const p = db.packageTypes.find(x => x.id === id)!; setAmount(String(p.price)); };
   const setFmt = (f: 'group' | 'individual') => { setFormat(f); const p = db.packageTypes.find(x => x.kind === f)!; setPkg(p.id); };
   const slots = useMemo(() => freeSlots(db, teacherId, day, 60), [db, teacherId, day]);
   const okName = studentName.trim().length > 1, okPlace = format === 'group' ? !!groupId : !!first, okAmount = +amount > 0;
   const save = () => {
     setTried(true); if (!okName || !okPlace || !okAmount) return;
     const sid = A.convertLead({
-      leadId, studentName, forChild, payerName: lead.name, level, packageTypeId: pkg.id, amount: toKzt(+amount, s), method,
+      leadId, studentName, forChild, payerName: lead.name, level, packageTypeId: pkg.id, amount: +amount, method,
       groupId: format === 'group' ? groupId : undefined,
       individual: format === 'individual' && first ? { teacherId, weekday: isoWeekday(first), time: hm(first), firstStart: first } : undefined,
     });
@@ -182,7 +181,7 @@ export function ConvertModal({ leadId }: { leadId: ID }) {
   };
   return (
     <Modal title="Принять оплату и записать на обучение" subtitle={lead.name} onClose={() => openModal(null)} width={620}
-      footer={<><Button variant="ghost" onClick={() => openModal(null)}>Отмена</Button><Button variant="primary" onClick={save}>Принять {okAmount ? fmt(toKzt(+amount, s)) : ''}</Button></>}>
+      footer={<><Button variant="ghost" onClick={() => openModal(null)}>Отмена</Button><Button variant="primary" onClick={save}>Принять {okAmount ? fmt(+amount) : ''}</Button></>}>
       <div className="grid gap-5">
         <div className="grid gap-3">
           <Segmented value={forChild ? 'child' : 'self'} onChange={v => { setForChild(v === 'child'); setStudentName(v === 'child' ? '' : lead.name); }} options={[{ value: 'self', label: 'Учится сам' }, { value: 'child', label: 'Учится ребёнок' }]} />
@@ -237,10 +236,9 @@ export function ConvertModal({ leadId }: { leadId: ID }) {
 }
 
 function PayFields({ amount, setAmount, method, setMethod, invalid }: { amount: string; setAmount: (v: string) => void; method: PayMethod; setMethod: (m: PayMethod) => void; invalid?: boolean }) {
-  const db = useDB();
   return (
     <div className="grid gap-3 sm:grid-cols-[160px_1fr]">
-      <Field label={'Сумма, ' + (db.settings.currency === 'RUB' ? '₽' : '₸')} error={invalid ? 'Укажите сумму' : undefined}>
+      <Field label="Сумма, ₽" error={invalid ? 'Укажите сумму' : undefined}>
         <Input inputMode="numeric" value={amount} onChange={e => setAmount(e.target.value.replace(/\D/g, '').slice(0, 9))} className="tnum" invalid={invalid} />
       </Field>
       <Field label="Способ">
@@ -270,8 +268,8 @@ export function PaymentModal({ studentId: initial }: { studentId?: ID }) {
   const pkgs = db.packageTypes.filter(p => p.kind === kind);
   const [pkgId, setPkgId] = useState<ID>('');
   const pkg = pkgs.find(p => p.id === pkgId) || pkgs[0];
-  const [amount, setAmount] = useState(''), [method, setMethod] = useState<PayMethod>('kaspi'), [comment, setComment] = useState('');
-  const amt = amount === '' ? fromKzt(pkg.price, s) : +amount;
+  const [amount, setAmount] = useState(''), [method, setMethod] = useState<PayMethod>('sbp'), [comment, setComment] = useState('');
+  const amt = amount === '' ? pkg.price : +amount;
   const b = st ? bal.get(st.id) : undefined;
   const list = useMemo(() => {
     const t = q.trim().toLowerCase();
@@ -280,13 +278,13 @@ export function PaymentModal({ studentId: initial }: { studentId?: ID }) {
   }, [db.students, q, bal]);
   const save = () => {
     if (!st || amt <= 0) return;
-    A.acceptPayment({ studentId: st.id, packageTypeId: pkg.id, amount: toKzt(amt, s), method, comment });
+    A.acceptPayment({ studentId: st.id, packageTypeId: pkg.id, amount: amt, method, comment });
     openModal(null);
-    toast(`Оплата ${fmt(toKzt(amt, s))} принята · ${firstName(st.name)} +${pkg.lessons} занятий`, { action: undoAction });
+    toast(`Оплата ${fmt(amt)} принята · ${firstName(st.name)} +${pkg.lessons} занятий`, { action: undoAction });
   };
   return (
     <Modal title="Принять оплату" subtitle={st ? st.name : 'Выберите ученика'} onClose={() => openModal(null)} width={560}
-      footer={<><Button variant="ghost" onClick={() => openModal(null)}>Отмена</Button><Button variant="primary" disabled={!st || amt <= 0} onClick={save}>Принять {st && amt > 0 ? fmt(toKzt(amt, s)) : ''}</Button></>}>
+      footer={<><Button variant="ghost" onClick={() => openModal(null)}>Отмена</Button><Button variant="primary" disabled={!st || amt <= 0} onClick={save}>Принять {st && amt > 0 ? fmt(amt) : ''}</Button></>}>
       {!st ? (
         <div className="grid gap-2">
           <Input autoFocus value={q} onChange={e => setQ(e.target.value)} placeholder="Имя ученика" aria-label="Поиск ученика" />

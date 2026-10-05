@@ -1,12 +1,11 @@
-/* Оплаты: журнал, должники, абонементы. Остаток уроков считается сам из оплат и посещаемости. */
+/* Оплаты: журнал и должники. Остаток уроков считается сам из оплат и посещаемости. */
 import { useMemo, useState } from 'react';
 import { Wallet, CircleDollarSign, Receipt, Send } from 'lucide-react';
-import type { PayMethod } from '../domain/types';
 import { METHOD_LABEL } from '../domain/labels';
 import { useDB } from '../data/store';
 import { balanceMap, contactPhone, studentGroups } from '../data/selectors';
 import { MONTHS, dateShort, plural } from '../lib/format';
-import { Badge, Button, Card, Chip, Empty, Segmented, Stat } from '../ui/kit';
+import { Badge, Button, Card, Empty, Segmented, Stat } from '../ui/kit';
 import { useApp, can } from '../app/ctx';
 
 type Period = 'month' | 'prev' | 'q';
@@ -14,15 +13,14 @@ type Period = 'month' | 'prev' | 'q';
 export function Payments() {
   const db = useDB();
   const { fmt, role, openModal, openDrawer } = useApp();
-  const [tab, setTab] = useState<'log' | 'debt' | 'packages'>('log');
+  const [tab, setTab] = useState<'log' | 'debt'>('log');
   const [period, setPeriod] = useState<Period>('month');
-  const [method, setMethod] = useState<PayMethod | ''>('');
   const bal = useMemo(() => balanceMap(db), [db]);
   const now = new Date();
   const m0 = +new Date(now.getFullYear(), now.getMonth(), 1), pm0 = +new Date(now.getFullYear(), now.getMonth() - 1, 1), q0 = +new Date(now.getFullYear(), now.getMonth() - 2, 1);
   const [from, to] = period === 'month' ? [m0, Infinity] : period === 'prev' ? [pm0, m0] : [q0, Infinity];
   const inPeriod = db.payments.filter(p => p.at >= from && p.at < to);
-  const list = inPeriod.filter(p => !method || p.method === method).sort((a, b) => b.at - a.at);
+  const list = inPeriod.slice().sort((a, b) => b.at - a.at);
   const total = inPeriod.reduce((s, p) => s + p.amount, 0);
   const prevTotal = db.payments.filter(p => p.at >= pm0 && p.at < m0).reduce((s, p) => s + p.amount, 0);
   const debtors = db.students.filter(s => s.status !== 'left' && bal.get(s.id)!.left < 0).sort((a, b) => bal.get(b.id)!.debt - bal.get(a.id)!.debt);
@@ -42,16 +40,12 @@ export function Payments() {
       </Card>
 
       <div className="flex flex-wrap items-center gap-2">
-        <Segmented value={tab} onChange={setTab} options={[{ value: 'log', label: 'Журнал' }, { value: 'debt', label: `Должники ${debtors.length || ''}` }, { value: 'packages', label: 'Абонементы' }]} className="max-sm:w-full" />
+        <Segmented value={tab} onChange={setTab} options={[{ value: 'log', label: 'Журнал' }, { value: 'debt', label: `Должники ${debtors.length || ''}` }]} className="max-sm:w-full" />
         {tab === 'log' && <Segmented size="sm" value={period} onChange={setPeriod} options={[{ value: 'month', label: 'Этот месяц' }, { value: 'prev', label: 'Прошлый' }, { value: 'q', label: '3 месяца' }]} className="ml-auto max-sm:ml-0 max-sm:w-full" />}
       </div>
 
       {tab === 'log' && (
         <>
-          <div className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 md:mx-0 md:px-0">
-            <Chip on={!method} onClick={() => setMethod('')} count={inPeriod.length}>Все способы</Chip>
-            {(Object.keys(METHOD_LABEL) as PayMethod[]).map(m => { const n = inPeriod.filter(p => p.method === m); return <Chip key={m} on={method === m} onClick={() => setMethod(method === m ? '' : m)} count={n.length}>{METHOD_LABEL[m]} · {fmt(n.reduce((s, p) => s + p.amount, 0))}</Chip>; })}
-          </div>
           <div className="overflow-hidden rounded-[16px] border border-line bg-surface shadow-card">
             {list.length ? (
               <ul className="divide-y divide-line">
@@ -95,23 +89,6 @@ export function Payments() {
         </div>
       )}
 
-      {tab === 'packages' && (
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {db.packageTypes.map(p => {
-            const sold = db.subscriptions.filter(s => s.packageTypeId === p.id && s.purchasedAt >= m0).length;
-            return (
-              <Card key={p.id}>
-                <Badge tone={p.kind === 'group' ? 'accent' : 'info'}>{p.kind === 'group' ? 'Группа' : 'Индивидуально'}</Badge>
-                <div className="mt-3 font-semibold">{p.title}</div>
-                <div className="tnum mt-1 text-[24px] font-semibold tracking-[-0.02em]">{fmt(p.price)}</div>
-                <div className="mt-1 text-[13px] text-ink-2">{fmt(Math.round(p.price / p.lessons))} за занятие</div>
-                <div className="mt-3 border-t border-line pt-3 text-xs text-ink-3">Продано в этом месяце: <b className="tnum text-ink">{sold}</b></div>
-              </Card>
-            );
-          })}
-          <p className="text-xs text-ink-3 sm:col-span-2 xl:col-span-4">Цена в окне оплаты подставляется из абонемента, её можно изменить (скидка, перерасчёт). Остаток уроков пересчитывается автоматически: «был» и «не был» списывают занятие, «уважительная» — нет.</p>
-        </div>
-      )}
     </div>
   );
 }

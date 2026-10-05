@@ -51,7 +51,7 @@ export function Schedule() {
       </div>
 
       {/* преподаватели: фильтр + загрузка недели */}
-      {!isTeacher && <TeacherLoad teachers={teachers} w0={w0} only={only} setOnly={setOnly} />}
+      {!isTeacher && <TeacherLoad teachers={teachers} only={only} setOnly={setOnly} />}
 
       {view === 'agenda' && <Agenda anchor={anchor} setAnchor={setAnchor} only={only} free={free} onCreate={createAt} />}
       {view !== 'agenda' && (
@@ -90,21 +90,15 @@ function TeacherHead({ t, day }: { t: Teacher; day: number }) {
   );
 }
 
-/** загрузка преподавателей за неделю: часы и полоска до 30 ч */
-function TeacherLoad({ teachers, w0, only, setOnly }: { teachers: Teacher[]; w0: number; only: ID | ''; setOnly: (v: ID | '') => void }) {
-  const db = useDB();
-  const hours = teachers.map(t => ({ t, h: teacherHours(db, t.id, w0, addDays(w0, 7)) }));
+/** фильтр по преподавателю */
+function TeacherLoad({ teachers, only, setOnly }: { teachers: Teacher[]; only: ID | ''; setOnly: (v: ID | '') => void }) {
   return (
-    <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 md:mx-0 md:px-0">
-      <Chip on={!only} onClick={() => setOnly('')}>Все</Chip>
-      {hours.map(({ t, h }) => (
-        <button key={t.id} type="button" onClick={() => setOnly(only === t.id ? '' : t.id)} aria-pressed={only === t.id}
-          className={cx('flex h-11 shrink-0 items-center gap-2.5 rounded-xl border px-3 text-left transition-[background,border-color] duration-150', only === t.id ? 'border-ink bg-surface shadow-card' : 'border-line-2 bg-surface hover:border-ink-3')}>
-          <span className="grid size-6 place-items-center rounded-full text-[10px] font-semibold text-white" style={{ background: t.color }} aria-hidden>{initials(t.name)}</span>
-          <span className="leading-tight"><span className="block text-[13px] font-medium">{t.name.split(' ')[0]}</span>
-            <span className="flex items-center gap-1.5"><span className="block h-1 w-14 overflow-hidden rounded-full bg-surface-3"><span className="block h-full rounded-full" style={{ width: Math.min(100, (h / 30) * 100) + '%', background: t.color }} /></span><span className="tnum text-[11px] text-ink-3">{h.toFixed(h % 1 ? 1 : 0).replace('.', ',')} ч</span></span>
-          </span>
-        </button>
+    <div className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4 md:mx-0 md:px-0">
+      <Chip on={!only} onClick={() => setOnly('')}>Все преподаватели</Chip>
+      {teachers.map(t => (
+        <Chip key={t.id} on={only === t.id} onClick={() => setOnly(only === t.id ? '' : t.id)}>
+          <span className="inline-flex items-center gap-1.5"><span className="size-2.5 rounded-full" style={{ background: t.color }} aria-hidden />{t.name.split(' ')[0]}</span>
+        </Chip>
       ))}
     </div>
   );

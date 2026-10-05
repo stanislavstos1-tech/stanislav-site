@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { House, Inbox, CalendarDays, GraduationCap, Wallet, UserRoundCheck, BarChart3, Settings as SettingsIcon, Plus, Moon, Sun, MoreHorizontal, ChevronsUpDown, Check } from 'lucide-react';
+import { House, Inbox, CalendarDays, GraduationCap, Wallet, Bell, BarChart3, Settings as SettingsIcon, Plus, Moon, Sun, MoreHorizontal, ChevronsUpDown, Check } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Ctx, ACCESS, HOME, PAGE_TITLE, can, useApp } from './ctx';
 import type { Page, DrawerState, ModalState, AppCtx } from './ctx';
 import { useDB } from '../data/store';
-import { setActor, saveSettings } from '../data/actions';
+import { setActor } from '../data/actions';
 import { isOverdue, unmarkedLessons } from '../data/selectors';
+import { addDays, startOfDay } from '../lib/format';
 import { money, moneyShort } from '../lib/format';
 import { ROLE_LABEL } from '../domain/labels';
-import { Button, Segmented, cx, Avatar } from '../ui/kit';
+import { Button, cx, Avatar } from '../ui/kit';
 import { Toaster } from '../ui/overlay';
 import { GlobalSearch } from './GlobalSearch';
 import { Overlays } from './Overlays';
@@ -17,20 +18,23 @@ import { Leads } from '../screens/Leads';
 import { Schedule } from '../screens/Schedule';
 import { Students } from '../screens/Students';
 import { Payments } from '../screens/Payments';
-import { Teachers } from '../screens/Teachers';
+import { Reminders } from '../screens/Reminders';
 import { Reports } from '../screens/Reports';
 import { SettingsScreen } from '../screens/Settings';
 
-const NAV: { page: Page; icon: LucideIcon; label: string }[] = [
+/* меню: ежедневная работа сверху, отчёты и настройки — отдельно внизу, чтобы не отвлекали */
+const NAV: { page: Page; icon: LucideIcon; label: string; extra?: boolean }[] = [
   { page: 'today', icon: House, label: 'Сегодня' },
   { page: 'leads', icon: Inbox, label: 'Заявки' },
   { page: 'schedule', icon: CalendarDays, label: 'Расписание' },
+  { page: 'reminders', icon: Bell, label: 'Напоминания' },
   { page: 'students', icon: GraduationCap, label: 'Ученики' },
   { page: 'payments', icon: Wallet, label: 'Оплаты' },
-  { page: 'teachers', icon: UserRoundCheck, label: 'Преподаватели' },
-  { page: 'reports', icon: BarChart3, label: 'Отчёты' },
-  { page: 'settings', icon: SettingsIcon, label: 'Настройки' },
+  { page: 'reports', icon: BarChart3, label: 'Отчёты', extra: true },
+  { page: 'settings', icon: SettingsIcon, label: 'Настройки', extra: true },
 ];
+/** на телефоне внизу — четыре главных раздела, остальное в «Ещё» */
+const MOBILE_MAIN: Page[] = ['today', 'leads', 'schedule', 'reminders', 'students', 'reports', 'payments'];
 
 const readHash = (): Page | null => { const p = location.hash.replace(/^#\/?/, '') as Page; return PAGE_TITLE[p] ? p : null; };
 
@@ -63,24 +67,27 @@ export function App() {
   const s = db.settings;
   const ctx: AppCtx = useMemo(() => ({
     user, role, setUser, page, go, drawer, openDrawer: setDrawer, modal, openModal: setModal,
-    fmt: (n: number) => money(n, s), fmtShort: (n: number) => moneyShort(n, s), theme, toggleTheme,
+    fmt: money, fmtShort: moneyShort, theme, toggleTheme,
   }), [user, role, setUser, page, go, drawer, modal, s, theme, toggleTheme]);
 
   // счётчики в меню: горящие заявки и занятия без отметки
   const badges = useMemo(() => {
     const now = Date.now();
     const urgent = db.leads.filter(l => isOverdue(l, s.slaHours, now)).length;
+    const tomorrow0 = addDays(startOfDay(now), 1);
     return {
       leads: db.leads.filter(l => l.status === 'new').length,
       today: urgent + unmarkedLessons(db, now, role === 'teacher' ? user.teacherId : undefined).length,
+      reminders: db.tasks.filter(t => !t.done && t.due < tomorrow0).length,
     } as Partial<Record<Page, number>>;
   }, [db, s.slaHours, role, user.teacherId]);
 
   const nav = NAV.filter(n => allowed.includes(n.page));
-  const mobileMain = nav.slice(0, nav.length > 5 ? 4 : 5);
-  const mobileMore = nav.length > 5 ? nav.slice(4) : [];
+  const byMobile = MOBILE_MAIN.filter(p => allowed.includes(p)).map(p => nav.find(n => n.page === p)!);
+  const mobileMain = byMobile.slice(0, nav.length > 5 ? 4 : 5);
+  const mobileMore = nav.length > 5 ? nav.filter(n => !mobileMain.includes(n)) : [];
 
-  const Screen = { today: Today, leads: Leads, schedule: Schedule, students: Students, payments: Payments, teachers: Teachers, reports: Reports, settings: SettingsScreen }[page];
+  const Screen = { today: Today, leads: Leads, schedule: Schedule, reminders: Reminders, students: Students, payments: Payments, reports: Reports, settings: SettingsScreen }[page];
 
   return (
     <Ctx.Provider value={ctx}>
@@ -92,7 +99,9 @@ export function App() {
             <div className="leading-tight"><div className="text-[15px] font-semibold tracking-[-0.01em]">{s.schoolName}</div><div className="text-xs text-ink-3">школа английского</div></div>
           </div>
           <nav className="flex flex-col gap-0.5" aria-label="Разделы">
-            {nav.map(n => <NavItem key={n.page} {...n} on={page === n.page} badge={badges[n.page]} onClick={() => go(n.page)} />)}
+            {nav.filter(n => !n.extra).map(n => <NavItem key={n.page} {...n} on={page === n.page} badge={badges[n.page]} onClick={() => go(n.page)} />)}
+            {nav.some(n => n.extra) && <div className="mx-2.5 my-2 border-t border-line" />}
+            {nav.filter(n => n.extra).map(n => <NavItem key={n.page} {...n} on={page === n.page} onClick={() => go(n.page)} />)}
           </nav>
           <div className="mt-auto grid gap-2">
             <Prefs />
@@ -104,7 +113,7 @@ export function App() {
         <div className="min-w-0">
           <header className="sticky top-0 z-30 border-b border-line bg-canvas/90 backdrop-blur-0 md:bg-canvas">
             <div className="mx-auto flex h-14 max-w-[1400px] items-center gap-2 px-4 md:h-16 md:gap-3 md:px-8">
-              <button type="button" onClick={() => setMore(true)} className="-ml-1 md:hidden" aria-label="Меню: роль, тема, валюта"><Avatar name={user.name} color={db.teachers.find(t => t.id === user.teacherId)?.color || '#5b5bd6'} size={30} /></button>
+              <button type="button" onClick={() => setMore(true)} className="-ml-1 md:hidden" aria-label="Меню: роль и тема"><Avatar name={user.name} color={db.teachers.find(t => t.id === user.teacherId)?.color || '#5b5bd6'} size={30} /></button>
               <h1 className="min-w-0 truncate text-[17px] font-semibold tracking-[-0.02em] md:text-xl">{PAGE_TITLE[page]}</h1>
               <div className="ml-auto flex items-center gap-2">
                 {role !== 'owner' && <GlobalSearch />}
@@ -130,7 +139,7 @@ export function App() {
           <div className="anim-fade absolute inset-0 bg-black/30" onClick={() => setMore(false)} />
           <div className="anim-sheet safe-b absolute inset-x-0 bottom-0 rounded-t-[22px] border border-line bg-surface p-3 shadow-pop">
             <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line-2" />
-            <div className="grid gap-0.5">{mobileMore.map(n => <NavItem key={n.page} {...n} on={page === n.page} onClick={() => go(n.page)} big />)}</div>
+            <div className="grid gap-0.5">{mobileMore.map(n => <NavItem key={n.page} {...n} on={page === n.page} badge={badges[n.page]} onClick={() => go(n.page)} big />)}</div>
             <div className="mt-3 grid gap-2 border-t border-line pt-3"><Prefs /><UserSwitch /></div>
           </div>
         </div>
@@ -165,15 +174,13 @@ function TabItem({ icon: I, label, on, badge, onClick }: { page: Page; icon: Luc
   );
 }
 
-/** тема и валюта */
+/** тема оформления: по умолчанию светлая */
 function Prefs() {
   const { theme, toggleTheme } = useApp();
-  const db = useDB();
   return (
-    <div className="flex items-center gap-2 px-1">
-      <Segmented size="sm" ariaLabel="Валюта" value={db.settings.currency} onChange={v => saveSettings({ currency: v })} options={[{ value: 'KZT', label: '₸ тенге' }, { value: 'RUB', label: '₽ рубли' }]} className="flex-1" />
-      <Button variant="ghost" size="sm" icon={theme === 'dark' ? Sun : Moon} onClick={toggleTheme} aria-label={theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'} title={theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'} />
-    </div>
+    <button type="button" onClick={toggleTheme} className="flex h-9 items-center gap-2.5 rounded-[10px] px-2.5 text-left text-[13px] font-medium text-ink-2 hover:bg-surface-2 hover:text-ink">
+      {theme === 'dark' ? <Sun className="size-4" aria-hidden /> : <Moon className="size-4" aria-hidden />}{theme === 'dark' ? 'Светлая тема' : 'Тёмная тема'}
+    </button>
   );
 }
 

@@ -8,6 +8,7 @@ import { DAY, MONTHS, plural } from '../lib/format';
 import { Badge, Card, Segmented, Stat, cx } from '../ui/kit';
 import { CHANNEL_ICON } from '../ui/domain';
 import { useApp } from '../app/ctx';
+import { Teachers } from './Teachers';
 
 type Period = 30 | 90 | 180;
 
@@ -21,7 +22,18 @@ function reached(db: ReturnType<typeof useDB>, l: Lead) {
   return { contacted, trial, trialDone, paid };
 }
 
+/** две вкладки: цифры школы и зарплаты преподавателей */
 export function Reports() {
+  const [tab, setTab] = useState<'school' | 'pay'>('school');
+  return (
+    <div className="grid grid-cols-1 gap-5">
+      <Segmented value={tab} onChange={setTab} options={[{ value: 'school', label: 'Школа' }, { value: 'pay', label: 'Зарплаты преподавателям' }]} ariaLabel="Отчёт" className="justify-self-start max-sm:w-full" />
+      {tab === 'school' ? <SchoolReport /> : <Teachers />}
+    </div>
+  );
+}
+
+function SchoolReport() {
   const db = useDB();
   const { fmt, fmtShort } = useApp();
   const [period, setPeriod] = useState<Period>(90);

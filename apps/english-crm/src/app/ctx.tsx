@@ -2,18 +2,18 @@
 import { createContext, useContext } from 'react';
 import type { ID, Role, User } from '../domain/types';
 
-export type Page = 'today' | 'leads' | 'schedule' | 'students' | 'payments' | 'teachers' | 'reports' | 'settings';
+export type Page = 'today' | 'leads' | 'schedule' | 'reminders' | 'students' | 'payments' | 'reports' | 'settings';
 
 export const PAGE_TITLE: Record<Page, string> = {
-  today: 'Сегодня', leads: 'Заявки', schedule: 'Расписание', students: 'Ученики и группы', payments: 'Оплаты', teachers: 'Преподаватели', reports: 'Отчёты', settings: 'Настройки',
+  today: 'Сегодня', leads: 'Заявки', schedule: 'Расписание', reminders: 'Напоминания', students: 'Ученики и группы', payments: 'Оплаты', reports: 'Отчёты', settings: 'Настройки',
 };
 
 /** права по ролям: администратор — всё, менеджер — продажи и учёт, преподаватель — своё расписание и группы, владелец — цифры */
 export const ACCESS: Record<Role, Page[]> = {
-  admin: ['today', 'leads', 'schedule', 'students', 'payments', 'teachers', 'reports', 'settings'],
-  manager: ['today', 'leads', 'schedule', 'students', 'payments'],
+  admin: ['today', 'leads', 'schedule', 'reminders', 'students', 'payments', 'reports', 'settings'],
+  manager: ['today', 'leads', 'schedule', 'reminders', 'students', 'payments'],
   teacher: ['today', 'schedule', 'students'],
-  owner: ['reports', 'payments', 'teachers'],
+  owner: ['reports', 'payments'],
 };
 export const HOME: Record<Role, Page> = { admin: 'today', manager: 'today', teacher: 'today', owner: 'reports' };
 
@@ -48,8 +48,8 @@ export interface AppCtx {
   openDrawer: (d: DrawerState) => void;
   modal: ModalState;
   openModal: (m: ModalState) => void;
-  fmt: (kzt: number) => string;
-  fmtShort: (kzt: number) => string;
+  fmt: (rub: number) => string;
+  fmtShort: (rub: number) => string;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }

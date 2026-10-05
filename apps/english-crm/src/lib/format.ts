@@ -1,4 +1,3 @@
-import type { Settings } from '../domain/types';
 import { WEEKDAYS } from '../domain/labels';
 
 /* ---------- даты ---------- */
@@ -50,19 +49,15 @@ export const ago = (t: number, now = Date.now()) => {
 const NB = '\u00a0'; // неразрывный пробел: сумма не переносится посередине
 const group3 = (n: number) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, NB);
 
-/** суммы хранятся в тенге; в рублях показываем по курсу из настроек */
-export const money = (kzt: number, s: Pick<Settings, 'currency' | 'rubRate'>) =>
-  s.currency === 'RUB' ? group3(kzt / s.rubRate) + NB + '₽' : group3(kzt) + NB + '₸';
-export const moneyShort = (kzt: number, s: Pick<Settings, 'currency' | 'rubRate'>) => {
-  const v = s.currency === 'RUB' ? kzt / s.rubRate : kzt;
-  const sign = NB + (s.currency === 'RUB' ? '₽' : '₸');
+/** все суммы — в рублях */
+export const money = (rub: number) => group3(rub) + NB + '₽';
+export const moneyShort = (rub: number) => {
+  const v = rub;
+  const sign = NB + '₽';
   if (Math.abs(v) >= 1e6) return (v / 1e6).toFixed(v >= 1e7 ? 0 : 1).replace('.', ',') + NB + 'млн' + sign;
   if (Math.abs(v) >= 1e4) return Math.round(v / 1e3) + NB + 'тыс' + sign;
   return group3(v) + sign;
 };
-/** ввод суммы в выбранной валюте → тенге */
-export const toKzt = (v: number, s: Pick<Settings, 'currency' | 'rubRate'>) => (s.currency === 'RUB' ? Math.round(v * s.rubRate) : Math.round(v));
-export const fromKzt = (kzt: number, s: Pick<Settings, 'currency' | 'rubRate'>) => (s.currency === 'RUB' ? Math.round(kzt / s.rubRate) : kzt);
 
 export const plural = (n: number, one: string, few: string, many: string) => {
   const m = Math.abs(n) % 100, d = m % 10;

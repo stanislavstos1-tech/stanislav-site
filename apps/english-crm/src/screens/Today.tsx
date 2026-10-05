@@ -1,17 +1,16 @@
 /* «Сегодня» — экран, с которого администратор начинает день. Только то, что требует действия, и действие — в один клик. */
-import { useMemo } from 'react';
-import { Inbox, ListTodo, CalendarClock, ClipboardCheck, BatteryLow, CircleDollarSign, Send, Phone, Check, X, Wallet, ChevronRight, Sparkles, Video } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Inbox, Bell, CalendarClock, ClipboardCheck, Send, Phone, Check, X, Wallet, ChevronRight, Sparkles, Video, Plus } from 'lucide-react';
 import { useDB, undo } from '../data/store';
 import * as A from '../data/actions';
-import { balanceMap, isOverdue, isUnanswered, lessonTitle, teacherById, unmarkedLessons, studentGroups, contactPhone, lessonEnd, lessonsInRange, lessonStudents } from '../data/selectors';
-import { addDays, dayDiff, elapsed, hm, plural, startOfDay, dateShort, when } from '../lib/format';
+import { balanceMap, isOverdue, isUnanswered, lessonTitle, teacherById, unmarkedLessons, contactPhone, lessonEnd, lessonsInRange, lessonStudents } from '../data/selectors';
+import { addDays, elapsed, hm, plural, startOfDay, when } from '../lib/format';
 import { digits } from '../lib/phone';
 import { Badge, Button, Card, CardTitle, Empty, LinkButton, cx } from '../ui/kit';
-import type { Tone } from '../ui/kit';
 import { ChannelTag } from '../ui/domain';
 import { toast } from '../ui/overlay';
 import { useApp } from '../app/ctx';
-import type { LucideIcon } from 'lucide-react';
+import { Row as ReminderRow } from './Reminders';
 
 const undoAction = { label: 'Отменить', run: () => { if (undo()) toast('Изменение отменено', { tone: 'info' }); } };
 const greet = () => { const h = new Date().getHours(); return h < 5 ? 'Доброй ночи' : h < 12 ? 'Доброе утро' : h < 18 ? 'Добрый день' : 'Добрый вечер'; };
@@ -24,7 +23,7 @@ export function Today() {
 
 function AdminToday() {
   const db = useDB();
-  const { user, openDrawer, openModal, fmt } = useApp();
+  const { user, openDrawer, openModal, fmt, go } = useApp();
   const now = Date.now();
   const s = db.settings;
   const today0 = startOfDay(now), tomorrow0 = addDays(today0, 1);
@@ -36,37 +35,51 @@ function AdminToday() {
     const trials = db.lessons.filter(l => l.kind === 'trial' && l.start >= today0 && l.start < tomorrow0 && l.status !== 'canceled').sort((a, b) => a.start - b.start);
     const unmarked = unmarkedLessons(db, now).filter(l => l.kind !== 'trial');
     const active = db.students.filter(x => x.status !== 'left');
-    const low = active.filter(x => { const b = bal.get(x.id)!; return b.left >= 0 && b.left <= s.lowBalance && x.status === 'active'; }).sort((a, b) => bal.get(a.id)!.left - bal.get(b.id)!.left);
     const debtors = active.filter(x => bal.get(x.id)!.left < 0).sort((a, b) => bal.get(b.id)!.debt - bal.get(a.id)!.debt);
-    return { bal, reply, tasks, trials, unmarked, low, debtors };
+    const low = active.filter(x => { const b = bal.get(x.id)!; return b.left >= 0 && b.left <= s.lowBalance && x.status === 'active'; }).sort((a, b) => bal.get(a.id)!.left - bal.get(b.id)!.left);
+    return { bal, reply, tasks, trials, unmarked, money: [...debtors, ...low] };
   }, [db, now, today0, tomorrow0, s.lowBalance]);
 
   const overdueN = data.reply.filter(l => isOverdue(l, s.slaHours, now)).length;
-  const debtSum = data.debtors.reduce((x, st) => x + data.bal.get(st.id)!.debt, 0);
   const todo = data.reply.length + data.tasks.length + data.unmarked.length;
+  const [intro, setIntro] = useState(() => { try { return !localStorage.getItem('lcrm-intro-done'); } catch { return true; } });
+  const closeIntro = () => { setIntro(false); try { localStorage.setItem('lcrm-intro-done', '1'); } catch { /* */ } };
 
   return (
     <div className="grid grid-cols-1 gap-5">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h2 className="text-[22px] font-semibold tracking-[-0.025em] md:text-[26px]">{greet()}, {user.name.split(' ')[0]}</h2>
-          <p className="mt-0.5 text-sm text-ink-2">{longDate()} · {todo ? plural(todo, 'дело ждёт', 'дела ждут', 'дел ждут') + ' вас' : 'срочных дел нет'}</p>
-        </div>
+      <div>
+        <h2 className="text-[22px] font-semibold tracking-[-0.025em] md:text-[26px]">{greet()}, {user.name.split(' ')[0]}</h2>
+        <p className="mt-0.5 text-sm text-ink-2">{longDate()} · {todo ? plural(todo, 'дело ждёт', 'дела ждут', 'дел ждут') + ' вас' : 'срочных дел нет'}</p>
       </div>
 
-      {/* сводка — нажатие прокручивает к блоку */}
-      <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-        <Tile icon={Inbox} label="Ответить на заявки" value={data.reply.length} sub={overdueN ? `${overdueN} ждут дольше ${s.slaHours} ч` : 'все вовремя'} tone={overdueN ? 'bad' : 'accent'} to="t-reply" />
-        <Tile icon={CalendarClock} label="Пробные сегодня" value={data.trials.length} sub={data.trials[0] ? 'ближайший в ' + hm(data.trials.find(t => t.start > now)?.start || data.trials[0].start) : 'нет'} tone="warn" to="t-trials" />
-        <Tile icon={ClipboardCheck} label="Без отметки" value={data.unmarked.length} sub="занятий за 2 недели" tone={data.unmarked.length ? 'warn' : 'neutral'} to="t-unmarked" />
-        <Tile icon={CircleDollarSign} label="Должники" value={data.debtors.length} sub={debtSum ? fmt(debtSum) : 'долгов нет'} tone={data.debtors.length ? 'bad' : 'neutral'} to="t-debt" />
-      </div>
+      {/* как пользоваться — три шага, закрывается навсегда */}
+      {intro && (
+        <Card className="relative border-accent/25 bg-accent-soft/40">
+          <button type="button" onClick={closeIntro} className="absolute right-3 top-3 grid size-8 place-items-center rounded-lg text-ink-3 hover:bg-surface hover:text-ink" aria-label="Скрыть подсказку"><X className="size-4" /></button>
+          <div className="pr-8 text-[15px] font-semibold">Как работать с CRM — три шага</div>
+          <ol className="mt-3 grid gap-2.5 md:grid-cols-3">
+            {[
+              { n: 1, title: 'Ответьте на заявку', text: 'Новые заявки — ниже и в разделе «Заявки». Нажмите «Написать»: текст уже готов.', to: 'leads' as const },
+              { n: 2, title: 'Запишите на пробный', text: 'В карточке заявки — «Записать на пробный»: выберите день и время.', to: 'schedule' as const },
+              { n: 3, title: 'Примите оплату', text: 'После пробного — «Принять оплату». Заявка станет учеником, уроки спишутся сами.', to: 'payments' as const },
+            ].map(x => (
+              <li key={x.n}>
+                <button type="button" onClick={() => go(x.to)} className="flex h-full w-full gap-3 rounded-xl bg-surface p-3 text-left shadow-card hover:shadow-pop">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent text-[13px] font-semibold text-white dark:text-[#101018]">{x.n}</span>
+                  <span><span className="block text-sm font-medium">{x.title}</span><span className="mt-0.5 block text-[13px] leading-snug text-ink-2">{x.text}</span></span>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-3 flex justify-end"><Button variant="ghost" size="sm" onClick={closeIntro}>Понятно, скрыть</Button></div>
+        </Card>
+      )}
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+      <div className="grid gap-5 lg:grid-cols-2">
         <div className="grid content-start gap-5">
-          {/* заявки без ответа */}
+          {/* 1. заявки без ответа */}
           <Card pad={false} className="overflow-hidden">
-            <div id="t-reply" className="scroll-mt-24 px-4 pt-4 sm:px-5"><CardTitle icon={Inbox} tone={overdueN ? 'bad' : 'accent'} count={data.reply.length}>Ответить на заявки</CardTitle></div>
+            <div className="px-4 pt-4 sm:px-5"><CardTitle icon={Inbox} tone={overdueN ? 'bad' : 'accent'} count={data.reply.length}>Ответить на заявки</CardTitle></div>
             {data.reply.length ? (
               <ul className="divide-y divide-line">
                 {data.reply.map(l => {
@@ -86,34 +99,20 @@ function AdminToday() {
             ) : <Empty compact icon={Check} title="Все заявки получили ответ">Новые появятся здесь. Если человек ждёт дольше {s.slaHours} ч, строка подсветится красным.</Empty>}
           </Card>
 
-          {/* задачи */}
+          {/* 2. напоминания */}
           <Card pad={false} className="overflow-hidden">
-            <div className="px-4 pt-4 sm:px-5"><CardTitle icon={ListTodo} count={data.tasks.length}>Задачи на сегодня</CardTitle></div>
-            {data.tasks.length ? (
-              <ul className="divide-y divide-line">
-                {data.tasks.map(t => {
-                  const late = t.due < now;
-                  const rel = t.leadId ? db.leads.find(l => l.id === t.leadId) : t.studentId ? db.students.find(x => x.id === t.studentId) : undefined;
-                  return (
-                    <li key={t.id} className="flex items-center gap-3 px-4 py-2.5 sm:px-5">
-                      <button type="button" onClick={() => { A.toggleTask(t.id); toast('Задача выполнена', { action: undoAction }); }} aria-label="Выполнено"
-                        className="grid size-6 shrink-0 place-items-center rounded-full border-2 border-line-2 text-transparent transition-colors duration-150 hover:border-ok hover:text-ok"><Check className="size-3.5" strokeWidth={3} /></button>
-                      <button type="button" className="min-w-0 flex-1 text-left" onClick={() => rel && openDrawer({ type: t.leadId ? 'lead' : 'student', id: rel.id })}>
-                        <div className="text-sm">{t.title}</div>
-                        {rel && <div className="truncate text-xs text-ink-3">{rel.name}</div>}
-                      </button>
-                      <Badge tone={late ? 'bad' : 'neutral'}>{late && dayDiff(t.due) < 0 ? dateShort(t.due) : hm(t.due)}</Badge>
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : <Empty compact icon={Sparkles} title="Задач на сегодня нет">Напоминания ставятся из карточки заявки: «Напомнить завтра в 10:00».</Empty>}
+            <div className="px-4 pt-4 sm:px-5"><CardTitle icon={Bell} count={data.tasks.length} action={<Button variant="ghost" size="sm" iconRight={ChevronRight} onClick={() => go('reminders')}>Календарь</Button>}>Напоминания на сегодня</CardTitle></div>
+            {data.tasks.length
+              ? <ul className="divide-y divide-line">{data.tasks.map(t => <ReminderRow key={t.id} t={t} showDate={t.due < today0} />)}</ul>
+              : <Empty compact icon={Sparkles} title="На сегодня напоминаний нет" action={<Button variant="soft" size="sm" icon={Plus} onClick={() => go('reminders')}>Добавить напоминание</Button>}>Их можно ставить в календаре или из карточки заявки: «Напомнить завтра в 10:00».</Empty>}
           </Card>
+        </div>
 
-          {/* пробные */}
+        <div className="grid content-start gap-5">
+          {/* 3. сегодня в расписании: пробные и неотмеченные занятия */}
           <Card pad={false} className="overflow-hidden">
-            <div id="t-trials" className="scroll-mt-24 px-4 pt-4 sm:px-5"><CardTitle icon={CalendarClock} tone="warn" count={data.trials.length}>Пробные сегодня</CardTitle></div>
-            {data.trials.length ? (
+            <div className="px-4 pt-4 sm:px-5"><CardTitle icon={CalendarClock} tone="warn" count={data.trials.length + data.unmarked.length}>Занятия: что сделать</CardTitle></div>
+            {data.trials.length + data.unmarked.length ? (
               <ul className="divide-y divide-line">
                 {data.trials.map(tr => {
                   const lead = db.leads.find(l => l.id === tr.leadId); const t = teacherById(db, tr.teacherId);
@@ -122,8 +121,8 @@ function AdminToday() {
                     <li key={tr.id} className="flex items-center gap-3 px-4 py-3 sm:px-5">
                       <div className="tnum w-12 shrink-0 text-[15px] font-semibold">{hm(tr.start)}</div>
                       <button type="button" className="min-w-0 flex-1 text-left" onClick={() => openDrawer({ type: 'lesson', id: tr.id })}>
-                        <div className="truncate font-medium">{lead?.name}</div>
-                        <div className="flex items-center gap-1.5 text-xs text-ink-3"><span className="size-2 rounded-full" style={{ background: t?.color }} aria-hidden />{t?.name}{lead?.goal ? ' · ' + lead.goal : ''}</div>
+                        <div className="truncate font-medium">Пробный · {lead?.name}</div>
+                        <div className="flex items-center gap-1.5 text-xs text-ink-3"><span className="size-2 rounded-full" style={{ background: t?.color }} aria-hidden />{t?.name}</div>
                       </button>
                       {tr.status === 'done' ? <Badge tone="ok" icon={Check}>Прошёл</Badge> : started && lead ? (
                         <div className="flex gap-1.5">
@@ -134,83 +133,39 @@ function AdminToday() {
                     </li>
                   );
                 })}
-              </ul>
-            ) : <Empty compact icon={CalendarClock} title="Сегодня пробных нет">Запишите кого-нибудь из заявок — свободные окна видны в расписании.</Empty>}
-          </Card>
-        </div>
-
-        <div className="grid content-start gap-5">
-          {/* без отметки */}
-          <Card pad={false} className="overflow-hidden">
-            <div id="t-unmarked" className="scroll-mt-24 px-4 pt-4 sm:px-5"><CardTitle icon={ClipboardCheck} tone={data.unmarked.length ? 'warn' : 'neutral'} count={data.unmarked.length}>Занятия без отметки</CardTitle></div>
-            {data.unmarked.length ? (
-              <ul className="divide-y divide-line">
                 {data.unmarked.map(l => { const t = teacherById(db, l.teacherId); return (
                   <li key={l.id} className="flex items-center gap-3 px-4 py-2.5 sm:px-5">
                     <span className="h-8 w-1 shrink-0 rounded-full" style={{ background: t?.color }} aria-hidden />
-                    <div className="min-w-0 flex-1"><div className="truncate text-sm font-medium">{lessonTitle(db, l)}</div><div className="text-xs text-ink-3">{when(l.start)} · {t?.name}</div></div>
+                    <div className="min-w-0 flex-1"><div className="truncate text-sm font-medium">{lessonTitle(db, l)}</div><div className="text-xs text-ink-3">{when(l.start)} · не отмечено, кто был</div></div>
                     <Button variant="soft" size="sm" onClick={() => openDrawer({ type: 'lesson', id: l.id })}>Отметить</Button>
                   </li>
                 ); })}
               </ul>
-            ) : <Empty compact icon={Check} title="Посещаемость отмечена">Без отметки остаток уроков считается неточно — поэтому такие занятия собраны здесь.</Empty>}
+            ) : <Empty compact icon={Check} title="По занятиям всё сделано">Здесь появятся пробные уроки на сегодня и занятия, где не отмечено, кто был.</Empty>}
           </Card>
 
-          {/* заканчиваются абонементы */}
+          {/* 4. деньги: долги и заканчивающиеся абонементы */}
           <Card pad={false} className="overflow-hidden">
-            <div className="px-4 pt-4 sm:px-5"><CardTitle icon={BatteryLow} tone="warn" count={data.low.length}>Заканчиваются абонементы</CardTitle></div>
-            {data.low.length ? (
+            <div className="px-4 pt-4 sm:px-5"><CardTitle icon={Wallet} tone={data.money.length ? 'bad' : 'neutral'} count={data.money.length}>Оплаты: кому напомнить</CardTitle></div>
+            {data.money.length ? (
               <ul className="divide-y divide-line">
-                {data.low.map(st => { const b = data.bal.get(st.id)!; return (
+                {data.money.slice(0, 6).map(st => { const b = data.bal.get(st.id)!; const debt = b.left < 0; return (
                   <li key={st.id} className="flex items-center gap-3 px-4 py-2.5 sm:px-5">
                     <button type="button" className="min-w-0 flex-1 text-left" onClick={() => openDrawer({ type: 'student', id: st.id })}>
                       <div className="truncate text-sm font-medium">{st.name}</div>
-                      <div className="truncate text-xs text-ink-3">{studentGroups(db, st.id)[0]?.name || 'Индивидуально'}</div>
+                      <div className={cx('text-xs', debt ? 'text-bad' : 'text-ink-3')}>{debt ? 'долг ' + fmt(b.debt) : b.left === 0 ? 'уроки закончились' : 'осталось ' + plural(b.left, 'урок', 'урока', 'уроков')}</div>
                     </button>
-                    <Badge tone="warn">{b.left === 0 ? '0 уроков' : plural(b.left, 'урок', 'урока', 'уроков')}</Badge>
-                    <Button variant="ghost" size="sm" icon={Send} onClick={() => openModal({ type: 'message', to: { kind: 'student', id: st.id }, template: 'low_balance' })} aria-label="Напомнить о продлении" title="Напомнить о продлении" disabled={!contactPhone(db, st)} />
-                    <Button variant="soft" size="sm" icon={Wallet} onClick={() => openModal({ type: 'payment', studentId: st.id })}><span className="max-sm:hidden">Оплата</span></Button>
+                    <Button variant="ghost" size="sm" icon={Send} onClick={() => openModal({ type: 'message', to: { kind: 'student', id: st.id }, template: debt ? 'payment_reminder' : 'low_balance' })} aria-label="Написать" title="Написать" disabled={!contactPhone(db, st)} />
+                    <Button variant="soft" size="sm" icon={Wallet} onClick={() => openModal({ type: 'payment', studentId: st.id })}><span className="max-sm:hidden">Принять оплату</span></Button>
                   </li>
                 ); })}
+                {data.money.length > 6 && <li><button type="button" onClick={() => go('payments')} className="flex h-11 w-full items-center justify-center gap-1 text-[13px] font-medium text-accent-ink hover:bg-surface-2">Ещё {data.money.length - 6} — открыть «Оплаты»<ChevronRight className="size-4" aria-hidden /></button></li>}
               </ul>
-            ) : <Empty compact icon={Check} title="У всех есть запас занятий">Здесь появятся ученики, у которых осталось {plural(s.lowBalance, 'занятие', 'занятия', 'занятий')} или меньше.</Empty>}
-          </Card>
-
-          {/* должники */}
-          <Card pad={false} className="overflow-hidden">
-            <div id="t-debt" className="scroll-mt-24 px-4 pt-4 sm:px-5"><CardTitle icon={CircleDollarSign} tone={data.debtors.length ? 'bad' : 'neutral'} count={data.debtors.length}>Должники</CardTitle></div>
-            {data.debtors.length ? (
-              <ul className="divide-y divide-line">
-                {data.debtors.map(st => { const b = data.bal.get(st.id)!; return (
-                  <li key={st.id} className="flex items-center gap-3 px-4 py-2.5 sm:px-5">
-                    <button type="button" className="min-w-0 flex-1 text-left" onClick={() => openDrawer({ type: 'student', id: st.id })}>
-                      <div className="truncate text-sm font-medium">{st.name}</div>
-                      <div className="text-xs text-ink-3">{plural(-b.left, 'урок', 'урока', 'уроков')} без оплаты</div>
-                    </button>
-                    <span className="tnum text-sm font-semibold text-bad">{fmt(b.debt)}</span>
-                    <Button variant="ghost" size="sm" icon={Send} onClick={() => openModal({ type: 'message', to: { kind: 'student', id: st.id }, template: 'payment_reminder' })} aria-label="Напомнить об оплате" title="Напомнить об оплате" disabled={!contactPhone(db, st)} />
-                    <Button variant="soft" size="sm" icon={Wallet} onClick={() => openModal({ type: 'payment', studentId: st.id })}><span className="max-sm:hidden">Принять</span></Button>
-                  </li>
-                ); })}
-              </ul>
-            ) : <Empty compact icon={Check} title="Долгов нет">Ученик попадает сюда, если занятий проведено больше, чем оплачено.</Empty>}
+            ) : <Empty compact icon={Check} title="Долгов нет, у всех есть уроки">Здесь появятся должники и те, у кого заканчивается абонемент.</Empty>}
           </Card>
         </div>
       </div>
     </div>
-  );
-}
-
-function Tile({ icon: I, label, value, sub, tone, to }: { icon: LucideIcon; label: string; value: number; sub: string; tone: Tone; to: string }) {
-  const T: Record<Tone, string> = { neutral: 'bg-surface-2 text-ink-2', accent: 'bg-accent-soft text-accent-ink', ok: 'bg-ok-soft text-ok', warn: 'bg-warn-soft text-warn', bad: 'bg-bad-soft text-bad', info: 'bg-info-soft text-info' };
-  return (
-    <button type="button" onClick={() => document.getElementById(to)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-      className="group rounded-[16px] border border-line bg-surface p-3.5 text-left shadow-card transition-[border-color] duration-150 hover:border-line-2 sm:p-4">
-      <div className="flex items-center justify-between"><span className={cx('grid size-8 place-items-center rounded-[10px]', T[tone])}><I className="size-4" aria-hidden /></span><ChevronRight className="size-4 text-ink-3 opacity-0 transition-opacity duration-150 group-hover:opacity-100" aria-hidden /></div>
-      <div className={cx('tnum mt-3 text-[28px] font-semibold leading-none tracking-[-0.03em]', tone === 'bad' && value ? 'text-bad' : '')}>{value}</div>
-      <div className="mt-1.5 text-[13px] font-medium leading-tight">{label}</div>
-      <div className="mt-0.5 truncate text-xs text-ink-3">{sub}</div>
-    </button>
   );
 }
 

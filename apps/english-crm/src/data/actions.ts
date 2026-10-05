@@ -199,9 +199,15 @@ export function updateStudent(studentId: ID, patch: { note?: string; level?: Lev
   update(d => { Object.assign(d.students.find(s => s.id === studentId)!, patch); });
 }
 
-/* ---------- задачи ---------- */
+/* ---------- напоминания (задачи) ---------- */
 export function addTask(p: { title: string; due: number; leadId?: ID; studentId?: ID }) {
   update(d => { d.tasks.push({ id: uid('tk'), title: p.title.trim(), due: p.due, done: false, leadId: p.leadId, studentId: p.studentId, assigneeId: me }); });
+}
+export function moveTask(id: ID, due: number) {
+  update(d => { const t = d.tasks.find(t => t.id === id)!; t.due = due; }, { undoable: true });
+}
+export function deleteTask(id: ID) {
+  update(d => { d.tasks = d.tasks.filter(t => t.id !== id); }, { undoable: true });
 }
 export function toggleTask(id: ID) {
   update(d => { const t = d.tasks.find(t => t.id === id)!; t.done = !t.done; t.doneAt = t.done ? Date.now() : undefined; }, { undoable: true });

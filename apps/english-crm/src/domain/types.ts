@@ -1,5 +1,5 @@
 /* Модель данных CRM онлайн-школы.
-   Все суммы хранятся в тенге (целые числа), даты — в миллисекундах (Date.now()).
+   Все суммы хранятся в рублях (целые числа), даты — в миллисекундах (Date.now()).
    Хранилище не знает об экранах: экраны читают состояние и вызывают действия из data/actions. */
 
 export type ID = string;
@@ -87,8 +87,8 @@ export interface Teacher {
   name: string;
   phone: string;
   color: string; // цвет в расписании (+ инициалы, чтобы не только цвет)
-  rateGroup: number; // ставка за групповое занятие, ₸
-  rateIndividual: number; // ставка за индивидуальное / пробное, ₸
+  rateGroup: number; // ставка за групповое занятие, ₽
+  rateIndividual: number; // ставка за индивидуальное / пробное, ₽
   workFrom: number; // рабочие часы, например 10
   workTo: number; // 21
 }
@@ -133,7 +133,7 @@ export interface PackageType {
   title: string; // «8 занятий в группе»
   kind: 'group' | 'individual';
   lessons: number;
-  price: number; // ₸
+  price: number; // ₽
 }
 
 export interface Subscription {
@@ -148,13 +148,13 @@ export interface Subscription {
   paymentId: ID;
 }
 
-export type PayMethod = 'cash' | 'kaspi' | 'transfer' | 'card';
+export type PayMethod = 'cash' | 'sbp' | 'transfer' | 'card';
 
 export interface Payment {
   id: ID;
   studentId: ID;
   payerId: ID;
-  amount: number; // ₸
+  amount: number; // ₽
   method: PayMethod;
   at: number;
   subscriptionId?: ID;
@@ -184,8 +184,6 @@ export interface MessageTemplate {
 
 export interface Settings {
   schoolName: string;
-  currency: 'KZT' | 'RUB';
-  rubRate: number; // сколько тенге в 1 рубле
   channels: Record<Channel, boolean>;
   slaHours: number; // заявка без ответа дольше N часов подсвечивается
   lowBalance: number; // «заканчивается абонемент», уроков

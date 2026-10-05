@@ -39,9 +39,9 @@ export function messageText(db: DB, r: Recipient, key: TemplateKey): string {
   }
   if (r.student) {
     const b = balanceMap(db).get(r.student.id);
-    if (b) { vars['уроков'] = Math.max(0, b.left); vars['сумма'] = money(b.debt || b.pricePerLesson * 8, db.settings); }
+    if (b) { vars['уроков'] = Math.max(0, b.left); vars['сумма'] = money(b.debt || b.pricePerLesson * 8); }
   } else {
-    vars['сумма'] = money(db.packageTypes[0].price, db.settings);
+    vars['сумма'] = money(db.packageTypes[0].price);
   }
   return fillTemplate(t.text, vars);
 }

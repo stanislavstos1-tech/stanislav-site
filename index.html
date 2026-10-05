@@ -302,12 +302,6 @@
     /* pricing */
     .pricing__lead{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin:-40px 0 clamp(40px,5vw,72px)}
     .pricing__lead p{grid-column:4/10;margin:0;color:var(--mute);font-size:18px}
-    .curx{grid-column:10/13;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-    .curx__btns{display:inline-flex;border:1px solid var(--line-2);border-radius:40px;padding:3px}
-    .curx button{font:500 13px/1 var(--f-sans);color:inherit;background:none;border:0;border-radius:40px;padding:10px 14px;cursor:pointer;transition:background .3s,color .3s}
-    .curx button[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink)}
-    .curx__note{opacity:0;transition:opacity .3s;color:var(--mute);font-size:10.5px}
-    .curx.alt .curx__note{opacity:1}
     .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .plan{position:relative;display:flex;flex-direction:column;gap:22px;padding:clamp(24px,2.6vw,40px);border:1px solid var(--line);border-radius:28px;background:var(--bg-2);transition:transform .6s var(--ease),border-color .4s}
     .plan:hover{transform:translateY(-6px);border-color:var(--line-2)}
@@ -432,7 +426,6 @@
       .about__quote,.about__side,.process__head,.steps,.faq__head,.faq__list{grid-column:1/-1}
       .process__head{position:static;margin-bottom:40px}
       .pricing__lead{grid-template-columns:1fr;margin-top:-20px}.pricing__lead p{grid-column:1/-1}
-      .curx{grid-column:1/-1;align-items:flex-start}
       .plans{grid-template-columns:1fr}
       .guarantee{grid-template-columns:1fr;text-align:left}
       .manifesto__text{text-indent:0;max-width:none}
@@ -537,7 +530,7 @@
       <div class="wrap">
         <div class="hero__foot mono h-fade">
           <span class="scroll-ind"><i></i>Листайте</span>
-          <span>От <span data-price="30000" data-base="RUB">30 000 ₽</span></span>
+          <span>От <span>30 000 ₽</span></span>
         </div>
       </div>
     </section>
@@ -624,7 +617,7 @@
             </div>
             <ul class="case__proof">
               <li><strong>Чат</strong><span>ассистент 24/7</span></li>
-              <li><strong>₸ / ₽</strong><span>цены для KZ и РФ</span></li>
+              <li><strong>Тест</strong><span>подбор курса за 2 минуты</span></li>
               <li><strong>Панель</strong><span>заявок</span></li>
             </ul>
             <div class="case__links"><a class="case__link" href="./fluent/index.html">Открыть сайт <i aria-hidden="true">↗</i></a><a class="case__link" href="./english-crm/">Панель заявок <i aria-hidden="true">↗</i></a></div>
@@ -649,7 +642,7 @@
             <ul class="case__proof">
               <li><strong>8</strong><span>разделов: от заявок до отчётов</span></li>
               <li><strong>4</strong><span>роли с разными правами</span></li>
-              <li><strong>₸ / ₽</strong><span>учёт в тенге и рублях</span></li>
+              <li><strong>1 клик</strong><span>до главного действия</span></li>
             </ul>
             <a class="case__link" href="./english-crm/">Открыть CRM <i aria-hidden="true">↗</i></a>
           </div>
@@ -781,11 +774,11 @@
           <p class="sec-tag mono"><b>06</b> Цены</p>
           <h2 class="sec-title rv" id="pricing-title"><span class="line"><span>Цена фиксируется</span></span><span class="line"><span><span class="serif">до</span> начала работы</span></span></h2>
         </header>
-        <div class="pricing__lead fade"><p>Сайт стоит меньше, чем недобор одного потока, и остаётся вашим инструментом для рекламы, рассылки и прогрева. Если вам хватит одной страницы — не стану продавать больше.</p><div class="curx" role="group" aria-label="Валюта цен"><div class="curx__btns"><button type="button" data-cur="RUB" aria-pressed="true">₽ Рубли</button><button type="button" data-cur="KZT" aria-pressed="false">₸ Тенге</button><button type="button" data-cur="USD" aria-pressed="false">$ Доллары</button></div><span class="curx__note mono" data-cur-note>≈ по курсу, итог — при расчёте</span></div></div>
+        <div class="pricing__lead fade"><p>Сайт стоит меньше, чем недобор одного потока, и остаётся вашим инструментом для рекламы, рассылки и прогрева. Если вам хватит одной страницы — не стану продавать больше.</p></div>
         <div class="plans">
           <article class="plan fade">
             <h3 class="plan__name">Сайт для заявок</h3>
-            <div class="plan__price"><small>от</small><span data-price="30000" data-base="RUB">30 000 ₽</span></div>
+            <div class="plan__price"><small>от</small><span>30 000 ₽</span></div>
             <div class="plan__term mono">9–12 рабочих дней</div>
             <p class="plan__desc">Для курса или потока, которому тесно в постах. Оффер, программа, тарифы и доверие на одной странице.</p>
             <ul>
@@ -799,7 +792,7 @@
           <article class="plan plan--hot fade">
             <span class="plan__badge mono">Чаще выбирают</span>
             <h3 class="plan__name">Сайт для роста</h3>
-            <div class="plan__price"><small>от</small><span data-price="45000" data-base="RUB">45 000 ₽</span></div>
+            <div class="plan__price"><small>от</small><span>45 000 ₽</span></div>
             <div class="plan__term mono">12–16 рабочих дней</div>
             <p class="plan__desc">Для школы с несколькими продуктами. Линейка без путаницы, подробная программа, подготовка к рекламе.</p>
             <ul>
@@ -813,7 +806,7 @@
           </article>
           <article class="plan fade">
             <h3 class="plan__name">Запуск под ключ</h3>
-            <div class="plan__price"><small>от</small><span data-price="90000" data-base="RUB">90 000 ₽</span></div>
+            <div class="plan__price"><small>от</small><span>90 000 ₽</span></div>
             <div class="plan__term mono">от 3 недель</div>
             <p class="plan__desc">Когда на кону большой поток. Сайт плюс инструменты, которые отвечают и записывают без менеджера.</p>
             <ul>
@@ -1085,30 +1078,6 @@
       });
 
     }
-  })();
-  </script>
-  <script>
-  /* Валюта цен: базовые суммы в data-price, курсы — ₸ за 1 единицу. Обновляйте здесь. */
-  (function () {
-    var RATES = { KZT: 1, RUB: 5.4, USD: 510 }, SIGN = { KZT: "₸", RUB: "₽", USD: "$" };
-    var STEP = { KZT: 5000, RUB: 500, USD: 10 }, KEY = "sm-cur";
-    var els = document.querySelectorAll("[data-price]"), btns = document.querySelectorAll(".curx [data-cur]");
-    if (!els.length || !btns.length) return;
-    var base = els[0].dataset.base, fmt = function (n) { return n.toLocaleString("ru-RU").replace(/\u00a0|\u202f/g, " "); };
-    function set(cur) {
-      if (!RATES[cur]) cur = base;
-      els.forEach(function (el) {
-        var v = +el.dataset.price * RATES[el.dataset.base] / RATES[cur];
-        if (cur !== el.dataset.base) v = Math.max(STEP[cur], Math.round(v / STEP[cur]) * STEP[cur]);
-        el.textContent = cur === "USD" ? "$" + fmt(v) : fmt(v) + " " + SIGN[cur];
-      });
-      btns.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.cur === cur); });
-      document.querySelectorAll(".curx").forEach(function (c) { c.classList.toggle("alt", cur !== base); });
-      try { localStorage.setItem(KEY, cur); } catch (e) {}
-    }
-    btns.forEach(function (b) { b.addEventListener("click", function () { set(b.dataset.cur); }); });
-    var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
-    if (saved && saved !== base) set(saved);
   })();
   </script>
   <script>

@@ -15,7 +15,7 @@ function rng(seed: number) {
   };
 }
 
-export const SEED_VERSION = 3;
+export const SEED_VERSION = 5;
 
 export function createSeed(now = Date.now()): DB {
   const r = rng(20261005);
@@ -24,7 +24,7 @@ export function createSeed(now = Date.now()): DB {
   let n = 0;
   const id = (p: string) => p + (++n).toString(36);
   let ph = 10;
-  const phone = (kz = r() < 0.6) => { ph += int(3, 17); const t = String(ph).padStart(4, '0'); return `+7 (${kz ? pick(['701', '702', '705', '707', '747', '777']) : pick(['900', '901', '903', '905', '916'])}) 000-${t.slice(0, 2)}-${t.slice(2)}`; };
+  const phone = () => { ph += int(3, 17); const t = String(ph).padStart(4, '0'); return `+7 (${pick(['900', '901', '903', '905', '909', '916', '926', '977'])}) 000-${t.slice(0, 2)}-${t.slice(2)}`; };
 
   const today = startOfDay(now);
   const week0 = startOfWeek(now);
@@ -32,11 +32,11 @@ export function createSeed(now = Date.now()): DB {
   /* ---------- пользователи и преподаватели ---------- */
   // цвета — первые пять оттенков проверенной категориальной палитры; в расписании рядом всегда инициалы
   const teachers: Teacher[] = [
-    { id: 't1', name: 'Анна Ковалёва', phone: phone(), color: '#2a78d6', rateGroup: 4500, rateIndividual: 3500, workFrom: 10, workTo: 21 },
-    { id: 't2', name: 'Тимур Сейтказы', phone: phone(), color: '#eb6834', rateGroup: 4500, rateIndividual: 3500, workFrom: 12, workTo: 21 },
-    { id: 't3', name: 'Мария Лебедь', phone: phone(), color: '#1baf7a', rateGroup: 4000, rateIndividual: 3200, workFrom: 9, workTo: 18 },
-    { id: 't4', name: 'Даниал Оспанов', phone: phone(), color: '#c98500', rateGroup: 5000, rateIndividual: 4000, workFrom: 14, workTo: 21 },
-    { id: 't5', name: 'Елена Ри', phone: phone(), color: '#d55181', rateGroup: 4000, rateIndividual: 3200, workFrom: 10, workTo: 19 },
+    { id: 't1', name: 'Анна Ковалёва', phone: phone(), color: '#2a78d6', rateGroup: 900, rateIndividual: 700, workFrom: 10, workTo: 21 },
+    { id: 't2', name: 'Тимур Сейтказы', phone: phone(), color: '#eb6834', rateGroup: 900, rateIndividual: 700, workFrom: 12, workTo: 21 },
+    { id: 't3', name: 'Мария Лебедь', phone: phone(), color: '#1baf7a', rateGroup: 800, rateIndividual: 650, workFrom: 9, workTo: 18 },
+    { id: 't4', name: 'Даниал Оспанов', phone: phone(), color: '#c98500', rateGroup: 1000, rateIndividual: 800, workFrom: 14, workTo: 21 },
+    { id: 't5', name: 'Елена Ри', phone: phone(), color: '#d55181', rateGroup: 800, rateIndividual: 650, workFrom: 10, workTo: 19 },
   ];
   const users: User[] = [
     { id: 'u-admin', name: 'Айгерим Нуртаева', role: 'admin' },
@@ -47,10 +47,10 @@ export function createSeed(now = Date.now()): DB {
 
   /* ---------- пакеты ---------- */
   const packageTypes: PackageType[] = [
-    { id: 'p-g8', title: '8 занятий в группе', kind: 'group', lessons: 8, price: 36000 },
-    { id: 'p-g12', title: '12 занятий в группе', kind: 'group', lessons: 12, price: 51000 },
-    { id: 'p-i4', title: '4 индивидуальных', kind: 'individual', lessons: 4, price: 30000 },
-    { id: 'p-i8', title: '8 индивидуальных', kind: 'individual', lessons: 8, price: 56000 },
+    { id: 'p-g8', title: '8 занятий в группе', kind: 'group', lessons: 8, price: 7200 },
+    { id: 'p-g12', title: '12 занятий в группе', kind: 'group', lessons: 12, price: 10200 },
+    { id: 'p-i4', title: '4 индивидуальных', kind: 'individual', lessons: 4, price: 6000 },
+    { id: 'p-i8', title: '8 индивидуальных', kind: 'individual', lessons: 8, price: 11200 },
   ];
 
   /* ---------- ученики ---------- */
@@ -184,7 +184,7 @@ export function createSeed(now = Date.now()): DB {
       const lesson = ch[Math.min(used, ch.length - 1)];
       const t = k === 0 ? s.createdAt + int(1, 20) * HOUR : lesson ? lesson.start - int(1, 3) * DAY : s.createdAt + k * 28 * DAY;
       const pid = id('pay'), sid = id('sub');
-      const method = pick(['kaspi', 'kaspi', 'kaspi', 'transfer', 'cash', 'card'] as const);
+      const method = pick(['sbp', 'sbp', 'card', 'card', 'transfer', 'cash'] as const);
       payments.push({ id: pid, studentId: s.id, payerId: s.payerId, amount: p.price, method, at: Math.min(t, now - HOUR), subscriptionId: sid, comment: '', by: r() < 0.7 ? 'u-admin' : 'u-manager' });
       subscriptions.push({ id: sid, studentId: s.id, packageTypeId: p.id, title: p.title, lessons: p.lessons, price: p.price, purchasedAt: Math.min(t, now - HOUR), paymentId: pid });
       used += p.lessons;
@@ -280,6 +280,16 @@ export function createSeed(now = Date.now()): DB {
   tk('Подобрать группу по уровню B1 вечером', at(addDays(today, 1), '12:00'), { leadId: lead('trial_done', 1).id }, 'u-manager');
   tk('Обсудить с мамой продление абонемента', at(today, '17:00'), { studentId: students[0].id });
   tk('Выслать сертификат об окончании уровня', at(addDays(today, 2), '15:00'), { studentId: students[3].id });
+  tk('Спросить, удобно ли перейти на утреннюю группу', at(addDays(today, 3), '10:00'), { studentId: students[5].id });
+  tk('Позвонить: вернулся из отпуска, возобновить занятия', at(addDays(today, 5), '11:00'), { studentId: students[8].id }, 'u-manager');
+  tk('Подготовить расписание групп на следующий месяц', at(addDays(today, 7), '12:00'));
+  tk('Проверить оплаты за месяц и выслать напоминания', at(addDays(today, 9), '10:00'));
+  tk('Поздравить с днём рождения, предложить бонусный урок', at(addDays(today, 12), '09:30'), { studentId: students[2].id });
+  // выполненные — чтобы в календаре была история
+  [[-2, 'Записать на пробный после звонка'], [-3, 'Выслать реквизиты для оплаты'], [-6, 'Уточнить уровень перед пробным']].forEach(([d, t]) => {
+    tk(t as string, at(addDays(today, d as number), '12:00'));
+    const x = tasks[tasks.length - 1]; x.done = true; x.doneAt = x.due;
+  });
 
   const db: DB = {
     version: SEED_VERSION, users, leads, payers, students, teachers, groups, lessons, packageTypes, subscriptions, payments, tasks,
@@ -287,13 +297,13 @@ export function createSeed(now = Date.now()): DB {
       { key: 'greeting', title: 'Приветствие', text: 'Здравствуйте, {имя}! Это школа английского {школа}. Спасибо за заявку! Подскажите, для кого занятия и какая цель? Можем записать на бесплатный пробный урок.' },
       { key: 'trial_reminder', title: 'Напоминание о пробном', text: '{имя}, напоминаем: пробный урок {дата} в {время}. Ссылку на созвон пришлём за 15 минут. До встречи!' },
       { key: 'after_trial', title: 'После пробного', text: '{имя}, спасибо, что пришли на пробный! Как впечатления? Можем подобрать группу или индивидуальный формат — подскажу по расписанию и стоимости.' },
-      { key: 'payment_reminder', title: 'Напоминание об оплате', text: 'Здравствуйте, {имя}! Напоминаем об оплате обучения: {сумма}. Оплатить можно через Kaspi или переводом. Если уже оплатили — просто пришлите чек, спасибо!' },
+      { key: 'payment_reminder', title: 'Напоминание об оплате', text: 'Здравствуйте, {имя}! Напоминаем об оплате обучения: {сумма}. Оплатить можно по СБП или картой. Если уже оплатили — просто пришлите чек, спасибо!' },
       { key: 'low_balance', title: 'Заканчивается абонемент', text: 'Здравствуйте, {имя}! В абонементе осталось занятий: {уроков}. Чтобы не прерывать учёбу, продлите, пожалуйста, на следующий месяц.' },
       { key: 'lesson_moved', title: 'Перенос занятия', text: '{имя}, занятие перенесено на {дата} в {время}. Ссылка на созвон прежняя.' },
     ],
     settings: {
-      schoolName: 'Lingua', currency: 'KZT', rubRate: 5.4,
-      // WhatsApp выключен в демо: в РФ он заблокирован. Для школ в Казахстане включается одной галочкой в настройках.
+      schoolName: 'Lingua',
+      // WhatsApp в РФ заблокирован — в CRM для связи используются звонок и Telegram
       channels: { whatsapp: false, telegram: true, site: true, call: true, referral: true },
       slaHours: 2, lowBalance: 2, trialDuration: 45,
     },

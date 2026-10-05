@@ -30,7 +30,7 @@ export const LOST_LABEL: Record<LostReason, string> = {
   other: 'Другое',
 };
 
-export const METHOD_LABEL: Record<PayMethod, string> = { cash: 'Наличные', kaspi: 'Kaspi', transfer: 'Перевод', card: 'Карта' };
+export const METHOD_LABEL: Record<PayMethod, string> = { cash: 'Наличные', sbp: 'СБП', transfer: 'Перевод', card: 'Карта' };
 
 export const ROLE_LABEL: Record<Role, string> = { admin: 'Администратор', manager: 'Менеджер', teacher: 'Преподаватель', owner: 'Владелец' };
 
