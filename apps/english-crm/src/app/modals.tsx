@@ -38,7 +38,7 @@ export function NewLeadModal() {
     <Modal title="Новая заявка" subtitle="Достаточно имени и телефона — остальное можно дописать потом" onClose={() => openModal(null)}
       footer={<><Button variant="ghost" onClick={() => openModal(null)}>Отмена</Button><Button variant="primary" onClick={submit}>Добавить заявку</Button></>}>
       <form className="grid gap-4" onSubmit={e => { e.preventDefault(); submit(); }}>
-        <Field label="Имя" error={tried && !okName ? 'Как зовут человека?' : undefined}><Input autoFocus value={name} onChange={e => setName(e.target.value)} placeholder="Например, Айгерим" invalid={tried && !okName} /></Field>
+        <Field label="Имя" error={tried && !okName ? 'Как зовут человека?' : undefined}><Input autoFocus value={name} onChange={e => setName(e.target.value)} placeholder="Например, Анна" invalid={tried && !okName} /></Field>
         <Field label="Телефон" error={tried && !okPhone ? 'Нужен номер полностью: +7 и 10 цифр' : undefined}><PhoneInput value={phone} onChange={setPhone} invalid={tried && !okPhone} /></Field>
         {dup && <div className="flex items-center gap-2 rounded-xl bg-warn-soft px-3 py-2.5 text-[13px] text-warn"><AlertTriangle className="size-4 shrink-0" aria-hidden />Такой номер уже есть: {dup.name}. <button type="button" className="font-semibold underline" onClick={() => { openModal(null); openDrawer({ type: 'lead', id: dup.id }); }}>Открыть</button></div>}
         <Field label="Откуда пришла">
