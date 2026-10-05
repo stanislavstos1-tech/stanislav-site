@@ -63,7 +63,7 @@ button{cursor:pointer}
 
 /* header */
 .hdr{position:fixed;inset:0 0 auto 0;z-index:50;transition:background-color .35s,border-color .35s;border-bottom:1px solid transparent}
-.hdr.is-solid{background:rgba(29,36,64,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-color:var(--line-d)}
+.hdr.is-solid{background:rgba(29,36,64,.97);border-color:var(--line-d)}
 .hdr__in{display:flex;align-items:center;justify-content:space-between;height:80px;gap:20px}
 .logo{font-family:var(--head);font-weight:800;font-size:26px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
 .logo i{width:12px;height:12px;border-radius:50%;background:var(--pink);display:inline-block}
@@ -82,7 +82,7 @@ button{cursor:pointer}
 .mnav{position:fixed;inset:0;z-index:61;background:var(--navy);padding:110px var(--pad) 40px;display:flex;flex-direction:column;justify-content:space-between;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility 0s .35s}
 .menu-open .mnav{opacity:1;visibility:visible;transform:none;transition-delay:0s}
 .menu-open{overflow:hidden}
-.menu-open .hdr{z-index:63;background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.menu-open .hdr{z-index:63;background:transparent;border-color:transparent}
 .mnav nav{display:grid;gap:4px}
 .mnav nav a{font-family:var(--head);font-weight:700;font-size:clamp(38px,10vw,64px);letter-spacing:-.03em;line-height:1.15}
 .mnav nav a:hover{color:var(--pink)}
@@ -113,8 +113,9 @@ button{cursor:pointer}
 .stat span{display:block;margin-top:8px;font-size:clamp(12px,1vw,14px);color:var(--txt-light)}
 
 /* marquee */
-.mq{background:var(--pink);color:var(--navy);overflow:hidden;padding:clamp(18px,2vw,28px) 0}
+.mq{background:var(--pink);color:var(--navy);overflow:hidden;contain:layout paint;padding:clamp(18px,2vw,28px) 0}
 .mq__track{display:flex;width:max-content;animation:mq 34s linear infinite}
+.js-mq .mq__track{animation-play-state:paused}.js-mq .mq.on .mq__track{animation-play-state:running}
 .mq__g{display:flex;align-items:center;gap:clamp(22px,3vw,48px);padding-right:clamp(22px,3vw,48px);font-family:var(--head);font-weight:800;font-size:clamp(28px,3.8vw,60px);letter-spacing:-.03em;white-space:nowrap}
 .mq__g i{font-style:normal;width:.42em;height:.42em;border-radius:50%;background:var(--navy);display:inline-block}
 @keyframes mq{to{transform:translate3d(-50%,0,0)}}
@@ -360,34 +361,9 @@ button{cursor:pointer}
 .lng--m{align-self:flex-start;margin:0 0 6px}
 .hdr .lng{flex:0 0 auto}
 @media (min-width:1080px){.hdr .lng{margin-left:0;margin-right:-8px}}
-/* preloader */
-.fpre{position:fixed;inset:0;z-index:200;background:var(--navy);color:var(--cream);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,3.4vw,52px);clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.77,0,.175,1)}
-.fpre.out{clip-path:inset(0 0 100% 0)}
-.fpre__top{display:flex;justify-content:space-between;gap:16px;font-family:var(--head);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
-.fpre__top b{color:var(--pink)}.fpre__top span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:10px;vertical-align:middle}
-.fpre__n{position:relative;align-self:flex-end;font-family:var(--head);font-weight:800;font-size:clamp(140px,30vw,440px);line-height:.8;letter-spacing:-.06em;font-variant-numeric:tabular-nums}
-.fpre__n .o{color:transparent;-webkit-text-stroke:2px rgba(255,155,180,.6)}
-.fpre__n .f{position:absolute;inset:0;color:var(--pink);clip-path:inset(calc(100% - var(--p,0%)) -20% -10% -20%)}
-.fpre__bar{position:absolute;left:0;bottom:0;height:3px;background:var(--pink);width:var(--p,0%)}
-@media (prefers-reduced-motion:reduce){.fpre{display:none}}
 </style>
 </head>
 <body class="no-js">
-<noscript><style>.fpre{display:none!important}</style></noscript>
-<div class="fpre" id="fpre" aria-hidden="true">
-  <div class="fpre__top"><span>FLUENT · школа английского</span><span><b>IELTS 7+</b> за 4–6 месяцев</span></div>
-  <div class="fpre__n"><span class="o" id="fpreO">00</span><span class="f" id="fpreF">00</span></div>
-  <div class="fpre__bar"></div>
-</div>
-<script>
-(function(){var el=document.getElementById('fpre');if(!el)return;
-if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.remove();return;}
-var o=document.getElementById('fpreO'),f=document.getElementById('fpreF'),t0=performance.now(),D=1300,done=false;
-document.documentElement.style.overflow='hidden';
-function end(){if(done)return;done=true;el.classList.add('out');document.documentElement.style.overflow='';setTimeout(function(){el.remove()},1100);}
-function tick(t){var p=Math.min(1,(t-t0)/D),e=1-Math.pow(1-p,3),n=String(Math.round(e*100)).padStart(2,'0');o.textContent=n;f.textContent=n;el.style.setProperty('--p',(e*100)+'%');p<1?requestAnimationFrame(tick):setTimeout(end,180);}
-requestAnimationFrame(tick);setTimeout(end,3000);})();
-</script>
 
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
@@ -720,6 +696,9 @@ requestAnimationFrame(tick);setTimeout(end,3000);})();
 
   /* reveal once */
   const items = $$('.rv, .ln');
+  // бегущая строка крутится, только когда её видно
+  const mqEl = document.querySelector('.mq');
+  if (mqEl && 'IntersectionObserver' in window) { document.documentElement.classList.add('js-mq'); new IntersectionObserver(([e]) => mqEl.classList.toggle('on', e.isIntersecting)).observe(mqEl); }
   if (reduce || !('IntersectionObserver' in window)) items.forEach(i => i.classList.add('is-in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -6% 0px', threshold:.08});

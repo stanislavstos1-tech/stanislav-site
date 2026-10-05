@@ -57,15 +57,6 @@
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size:220px 220px}
 
-    /* preloader */
-    .preloader{display:none}
-    .js .preloader{display:flex;position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--bg);
-      flex-direction:column;justify-content:space-between;padding:var(--pad);transition:transform 1.1s var(--ease-io)}
-    .js.is-ready .preloader{transform:translateY(-101%)}
-    .preloader__top{display:flex;justify-content:space-between}
-    .preloader__num{font-weight:800;font-size:clamp(5rem,22vw,20rem);line-height:.8;letter-spacing:-.06em;font-variant-numeric:tabular-nums;align-self:flex-end}
-    .preloader__bar{position:absolute;left:0;bottom:0;height:3px;background:var(--bg);width:0}
-
     /* cursor */
     .cursor{position:fixed;top:0;left:0;z-index:95;pointer-events:none;display:none}
     .has-cursor .cursor{display:block}
@@ -115,22 +106,21 @@
     .btn--acc{background:var(--acc);color:var(--acc-ink)} .btn--acc .btn__ico{background:var(--acc-ink);color:var(--acc)}
     .btn--line{border:1px solid var(--line-2);padding-right:28px} .btn--line:hover{border-color:var(--ink)}
     .btn--sm{--h:44px;font-size:14px;padding-left:20px;padding-right:6px} .btn--sm .btn__ico{width:32px;height:32px}
-    [data-magnetic]{will-change:transform}
 
     /* mobile menu */
     .mmenu{position:fixed;inset:0;z-index:79;background:var(--bg);padding:110px var(--pad) var(--pad);display:flex;flex-direction:column;justify-content:space-between;
-      clip-path:inset(0 0 100% 0);transition:clip-path .8s var(--ease-io);visibility:hidden}
-    .menu-open .mmenu{clip-path:inset(0 0 0 0);visibility:visible}
+      opacity:0;transform:translate3d(0,-16px,0);transition:opacity .3s var(--ease),transform .4s var(--ease),visibility 0s .4s;visibility:hidden}
+    .menu-open .mmenu{opacity:1;transform:none;visibility:visible;transition:opacity .3s var(--ease),transform .4s var(--ease),visibility 0s}
     .mmenu a.big{display:flex;justify-content:space-between;align-items:baseline;font-size:clamp(2.4rem,11vw,4.5rem);font-weight:700;letter-spacing:-.045em;line-height:1.1;border-bottom:1px solid var(--line);padding:10px 0}
     .mmenu a.big small{font-family:var(--f-mono);font-size:12px;color:var(--mute);letter-spacing:.08em}
 
     /* reveal primitives */
     .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
     .line>span{display:block}
-    .js .rv .line>span{transform:translateY(112%);transition:transform 1.25s var(--ease)}
+    .js .rv .line>span{transform:translateY(112%);transition:transform 1s var(--ease)}
     .js .rv.is-in .line>span{transform:none}
     .js .rv .line:nth-child(2)>span{transition-delay:.08s} .js .rv .line:nth-child(3)>span{transition-delay:.16s} .js .rv .line:nth-child(4)>span{transition-delay:.24s}
-    .js .fade{opacity:0;transform:translateY(28px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease)}
+    .js .fade{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
     .js .fade.is-in{opacity:1;transform:none}
 
     /* hero */
@@ -138,7 +128,7 @@
     .hero>.wrap{width:100%;position:relative;z-index:1}
     @media (min-width:1024px) and (hover:hover){.hero__title{will-change:transform}}
     .hero__glow{position:absolute;width:62vmax;height:62vmax;left:50%;top:40%;border-radius:50%;pointer-events:none;
-      background:radial-gradient(circle,rgba(var(--acc-rgb),.13) 0%,rgba(var(--acc-rgb),.04) 35%,transparent 65%);transform:translate3d(-50%,-50%,0);will-change:transform,opacity}
+      background:radial-gradient(circle,rgba(var(--acc-rgb),.13) 0%,rgba(var(--acc-rgb),.04) 35%,transparent 65%);transform:translate3d(-50%,-50%,0)}
     .hero__meta{display:flex;justify-content:space-between;gap:20px;color:var(--mute);margin-bottom:clamp(28px,5vh,64px)}
     .hero__title{margin:0;font-weight:700;font-size:clamp(2.7rem,8.4vw,10.5rem);line-height:.9;letter-spacing:-.055em}
     .hero__title .serif{font-weight:400;letter-spacing:-.03em;color:var(--acc);padding-right:.05em}
@@ -155,12 +145,12 @@
     .scroll-ind i{width:1px;height:26px;background:var(--line-2);position:relative;overflow:hidden}
     .scroll-ind i::after{content:"";position:absolute;inset:0;background:var(--acc);animation:drip 2s var(--ease-io) infinite}
     @keyframes drip{0%{transform:translateY(-100%)}60%,100%{transform:translateY(100%)}}
-    .js .hero .line>span{transform:translateY(112%);transition:transform 1.4s var(--ease)}
+    .js .hero .line>span{transform:translateY(112%);transition:transform 1.1s var(--ease)}
     .js.is-ready .hero .line>span{transform:none}
-    .js.is-ready .hero .line:nth-child(1)>span{transition-delay:.55s}
-    .js.is-ready .hero .line:nth-child(2)>span{transition-delay:.65s}
-    .js.is-ready .hero .line:nth-child(3)>span{transition-delay:.75s}
-    .js .hero .h-fade{opacity:0;transform:translateY(20px);transition:opacity 1.2s var(--ease) 1.05s,transform 1.2s var(--ease) 1.05s}
+    .js.is-ready .hero .line:nth-child(1)>span{transition-delay:.05s}
+    .js.is-ready .hero .line:nth-child(2)>span{transition-delay:.12s}
+    .js.is-ready .hero .line:nth-child(3)>span{transition-delay:.19s}
+    .js .hero .h-fade{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease) .35s,transform .9s var(--ease) .35s}
     .js.is-ready .hero .h-fade{opacity:1;transform:none}
 
     /* marquee */
@@ -207,7 +197,7 @@
     .case__media--art picture{position:absolute;inset:0;display:block}
     .case__media--art img{object-fit:cover;object-position:center top;transform:none}
     .case:hover .case__media--art img{transform:scale(1.04)}
-    .case__idx{position:absolute;left:22px;top:20px;padding:8px 14px;border-radius:99px;background:rgba(14,13,11,.8);color:var(--ink);backdrop-filter:blur(8px)}
+    .case__idx{position:absolute;left:22px;top:20px;padding:8px 14px;border-radius:99px;background:rgba(14,13,11,.9);color:var(--ink)}
     .case__body{padding:clamp(24px,3vw,48px);display:flex;flex-direction:column;gap:26px}
     .case__kicker{display:flex;justify-content:space-between;gap:12px;color:var(--mute)}
     .case__kicker{flex-wrap:wrap}
@@ -465,10 +455,6 @@
 </head>
 <body>
 
-  <div class="preloader" aria-hidden="true">
-    <div class="preloader__top mono"><span>Станислав Максимов</span><span>Сайты для онлайн-школ</span></div>
-    <div class="preloader__num">000</div>
-    <div class="preloader__bar"></div>
   </div>
 
   <div class="cursor" aria-hidden="true">
@@ -949,26 +935,11 @@
     };
     addEventListener("scroll", () => { if (!hTick) { hTick = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
-    /* ---------- preloader ---------- */
-    const pre = $(".preloader"), num = $(".preloader__num"), bar = $(".preloader__bar");
+    /* ---------- появление первого экрана: сразу, как только готовы шрифты ---------- */
     let isReady = false;
-    const ready = () => { if (isReady) return; isReady = true; root.classList.add("is-ready"); setTimeout(() => pre && pre.remove(), 1400); ST && ST.refresh(); };
-    if (reduce) { ready(); }
-    else {
-      const t0 = performance.now(), D = 1500;
-      const fontsReady = Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise(r => setTimeout(r, 1400))]);
-      let fontsDone = false; fontsReady.then(() => fontsDone = true);
-      const tick = now => {
-        let p = Math.min(1, (now - t0) / D);
-        if (!fontsDone) p = Math.min(p, .9);
-        const e = 1 - Math.pow(1 - p, 3);
-        num.textContent = String(Math.round(e * 100)).padStart(3, "0");
-        bar.style.width = e * 100 + "%";
-        if (p < 1) requestAnimationFrame(tick); else setTimeout(ready, 180);
-      };
-      requestAnimationFrame(tick);
-      setTimeout(ready, 3500);
-    }
+    const ready = () => { if (isReady) return; isReady = true; requestAnimationFrame(() => root.classList.add("is-ready")); };
+    if (reduce) ready();
+    else { (document.fonts ? document.fonts.ready : Promise.resolve()).then(ready); setTimeout(ready, 450); }
 
     /* ---------- reveal on view ---------- */
     const io = new IntersectionObserver(es => es.forEach(en => {
@@ -1021,9 +992,8 @@
 
       const mm = G.matchMedia();
       mm.add("(min-width: 1024px) and (hover: hover)", () => {
-        const a = G.to(".hero__glow", { opacity: .25, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
         const b = G.to(".hero__title", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-        return () => { [a, b].forEach(tw => { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.revert(); }); };
+        return () => { [b].forEach(tw => { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.revert(); }); };
       });
       mm.add("(min-width: 1024px)", () => {
         root.classList.add("is-pinned-ok");
@@ -1054,8 +1024,14 @@
       let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
       cur.style.opacity = 0; let seen = false;
       addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; if (!seen) { seen = true; rx = mx; ry = my; ring.style.transform = `translate3d(${rx}px,${ry}px,0)`; cur.style.opacity = 1; } dot.style.transform = `translate3d(${mx}px,${my}px,0)`; }, { passive: true });
-      const loop = () => { const dx = mx - rx, dy = my - ry; if (Math.abs(dx) > .1 || Math.abs(dy) > .1) { rx += dx * .18; ry += dy * .18; ring.style.transform = `translate3d(${rx.toFixed(1)}px,${ry.toFixed(1)}px,0)`; } requestAnimationFrame(loop); };
-      requestAnimationFrame(loop);
+      let running = false;
+      const loop = () => {
+        const dx = mx - rx, dy = my - ry;
+        if (Math.abs(dx) < .3 && Math.abs(dy) < .3) { running = false; return; }   // догнал — не крутим кадры впустую
+        rx += dx * .2; ry += dy * .2; ring.style.transform = `translate3d(${rx.toFixed(1)}px,${ry.toFixed(1)}px,0)`;
+        requestAnimationFrame(loop);
+      };
+      addEventListener("pointermove", () => { if (!running) { running = true; requestAnimationFrame(loop); } }, { passive: true });
       document.addEventListener("pointerover", e => {
         const v = e.target.closest("[data-cursor='view']");
         const l = e.target.closest("a, button, summary");
@@ -1067,24 +1043,21 @@
 
       $$("[data-magnetic]").forEach(el => {
         const s = el.classList.contains("orb") ? .35 : .25;
+        let r = null, mt = 0;
+        el.addEventListener("pointerenter", () => { r = el.getBoundingClientRect(); el.style.transition = "transform .25s cubic-bezier(.19,1,.22,1)"; });
         el.addEventListener("pointermove", e => {
-          const r = el.getBoundingClientRect();
+          if (!r || mt) return;
+          mt = requestAnimationFrame(() => mt = 0);
           const x = (e.clientX - r.left - r.width / 2) * s, y = (e.clientY - r.top - r.height / 2) * s;
-          el.style.transition = "transform .25s cubic-bezier(.19,1,.22,1)";
-          el.style.transform = `translate(${x}px,${y}px)`;
+          el.style.transform = `translate3d(${x}px,${y}px,0)`;
         });
         el.addEventListener("pointerleave", () => {
+          r = null;
           el.style.transition = "transform .9s cubic-bezier(.19,1,.22,1)";
           el.style.transform = "";
         });
       });
 
-      const glow = $(".hero__glow"), hero = $(".hero");
-      let gx = 0, gy = 0, gTick = false;
-      hero.addEventListener("pointermove", e => {
-        gx = e.clientX - innerWidth / 2; gy = e.clientY - innerHeight * .4;
-        if (!gTick) { gTick = true; requestAnimationFrame(() => { gTick = false; glow.style.transform = `translate3d(calc(-50% + ${gx}px),calc(-50% + ${gy}px),0)`; }); }
-      }, { passive: true });
     }
   })();
   </script>
