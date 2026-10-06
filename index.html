@@ -321,6 +321,68 @@
     .plan .btn{align-self:flex-start}
     .plan--hot .btn--acc{background:var(--acc-ink);color:var(--acc)} .plan--hot .btn--acc .btn__ico{background:var(--acc);color:var(--acc-ink)}
     .plan--hot .btn--line{border-color:rgba(10,10,9,.25)}
+
+    /* конструктор проекта */
+    .calc{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px;align-items:start;scroll-margin-top:90px}
+    .calc__head{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 32px;margin-bottom:8px}
+    .calc__head h3{margin:0;font-size:clamp(1.8rem,3vw,2.8rem);letter-spacing:-.045em;line-height:1;font-weight:700}
+    .calc__head p{margin:0;color:var(--mute);max-width:46ch;font-size:15.5px}
+    .calc__mods{display:flex;flex-direction:column;gap:16px}
+    .cgroup{border:1px solid var(--line);border-radius:24px;background:var(--bg-2);padding:8px clamp(14px,2vw,22px) 10px}
+    .cgroup__t{margin:12px 0 4px;color:var(--mute)}
+    .mod{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:14px 0;border-top:1px solid var(--line);cursor:pointer}
+    .cgroup__t+.mod{border-top:0}
+    .mod input{position:absolute;opacity:0;width:1px;height:1px}
+    .mod__box{width:26px;height:26px;border-radius:8px;border:1.5px solid var(--line-2);display:grid;place-items:center;transition:background .2s,border-color .2s}
+    .mod__box svg{width:14px;height:14px;opacity:0;transform:scale(.6);transition:opacity .2s,transform .2s var(--ease)}
+    .mod input:checked+.mod__box{background:var(--acc);border-color:var(--acc)}
+    .mod input:checked+.mod__box svg{opacity:1;transform:none}
+    .mod input:focus-visible+.mod__box{outline:2px solid var(--acc);outline-offset:3px}
+    .mod:hover .mod__box{border-color:var(--ink)}
+    .mod__name{font-size:16px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+    .mod__desc{grid-column:2;color:var(--mute);font-size:14px;line-height:1.45}
+    .mod__price{grid-row:1/3;grid-column:3;text-align:right;white-space:nowrap}
+    .mod__price b{display:block;font-size:16px;font-weight:600}
+    .mod__price span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+    .mod--base{cursor:default}
+    .mod--base .mod__box{background:var(--line);border-color:transparent}
+    .mod--base .mod__box svg{opacity:.7;transform:none}
+    .step-qty{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:99px;height:36px;margin-top:10px;width:max-content}
+    .step-qty button{width:36px;height:34px;font-size:18px;line-height:1;color:var(--ink);border-radius:99px}
+    .step-qty button:hover{background:var(--line)}
+    .step-qty button:disabled{opacity:.3;pointer-events:none}
+    .step-qty output{min-width:28px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+    .sum{position:sticky;top:96px;border-radius:28px;background:var(--ink);color:var(--bg);padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:16px}
+    .sum__t{color:rgba(10,10,9,.6)}
+    .sum__price{font-size:clamp(2.6rem,4vw,3.6rem);font-weight:700;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+    .sum__old{font-size:15px;color:rgba(10,10,9,.5);text-decoration:line-through;margin-left:10px;letter-spacing:0;font-weight:500}
+    .sum__deal{margin:-6px 0 0;font-size:14px;color:#7A4A12;background:rgba(244,176,106,.35);border-radius:12px;padding:8px 12px}
+    .sum__deal[hidden],.sum__hint[hidden]{display:none}
+    .sum__hint{margin:-6px 0 0;font-size:14px;color:rgba(10,10,9,.75);border:1px dashed rgba(10,10,9,.3);border-radius:12px;padding:8px 12px}
+    .sum__hint button{font-weight:600;text-decoration:underline;text-underline-offset:3px;color:#7A4A12}
+    .sum__term{color:rgba(10,10,9,.65);font-size:15px}
+    .sum__list{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid rgba(10,10,9,.12);display:flex;flex-direction:column;gap:7px;font-size:14.5px;max-height:260px;overflow:auto}
+    .sum__list li{display:flex;justify-content:space-between;gap:12px}
+    .sum__list li span:last-child{white-space:nowrap;color:rgba(10,10,9,.6);font-variant-numeric:tabular-nums}
+    .sum__urgent{display:flex;align-items:center;gap:12px;font-size:14.5px;cursor:pointer;padding:12px 0;border-top:1px solid rgba(10,10,9,.12)}
+    .sum__urgent input{position:absolute;opacity:0;width:1px;height:1px}
+    .sum__sw{flex:0 0 42px;height:24px;border-radius:99px;background:rgba(10,10,9,.18);position:relative;transition:background .2s}
+    .sum__sw::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:var(--bg);transition:transform .25s var(--ease)}
+    .sum__urgent input:checked+.sum__sw{background:var(--acc-ink)}
+    .sum__urgent input:checked+.sum__sw::after{transform:translateX(18px);background:var(--acc)}
+    .sum__urgent input:focus-visible+.sum__sw{outline:2px solid var(--acc-ink);outline-offset:3px}
+    .sum .btn--acc{background:var(--acc-ink);color:var(--acc);justify-content:space-between;align-self:stretch}
+    .sum .btn--acc .btn__ico{background:var(--acc);color:var(--acc-ink)}
+    .sum__row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .sum__reset{font-size:14px;color:rgba(10,10,9,.6);text-decoration:underline;text-underline-offset:3px}
+    .sum__note{margin:0;font-size:13px;color:rgba(10,10,9,.55)}
+    .calcbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 18px;border-radius:20px;background:var(--ink);color:var(--bg);box-shadow:0 18px 40px -12px rgba(0,0,0,.6);transform:translateY(140%);transition:transform .4s var(--ease)}
+    .calcbar.on{transform:none}
+    .calcbar b{display:block;font-size:20px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+    .calcbar span{font-size:12.5px;color:rgba(10,10,9,.6)}
+    .calcbar a{flex:0 0 auto;height:44px;padding:0 18px;border-radius:99px;background:var(--acc-ink);color:var(--acc);font-weight:600;font-size:14px;display:inline-flex;align-items:center}
+    @media (max-width:1023px){.calc{grid-template-columns:1fr}.sum{position:static}.calcbar{display:flex}}
+    @media (max-width:560px){.mod{grid-template-columns:auto minmax(0,1fr);gap:4px 12px}.mod__price{grid-row:auto;grid-column:2;text-align:left;display:flex;gap:10px;align-items:baseline}.mod__price b{display:inline;font-size:15px}}
     .guarantee{display:grid;grid-template-columns:auto 1fr auto;gap:32px;align-items:center;margin-top:16px;padding:clamp(22px,2.6vw,36px) clamp(24px,2.6vw,40px);border:1px dashed var(--line-2);border-radius:28px}
     .guarantee__seal{width:92px;height:92px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:grid;place-items:center;font-weight:800;font-size:26px;letter-spacing:-.04em;position:relative}
     .guarantee__seal svg{position:absolute;inset:-14px;width:120px;height:120px;animation:spin 18s linear infinite}
@@ -787,7 +849,7 @@
               <li>Мобильная версия и форма заявки</li>
               <li>Домен, хостинг и запуск</li>
             </ul>
-            <a class="btn btn--line" href="#contact"><span class="btn__txt"><span>Рассчитать лендинг</span><span>Рассчитать лендинг</span></span></a>
+            <a class="btn btn--line" href="#calc" data-preset="lead"><span class="btn__txt"><span>Настроить состав</span><span>Настроить состав</span></span></a>
           </article>
           <article class="plan plan--hot fade">
             <span class="plan__badge mono">Чаще выбирают</span>
@@ -798,11 +860,11 @@
             <ul>
               <li>Всё из «Сайта для заявок»</li>
               <li>Отдельные страницы продуктов и потоков</li>
-              <li>Тарифы, рассрочка или квиз</li>
+              <li>Тарифы с рассрочкой</li>
               <li>Перенос и переработка контента</li>
               <li>Аналитика и подготовка к рекламе</li>
             </ul>
-            <a class="btn btn--acc" href="#contact" data-magnetic><span class="btn__txt"><span>Обсудить сайт</span><span>Обсудить сайт</span></span><span class="btn__ico" aria-hidden="true">↗</span></a>
+            <a class="btn btn--acc" href="#calc" data-preset="grow" data-magnetic><span class="btn__txt"><span>Настроить состав</span><span>Настроить состав</span></span><span class="btn__ico" aria-hidden="true">↓</span></a>
           </article>
           <article class="plan fade">
             <h3 class="plan__name">Запуск под ключ</h3>
@@ -816,9 +878,54 @@
               <li>Сопровождение первого запуска</li>
               <li>Приоритет по правкам</li>
             </ul>
-            <a class="btn btn--line" href="#contact"><span class="btn__txt"><span>Обсудить запуск</span><span>Обсудить запуск</span></span></a>
+            <a class="btn btn--line" href="#calc" data-preset="key"><span class="btn__txt"><span>Настроить состав</span><span>Настроить состав</span></span></a>
           </article>
         </div>
+        <div class="calc" id="calc" aria-labelledby="calc-title">
+          <div class="calc__head fade">
+            <h3 id="calc-title">Соберите свой проект</h3>
+            <p>Отметьте, что нужно, — цена и срок посчитаются сразу. Если состав совпадёт с пакетом, автоматически применю цену пакета.</p>
+          </div>
+          <div class="calc__mods">
+            <div class="cgroup fade">
+              <p class="cgroup__t mono">Основа</p>
+              <div class="mod mod--base"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Лендинг курса</span><span class="mod__desc">Анализ ниши, структура и тексты, программа, тарифы, команда, отзывы, мобильная версия, форма заявки, домен и запуск</span><span class="mod__price"><b>30 000 ₽</b><span>9–12 дней</span></span></div>
+            </div>
+            <div class="cgroup fade">
+              <p class="cgroup__t mono">Страницы и контент</p>
+              <div class="mod mod--qty"><span class="mod__box" aria-hidden="true" data-qty-box><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Страницы продуктов и потоков</span><span class="mod__desc">Отдельная страница на каждый курс или поток со своей программой и тарифами<span class="step-qty" role="group" aria-label="Количество страниц"><button type="button" data-qty="-1" aria-label="Меньше">−</button><output data-qty-out aria-live="polite">0</output><button type="button" data-qty="1" aria-label="Больше">+</button></span></span><span class="mod__price"><b>+6 000 ₽</b><span>за страницу · +1 день</span></span></div>
+            <label class="mod"><input type="checkbox" data-mod="move"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Перенос старого контента</span><span class="mod__desc">Переношу и переписываю тексты, отзывы и фото со старого сайта или постов</span><span class="mod__price"><b>+5 000 ₽</b><span>+1 день</span></span></label>
+            </div>
+            <div class="cgroup fade">
+              <p class="cgroup__t mono">Продажи</p>
+            <label class="mod"><input type="checkbox" data-mod="tariffs"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Тарифы с рассрочкой</span><span class="mod__desc">Сравнение тарифов, помесячный платёж и полная цена — человек выбирает сам</span><span class="mod__price"><b>+4 000 ₽</b><span>до +1 дня</span></span></label>
+            <label class="mod"><input type="checkbox" data-mod="quiz"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Тест-квиз подбора курса</span><span class="mod__desc">5–7 вопросов — и человек видит, какой курс ему подходит, а вы получаете заявку</span><span class="mod__price"><b>+10 000 ₽</b><span>+2–3 дня</span></span></label>
+            <label class="mod"><input type="checkbox" data-mod="bot"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Чат-ассистент</span><span class="mod__desc">Отвечает на частые вопросы по готовым сценариям и записывает на пробный — даже ночью</span><span class="mod__price"><b>+15 000 ₽</b><span>+3–4 дня</span></span></label>
+            </div>
+            <div class="cgroup fade">
+              <p class="cgroup__t mono">Аналитика и заявки</p>
+            <label class="mod"><input type="checkbox" data-mod="metrika"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Яндекс Метрика и цели</span><span class="mod__desc">Видно, сколько людей пришло, откуда и сколько оставило заявку</span><span class="mod__price"><b>+5 000 ₽</b><span>в тот же срок</span></span></label>
+            <label class="mod"><input type="checkbox" data-mod="crm"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Заявки в Telegram-бот или CRM</span><span class="mod__desc">Заявка сразу приходит вам в Telegram, amoCRM или Битрикс24 — ничего не теряется</span><span class="mod__price"><b>+8 000 ₽</b><span>+1 день</span></span></label>
+            </div>
+            <div class="cgroup fade">
+              <p class="cgroup__t mono">После запуска</p>
+            <label class="mod"><input type="checkbox" data-mod="launch"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Сопровождение первого запуска</span><span class="mod__desc">Месяц на связи: правлю тексты и цены по ходу продаж, смотрю цифры вместе с вами</span><span class="mod__price"><b>+20 000 ₽</b><span>месяц</span></span></label>
+            <label class="mod"><input type="checkbox" data-mod="priority"><span class="mod__box" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="mod__name">Приоритет по правкам</span><span class="mod__desc">Правки в течение рабочего дня, без очереди</span><span class="mod__price"><b>+5 000 ₽</b><span>на месяц</span></span></label>
+            </div>
+          </div>
+          <aside class="sum fade" aria-label="Итог">
+            <p class="sum__t mono">Ваш проект</p>
+            <div><span class="sum__price" id="sumPrice" aria-live="polite">30 000 ₽</span><span class="sum__old" id="sumOld" hidden></span></div>
+            <p class="sum__deal" id="sumDeal" hidden></p>
+            <p class="sum__hint" id="sumHint" hidden><span></span> <button type="button">Применить</button></p>
+            <div class="sum__term mono" id="sumTerm">9–12 рабочих дней</div>
+            <ul class="sum__list" id="sumList"></ul>
+            <label class="sum__urgent"><input type="checkbox" id="sumUrgent"><span class="sum__sw" aria-hidden="true"></span><span>Срочно: срок короче на треть, цена +30%</span></label>
+            <a class="btn btn--acc" href="https://t.me/stani_dev" id="sumGo" target="_blank" rel="noopener noreferrer"><span class="btn__txt"><span>Отправить состав в Telegram</span><span>Отправить состав в Telegram</span></span><span class="btn__ico" aria-hidden="true">↗</span></a>
+            <div class="sum__row"><button type="button" class="sum__reset" id="sumReset">Сбросить</button><span class="sum__note">Ориентир. Точную цену фиксирую после 15-минутного разговора.</span></div>
+          </aside>
+        </div>
+        <div class="calcbar" id="calcbar" aria-hidden="true"><div><b id="barPrice">30 000 ₽</b><span id="barTerm">9–12 рабочих дней</span></div><a href="#sumGo" id="barGo">К итогу</a></div>
         <div class="guarantee fade">
           <div class="guarantee__seal" aria-hidden="true">100%
             <svg viewBox="0 0 120 120"><defs><path id="circ" d="M60,60 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs><text font-family="JetBrains Mono" font-size="8.6" letter-spacing="3.2" fill="#ECE8DF"><textPath href="#circ">ГАРАНТИЯ · ВОЗВРАТ · ГАРАНТИЯ · ВОЗВРАТ ·</textPath></text></svg>
@@ -1081,6 +1188,118 @@
   })();
   </script>
   <script>
+  /* Конструктор проекта: модули → цена и срок. Если состав покрывает пакет — цена пакета. */
+  (function () {
+    var root = document.getElementById("calc"); if (!root) return;
+    var BASE = { price: 30000, days: [9, 12] };
+    var MODS = {
+      pages:    { name: "Страницы продуктов и потоков", price: 6000, days: [1, 1], qty: true },
+      move:     { name: "Перенос старого контента", price: 5000, days: [1, 1] },
+      tariffs:  { name: "Тарифы с рассрочкой", price: 4000, days: [0, 1] },
+      quiz:     { name: "Тест-квиз подбора курса", price: 10000, days: [2, 3] },
+      bot:      { name: "Чат-ассистент", price: 15000, days: [3, 4] },
+      metrika:  { name: "Яндекс Метрика и цели", price: 5000, days: [0, 0] },
+      crm:      { name: "Заявки в Telegram-бот или CRM", price: 8000, days: [1, 1] },
+      launch:   { name: "Сопровождение первого запуска", price: 20000, days: [0, 0] },
+      priority: { name: "Приоритет по правкам", price: 5000, days: [0, 0] }
+    };
+    // пакеты = набор модулей + цена пакета (выгоднее, чем по отдельности)
+    var PACKS = [
+      { id: "lead", name: "Сайт для заявок", price: 30000, items: {} },
+      { id: "grow", name: "Сайт для роста", price: 45000, items: { pages: 2, move: 1, tariffs: 1, metrika: 1 } },
+      { id: "key",  name: "Запуск под ключ", price: 90000, items: { pages: 2, move: 1, tariffs: 1, metrika: 1, bot: 1, crm: 1, launch: 1, priority: 1 } }
+    ];
+    var MAXQ = 6, sel = {}, urgent = false;
+    var fmt = function (n) { return Math.round(n).toLocaleString("ru-RU").replace(/ |\s/g, " ") + " ₽"; };
+    var plural = function (n, a, b, c) { var m = n % 100, d = n % 10; return m > 10 && m < 20 ? c : d === 1 ? a : d > 1 && d < 5 ? b : c; };
+    var cost = function (items) { var t = 0; for (var k in items) t += (MODS[k].price) * items[k]; return t; };
+
+    function calc() {
+      var sum = BASE.price + cost(sel), best = sum, pack = null, hint = null, hintPrice = Infinity;
+      PACKS.forEach(function (p) {
+        if (!Object.keys(p.items).length) return;
+        var ok = true, extra = {};
+        for (var k in p.items) if ((sel[k] || 0) < p.items[k]) ok = false;
+        for (var j in sel) { var left = sel[j] - (p.items[j] || 0); if (left > 0) extra[j] = left; }
+        var price = p.price + cost(extra);
+        if (ok) { if (price < best) { best = price; pack = p; } }
+        else if (price < hintPrice) { hintPrice = price; hint = p; }
+      });
+      // пакет, который включает выбранное и больше, но стоит не дороже
+      if (!(hint && hintPrice <= best)) hint = null;
+      var d0 = BASE.days[0], d1 = BASE.days[1];
+      for (var k2 in sel) { d0 += MODS[k2].days[0] * sel[k2]; d1 += MODS[k2].days[1] * sel[k2]; }
+      if (urgent) { best = Math.round(best * 1.3 / 1000) * 1000; sum = Math.round(sum * 1.3 / 1000) * 1000; d0 = Math.ceil(d0 * 0.7); d1 = Math.ceil(d1 * 0.7); }
+      if (urgent) hintPrice = Math.round(hintPrice * 1.3 / 1000) * 1000;
+      return { sum: sum, price: best, pack: pack, days: [d0, d1], hint: hint, hintPrice: hintPrice };
+    }
+
+    var $ = function (id) { return document.getElementById(id); };
+    var qtyOut = root.querySelector("[data-qty-out]"), qtyRow = root.querySelector(".mod--qty");
+    function render(push) {
+      var r = calc(), term = (r.days[0] === r.days[1] ? r.days[0] : r.days[0] + "–" + r.days[1]) + " " + plural(r.days[1], "рабочий день", "рабочих дня", "рабочих дней");
+      $("sumPrice").textContent = fmt(r.price); $("barPrice").textContent = fmt(r.price);
+      $("sumTerm").textContent = term; $("barTerm").textContent = term;
+      var old = $("sumOld"), deal = $("sumDeal");
+      if (r.pack) { old.hidden = false; old.textContent = fmt(r.sum); deal.hidden = false; deal.textContent = "По цене пакета «" + r.pack.name + "» — экономия " + fmt(r.sum - r.price); }
+      else { old.hidden = true; deal.hidden = true; }
+      var tip = $("sumHint");
+      if (r.hint) { tip.hidden = false; tip.querySelector("span").textContent = "Пакет «" + r.hint.name + "» за " + fmt(r.hintPrice) + " включает всё выбранное и больше."; tip.querySelector("button").dataset.pack = r.hint.id; }
+      else tip.hidden = true;
+      var li = ['<li><span>Лендинг курса</span><span>' + fmt(BASE.price) + '</span></li>'];
+      Object.keys(MODS).forEach(function (k) { if (sel[k]) li.push("<li><span>" + MODS[k].name + (MODS[k].qty ? " × " + sel[k] : "") + "</span><span>+" + fmt(MODS[k].price * sel[k]) + "</span></li>"); });
+      if (urgent) li.push("<li><span>Срочно</span><span>+30%</span></li>");
+      $("sumList").innerHTML = li.join("");
+      var q = sel.pages || 0; qtyOut.textContent = q; qtyRow.classList.toggle("is-on", q > 0);
+      qtyRow.querySelector("[data-qty-box]").style.cssText = q ? "background:var(--acc);border-color:var(--acc)" : "";
+      qtyRow.querySelector("[data-qty-box] svg").style.cssText = q ? "opacity:1;transform:none" : "";
+      qtyRow.querySelector('[data-qty="-1"]').disabled = q <= 0; qtyRow.querySelector('[data-qty="1"]').disabled = q >= MAXQ;
+      root.querySelectorAll("input[data-mod]").forEach(function (i) { i.checked = !!sel[i.dataset.mod]; });
+      $("sumUrgent").checked = urgent;
+      // ссылка в Telegram с составом
+      var lines = ["Здравствуйте, Станислав! Собрал проект на сайте:", "• Лендинг курса"];
+      Object.keys(MODS).forEach(function (k) { if (sel[k]) lines.push("• " + MODS[k].name + (MODS[k].qty ? " × " + sel[k] : "")); });
+      if (urgent) lines.push("• Срочно");
+      lines.push("Ориентир: " + fmt(r.price) + ", " + term + (r.pack ? " (пакет «" + r.pack.name + "»)" : ""));
+      $("sumGo").href = "https://t.me/stani_dev?text=" + encodeURIComponent(lines.join("\n"));
+      $("sumGo").dataset.text = lines.join("\n");
+      if (push) { var code = Object.keys(sel).filter(function (k) { return sel[k]; }).map(function (k) { return MODS[k].qty ? k + sel[k] : k; }); if (urgent) code.push("urgent"); try { history.replaceState(null, "", "#calc=" + code.join(",")); } catch (e) {} }
+    }
+    function setPack(id) { sel = {}; var p = PACKS.filter(function (x) { return x.id === id; })[0]; if (p) for (var k in p.items) sel[k] = p.items[k]; urgent = false; render(true); }
+
+    root.addEventListener("change", function (e) {
+      var t = e.target;
+      if (t.dataset && t.dataset.mod) { if (t.checked) sel[t.dataset.mod] = 1; else delete sel[t.dataset.mod]; render(true); }
+      if (t.id === "sumUrgent") { urgent = t.checked; render(true); }
+    });
+    root.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-qty]"); if (!b) return;
+      var q = Math.max(0, Math.min(MAXQ, (sel.pages || 0) + Number(b.dataset.qty)));
+      if (q) sel.pages = q; else delete sel.pages; render(true);
+    });
+    $("sumReset").addEventListener("click", function () { setPack("lead"); });
+    $("sumHint").querySelector("button").addEventListener("click", function () { var u = urgent; var keep = {}; for (var k in sel) keep[k] = sel[k]; setPack(this.dataset.pack); for (var k2 in keep) sel[k2] = Math.max(sel[k2] || 0, keep[k2]); urgent = u; render(true); });
+    $("sumGo").addEventListener("click", function () { try { navigator.clipboard && navigator.clipboard.writeText(this.dataset.text); } catch (e) {} });
+    document.querySelectorAll("[data-preset]").forEach(function (a) {
+      a.addEventListener("click", function (e) { e.preventDefault(); setPack(a.dataset.preset); root.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); });
+    });
+    // мобильная полоса с итогом — пока конструктор на экране, а итог ещё ниже
+    var bar = $("calcbar"), sum = root.querySelector(".sum"), inCalc = false, sumVis = false;
+    var upd = function () { var on = inCalc && !sumVis; bar.classList.toggle("on", on); bar.setAttribute("aria-hidden", on ? "false" : "true"); };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { inCalc = es[0].isIntersecting; upd(); }).observe(root.querySelector(".calc__mods"));
+      new IntersectionObserver(function (es) { sumVis = es[0].isIntersecting; upd(); }).observe(sum);
+    }
+    $("barGo").addEventListener("click", function (e) { e.preventDefault(); sum.scrollIntoView({ behavior: "smooth", block: "center" }); });
+    // состав из ссылки: #calc=pages2,move,urgent
+    var m = location.hash.match(/^#calc=([\w,]*)/);
+    if (m) {
+      m[1].split(",").forEach(function (c) { if (c === "urgent") urgent = true; var mm = c.match(/^([a-z]+)(\d*)$/); if (mm && MODS[mm[1]]) sel[mm[1]] = MODS[mm[1]].qty ? Math.min(MAXQ, Number(mm[2]) || 1) : 1; });
+      setTimeout(function () { root.scrollIntoView({ block: "start" }); }, 300);
+    }
+    render(false);
+  })();
+
   /* Бриф → Telegram: собираем сообщение и открываем чат с готовым текстом. Сайт ничего не хранит. */
   (function () {
     var f = document.getElementById("brief"); if (!f) return;
