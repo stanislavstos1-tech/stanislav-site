@@ -95,11 +95,11 @@
   }
 
   /* ---------- состояние ---------- */
-  let S = store.get(C.key);
-  if (!S || S.v !== 2 || !Array.isArray(S.leads)) { S = seed(); store.set(C.key, S); }
-  // корзина чистится сама через 30 дней
-  S.leads = S.leads.filter(l => l.state !== 'spam' || Date.now() - l.spamAt < TRASH_DAYS * DAY);
-  const save = () => store.set(C.key, S);
+  // демо: при каждом открытии страницы — чистый лист, как в первый раз. Тестовые заявки и отметки живут до обновления.
+  // Заявки, оставленные на демо-сайте, лежат во «входящем ящике» и подхватываются поверх свежих данных.
+  store.del(C.key);
+  let S = seed();
+  const save = () => {};
   const ui = { view: 'wait', q: '', sel: null, sheet: false, settings: false, undo: null };
   const baseTitle = document.title;
 
@@ -189,7 +189,7 @@
           <label class="fld"><span>Логин</span><input name="u" value="demo" autocomplete="username"></label>
           <label class="fld"><span>Пароль</span><input name="p" type="password" value="demo-demo" autocomplete="current-password"></label>
           <button class="btn btn--acc btn--wide" type="submit">Войти в демо <i>${I.out}</i></button>
-          <p class="login__note">Демо-версия: данные выдуманные и хранятся только в вашем браузере. В настоящей панели — сервер в России, вход по паролю, письмо о каждой новой заявке.</p>
+          <p class="login__note">Демо-версия: данные выдуманные, после обновления страницы всё начинается заново. В настоящей панели — сервер в России, вход по паролю, письмо о каждой новой заявке.</p>
         </form>
       </main>`;
     $('#login').addEventListener('submit', e => { e.preventDefault(); ss.set(AUTH, '1'); document.body.classList.remove('is-login'); app(true); });
@@ -514,7 +514,7 @@
       else if (a === 'settings') settings(true);
       else if (a === 'close') settings(false);
       else if (a === 'back') { ui.sheet = false; renderDetail(); }
-      else if (a === 'reset') { store.del(C.key); S = seed(); store.set(C.key, S); ui.sel = null; ui.view = 'wait'; settings(false); app(true); toast('Демо-данные сброшены'); }
+      else if (a === 'reset') { S = seed(); ui.sel = null; ui.view = 'wait'; settings(false); app(true); toast('Демо-данные сброшены'); }
       else if (a === 'logout') { ss.del(AUTH); settings(false); login(); }
     });
     $('#q').addEventListener('input', e => { ui.q = e.target.value; renderRows(); });
