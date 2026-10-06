@@ -206,7 +206,7 @@
             </div>
             <ul class="rows" id="rows"></ul>
           </div>
-          <aside class="detail" id="detail" aria-live="polite"></aside>
+          <aside class="detail" id="detailBox"><div class="detail__in" id="detail" aria-live="polite"></div></aside>
         </section>
         <footer class="foot">Демо-проект Станислава Максимова · данные выдуманные · <a href="${esc(C.home)}">← вернуться в портфолио</a></footer>
       </div>
@@ -390,6 +390,50 @@
     d.querySelector('.drawer__card .btn').focus();
   }
 
+  /* Свой ползунок прокрутки: одинаковый во всех браузерах, в стиле бренда.
+     Нативный скрыт стилями, этот рисуется поверх и умеет перетаскивание и клик по дорожке. */
+  function scrollbar(sc, host) {
+    const bar = document.createElement('div');
+    bar.className = 'sb'; bar.setAttribute('aria-hidden', 'true');
+    bar.innerHTML = '<i class="sb__thumb"><b class="sb__pct"></b></i>';
+    host.appendChild(bar);
+    const th = bar.firstChild, pct = th.firstChild;
+    let idle, thumbH = 0, drag = null;
+    function update() {
+      const h = sc.clientHeight, H = sc.scrollHeight, max = H - h;
+      bar.style.top = sc.offsetTop + 'px'; bar.style.height = h + 'px';
+      bar.classList.toggle('is-off', max <= 1 || getComputedStyle(sc).overflowY === 'visible');
+      if (max <= 1) return;
+      const track = h - 16;
+      thumbH = Math.max(44, track * h / H);
+      const p = sc.scrollTop / max;
+      th.style.height = thumbH + 'px';
+      th.style.transform = `translate3d(0,${8 + p * (track - thumbH)}px,0)`;
+      pct.textContent = Math.round(p * 100) + '%';
+    }
+    function wake() { bar.classList.add('is-active'); clearTimeout(idle); idle = setTimeout(() => { if (!drag) bar.classList.remove('is-active'); }, 1100); }
+    sc.addEventListener('scroll', () => { update(); wake(); }, { passive: true });
+    new ResizeObserver(update).observe(sc);
+    new MutationObserver(() => requestAnimationFrame(update)).observe(sc, { childList: true, subtree: true });
+    th.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation();
+      drag = { y: e.clientY, top: sc.scrollTop }; th.setPointerCapture(e.pointerId); bar.classList.add('is-drag', 'is-active');
+    });
+    th.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const k = (sc.scrollHeight - sc.clientHeight) / Math.max(1, sc.clientHeight - 16 - thumbH);
+      sc.scrollTop = drag.top + (e.clientY - drag.y) * k;
+    });
+    const end = () => { if (!drag) return; drag = null; bar.classList.remove('is-drag'); wake(); };
+    th.addEventListener('pointerup', end); th.addEventListener('pointercancel', end);
+    bar.addEventListener('pointerdown', e => {
+      if (e.target !== bar) return;
+      const r = th.getBoundingClientRect();
+      sc.scrollBy({ top: (e.clientY < r.top ? -1 : 1) * sc.clientHeight * .85, behavior: 'smooth' });
+    });
+    update();
+  }
+
   function bind() {
     root.addEventListener('click', e => {
       const t = e.target.closest('button,a'); if (!t) return;
@@ -413,6 +457,8 @@
     // полоска прогресса прокрутки карточки
     const det = $('#detail');
     det.addEventListener('scroll', () => { const m = det.scrollHeight - det.clientHeight; det.style.setProperty('--p', m > 0 ? (det.scrollTop / m).toFixed(3) : 0); }, { passive: true });
+    scrollbar($('#rows'), $('.list'));
+    scrollbar(det, $('#detailBox'));
   }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { if (ui.settings) settings(false); else if (ui.sheet) { ui.sheet = false; renderDetail(); } }

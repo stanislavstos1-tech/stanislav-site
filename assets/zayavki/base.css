@@ -71,7 +71,7 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 /* рабочая зона */
 .work{flex:1;display:grid;grid-template-columns:minmax(360px,1fr) 1.15fr;grid-template-rows:minmax(0,1fr);gap:var(--kgap);min-height:460px}
 .list,.detail{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);min-width:0}
-.list{display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.list{position:relative;display:flex;flex-direction:column;overflow:hidden;min-height:0}
 .list__head{padding:14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
 .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -84,7 +84,7 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 .search:focus-within{border-color:var(--acc)}
 .search input{flex:1;min-width:0;border:0;background:none;outline:0;color:var(--ink);font-size:14px}
 .tools select{height:40px;border:1px solid var(--line-2);border-radius:var(--r-in);background:var(--panel);padding:0 10px;max-width:46%;font-size:13px}
-.rows{list-style:none;margin:0;padding:6px 6px 36px;overflow-y:auto;flex:1;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(#000 calc(100% - 36px),transparent);mask-image:linear-gradient(#000 calc(100% - 36px),transparent)}
+.rows{list-style:none;margin:0;padding:6px 6px 36px;overflow-y:auto;flex:1;overscroll-behavior:contain;scrollbar-width:none;-webkit-mask-image:linear-gradient(#000 calc(100% - 36px),transparent);mask-image:linear-gradient(#000 calc(100% - 36px),transparent)}
 .grp{font:var(--label);letter-spacing:var(--label-ls);text-transform:uppercase;color:var(--mute);padding:14px 10px 6px}
 .row{width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 10px;border-radius:calc(var(--r) - 6px);text-align:left;transition:background .2s}
 .row:hover{background:var(--hover)}
@@ -106,7 +106,22 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 .st-new{--c:var(--s-new)}.st-work{--c:var(--s-work)}.st-done{--c:var(--s-done)}.st-spam{--c:var(--s-spam)}
 
 /* карточка заявки */
-.detail{position:relative;min-height:0;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(var(--acc),var(--acc)) 0 0/calc(var(--p,0) * 100%) 3px no-repeat,var(--panel)}
+.detail{position:relative;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.detail__in{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;background:linear-gradient(var(--acc),var(--acc)) 0 0/calc(var(--p,0) * 100%) 3px no-repeat}
+.rows::-webkit-scrollbar,.detail__in::-webkit-scrollbar{display:none}
+
+/* свой ползунок: тонкая линия-дорожка и капсула; при прокрутке проявляется, при наведении — акцент и процент */
+.sb{position:absolute;right:3px;width:18px;z-index:4;opacity:0;transition:opacity .5s;touch-action:none;cursor:pointer}
+.sb::before{content:"";position:absolute;left:50%;top:8px;bottom:8px;width:1px;background:var(--sb-track,var(--line-2));transform:translateX(-50%)}
+.sb.is-off{display:none}
+.sb.is-active,.list:hover .sb,.detail:hover .sb{opacity:1}
+.sb__thumb{position:absolute;left:50%;top:0;width:var(--sb-w,4px);margin-left:calc(var(--sb-w,4px) / -2);border-radius:var(--sb-r,99px);background:var(--sb-c,var(--thumb));cursor:grab;transition:width .35s var(--ease),margin .35s var(--ease),background .3s,box-shadow .3s;will-change:transform}
+.sb__thumb::before{content:"";position:absolute;inset:-6px -8px}
+.sb:hover .sb__thumb,.sb.is-drag .sb__thumb{--sb-w:var(--sb-w-hot,8px);background:var(--sb-hot,var(--acc));box-shadow:var(--sb-glow,none)}
+.sb.is-drag .sb__thumb{cursor:grabbing}
+.sb__pct{position:absolute;right:calc(100% + 10px);top:50%;transform:translate(6px,-50%);opacity:0;padding:4px 8px;border-radius:var(--sb-pct-r,99px);background:var(--sb-hot,var(--acc));color:var(--acc-ink);font:var(--label);font-size:10.5px;letter-spacing:.04em;white-space:nowrap;pointer-events:none;transition:opacity .25s,transform .35s var(--ease)}
+.sb:hover .sb__pct,.sb.is-drag .sb__pct{opacity:1;transform:translate(0,-50%)}
+@media (pointer:coarse){.sb{width:10px}.sb__pct{display:none}}
 .detail__empty{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:40px;color:var(--mute)}
 .detail__empty b{font:var(--h);font-size:22px;color:var(--ink)}
 .detail__empty span{max-width:34ch}
