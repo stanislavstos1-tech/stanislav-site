@@ -321,8 +321,8 @@ html,body{overflow-x:clip}
   <label>Тариф<select name="t" id="tariff"><option>Полноценный онлайн-курс</option><option>Самостоятельное обучение</option></select></label>
   <label class="ck"><input type="checkbox" name="a" required>Согласен с условиями учебной оферты и обработкой данных</label>
   <button class="btn btn--ink" style="justify-content:space-between" type="submit"><span class="roll"><span>Отправить заявку</span><span>Отправить заявку</span></span><i>↗</i></button>
-  <p class="note">Это макет: заявка никуда не отправляется.</p>
-  <div class="ok"><h3>Заявка принята (учебно)</h3><p class="note">В боевой версии здесь было бы подтверждение и письмо. Данные никуда не ушли.</p></div>
+  <p class="note">Это макет: заявка остаётся только в вашем браузере.</p>
+  <div class="ok"><h3>Заявка принята (учебно)</h3><p class="note">Данные остались только в вашем браузере. Посмотрите, как её видит менеджер школы:</p><a class="btn btn--ink" href="../srez-zayavki/" target="_blank" rel="noopener" style="margin-top:14px"><span class="roll"><span>Открыть панель заявок</span><span>Открыть панель заявок</span></span><i>↗</i></a></div>
  </form>
 </div></section>
 </main>
@@ -364,7 +364,7 @@ $$('[data-tariff]').forEach(a=>a.addEventListener('click',()=>{$('#tariff').valu
 // form + phone mask
 const f=$('#form'),ph=f.p;const dig=v=>{let d=v.replace(/\D/g,'');if(v.trim().startsWith('+7'))d=d.slice(1);else if(d.length===11&&/^[78]/.test(d))d=d.slice(1);return d.slice(0,10)};const fm=r=>{let s='+7 ('+r.slice(0,3);if(r.length>=3)s+=')';if(r.length>3)s+=' '+r.slice(3,6);if(r.length>6)s+='-'+r.slice(6,8);if(r.length>8)s+='-'+r.slice(8,10);return s};let pd='';
 ph.addEventListener('focus',()=>{if(!ph.value)ph.value='+7 ('});ph.addEventListener('blur',()=>{if(!dig(ph.value))ph.value=''});ph.addEventListener('input',e=>{let r=dig(ph.value);if(e.inputType==='deleteContentBackward'&&r===pd&&r.length)r=r.slice(0,-1);ph.value=fm(r);pd=r});
-f.addEventListener('submit',e=>{e.preventDefault();const ok=f.n.value.trim().length>1&&dig(ph.value).length===10&&/.+@.+\..+/.test(f.e.value)&&f.a.checked;if(ok)f.classList.add('sent');else f.reportValidity&&[f.n,ph,f.e,f.a].find(x=>!x.checkValidity()||(x===ph&&dig(ph.value).length!==10))?.focus()});
+f.addEventListener('submit',e=>{e.preventDefault();const ok=f.n.value.trim().length>1&&dig(ph.value).length===10&&/.+@.+\..+/.test(f.e.value)&&f.a.checked;if(ok){f.classList.add('sent');try{const k='demo-leads:srez',q=JSON.parse(localStorage.getItem(k)||'[]');q.push({at:Date.now(),name:(f.n.value+' '+f.l.value).trim(),phone:ph.value,email:f.e.value.trim(),choice:f.t.value});localStorage.setItem(k,JSON.stringify(q.slice(-20)))}catch(_){}}else f.reportValidity&&[f.n,ph,f.e,f.a].find(x=>!x.checkValidity()||(x===ph&&dig(ph.value).length!==10))?.focus()});
 // scroll-driven bits (one rAF per frame max)
 const hdr=$('#hdr'),rup=$('#rupor'),giant=$('#giant'),ftr=$('#ftr');let ly=0,tick=false,mx=0,my=0;
 const frame=()=>{tick=false;const y=scrollY,vh=innerHeight;hdr.classList.toggle('solid',y>40);hdr.classList.toggle('hide',y>500&&y>ly);ly=y;

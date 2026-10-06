@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>srez — заявки | Демо-панель</title>
+<meta name="description" content="Демо-панель заявок для курса srez: заявки с сайта, статусы, источники и UTM, согласие на обработку данных, выгрузка в CSV. Данные выдуманные.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800;900&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/zayavki/base.css">
+<style>
+:root{
+  --bg:#0B0B0C;--panel:#131315;--ink:#F2F2EE;--mute:#8C8C93;--line:rgba(242,242,238,.09);--line-2:rgba(242,242,238,.18);
+  --acc:#D8F83A;--acc-ink:#0B0B0C;--acc-txt:#D8F83A;--ok:#1DBF98;
+  --s-new:#D8F83A;--s-work:#5AA9FF;--s-done:#1DBF98;--s-spam:#55555C;
+  --hover:rgba(242,242,238,.04);--sel:rgba(216,248,58,.08);--tab:#F2F2EE;--tab-ink:#0B0B0C;--seg:#0B0B0C;--seg-sh:inset 0 0 0 1px rgba(242,242,238,.14);
+  --bar:rgba(242,242,238,.16);--toast:#F2F2EE;--toast-ink:#0B0B0C;
+  --body:"Inter Tight",system-ui,sans-serif;
+  --h:800 24px/1.1 "Unbounded",sans-serif;--num:900 40px/1 "Unbounded",sans-serif;--big:900 120px/.8 "Unbounded",sans-serif;
+  --label:500 11px/1.4 "JetBrains Mono",monospace;--label-ls:.08em;
+  --r:18px;--r-in:12px;--r-btn:999px;--gap:clamp(14px,2.4vw,36px);--gap-y:20px;--kgap:10px;--ease:cubic-bezier(.19,1,.22,1);
+  --art-bg:#D8F83A;--art-ink:#0B0B0C;
+}
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(216,248,58,.07),transparent 60%),var(--bg)}
+.logo{font:900 26px/1 "Unbounded",sans-serif;letter-spacing:-.06em}
+.logo i{font-style:normal;color:var(--acc)}
+.login__art .logo i{color:inherit}
+.login__big{text-transform:lowercase}
+.login__art::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(11,11,12,.08) 0 1px,transparent 1px 80px)}
+.login__art>*{position:relative}
+.login__card .brand__sub{border-color:var(--line-2)}
+.k--hot{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.k--hot .k__l,.k--hot .k__s{color:rgba(11,11,12,.6)}
+.k{position:relative}
+.k::after{content:"";position:absolute;right:12px;top:12px;width:8px;height:8px;border-top:1px solid var(--line-2);border-right:1px solid var(--line-2)}
+.k--hot::after{border-color:rgba(11,11,12,.3)}
+.btn--acc:hover{background:#c9e830}
+.row.is-sel{box-shadow:inset 2px 0 0 var(--acc)}
+.detail__glyph{color:var(--acc)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.ZAYAVKI = {
+  key: 'zv-srez-v1', inbox: 'demo-leads:srez', slug: 'srez', seed: 11, firstId: 2041, policy: '3',
+  logo: '<span class="logo">srez<i>.</i></span>', product: 'Заявки', loginWord: 'заявки', glyph: '✳',
+  marquee: 'заявка с сайта → база в россии → письмо менеджеру → ответ за 15 минут → ',
+  site: '../mads/index.html#enroll', home: '../#cases', page: '/mads/#enroll', mail: 'sales@srez.courses',
+  choiceLabel: 'Тариф', choices: ['Полноценный онлайн-курс', 'Самостоятельное обучение'],
+  sources: [
+    { label: 'Яндекс Директ', utm: ['yandex', 'cpc', 'strategy_autumn'], w: 5 },
+    { label: 'VK Реклама', utm: ['vk', 'cpc', 'lookalike_marketers'], w: 4 },
+    { label: 'Рассылка', utm: ['email', 'newsletter', 'webinar_followup'], w: 2 },
+    { label: 'Поиск Яндекса', utm: null, w: 2 },
+    { label: 'Прямой заход', utm: null, w: 1.5 },
+    { label: 'Рекомендация выпускника', utm: ['referral', 'alumni', 'friend_10'], w: 1.5 },
+  ],
+  extras: (r) => [['Оплата', r() < .6 ? 'Рассрочка на 10 платежей' : 'Единый платёж']],
+  people: [
+    ['Алина Морозова', 'alina.m@mail.ru', 'Полноценный онлайн-курс', 'Хочет рассрочку, перезвонить после 18:00'],
+    ['Кирилл Соболев', 'k.sobolev@yandex.ru', 'Полноценный онлайн-курс', ''],
+    ['Дарья Лебедева', 'daria.lebedeva@gmail.com', 'Самостоятельное обучение', ''],
+    ['Максим Орлов', 'orlov.max@yandex.ru', 'Полноценный онлайн-курс', 'Руководитель, свой продукт — уточнить вводные к брифу'],
+    ['Екатерина Власова', 'kate.vlasova@mail.ru', 'Полноценный онлайн-курс', ''],
+    ['Илья Громов', 'i.gromov@yandex.ru', 'Самостоятельное обучение', 'Спросил про счёт для юрлица'],
+    ['Полина Зайцева', 'polina.z@gmail.com', 'Полноценный онлайн-курс', ''],
+    ['Артём Ковалёв', 'kovalev.art@yandex.ru', 'Полноценный онлайн-курс', 'Сравнивает с другим курсом, прислать программу'],
+    ['Вероника Белова', 'v.belova@mail.ru', 'Самостоятельное обучение', ''],
+    ['Никита Фролов', 'frolov.n@yandex.ru', 'Полноценный онлайн-курс', ''],
+    ['Софья Миронова', 'sofia.mironova@gmail.com', 'Полноценный онлайн-курс', 'Записана на созвон в четверг'],
+    ['Денис Яковлев', 'd.yakovlev@yandex.ru', 'Самостоятельное обучение', ''],
+    ['Ульяна Крылова', 'u.krylova@mail.ru', 'Полноценный онлайн-курс', ''],
+    ['Глеб Тихонов', 'gleb.t@yandex.ru', 'Полноценный онлайн-курс', 'Оплатил, передан куратору'],
+    ['Марина Ершова', 'm.ershova@gmail.com', 'Самостоятельное обучение', ''],
+    ['Роман Ситников', 'r.sitnikov@yandex.ru', 'Полноценный онлайн-курс', ''],
+    ['Ева Гусева', 'eva.guseva@mail.ru', 'Полноценный онлайн-курс', 'Хочет в следующий поток'],
+    ['Тимур Абрамов', 't.abramov@yandex.ru', 'Самостоятельное обучение', ''],
+    ['Ксения Рябова', 'k.ryabova@gmail.com', 'Полноценный онлайн-курс', ''],
+    ['Олег Назаров', 'o.nazarov@yandex.ru', 'Полноценный онлайн-курс', 'Дорого — предложили записи'],
+    ['Анна Шестакова', 'a.shestakova@mail.ru', 'Самостоятельное обучение', ''],
+    ['Лев Карпов', 'lev.karpov@yandex.ru', 'Полноценный онлайн-курс', ''],
+  ],
+};
+</script>
+<script src="../assets/zayavki/engine.js"></script>
+</body>
+</html>

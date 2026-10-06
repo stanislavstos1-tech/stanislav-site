@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FLUENT — заявки | Демо-панель</title>
+<meta name="description" content="Демо-панель заявок для школы английского FLUENT: записи на пробный урок, цели и время, источники и UTM, согласие на обработку данных, выгрузка в CSV. Данные выдуманные.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1D2440">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700;800&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/zayavki/base.css">
+<style>
+:root{
+  --bg:#F6F1EC;--panel:#FFFDFB;--ink:#1D2440;--mute:rgba(29,36,64,.58);--line:rgba(29,36,64,.09);--line-2:rgba(29,36,64,.17);
+  --acc:#FF9BB4;--acc-ink:#1D2440;--acc-txt:#D9587A;--ok:#2E9E73;
+  --s-new:#FF6F94;--s-work:#5B6CF0;--s-done:#2E9E73;--s-spam:#B4B0AB;
+  --hover:rgba(29,36,64,.035);--sel:rgba(255,155,180,.16);--tab:#1D2440;--tab-ink:#F6F1EC;--seg:#EDE6DF;--seg-sh:0 2px 8px -2px rgba(29,36,64,.18);
+  --bar:rgba(29,36,64,.12);--toast:#1D2440;--toast-ink:#F6F1EC;
+  --body:"Onest",system-ui,sans-serif;
+  --h:800 24px/1.1 "Geologica",sans-serif;--num:800 40px/1 "Geologica",sans-serif;--big:800 120px/.85 "Geologica",sans-serif;
+  --label:600 11.5px/1.4 "Geologica",sans-serif;--label-ls:.1em;
+  --r:28px;--r-in:16px;--r-btn:999px;--gap:clamp(14px,2.4vw,36px);--gap-y:22px;--kgap:12px;--ease:cubic-bezier(.2,.7,.2,1);
+  --art-bg:#1D2440;--art-ink:#F6F1EC;
+}
+.logo{font:800 24px/1 "Geologica",sans-serif;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.logo i{width:11px;height:11px;border-radius:50%;background:var(--acc);display:inline-block}
+.login__big span{color:var(--acc)}
+.login__art::after{content:"";position:absolute;width:62vmin;height:62vmin;border-radius:50%;right:-14vmin;top:-14vmin;background:radial-gradient(circle at 35% 35%,#FFC2D1,#FF9BB4 55%,rgba(255,155,180,0) 70%);opacity:.9;animation:float 9s ease-in-out infinite}
+.login__art>*{position:relative;z-index:1}
+@keyframes float{50%{transform:translate(-3vmin,4vmin) scale(1.05)}}
+.top{border-bottom:0;margin:0 calc(var(--gap) * -1);padding:16px var(--gap);background:#1D2440;color:#F6F1EC;border-radius:0 0 28px 28px}
+.top .brand__sub{color:rgba(246,241,236,.6);border-color:rgba(246,241,236,.2)}
+.top__live{color:rgba(246,241,236,.7)}
+.top .btn--ghost,.top .btn--icon{border-color:rgba(246,241,236,.22);color:#F6F1EC}
+.top .btn--ghost:hover,.top .btn--icon:hover{border-color:#F6F1EC}
+.k{border:0;box-shadow:0 1px 0 rgba(29,36,64,.06)}
+.k--hot{background:var(--acc);color:#1D2440}
+.k--hot .k__l,.k--hot .k__s{color:rgba(29,36,64,.65)}
+.list,.detail{border:0;box-shadow:0 1px 0 rgba(29,36,64,.06),0 24px 60px -40px rgba(29,36,64,.35)}
+.d__name{font-weight:800}
+.chip--big{background:#1D2440;color:#F6F1EC;border-color:#1D2440}
+.chip--big:hover{border-color:#1D2440}
+.d__mine{background:#1D2440;color:#F6F1EC}
+.drawer__card{border-radius:28px 0 0 28px}
+@media (max-width:959px){.top{border-radius:0 0 22px 22px}.top .btn--ghost,.top .btn--icon{width:40px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.ZAYAVKI = {
+  key: 'zv-fluent-v1', inbox: 'demo-leads:fluent', slug: 'fluent', seed: 23, firstId: 3107, policy: '2',
+  logo: '<span class="logo"><i aria-hidden="true"></i>FLUENT</span>', product: 'Заявки', loginWord: 'Заявки', glyph: '✿',
+  marquee: 'запись на пробный урок · ielts · общий английский · бизнес · для ребёнка · ответ за 15 минут · ',
+  site: '../fluent/index.html#book', home: '../#cases', page: '/fluent/#book', mail: 'hello@fluent.school',
+  choiceLabel: 'Цель', choices: ['IELTS', 'Общий английский', 'Бизнес', 'Для ребёнка'],
+  sources: [
+    { label: 'Яндекс Директ', utm: ['yandex', 'cpc', 'ielts_moscow'], w: 5 },
+    { label: 'VK Реклама', utm: ['vk', 'cpc', 'trial_lesson'], w: 3 },
+    { label: 'Тест на уровень', utm: ['site', 'quiz', 'level_test'], w: 3 },
+    { label: 'Яндекс Карты', utm: ['yandex_maps', 'organic', ''], w: 2 },
+    { label: 'Поиск Яндекса', utm: null, w: 2 },
+    { label: 'Рекомендация', utm: ['referral', 'student', 'bring_friend'], w: 1.5 },
+  ],
+  extras: (r) => {
+    const t = ['Утро · 9:00–12:00', 'День · 12:00–17:00', 'Вечер · 17:00–21:00', 'Выходные'][Math.floor(r() * 4)];
+    const lv = ['A2', 'B1', 'B1+', 'B2', 'C1'][Math.floor(r() * 5)];
+    return [['Удобное время', t], ['Уровень по тесту', lv], ['Формат', r() < .55 ? 'Онлайн' : 'Очно, м. Белорусская']];
+  },
+  people: [
+    ['Мария Соколова', 'm.sokolova@mail.ru', 'IELTS', 'IELTS 7.0 к марту, сейчас B1+ по тесту'],
+    ['Андрей Волков', 'a.volkov@yandex.ru', 'Бизнес', 'Нужен счёт от компании, 3 сотрудника'],
+    ['Елена Кузнецова', 'elena.k@gmail.com', 'Для ребёнка', 'Сыну 11 лет, удобно утро выходных'],
+    ['Павел Новиков', 'p.novikov@yandex.ru', 'IELTS', ''],
+    ['Алиса Фёдорова', 'alisa.f@mail.ru', 'Общий английский', ''],
+    ['Георгий Попов', 'g.popov@yandex.ru', 'IELTS', 'Поступление в магистратуру, дедлайн в мае'],
+    ['Виктория Смирнова', 'vika.smirnova@gmail.com', 'Общий английский', 'Пробный урок в субботу 11:00'],
+    ['Тимофей Лебедев', 't.lebedev@yandex.ru', 'Бизнес', ''],
+    ['Наталья Егорова', 'n.egorova@mail.ru', 'Для ребёнка', 'Дочери 8 лет, хочет мини-группу'],
+    ['Константин Белов', 'k.belov@yandex.ru', 'IELTS', ''],
+    ['Арина Медведева', 'arina.m@gmail.com', 'Общий английский', ''],
+    ['Сергей Крылов', 's.krylov@yandex.ru', 'Бизнес', 'Переговоры с иностранными партнёрами'],
+    ['Злата Орлова', 'zlata.o@mail.ru', 'IELTS', 'Оплатила пакет на 3 месяца'],
+    ['Даниил Козлов', 'd.kozlov@yandex.ru', 'Общий английский', ''],
+    ['Ирина Тарасова', 'i.tarasova@gmail.com', 'Для ребёнка', ''],
+    ['Михаил Зуев', 'm.zuev@yandex.ru', 'IELTS', 'Думает до понедельника'],
+    ['Василиса Котова', 'v.kotova@mail.ru', 'Общий английский', ''],
+    ['Степан Голубев', 's.golubev@yandex.ru', 'Бизнес', ''],
+    ['Юлия Андреева', 'yulia.a@gmail.com', 'IELTS', ''],
+    ['Фёдор Виноградов', 'f.vinogradov@yandex.ru', 'Общий английский', 'Не дозвонились, написать в мессенджер'],
+  ],
+};
+</script>
+<script src="../assets/zayavki/engine.js"></script>
+</body>
+</html>

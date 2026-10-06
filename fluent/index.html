@@ -620,8 +620,8 @@ button{cursor:pointer}
         </div>
         <label class="consent" id="f-consent"><input type="checkbox" name="consent"><span>Согласен на обработку персональных данных</span></label>
         <button type="submit" class="btn btn--navy">Записаться бесплатно <span class="ar">→</span></button>
-        <p class="form__legal">Демо-форма: данные никуда не отправляются.</p>
-        <div class="form__ok" role="status"><b>Спасибо!</b><p>Менеджер свяжется с вами в течение 15 минут.</p></div>
+        <p class="form__legal">Демо-форма: данные остаются только в вашем браузере.</p>
+        <div class="form__ok" role="status"><b>Спасибо!</b><p>Менеджер свяжется с вами в течение 15 минут.</p><a class="btn btn--navy" href="../fluent-zayavki/" target="_blank" rel="noopener" style="justify-self:start;margin-top:6px">Демо: как заявку видит школа <span class="ar">→</span></a></div>
       </form>
     </div>
   </div>
@@ -759,7 +759,15 @@ button{cursor:pointer}
     const okN = n.value.trim().length > 1, okP = phoneDigits(p.value).length === 10, okC = form.consent.checked;
     n.parentElement.classList.toggle('is-err', !okN); p.parentElement.classList.toggle('is-err', !okP);
     document.getElementById('f-consent').classList.toggle('is-err', !okC);
-    if (okN && okP && okC) form.classList.add('is-sent');
+    if (okN && okP && okC) {
+      form.classList.add('is-sent');
+      // демо: кладём заявку в браузер, её подхватит демо-панель заявок
+      try {
+        const k = 'demo-leads:fluent', q = JSON.parse(localStorage.getItem(k) || '[]');
+        q.push({ at: Date.now(), name: n.value.trim(), phone: p.value, choice: (form.querySelector('[name=goal]:checked') || {}).value, extra: [['Удобное время', form.time.value]] });
+        localStorage.setItem(k, JSON.stringify(q.slice(-20)));
+      } catch (_) {}
+    }
   });
 
   /* ================= AI ASSISTANT (demo) =================
