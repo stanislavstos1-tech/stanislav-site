@@ -327,7 +327,7 @@
     if (l && !l.read) { l.read = true; save(); }
     ui.sheet = !matchMedia('(min-width:960px)').matches;
     renderRows(); renderDetail();
-    if (!ui.sheet) $('#detail').scrollTop = 0;
+    $('#detail').scrollTop = 0; $('#detail').style.setProperty('--p', 0);
   }
   function setStatus(st) {
     const l = byId(ui.sel); if (!l || l.status === st) return;
@@ -410,6 +410,9 @@
     $('#q').addEventListener('input', e => { ui.q = e.target.value; renderRows(); });
     $('#src').addEventListener('change', e => { ui.src = e.target.value; renderRows(true); });
     root.addEventListener('input', e => { if (e.target.id === 'note') note(e.target.value); });
+    // полоска прогресса прокрутки карточки
+    const det = $('#detail');
+    det.addEventListener('scroll', () => { const m = det.scrollHeight - det.clientHeight; det.style.setProperty('--p', m > 0 ? (det.scrollTop / m).toFixed(3) : 0); }, { passive: true });
   }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { if (ui.settings) settings(false); else if (ui.sheet) { ui.sheet = false; renderDetail(); } }

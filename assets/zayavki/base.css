@@ -69,9 +69,9 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 .srcs li::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--line);z-index:-1}
 
 /* рабочая зона */
-.work{flex:1;display:grid;grid-template-columns:minmax(360px,1fr) 1.15fr;gap:var(--kgap);min-height:0}
+.work{flex:1;display:grid;grid-template-columns:minmax(360px,1fr) 1.15fr;grid-template-rows:minmax(0,1fr);gap:var(--kgap);min-height:460px}
 .list,.detail{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);min-width:0}
-.list{display:flex;flex-direction:column;overflow:hidden;height:calc(100vh - 260px);min-height:520px}
+.list{display:flex;flex-direction:column;overflow:hidden;min-height:0}
 .list__head{padding:14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
 .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -84,7 +84,7 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 .search:focus-within{border-color:var(--acc)}
 .search input{flex:1;min-width:0;border:0;background:none;outline:0;color:var(--ink);font-size:14px}
 .tools select{height:40px;border:1px solid var(--line-2);border-radius:var(--r-in);background:var(--panel);padding:0 10px;max-width:46%;font-size:13px}
-.rows{list-style:none;margin:0;padding:6px;overflow-y:auto;flex:1;overscroll-behavior:contain}
+.rows{list-style:none;margin:0;padding:6px 6px 36px;overflow-y:auto;flex:1;overscroll-behavior:contain;-webkit-mask-image:linear-gradient(#000 calc(100% - 36px),transparent);mask-image:linear-gradient(#000 calc(100% - 36px),transparent)}
 .grp{font:var(--label);letter-spacing:var(--label-ls);text-transform:uppercase;color:var(--mute);padding:14px 10px 6px}
 .row{width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:12px 10px;border-radius:calc(var(--r) - 6px);text-align:left;transition:background .2s}
 .row:hover{background:var(--hover)}
@@ -106,7 +106,7 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 .st-new{--c:var(--s-new)}.st-work{--c:var(--s-work)}.st-done{--c:var(--s-done)}.st-spam{--c:var(--s-spam)}
 
 /* карточка заявки */
-.detail{height:calc(100vh - 260px);min-height:520px;overflow-y:auto;overscroll-behavior:contain}
+.detail{position:relative;min-height:0;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(var(--acc),var(--acc)) 0 0/calc(var(--p,0) * 100%) 3px no-repeat,var(--panel)}
 .detail__empty{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:40px;color:var(--mute)}
 .detail__empty b{font:var(--h);font-size:22px;color:var(--ink)}
 .detail__empty span{max-width:34ch}
@@ -154,6 +154,21 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
 .log time{font-size:11.5px;color:var(--mute)}
 
 .foot{padding:16px 0 0;font-size:12px;color:var(--mute)}
+@media (min-width:960px){.shell{height:max(600px,100vh);height:max(600px,100dvh)}}
+@media (min-width:960px) and (max-height:820px){
+  .top{padding:12px 0}.kpi{padding:12px 0}.k{padding:14px 16px;gap:4px}
+  .k__n{font-size:clamp(28px,2.6vw,40px)}.k__n--t{font-size:clamp(20px,1.7vw,26px)}
+  .bars{height:44px}.srcs{gap:4px}.srcs li:nth-child(4){display:none}.work{min-height:380px}.foot{padding-top:10px}
+}
+
+/* ползунок прокрутки: тонкая капсула, на наведении — акцентная */
+:root{--thumb:color-mix(in srgb,var(--ink) 22%,transparent)}
+::-webkit-scrollbar{width:14px;height:14px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--thumb);border:5px solid transparent;background-clip:padding-box;border-radius:99px;min-height:48px}
+::-webkit-scrollbar-thumb:hover,::-webkit-scrollbar-thumb:active{background-color:var(--acc);border-width:4px}
+::-webkit-scrollbar-corner{background:transparent}
+@supports not selector(::-webkit-scrollbar){*{scrollbar-width:thin;scrollbar-color:var(--thumb) transparent}}
 .foot a{border-bottom:1px solid var(--line-2)}
 
 /* всплывашка и настройки */
@@ -190,7 +205,9 @@ svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke
   .k{flex:0 0 min(240px,70%);scroll-snap-align:start}
   .k--src{flex-basis:min(300px,82%)}
   .work{grid-template-columns:1fr}
+  .work{min-height:0}
   .list{height:auto;min-height:0;overflow:visible}
+  .rows{-webkit-mask-image:none;mask-image:none;padding-bottom:6px}
   .rows{overflow:visible}
   .detail{position:fixed;inset:0;z-index:30;height:auto;min-height:0;border-radius:0;border:0;transform:translateX(100%);transition:transform .45s var(--ease);visibility:hidden}
   .has-sheet .detail{transform:none;visibility:visible}
