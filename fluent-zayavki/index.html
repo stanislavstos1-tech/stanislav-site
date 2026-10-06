@@ -15,9 +15,9 @@
 :root{
   --bg:#F6F1EC;--panel:#FFFDFB;--ink:#1D2440;--mute:rgba(29,36,64,.58);--line:rgba(29,36,64,.09);--line-2:rgba(29,36,64,.17);
   --acc:#FF9BB4;--acc-ink:#1D2440;--acc-txt:#D9587A;--ok:#2E9E73;
-  --s-new:#FF6F94;--s-work:#5B6CF0;--s-done:#2E9E73;--s-spam:#B4B0AB;
+  --u1:#D9822B;--u2:#E0464E;--chip-big:#1D2440;--chip-big-ink:#F6F1EC;--sum-hot:#1D2440;
   --hover:rgba(29,36,64,.035);--sel:rgba(255,155,180,.16);--tab:#1D2440;--tab-ink:#F6F1EC;--seg:#EDE6DF;--seg-sh:0 2px 8px -2px rgba(29,36,64,.18);
-  --bar:rgba(29,36,64,.12);--toast:#1D2440;--toast-ink:#F6F1EC;
+  --toast:#1D2440;--toast-ink:#F6F1EC;
   --body:"Onest",system-ui,sans-serif;
   --h:800 24px/1.1 "Geologica",sans-serif;--num:800 40px/1 "Geologica",sans-serif;--big:800 120px/.85 "Geologica",sans-serif;
   --label:600 11.5px/1.4 "Geologica",sans-serif;--label-ls:.1em;
@@ -36,13 +36,9 @@
 .top__live{color:rgba(246,241,236,.7)}
 .top .btn--ghost,.top .btn--icon{border-color:rgba(246,241,236,.22);color:#F6F1EC}
 .top .btn--ghost:hover,.top .btn--icon:hover{border-color:#F6F1EC}
-.k{border:0;box-shadow:0 1px 0 rgba(29,36,64,.06)}
-.k--hot{background:var(--acc);color:#1D2440}
-.k--hot .k__l,.k--hot .k__s{color:rgba(29,36,64,.65)}
+.sum__main.is-wait .sum__n{background:linear-gradient(120deg,#1D2440 30%,#D9587A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .list,.detail{border:0;box-shadow:0 1px 0 rgba(29,36,64,.06),0 24px 60px -40px rgba(29,36,64,.35)}
 .d__name{font-weight:800}
-.chip--big{background:#1D2440;color:#F6F1EC;border-color:#1D2440}
-.chip--big:hover{border-color:#1D2440}
 .d__mine{background:#1D2440;color:#F6F1EC}
 .drawer__card{border-radius:28px 0 0 28px}
 @media (max-width:959px){.top{border-radius:0 0 22px 22px}.top .btn--ghost,.top .btn--icon{width:40px}}

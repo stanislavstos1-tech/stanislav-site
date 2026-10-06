@@ -15,9 +15,9 @@
 :root{
   --bg:#0B0B0C;--panel:#131315;--ink:#F2F2EE;--mute:#8C8C93;--line:rgba(242,242,238,.09);--line-2:rgba(242,242,238,.18);
   --acc:#D8F83A;--acc-ink:#0B0B0C;--acc-txt:#D8F83A;--ok:#1DBF98;
-  --s-new:#D8F83A;--s-work:#5AA9FF;--s-done:#1DBF98;--s-spam:#55555C;
+  --u1:#FFB547;--u2:#FF6A4D;--chip-big:#D8F83A;--chip-big-ink:#0B0B0C;--sum-hot:#D8F83A;
   --hover:rgba(242,242,238,.04);--sel:rgba(216,248,58,.08);--tab:#F2F2EE;--tab-ink:#0B0B0C;--seg:#0B0B0C;--seg-sh:inset 0 0 0 1px rgba(242,242,238,.14);
-  --bar:rgba(242,242,238,.16);--toast:#F2F2EE;--toast-ink:#0B0B0C;
+  --toast:#F2F2EE;--toast-ink:#0B0B0C;
   --body:"Inter Tight",system-ui,sans-serif;
   --h:800 24px/1.1 "Unbounded",sans-serif;--num:900 40px/1 "Unbounded",sans-serif;--big:900 120px/.8 "Unbounded",sans-serif;
   --label:500 11px/1.4 "JetBrains Mono",monospace;--label-ls:.08em;
@@ -33,11 +33,13 @@ body{background:radial-gradient(1200px 500px at 85% -10%,rgba(216,248,58,.07),tr
 .login__art::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(11,11,12,.08) 0 1px,transparent 1px 80px)}
 .login__art>*{position:relative}
 .login__card .brand__sub{border-color:var(--line-2)}
-.k--hot{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
-.k--hot .k__l,.k--hot .k__s{color:rgba(11,11,12,.6)}
-.k{position:relative}
-.k::after{content:"";position:absolute;right:12px;top:12px;width:8px;height:8px;border-top:1px solid var(--line-2);border-right:1px solid var(--line-2)}
-.k--hot::after{border-color:rgba(11,11,12,.3)}
+/* срез: строгая сетка, угловые засечки, лайм — только для главного */
+.sum{border-bottom:1px solid var(--line)}
+.sum__n{letter-spacing:-.08em}
+.list{position:relative}
+.list::after,.detail::after{content:"";position:absolute;right:12px;top:12px;width:8px;height:8px;border-top:1px solid var(--line-2);border-right:1px solid var(--line-2);pointer-events:none}
+.seg2{border:1px solid var(--line)}
+.d__name{letter-spacing:-.05em}
 .btn--acc:hover{background:#c9e830}
 .row.is-sel{box-shadow:inset 2px 0 0 var(--acc)}
 .detail__glyph{color:var(--acc)}
