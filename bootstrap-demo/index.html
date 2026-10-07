@@ -1,308 +1,207 @@
 <!doctype html>
 <html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Кадр — онлайн-курс мобильной фотографии | Демо на Bootstrap 5</title>
-<meta name="description" content="Демо-лендинг онлайн-курса мобильной фотографии на Bootstrap 5: карусель, карточки, программа, тарифы, вопросы и форма записи. Школа вымышленная.">
-<meta name="robots" content="noindex">
-<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<!-- Bootstrap 5.3.3 лежит в проекте, чтобы не зависеть от внешних серверов -->
-<link rel="stylesheet" href="vendor/bootstrap.min.css">
-<style>
-:root{--brand:#FF6B3D;--brand-2:#FFB199;--ink:#15131A}
-body{color:var(--ink)}
-.btn-brand{--bs-btn-bg:var(--brand);--bs-btn-border-color:var(--brand);--bs-btn-color:#fff;--bs-btn-hover-bg:#e85a2e;--bs-btn-hover-border-color:#e85a2e;--bs-btn-hover-color:#fff;--bs-btn-active-bg:#d14f27;--bs-btn-active-border-color:#d14f27}
-.text-brand{color:var(--brand)!important}
-.navbar-brand b{color:var(--brand)}
-/* слайды карусели: градиенты вместо фото, чтобы страница была лёгкой */
-.hero .carousel-item{height:min(78vh,640px);min-height:440px}
-.slide-1{background:radial-gradient(900px 500px at 80% 30%,rgba(255,107,61,.55),transparent 60%),linear-gradient(135deg,#15131A,#2B1F3A)}
-.slide-2{background:radial-gradient(800px 500px at 20% 70%,rgba(91,108,240,.6),transparent 60%),linear-gradient(135deg,#0F172A,#1E293B)}
-.slide-3{background:radial-gradient(800px 500px at 70% 60%,rgba(46,158,115,.55),transparent 60%),linear-gradient(135deg,#0B1F17,#14332A)}
-.hero .carousel-item>.container{position:relative;height:100%}
-.hero .carousel-caption{left:calc(var(--bs-gutter-x,1.5rem) * .5);right:calc(var(--bs-gutter-x,1.5rem) * .5);top:50%;bottom:auto;transform:translateY(-50%);text-align:left;padding:0}
-.hero .carousel-control-prev,.hero .carousel-control-next{width:4.5%;min-width:44px}
-@media (max-width:767.98px){.hero .carousel-control-prev,.hero .carousel-control-next{display:none}}
-.hero h1{font-weight:800;letter-spacing:-.03em;line-height:1.02;font-size:clamp(2.4rem,6vw,4.6rem)}
-.hero .frame{position:absolute;right:8%;top:50%;transform:translateY(-50%) rotate(-6deg);width:min(30vw,300px);aspect-ratio:9/16;border-radius:34px;border:10px solid #fff;background:linear-gradient(160deg,var(--brand-2),var(--brand));box-shadow:0 40px 80px -20px rgba(0,0,0,.6)}
-.hero .frame::after{content:"";position:absolute;inset:auto 18% 16% 18%;height:22%;border-radius:50%;border:6px solid rgba(255,255,255,.85)}
-@media (max-width:991.98px){.hero .frame{display:none}}
-.feature-ico{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:rgba(255,107,61,.12)}
-.price-card.popular{border:2px solid var(--brand)!important;transform:translateY(-8px)}
-.teacher{border-radius:24px;background:linear-gradient(160deg,#FFE6DC,#FFF6F2)}
-.teacher .avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(160deg,var(--brand-2),var(--brand));display:grid;place-items:center;color:#fff;font-weight:800;font-size:40px}
-.section-title{font-weight:800;letter-spacing:-.02em}
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>Шаблон карусели · Bootstrap v5.0</title>
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 
-<!-- Меню: на телефоне сворачивается в кнопку -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="#top">Кадр<b>.</b></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Открыть меню">
-      <span class="navbar-toggler-icon"></span>
+    <!-- Bootstrap 5.0.2 лежит в проекте -->
+    <link href="vendor/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Стили этого шаблона -->
+    <link href="carousel.css" rel="stylesheet">
+  </head>
+  <body>
+
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Карусель</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Переключатель навигации">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Ссылка</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Отключенная</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+          <button class="btn btn-outline-success" type="submit">Поиск</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Слайд 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Слайд 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Пример заголовка.</h1>
+            <p>Некоторое репрезентативное содержимое-заполнитель для первого слайда карусели.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Еще один пример заголовка.</h1>
+            <p>Некоторое репрезентативное содержимое-заполнитель для второго слайда карусели.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>Еще один для хорошей меры.</h1>
+            <p>Некоторое репрезентативное содержимое-заполнитель для третьего слайда этой карусели.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Предыдущий</span>
     </button>
-    <div class="collapse navbar-collapse" id="nav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#about">О курсе</a></li>
-        <li class="nav-item"><a class="nav-link" href="#program">Программа</a></li>
-        <li class="nav-item"><a class="nav-link" href="#prices">Цены</a></li>
-        <li class="nav-item"><a class="nav-link" href="#faq">Вопросы</a></li>
-      </ul>
-      <a class="btn btn-brand" href="#signup">Записаться</a>
-    </div>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Следующий</span>
+    </button>
   </div>
-</nav>
 
-<main id="top">
-<!-- Карусель -->
-<div id="heroCarousel" class="carousel slide hero" data-bs-ride="carousel" data-bs-interval="6000">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1"></button>
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Слайд 2"></button>
-    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Слайд 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active slide-1">
-      <div class="frame" aria-hidden="true"></div>
-      <div class="container"><div class="carousel-caption">
-        <span class="badge rounded-pill text-bg-light mb-3">Старт потока — 3 ноября</span>
-        <h1>Снимайте как профи<br>на свой <span class="text-brand">телефон</span></h1>
-        <p class="lead col-lg-6 my-3">Онлайн-курс мобильной фотографии: свет, композиция и обработка за 6 недель.</p>
-        <div class="d-flex flex-wrap gap-2">
-          <a class="btn btn-brand btn-lg" href="#signup">Записаться на курс</a>
-          <a class="btn btn-outline-light btn-lg" href="#program">Программа</a>
-        </div>
-      </div></div>
-    </div>
-    <div class="carousel-item slide-2">
-      <div class="container"><div class="carousel-caption">
-        <span class="badge rounded-pill text-bg-light mb-3">18 уроков · 6 практик</span>
-        <h1>Каждую неделю —<br>разбор ваших фото</h1>
-        <p class="lead col-lg-6 my-3">Куратор смотрит каждую работу и пишет, что улучшить в следующем кадре.</p>
-        <a class="btn btn-light btn-lg" href="#about">Как устроен курс</a>
-      </div></div>
-    </div>
-    <div class="carousel-item slide-3">
-      <div class="container"><div class="carousel-caption">
-        <span class="badge rounded-pill text-bg-light mb-3">Рассрочка без процентов</span>
-        <h1>От 2 490 ₽ в месяц</h1>
-        <p class="lead col-lg-6 my-3">Первый урок — бесплатно. Не понравится — вернём деньги в течение 14 дней.</p>
-        <a class="btn btn-brand btn-lg" href="#prices">Смотреть тарифы</a>
-      </div></div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Назад</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Вперёд</span>
-  </button>
-</div>
 
-<!-- Три колонки -->
-<section id="about" class="py-5">
-  <div class="container py-lg-4">
-    <div class="row text-center g-4">
+  <!-- Маркетинговые сообщения и функции
+  ================================================== -->
+  <!-- Оберните остальную часть страницы в другой контейнер, чтобы центрировать все содержимое. -->
+
+  <div class="container marketing">
+
+    <!-- Три столбца текста под каруселью -->
+    <div class="row">
       <div class="col-lg-4">
-        <div class="feature-ico mx-auto mb-3" aria-hidden="true">☀️</div>
-        <h2 class="h3 fw-bold">Свет</h2>
-        <p class="text-secondary">Где встать, куда повернуть телефон и как снимать против солнца, чтобы лицо не уходило в тень.</p>
-        <a class="btn btn-outline-dark" href="#program">Подробнее »</a>
-      </div>
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Заполнитель</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+        <h2>Заголовок</h2>
+        <p>Некоторый типичный заполнитель для трех столбцов текста под каруселью. Это первая колонка.</p>
+        <p><a class="btn btn-secondary" href="#">Посмотреть детали &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <div class="feature-ico mx-auto mb-3" aria-hidden="true">🧭</div>
-        <h2 class="h3 fw-bold">Композиция</h2>
-        <p class="text-secondary">Правило третей, линии и пустое пространство — без теории ради теории, только то, что видно в кадре.</p>
-        <a class="btn btn-outline-dark" href="#program">Подробнее »</a>
-      </div>
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Заполнитель</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+        <h2>Заголовок</h2>
+        <p>Еще одна захватывающая часть репрезентативного содержимого-заполнителя. На этот раз мы перешли ко второй колонке.</p>
+        <p><a class="btn btn-secondary" href="#">Посмотреть детали &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
       <div class="col-lg-4">
-        <div class="feature-ico mx-auto mb-3" aria-hidden="true">🎨</div>
-        <h2 class="h3 fw-bold">Обработка</h2>
-        <p class="text-secondary">Цвет и свет в бесплатных приложениях: собственный пресет к концу курса, чтобы лента выглядела цельно.</p>
-        <a class="btn btn-outline-dark" href="#program">Подробнее »</a>
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Заполнитель</title><rect width="100%" height="100%" fill="#777"/><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
+
+        <h2>Заголовок</h2>
+        <p>И, наконец, третий столбец репрезентативного содержимого заполнителя.</p>
+        <p><a class="btn btn-secondary" href="#">Посмотреть детали &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+
+    <!-- НАЧАЛО ФУНКЦИЙ -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">Первый заголовок функции. <span class="text-muted">Это поразит ваш разум.</span></h2>
+        <p class="lead">Здесь есть отличный контент-заполнитель для первой функции. Представьте себе какую-нибудь захватывающую прозу.</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Заполнитель</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Программа: аккордеон -->
-<section id="program" class="py-5 bg-light">
-  <div class="container py-lg-4">
-    <div class="row g-4 g-lg-5 align-items-start">
-      <div class="col-lg-4">
-        <h2 class="section-title display-6">Программа на 6 недель</h2>
-        <p class="text-secondary mt-3">Каждая неделя — 3 коротких урока и одно практическое задание с разбором куратора.</p>
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">О да, это так хорошо. <span class="text-muted">Убедитесь сами.</span></h2>
+        <p class="lead">Еще одна функция? Конечно. Здесь больше контента-заполнителя, чтобы дать вам представление о том, как этот макет будет работать с реальным контентом.</p>
       </div>
-      <div class="col-lg-8">
-        <div class="accordion" id="programList">
-          <div class="accordion-item">
-            <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#w1" aria-expanded="true">Неделя 1 · Камера телефона без автоматики</button></h3>
-            <div id="w1" class="accordion-collapse collapse show" data-bs-parent="#programList"><div class="accordion-body">Фокус, экспозиция, ручной режим и почему не стоит пользоваться цифровым зумом.</div></div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w2">Неделя 2 · Естественный свет</button></h3>
-            <div id="w2" class="accordion-collapse collapse" data-bs-parent="#programList"><div class="accordion-body">Золотой час, пасмурная погода, свет из окна. Практика: портрет у окна.</div></div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w3">Неделя 3 · Композиция</button></h3>
-            <div id="w3" class="accordion-collapse collapse" data-bs-parent="#programList"><div class="accordion-body">Правило третей, ведущие линии, передний план. Практика: серия из 5 городских кадров.</div></div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w4">Неделя 4 · Портрет и люди</button></h3>
-            <div id="w4" class="accordion-collapse collapse" data-bs-parent="#programList"><div class="accordion-body">Как помочь человеку расслабиться в кадре и выбрать ракурс. Практика: портрет друга.</div></div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w5">Неделя 5 · Предметная съёмка</button></h3>
-            <div id="w5" class="accordion-collapse collapse" data-bs-parent="#programList"><div class="accordion-body">Еда, вещи, товары для соцсетей. Простой свет из подручных средств.</div></div>
-          </div>
-          <div class="accordion-item">
-            <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#w6">Неделя 6 · Обработка и свой стиль</button></h3>
-            <div id="w6" class="accordion-collapse collapse" data-bs-parent="#programList"><div class="accordion-body">Цветокоррекция, пресеты и финальная серия из 9 кадров для портфолио.</div></div>
-          </div>
-        </div>
+      <div class="col-md-5 order-md-1">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Заполнитель</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Тарифы -->
-<section id="prices" class="py-5">
-  <div class="container py-lg-4">
-    <h2 class="section-title display-6 text-center mb-5">Тарифы</h2>
-    <div class="row g-4 justify-content-center">
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm price-card"><div class="card-body p-4 d-flex flex-column">
-          <h3 class="h5 fw-bold">Самостоятельно</h3>
-          <p class="display-6 fw-bold my-2">14 900 ₽</p>
-          <p class="text-secondary small">или 2 490 ₽ × 6 месяцев</p>
-          <ul class="list-unstyled my-3 flex-grow-1">
-            <li class="mb-2">✓ 18 видеоуроков</li><li class="mb-2">✓ Задания и чек-листы</li><li class="mb-2">✓ Доступ на год</li>
-          </ul>
-          <a class="btn btn-outline-dark w-100" href="#signup" data-tariff="Самостоятельно">Выбрать</a>
-        </div></div>
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">И наконец, этот. <span class="text-muted">Шах и мат.</span></h2>
+        <p class="lead">И да, это последний блок репрезентативного контента-заполнителя. Опять же, он не предназначен для чтения, а просто показывает, как это будет выглядеть с реальным контентом. Вашим контентом.</p>
       </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow price-card popular"><div class="card-body p-4 d-flex flex-column">
-          <div class="d-flex justify-content-between align-items-center"><h3 class="h5 fw-bold mb-0">С куратором</h3><span class="badge text-bg-dark">Популярный</span></div>
-          <p class="display-6 fw-bold my-2">24 900 ₽</p>
-          <p class="text-secondary small">или 4 150 ₽ × 6 месяцев</p>
-          <ul class="list-unstyled my-3 flex-grow-1">
-            <li class="mb-2">✓ Всё из тарифа «Самостоятельно»</li><li class="mb-2">✓ Разбор 6 практик куратором</li><li class="mb-2">✓ Чат потока</li><li class="mb-2">✓ Сертификат</li>
-          </ul>
-          <a class="btn btn-brand w-100" href="#signup" data-tariff="С куратором">Выбрать</a>
-        </div></div>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm price-card"><div class="card-body p-4 d-flex flex-column">
-          <h3 class="h5 fw-bold">Личный наставник</h3>
-          <p class="display-6 fw-bold my-2">49 900 ₽</p>
-          <p class="text-secondary small">или 8 320 ₽ × 6 месяцев</p>
-          <ul class="list-unstyled my-3 flex-grow-1">
-            <li class="mb-2">✓ Всё из тарифа «С куратором»</li><li class="mb-2">✓ 3 личные онлайн-встречи</li><li class="mb-2">✓ Разбор портфолио</li>
-          </ul>
-          <a class="btn btn-outline-dark w-100" href="#signup" data-tariff="Личный наставник">Выбрать</a>
-        </div></div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Заполнитель: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Заполнитель</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
       </div>
     </div>
-    <p class="text-center text-secondary small mt-4">Цены демонстрационные, школа вымышленная.</p>
-  </div>
-</section>
 
-<!-- Преподаватель -->
-<section class="py-5">
-  <div class="container">
-    <div class="teacher p-4 p-lg-5 d-lg-flex align-items-center gap-5">
-      <div class="avatar mb-4 mb-lg-0 flex-shrink-0" aria-hidden="true">АВ</div>
-      <div>
-        <p class="text-brand fw-bold mb-1">Автор курса</p>
-        <h2 class="section-title h1">Алина Ветрова</h2>
-        <p class="lead mb-0">Мобильный фотограф, 8 лет снимает для брендов одежды и кофеен. Всё, что показывает на курсе, сняла на обычный телефон.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <hr class="featurette-divider">
 
-<!-- Вопросы -->
-<section id="faq" class="py-5 bg-light">
-  <div class="container py-lg-4" style="max-width:860px">
-    <h2 class="section-title display-6 text-center mb-4">Частые вопросы</h2>
-    <div class="accordion accordion-flush" id="faqList">
-      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1">Подойдёт ли мой телефон?</button></h3><div id="q1" class="accordion-collapse collapse" data-bs-parent="#faqList"><div class="accordion-body">Да, если ему не больше 5 лет. Курс построен на приёмах, которые работают на любой камере.</div></div></div>
-      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">Сколько времени нужно в неделю?</button></h3><div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqList"><div class="accordion-body">Около 3 часов: 40 минут уроков и практика в удобное время.</div></div></div>
-      <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">Можно вернуть деньги?</button></h3><div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqList"><div class="accordion-body">Да, в течение 14 дней с начала курса — без объяснения причин.</div></div></div>
-    </div>
-  </div>
-</section>
+    <!-- /КОНЕЦ ФУНКЦИЙ -->
 
-<!-- Запись -->
-<section id="signup" class="py-5">
-  <div class="container py-lg-4" style="max-width:640px">
-    <h2 class="section-title display-6 text-center">Запись на курс</h2>
-    <p class="text-center text-secondary mb-4">Оставьте контакты — пришлём бесплатный первый урок и ответим на вопросы.</p>
-    <form id="form" class="row g-3 needs-validation" novalidate>
-      <div class="col-md-6">
-        <label for="fName" class="form-label">Имя</label>
-        <input type="text" class="form-control form-control-lg" id="fName" required minlength="2">
-        <div class="invalid-feedback">Укажите имя</div>
-      </div>
-      <div class="col-md-6">
-        <label for="fPhone" class="form-label">Телефон</label>
-        <input type="tel" class="form-control form-control-lg" id="fPhone" placeholder="+7 (___) ___-__-__" required pattern="[0-9 \(\)\+\-]{10,}">
-        <div class="invalid-feedback">Проверьте номер</div>
-      </div>
-      <div class="col-12">
-        <label for="fTariff" class="form-label">Тариф</label>
-        <select class="form-select form-select-lg" id="fTariff">
-          <option>Самостоятельно</option><option selected>С куратором</option><option>Личный наставник</option>
-        </select>
-      </div>
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="fConsent" required>
-          <label class="form-check-label" for="fConsent">Согласен на обработку персональных данных</label>
-          <div class="invalid-feedback">Нужно согласие</div>
-        </div>
-      </div>
-      <div class="col-12"><button class="btn btn-brand btn-lg w-100" type="submit">Получить первый урок</button></div>
-      <p class="small text-secondary text-center mb-0">Демо-форма: данные никуда не отправляются.</p>
-    </form>
-  </div>
-</section>
+  </div><!-- /.container -->
+
+
+  <!-- ПОДВАЛ -->
+  <footer class="container">
+    <p class="float-end"><a href="#">Наверх</a></p>
+    <p>&copy; 2017–2026 Компания, Inc. &middot; <a href="#">Конфиденциальность</a> &middot; <a href="#">Условия</a></p>
+  </footer>
 </main>
 
-<!-- Окно «Спасибо» -->
-<div class="modal fade" id="thanks" tabindex="-1" aria-labelledby="thanksTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"><div class="modal-content p-2">
-    <div class="modal-header border-0"><h2 class="modal-title h4 fw-bold" id="thanksTitle">Спасибо!</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button></div>
-    <div class="modal-body pt-0">В боевой версии здесь пришло бы письмо с первым уроком. Это демо — данные никуда не ушли.</div>
-    <div class="modal-footer border-0"><button type="button" class="btn btn-brand" data-bs-dismiss="modal">Понятно</button></div>
-  </div></div>
-</div>
 
-<footer class="py-4 bg-dark text-white-50">
-  <div class="container d-flex flex-wrap justify-content-between gap-2 small">
-    <span>© 2026 Кадр — онлайн-курс мобильной фотографии</span>
-    <span>Демо-проект на Bootstrap 5, школа вымышленная</span>
-  </div>
-</footer>
+    <script src="vendor/bootstrap.bundle.min.js"></script>
 
-<script src="vendor/bootstrap.bundle.min.js"></script>
-<script>
-// кнопка тарифа подставляет его в форму
-document.querySelectorAll('[data-tariff]').forEach(a => a.addEventListener('click', () => { document.getElementById('fTariff').value = a.dataset.tariff; }));
-// проверка формы средствами Bootstrap и окно «Спасибо»
-const form = document.getElementById('form');
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  if (!form.checkValidity()) { form.classList.add('was-validated'); return; }
-  form.reset(); form.classList.remove('was-validated');
-  bootstrap.Modal.getOrCreateInstance('#thanks').show();
-});
-// меню закрывается после клика по пункту на телефоне
-document.querySelectorAll('#nav .nav-link, #nav .btn').forEach(a => a.addEventListener('click', () => { const c = bootstrap.Collapse.getInstance('#nav'); if (c) c.hide(); }));
-</script>
-</body>
+  </body>
 </html>
