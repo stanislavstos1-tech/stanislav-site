@@ -353,14 +353,103 @@ button{cursor:pointer}
 .chat__demo+.chat__pp{margin-top:4px}
 .chat__pp{display:block;text-align:center;margin-top:8px;font-size:12px;color:rgba(29,36,64,.5);text-decoration:underline;text-underline-offset:3px}
 
+
+/* ===== premium layer: та же палитра и шрифты, другая подача ===== */
+:root{--rr:clamp(28px,4vw,56px)}
+/* слои: каждая секция наезжает на предыдущую скруглённым краем */
+.sec{background:var(--navy)}
+.sec.light{background:var(--cream)}
+main>.sec,.foot{border-radius:var(--rr) var(--rr) 0 0;margin-top:calc(var(--rr) * -1)}
+.foot{position:relative;background:var(--ink);border-top:0}
+.mq{position:relative;z-index:0;padding-bottom:calc(clamp(18px,2vw,28px) + var(--rr))}
+/* зерно плёнки */
+body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+/* полоса прогресса */
+.pbar{position:fixed;left:0;top:0;right:0;height:3px;z-index:72;background:var(--pink);transform-origin:left;transform:scaleX(0);pointer-events:none}
+/* шапка прячется при прокрутке вниз */
+.hdr{transition:background-color .35s,border-color .35s,transform .6s var(--ease)}
+.hdr.is-hide{transform:translate3d(0,-100%,0)}
+.menu-open .hdr{transform:none}
+/* прелоадер */
+.pre{position:fixed;inset:0;z-index:100;background:var(--navy);color:var(--cream);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(20px,4vw,56px);clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.77,0,.18,1)}
+.pre.is-done{clip-path:inset(0 0 100% 0)}
+.no-js .pre,.pre.is-skip{display:none}
+.pre__top{display:flex;justify-content:space-between;font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-light)}
+.pre__n{align-self:flex-end;font-family:var(--head);font-weight:800;font-size:clamp(120px,24vw,360px);line-height:.8;letter-spacing:-.06em;color:var(--pink);font-variant-numeric:tabular-nums}
+.pre__bar{height:2px;background:var(--line-d);margin-top:20px}
+.pre__bar i{display:block;height:100%;background:var(--pink);transform-origin:left;transform:scaleX(0)}
+.is-loading .hero .ln>span{transform:translate3d(0,105%,0)!important}
+.is-loading .hero .rv{opacity:0!important;transform:translate3d(0,24px,0)!important}
+/* курсор-кольцо */
+.cur{position:fixed;left:0;top:0;z-index:90;width:44px;height:44px;margin:-22px 0 0 -22px;border:1.5px solid var(--pink);border-radius:50%;pointer-events:none;opacity:0;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background-color .35s,opacity .3s;display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:12px;color:var(--navy)}
+.cur.is-on{opacity:1}
+.cur.is-link{width:70px;height:70px;margin:-35px 0 0 -35px;background:rgba(255,155,180,.18)}
+.cur.is-label{width:96px;height:96px;margin:-48px 0 0 -48px;background:var(--pink);border-color:var(--pink)}
+@media (pointer:coarse){.cur{display:none}}
+/* hero */
+.hero h1 .h-pill{display:inline-block;vertical-align:-.06em;width:1.7em;height:.74em;border-radius:999px;overflow:hidden;margin-left:.12em;transition:width .7s var(--ease)}
+.hero h1 .h-pill img{width:100%;height:100%;object-fit:cover;transform:scale(1.25);transition:transform 1.2s var(--ease)}
+.hero h1:hover .h-pill{width:2.3em}
+.hero h1:hover .h-pill img{transform:scale(1)}
+.hero__big{will-change:transform}
+.spin{position:absolute;right:clamp(80px,14vw,240px);top:clamp(330px,30vw,450px);width:clamp(140px,12vw,190px);aspect-ratio:1;display:grid;place-items:center;color:var(--cream);border-radius:50%}
+.spin svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite}
+.spin text{font-family:var(--head);font-weight:700;font-size:15.5px;letter-spacing:.18em;fill:currentColor}
+.spin span{width:44%;aspect-ratio:1;border-radius:50%;background:var(--pink);color:var(--navy);display:grid;place-items:center;font-size:26px;transition:transform .5s var(--ease)}
+.spin:hover span{transform:rotate(-45deg) scale(1.08)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:999px){.spin{display:none}}
+/* бегущая строка: наклон от скорости прокрутки */
+.mq__g{transition:transform .5s var(--ease);will-change:transform}
+/* фото проявляются из рамки */
+.js-reveal .who__img,.js-reveal .tch__img,.js-reveal .book__img{clip-path:inset(14% 10% 14% 10% round 24px);transition:clip-path 1.3s var(--ease)}
+.js-reveal .who__img img,.js-reveal .tch__img img,.js-reveal .book__img img{transform:scale(1.25);transition:transform 1.6s var(--ease)}
+.js-reveal .who.is-in .who__img,.js-reveal .tch.is-in .tch__img,.js-reveal .book__img.is-in{clip-path:inset(0 0 0 0 round 0)}
+.js-reveal .who.is-in .who__img img,.js-reveal .tch.is-in .tch__img img,.js-reveal .book__img.is-in img{transform:scale(1)}
+.who:hover .who__img img,.tch:hover .tch__img img{transform:scale(1.06)!important}
+.tch__score{transition:transform .5s var(--ease)}
+.tch:hover .tch__score{transform:rotate(-6deg) scale(1.08)}
+/* подсветка за курсором */
+.spot{position:relative;isolation:isolate}
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,155,180,.22),transparent 60%);z-index:-1}
+.light .spot::after,.plan.spot::after{background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,155,180,.35),transparent 60%)}
+.spot:hover::after{opacity:1}
+/* форматы — карточки ложатся стопкой */
+@media (min-width:1000px){
+  .fmt__grid{display:block}
+  .fmt{position:sticky;top:calc(110px + var(--i,0) * 26px);margin-bottom:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"top list" "meta list" "note list";gap:18px 56px;padding:44px 48px;min-height:320px;box-shadow:0 -24px 60px -36px rgba(0,0,0,.6)}
+  .fmt__top{grid-area:top}.fmt__meta{grid-area:meta;align-self:start}.fmt ul{grid-area:list;align-self:center;font-size:17px}.fmt__note{grid-area:note;align-self:end}
+  .fmt h3{font-size:clamp(44px,4.4vw,76px)}
+  .fmt:hover{transform:none}
+}
+/* программа: строка заливается розовым при наведении */
+.prog{position:relative}
+.prog::before{content:"";position:absolute;inset:0 calc(var(--pad) * -.5);border-radius:28px;background:var(--pink);transform:scaleY(0);transform-origin:50% 100%;transition:transform .55s var(--ease);z-index:0}
+.prog>*{position:relative;z-index:1}
+@media (hover:hover){.prog:hover::before{transform:scaleY(1)}.prog:hover h3 small,.prog:hover p{color:var(--navy)}.prog:hover .prog__facts span{background:rgba(255,255,255,.55)}}
+/* цифры */
+.stat b{font-variant-numeric:tabular-nums}
+/* подвал: буквы поднимаются волной */
+.foot__word{display:flex;cursor:default}
+.foot__word span{display:inline-block;transform:translate3d(0,100%,0);transition:transform .9s var(--ease),color .3s}
+.foot__word.is-in span{transform:none}
+.foot__word span:hover{transform:translate3d(0,-8%,0);color:var(--cream)}
+.foot__cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;margin-bottom:clamp(40px,5vw,70px);padding-bottom:clamp(30px,4vw,50px);border-bottom:1px solid var(--line-d)}
+.foot__cta p{margin:0;font-family:var(--head);font-weight:800;font-size:clamp(34px,4.6vw,76px);letter-spacing:-.04em;line-height:.95;max-width:none;color:var(--cream)}
+.foot__cta p span{color:var(--pink)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv{opacity:1;transform:none}.ln>span{transform:none}
+  .pre,.cur,body::after{display:none}.foot__word span{transform:none}
 }
 </style>
 </head>
 <body class="no-js">
+<div class="pre" id="pre" aria-hidden="true"><div class="pre__top"><span>FLUENT · школа английского</span><span>Москва и онлайн</span></div><div><div class="pre__n" id="preN">0</div><div class="pre__bar"><i id="preBar"></i></div></div></div>
+<div class="pbar" id="pbar" aria-hidden="true"></div>
+<div class="cur" id="cur" aria-hidden="true"></div>
 
 <header class="hdr" id="hdr">
   <div class="wrap hdr__in">
@@ -386,14 +475,15 @@ button{cursor:pointer}
   <div class="hero__big" aria-hidden="true">7.5</div>
   <div class="wrap hero__in">
     <span class="tag rv"><b>FLUENT</b> Школа английского и IELTS</span>
+    <a href="#test" class="spin" data-mag aria-label="Пройти тест на уровень"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="spinC" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs><text><textPath href="#spinC">ТЕСТ НА УРОВЕНЬ · 2 МИНУТЫ · БЕСПЛАТНО · </textPath></text></svg><span aria-hidden="true">↗</span></a>
     <h1 aria-label="Английский, который открывает двери">
       <span class="ln"><span>Английский,</span></span>
       <span class="ln"><span>который <span class="pk">открывает</span></span></span>
-      <span class="ln"><span>двери</span></span>
+      <span class="ln"><span>двери<span class="h-pill" aria-hidden="true"><img src="photos/teacher-maria.jpg" alt="" width="240" height="104"></span></span></span>
     </h1>
     <div class="hero__row">
       <p class="lead rv">Готовим к IELTS на 7+ за 4–6 месяцев: мини-группы до 6 человек, пробные экзамены каждый месяц и разбор каждого вашего эссе. В нашем центре в Москве или онлайн из любого города России.</p>
-      <div class="hero__acts rv">
+      <div class="hero__acts rv" data-magwrap>
         <a href="#test" class="btn btn--line">Пройти тест на уровень</a>
         <a href="#book" class="btn btn--pink">Бесплатный пробный урок <span class="ar">→</span></a>
       </div>
@@ -449,19 +539,19 @@ button{cursor:pointer}
       <p class="lead rv">Все форматы включают вводную диагностику, домашние задания с проверкой и пробный экзамен в условиях, приближенных к реальным.</p>
     </div>
     <div class="fmt__grid">
-      <article class="fmt rv">
+      <article style="--i:0" class="spot fmt rv">
         <div class="fmt__top"><h3>Мини-группа</h3></div>
         <div class="fmt__meta"><span>до 6 человек</span><span>12 недель</span><span>2 раза в неделю</span></div>
         <ul><li>Занятия по 2 часа вечером или в выходные</li><li>Разбор всех четырёх частей экзамена</li><li>Письменные работы с подробной обратной связью</li><li>Пробный экзамен в середине и в конце курса</li></ul>
         <p class="fmt__note">Оптимально, если до экзамена 3–6 месяцев</p>
       </article>
-      <article class="fmt fmt--hot rv">
+      <article style="--i:1" class="spot fmt fmt--hot rv">
         <div class="fmt__top"><h3>Индивидуально</h3><span class="badge">Чаще выбирают</span></div>
         <div class="fmt__meta"><span>1 на 1</span><span>свой график</span><span>от 8 недель</span></div>
         <ul><li>Программа под вашу дату экзамена и слабые места</li><li>Можно сосредоточиться на Writing или Speaking</li><li>Разговорная практика в каждом уроке</li><li>Преподаватель на связи между занятиями</li></ul>
         <p class="fmt__note">Для тех, кому нужен результат в сжатые сроки</p>
       </article>
-      <article class="fmt rv">
+      <article style="--i:2" class="spot fmt rv">
         <div class="fmt__top"><h3>Интенсив</h3></div>
         <div class="fmt__meta"><span>до 6 человек</span><span>5 недель</span><span>3 раза в неделю</span></div>
         <ul><li>Занятия по 2,5 часа, плотный темп</li><li>Стратегии для каждого типа заданий</li><li>Speaking-практика с носителем языка</li><li>Два полных пробных экзамена</li></ul>
@@ -530,10 +620,10 @@ button{cursor:pointer}
       <p class="lead rv">У каждого преподавателя личный балл IELTS от 8.0 и международный сертификат CELTA или DELTA. Раз в год они пересдают экзамен, чтобы знать актуальные задания.</p>
     </div>
     <div class="tch__grid">
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-anna.jpg" alt="Преподаватель Анна Соколова"><span class="tch__score">IELTS 8.5</span></div><div class="tch__b"><h3>Анна Соколова</h3><p>Writing · 9 лет · магистратура в Эдинбурге</p></div></article>
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-daniel.jpg" alt="Преподаватель Даниэль Картер"><span class="tch__score">Native</span></div><div class="tch__b"><h3>Даниэль Картер</h3><p>Speaking · 7 лет · носитель, Великобритания</p></div></article>
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-maria.jpg" alt="Преподаватель Мария Лебедева"><span class="tch__score">IELTS 8.0</span></div><div class="tch__b"><h3>Мария Лебедева</h3><p>Reading, Listening · 6 лет · Торонто</p></div></article>
-      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-ekaterina.jpg" alt="Преподаватель Екатерина Орлова"><span class="tch__score">IELTS 9.0</span></div><div class="tch__b"><h3>Екатерина Орлова</h3><p>Методист программы · 11 лет · Мельбурн</p></div></article>
+      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-anna.jpg" alt="Преподаватель Анна Соколова"><span class="tch__score">IELTS 8.5</span></div><div class="tch__b"><h3>Анна Соколова</h3><p>Writing · 9 лет · магистратура в Эдинбурге</p></div></article>
+      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-daniel.jpg" alt="Преподаватель Даниэль Картер"><span class="tch__score">Native</span></div><div class="tch__b"><h3>Даниэль Картер</h3><p>Speaking · 7 лет · носитель, Великобритания</p></div></article>
+      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-maria.jpg" alt="Преподаватель Мария Лебедева"><span class="tch__score">IELTS 8.0</span></div><div class="tch__b"><h3>Мария Лебедева</h3><p>Reading, Listening · 6 лет · Торонто</p></div></article>
+      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-ekaterina.jpg" alt="Преподаватель Екатерина Орлова"><span class="tch__score">IELTS 9.0</span></div><div class="tch__b"><h3>Екатерина Орлова</h3><p>Методист программы · 11 лет · Мельбурн</p></div></article>
     </div>
   </div>
 </section>
@@ -546,9 +636,9 @@ button{cursor:pointer}
       <p class="lead rv">Истории выпускников последнего года. Имена изменены, баллы — из официальных сертификатов.</p>
     </div>
     <div class="res__grid">
-      <article class="res rv"><div class="res__sc"><s>5.5</s><span>→</span><b>7.5</b></div><q>Боялась Speaking до дрожи. На экзамене поймала себя на мысли, что просто разговариваю — как на наших уроках.</q><footer><b>Полина, 17 лет</b><span>5 месяцев · поступила в Манчестер</span></footer></article>
-      <article class="res rv"><div class="res__sc"><s>6.0</s><span>→</span><b>7.0</b></div><q>Нужен был Writing 7 для магистратуры. Разобрали 30 моих эссе — и я наконец поняла, за что снимают баллы.</q><footer><b>Дарья, 24 года</b><span>3 месяца · магистратура в Нидерландах</span></footer></article>
-      <article class="res rv"><div class="res__sc"><s>5.0</s><span>→</span><b>6.5</b></div><q>Занимался после работы по вечерам. Сдал General с первого раза и подал документы на рабочую визу.</q><footer><b>Алексей, 31 год</b><span>6 месяцев · переезд в Канаду</span></footer></article>
+      <article class="res spot rv"><div class="res__sc"><s>5.5</s><span>→</span><b>7.5</b></div><q>Боялась Speaking до дрожи. На экзамене поймала себя на мысли, что просто разговариваю — как на наших уроках.</q><footer><b>Полина, 17 лет</b><span>5 месяцев · поступила в Манчестер</span></footer></article>
+      <article class="res spot rv"><div class="res__sc"><s>6.0</s><span>→</span><b>7.0</b></div><q>Нужен был Writing 7 для магистратуры. Разобрали 30 моих эссе — и я наконец поняла, за что снимают баллы.</q><footer><b>Дарья, 24 года</b><span>3 месяца · магистратура в Нидерландах</span></footer></article>
+      <article class="res spot rv"><div class="res__sc"><s>5.0</s><span>→</span><b>6.5</b></div><q>Занимался после работы по вечерам. Сдал General с первого раза и подал документы на рабочую визу.</q><footer><b>Алексей, 31 год</b><span>6 месяцев · переезд в Канаду</span></footer></article>
     </div>
   </div>
 </section>
@@ -560,19 +650,19 @@ button{cursor:pointer}
       <div><span class="tag rv"><b>07</b> Стоимость</span><h2 class="h2"><span class="ln"><span>Прозрачные цены</span></span></h2></div>
     </div>
     <div class="price__grid">
-      <article class="plan rv">
+      <article class="plan spot rv">
         <div class="plan__top"><h3>Мини-группа</h3></div>
         <div class="plan__p">14 900 ₽<small>/ месяц</small></div>
         <ul><li>8 занятий по 2 часа</li><li>Проверка домашних заданий</li><li>Пробный экзамен в конце курса</li><li>Доступ к библиотеке материалов</li></ul>
         <a href="#book" class="btn btn--line">Записаться</a>
       </article>
-      <article class="plan plan--pop rv">
+      <article class="plan plan--pop spot rv">
         <div class="plan__top"><h3>Индивидуально</h3><span class="badge">Популярный</span></div>
         <div class="plan__p">2 500 ₽<small>/ урок 60 мин</small></div>
         <ul><li>Программа под дату экзамена</li><li>Разбор каждого эссе</li><li>Пробные Speaking-интервью</li><li>Связь с преподавателем в мессенджере</li></ul>
         <a href="#book" class="btn btn--pink">Записаться <span class="ar">→</span></a>
       </article>
-      <article class="plan rv">
+      <article class="plan spot rv">
         <div class="plan__top"><h3>Интенсив</h3></div>
         <div class="plan__p">32 000 ₽<small>/ курс</small></div>
         <ul><li>15 занятий по 2,5 часа</li><li>Практика с носителем</li><li>Два полных пробных экзамена</li><li>План подготовки на месяц после курса</li></ul>
@@ -637,6 +727,7 @@ button{cursor:pointer}
 
 <footer class="foot">
   <div class="wrap">
+    <div class="foot__cta"><p>Первый урок —<br><span>бесплатно.</span></p><a href="#book" class="btn btn--pink" data-mag>Записаться на пробный <span class="ar">→</span></a></div>
     <div class="foot__top">
       <div><a href="#top" class="logo"><i aria-hidden="true"></i>FLUENT</a><p>Онлайн-школа английского и подготовки к IELTS. Центр в Москве, онлайн — по всей России.</p></div>
       <div><h4>Школа</h4><ul><li><a href="#formats">Курсы</a></li><li><a href="#ielts">Программа IELTS</a></li><li><a href="#teachers">Преподаватели</a></li><li><a href="#pricing">Цены</a></li></ul></div>
@@ -699,6 +790,83 @@ button{cursor:pointer}
   else {
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), {rootMargin:'0px 0px -6% 0px', threshold:.08});
     items.forEach(i => io.observe(i));
+  }
+
+  /* ===== premium layer ===== */
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const root = document.documentElement;
+  if (!reduce) root.classList.add('js-reveal');
+
+  // прелоадер: один раз за визит, ~1 секунда, потом шторка уходит вверх и строки заголовка выезжают
+  const pre = $('#pre');
+  let seen = false; try { seen = sessionStorage.getItem('fluent-pre') === '1'; } catch (_) {}
+  if (!pre || reduce || seen) { pre && pre.classList.add('is-skip'); }
+  else {
+    root.classList.add('is-loading'); document.body.style.overflow = 'hidden';
+    const n = $('#preN'), bar = $('#preBar'), t0 = performance.now(), D = 1100;
+    const tick = t => { const p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3); n.textContent = Math.round(e * 100); bar.style.transform = `scaleX(${e})`; if (p < 1) requestAnimationFrame(tick); else done(); };
+    const done = () => { pre.classList.add('is-done'); document.body.style.overflow = ''; setTimeout(() => root.classList.remove('is-loading'), 250); setTimeout(() => pre.remove(), 1100); try { sessionStorage.setItem('fluent-pre', '1'); } catch (_) {} };
+    requestAnimationFrame(tick);
+  }
+
+  // буквы в подвале
+  const fw = $('.foot__word');
+  if (fw) { fw.innerHTML = [...fw.textContent].map((c, i) => `<span style="transition-delay:${i * 45}ms">${c}</span>`).join(''); if (reduce || !('IntersectionObserver' in window)) fw.classList.add('is-in'); else { const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { fw.classList.add('is-in'); o.disconnect(); } }, { threshold: .3 }); o.observe(fw); } }
+
+  // счётчики в первом экране
+  const stats = $$('.stat b');
+  const runCount = el => {
+    const raw = el.textContent.trim(), m = raw.match(/^([\d\s.,]+)(.*)$/); if (!m) return;
+    const num = parseFloat(m[1].replace(/\s/g, '').replace(',', '.')), dec = (m[1].split(/[.,]/)[1] || '').length, suf = m[2];
+    const fmt = v => dec ? v.toFixed(dec) : Math.round(v).toLocaleString('ru-RU');
+    const t0 = performance.now(), D = 1600;
+    const step = t => { const p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 4); el.textContent = fmt(num * e) + suf; if (p < 1) requestAnimationFrame(step); };
+    el.textContent = fmt(0) + suf; requestAnimationFrame(step);
+  };
+  if (!reduce && stats.length && 'IntersectionObserver' in window) {
+    const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { setTimeout(() => runCount(e.target), root.classList.contains('is-loading') ? 1300 : 0); so.unobserve(e.target); } }), { threshold: .6 });
+    stats.forEach(el => so.observe(el));
+  }
+
+  // прокрутка: полоса прогресса, шапка прячется, «7.5» плывёт, бегущая строка наклоняется от скорости
+  const pbar = $('#pbar'), big = $('.hero__big'), mqg = $$('.mq__g'), mqT = $('.mq__track');
+  let lastY = scrollY, vel = 0, ticking = false, mx = 0, my = 0;
+  const frame = () => {
+    ticking = false;
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    if (pbar) pbar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    const dy = y - lastY; vel += (dy - vel) * .2; lastY = y;
+    if (!document.body.classList.contains('menu-open')) { if (y < 600 || dy < -2) hdr.classList.remove('is-hide'); else if (dy > 2) hdr.classList.add('is-hide'); }
+    if (reduce) return;
+    if (big && y < innerHeight * 1.2) big.style.transform = `translate3d(${mx * -24}px,${y * .28 + my * -16}px,0)`;
+    const sk = Math.max(-8, Math.min(8, vel * .35));
+    mqg.forEach(g => g.style.transform = `skewX(${-sk}deg)`);
+    const anim = mqT && mqT.getAnimations && mqT.getAnimations()[0];
+    if (anim) anim.playbackRate = 1 + Math.min(4, Math.abs(vel) * .08);
+    if (Math.abs(vel) > .1) { vel *= .9; req(); }
+  };
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  addEventListener('scroll', req, { passive: true }); frame();
+
+  if (fine && !reduce) {
+    // курсор-кольцо с подписью
+    const cur = $('#cur'); let cx = -100, cy = -100, rx = -100, ry = -100;
+    addEventListener('pointermove', e => { cx = e.clientX; cy = e.clientY; cur.classList.add('is-on'); mx = cx / innerWidth - .5; my = cy / innerHeight - .5; req(); }, { passive: true });
+    document.addEventListener('pointerleave', () => cur.classList.remove('is-on'));
+    const loop = () => { rx += (cx - rx) * .18; ry += (cy - ry) * .18; cur.style.transform = `translate3d(${rx}px,${ry}px,0)`; requestAnimationFrame(loop); }; loop();
+    document.addEventListener('pointerover', e => {
+      const lab = e.target.closest('[data-cur]'), link = e.target.closest('a,button,summary,label,.qopt');
+      cur.classList.toggle('is-label', !!lab && !link); cur.textContent = lab && !link ? lab.dataset.cur : '';
+      cur.classList.toggle('is-link', !!link);
+      cur.style.opacity = e.target.closest('.chat,.form,input,select,textarea') ? '0' : '';
+    });
+    // магнитные кнопки
+    $$('[data-mag], [data-magwrap] .btn, .hdr__cta').forEach(el => {
+      el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); el.style.transform = `translate3d(${(e.clientX - r.left - r.width / 2) * .25}px,${(e.clientY - r.top - r.height / 2) * .3}px,0)`; });
+      el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+    });
+    // подсветка за курсором
+    $$('.spot').forEach(el => el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); el.style.setProperty('--mx', e.clientX - r.left + 'px'); el.style.setProperty('--my', e.clientY - r.top + 'px'); }));
   }
 
   /* quiz: 12 своих вопросов от A1 до C1, по блокам уровней.
