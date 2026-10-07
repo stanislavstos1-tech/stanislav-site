@@ -189,7 +189,7 @@
           <label class="fld"><span>Логин</span><input name="u" value="demo" autocomplete="username"></label>
           <label class="fld"><span>Пароль</span><input name="p" type="password" value="demo-demo" autocomplete="current-password"></label>
           <button class="btn btn--acc btn--wide" type="submit">Войти в демо <i>${I.out}</i></button>
-          <p class="login__note">Демо-версия: данные выдуманные, после обновления страницы всё начинается заново. В настоящей панели — сервер в России, вход по паролю, письмо о каждой новой заявке.</p>
+          <p class="login__note">Демо-версия: данные выдуманные, после обновления страницы всё начинается заново. В настоящей панели — вход по паролю, письмо о каждой новой заявке, данные хранятся по закону.</p>
         </form>
       </main>`;
     $('#login').addEventListener('submit', e => { e.preventDefault(); ss.set(AUTH, '1'); document.body.classList.remove('is-login'); app(true); });
@@ -202,7 +202,7 @@
       <div class="shell">
         <header class="top">
           <div class="brand">${C.logo}<span class="brand__sub">${esc(C.product)}</span></div>
-          <div class="top__live"><i class="pulse" aria-hidden="true"></i><span>Онлайн · сервер в России</span></div>
+          <div class="top__live"><i class="pulse" aria-hidden="true"></i><span>Онлайн · данные хранятся по закону</span></div>
           <div class="top__act">
             <a class="btn btn--ghost" href="${esc(C.site)}" target="_blank" rel="noopener">Оставить заявку на сайте <i>${I.out}</i></a>
             <button class="btn btn--ghost" data-act="fake" title="Создать тестовую заявку"><i>${I.plus}</i><span>Тестовая</span></button>
@@ -425,7 +425,7 @@
       <div class="drawer__card" role="dialog" aria-modal="true" aria-label="Настройки">
         <div class="drawer__h"><b>Настройки</b><button class="btn btn--icon" data-act="close" aria-label="Закрыть">✕</button></div>
         <dl class="set">
-          <div><dt>Хранение</dt><dd>Сервер в России, база MySQL. Заявки не уходят в зарубежные сервисы.</dd></div>
+          <div><dt>Хранение</dt><dd>Заявки хранятся в России, как требует закон о персональных данных. В зарубежные сервисы ничего не уходит.</dd></div>
           <div><dt>Письма</dt><dd>О каждой новой заявке — на ${esc(C.mail)}.</dd></div>
           <div><dt>Защита от спама</dt><dd>Скрытая ловушка для ботов и не больше 5 заявок за 10 минут с одного адреса. Остальное — кнопкой «Это спам», корзина чистится через 30 дней.</dd></div>
           <div><dt>Доступ</dt><dd>Вход по паролю, только для сотрудников школы.</dd></div>
