@@ -210,7 +210,7 @@
     .case__story p{margin:0;font-size:15px;line-height:1.5}
     .case__proof{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:auto 0 0;padding:0;list-style:none}
     .case__proof li{border:1px solid var(--line);border-radius:14px;padding:12px 14px}
-    .case__proof strong{display:block;font-size:22px;letter-spacing:-.03em}
+    .case__proof strong{display:block;font-size:22px;letter-spacing:-.03em;white-space:nowrap}
     .case__proof span{font-size:13px;color:var(--mute);line-height:1.3;display:block}
     .case__links{display:flex;flex-wrap:wrap;gap:12px 28px}
     .case__link{display:inline-flex;align-items:center;gap:10px;font-weight:600}
@@ -461,7 +461,7 @@
       body{font-size:16px}
       .btn{--h:52px;font-size:15px;padding-left:22px}
       .case{border-radius:20px}.case__proof{grid-template-columns:1fr 1fr 1fr;gap:8px}
-      .case__proof li{padding:10px}.case__proof strong{font-size:17px}
+      .case__proof li{padding:10px;min-width:0}.case__proof strong{font-size:clamp(14px,4.2vw,17px)}
       .case__story div{grid-template-columns:1fr;gap:4px}
       .qa p{padding-right:0}
       .hero__meta{font-size:11px}
@@ -652,30 +652,6 @@
         </article>
 
         <article class="case">
-          <a class="case__media case__media--art" href="./english-crm/" data-cursor="view" aria-label="Открыть демо CRM для школы английского">
-            <picture>
-              <source media="(max-width: 1023px)" srcset="./assets/cases/case-crm-wide.jpg" width="1400" height="700" />
-              <img src="./assets/cases/case-crm-tall.jpg" alt="CRM для онлайн-школы: экран «Сегодня», расписание и карточка ученика на компьютере и телефоне" width="1100" height="1500" loading="lazy" decoding="async" />
-            </picture>
-          </a>
-          <div class="case__body">
-            <div class="case__kicker mono"><span class="tag">Демо-проект</span><span>CRM для онлайн-школы</span></div>
-            <h3 class="case__name">Lingua CRM — заявки, расписание и оплаты в одном месте</h3>
-            <div class="case__story">
-              <div><span class="mono">Задача</span><p>Заявки теряются в мессенджерах, а кто записан на пробный и у кого кончаются уроки — держится в голове администратора.</p></div>
-              <div><span class="mono">Решение</span><p>Экран «Сегодня» с делами в один клик, воронка заявок, расписание преподавателей, абонементы с автоматическим остатком уроков.</p></div>
-              <div><span class="mono">Результат</span><p>Администратор видит, кому ответить и с кого взять оплату. Владелец — откуда приходят лучшие ученики и сколько платить преподавателям.</p></div>
-            </div>
-            <ul class="case__proof">
-              <li><strong>8</strong><span>разделов: от заявок до отчётов</span></li>
-              <li><strong>4</strong><span>роли с разными правами</span></li>
-              <li><strong>1 клик</strong><span>до главного действия</span></li>
-            </ul>
-            <a class="case__link" href="./english-crm/">Открыть CRM <i aria-hidden="true">↗</i></a>
-          </div>
-        </article>
-
-        <article class="case">
           <a class="case__media case__media--art" href="./srez-zayavki/" data-cursor="view" aria-label="Открыть демо-панель заявок">
             <picture>
               <source media="(max-width: 1023px)" srcset="./assets/cases/case-zayavki-wide.jpg" width="1400" height="700" />
@@ -691,11 +667,35 @@
               <div><span class="mono">Разница с CRM</span><p>Заявки — чтобы не терять людей с сайта. CRM — чтобы вести учеников дальше: оплаты, расписание, абонементы. Попробуйте: оставьте заявку на сайте srez или FLUENT — она появится в панели.</p></div>
             </div>
             <ul class="case__proof">
+              <li><strong>+1&nbsp;день</strong><span>к сроку сайта</span></li>
+              <li><strong>12&nbsp;000&nbsp;₽</strong><span>и к готовому сайту</span></li>
               <li><strong>РФ</strong><span>сервер и база в России</span></li>
-              <li><strong>15 мин</strong><span>видно, кто ждёт ответа</span></li>
-              <li><strong>1 клик</strong><span>отметить «Отвечено»</span></li>
             </ul>
             <div class="case__links"><a class="case__link" href="./srez-zayavki/">Заявки srez <i aria-hidden="true">↗</i></a><a class="case__link" href="./fluent-zayavki/">Заявки FLUENT <i aria-hidden="true">↗</i></a></div>
+          </div>
+        </article>
+
+        <article class="case">
+          <a class="case__media case__media--art" href="./english-crm/" data-cursor="view" aria-label="Открыть демо CRM для школы английского">
+            <picture>
+              <source media="(max-width: 1023px)" srcset="./assets/cases/case-crm-wide.jpg" width="1400" height="700" />
+              <img src="./assets/cases/case-crm-tall.jpg" alt="CRM для онлайн-школы: экран «Сегодня», расписание и карточка ученика на компьютере и телефоне" width="1100" height="1500" loading="lazy" decoding="async" />
+            </picture>
+          </a>
+          <div class="case__body">
+            <div class="case__kicker mono"><span class="tag">Демо-проект</span><span>CRM для онлайн-школы</span></div>
+            <h3 class="case__name">Lingua CRM — заявки, расписание и оплаты в одном месте</h3>
+            <div class="case__story">
+              <div><span class="mono">Задача</span><p>Заявки теряются в мессенджерах, а кто записан на пробный и у кого кончаются уроки — держится в голове администратора.</p></div>
+              <div><span class="mono">Решение</span><p>Экран «Сегодня» с делами в один клик, воронка заявок, расписание преподавателей, абонементы с автоматическим остатком уроков.</p></div>
+              <div><span class="mono">Результат</span><p>Администратор видит, кому ответить и с кого взять оплату. Владелец — откуда приходят лучшие ученики и сколько платить преподавателям.</p></div>
+            </div>
+            <ul class="case__proof">
+              <li><strong>от&nbsp;3&nbsp;мес</strong><span>срок разработки</span></li>
+              <li><strong>Цена</strong><span>после обсуждения задач</span></li>
+              <li><strong>8</strong><span>разделов: от заявок до отчётов</span></li>
+            </ul>
+            <a class="case__link" href="./english-crm/">Открыть CRM <i aria-hidden="true">↗</i></a>
           </div>
         </article>
 
@@ -869,12 +869,13 @@
         <div class="extras fade">
           <p class="extras__t mono">Можно взять отдельно или добавить к сайту</p>
           <ul class="extras__list">
-            <li><b>Панель заявок</b><span>чтобы не терять людей с сайта: все заявки в одном месте, письмо о каждой, кто ждёт ответа — сразу видно. Подключу и к готовому сайту</span><em>12 000 ₽</em></li>
+            <li><b>Панель заявок</b><span>чтобы не терять людей с сайта: все заявки в одном месте, письмо о каждой, кто ждёт ответа — сразу видно. +1 день к сроку, подключу и к готовому сайту</span><em>12 000 ₽</em></li>
             <li><b>Тест-квиз подбора курса</b><span>5–7 вопросов — человек видит свой курс, вы получаете заявку</span><em>10 000 ₽</em></li>
             <li><b>Чат-ассистент</b><span>отвечает на частые вопросы и записывает на пробный, даже ночью</span><em>15 000 ₽</em></li>
             <li><b>Подключение к вашей CRM</b><span>школа уже работает в amoCRM или Битрикс24 — заявки с сайта сразу попадают в сделки</span><em>8 000 ₽</em></li>
             <li><b>Ещё одна страница курса</b><span>своя программа, тарифы и запись</span><em>7 000 ₽</em></li>
             <li><b>Сопровождение запуска</b><span>месяц на связи: правлю тексты и цены по ходу продаж</span><em>15 000 ₽ / мес</em></li>
+            <li><b>CRM под школу</b><span>ученики, оплаты, расписание, отчёты — от 3 месяцев разработки</span><em>после обсуждения</em></li>
           </ul>
         </div>
         <a class="freebie fade" href="#contact">
@@ -912,7 +913,7 @@
           <details class="qa"><summary>Что будет после запуска?<i aria-hidden="true"></i></summary><p>Передам домен, хостинг и все доступы. Если найдётся моя техническая ошибка — исправлю без доплаты.</p></details>
           <details class="qa"><summary>Почему пилотная цена ниже обычной?<i aria-hidden="true"></i></summary><p>Мне нужны первые кейсы с настоящими цифрами. Поэтому три первых проекта — дешевле, в обмен на отзыв и разрешение показать сайт в портфолио. Объём работы, сроки и гарантия — те же, что за полную цену.</p></details>
           <details class="qa"><summary>Как устроена оплата?<i aria-hidden="true"></i></summary><p>50% на старте и 50% после приёмки. Цена фиксируется до начала работы и не меняется, если не меняется состав. Оплата — по чеку самозанятого.</p></details>
-          <details class="qa"><summary>А CRM вы делаете?<i aria-hidden="true"></i></summary><p>Сайт сам передаёт заявки: в Telegram или в amoCRM и Битрикс24, если вы уже в них работаете. Этого хватает большинству школ. Своя CRM под школу — отдельный большой проект, его обсуждаем отдельно; демо в кейсах показывает, как это может выглядеть.</p></details>
+          <details class="qa"><summary>А CRM вы делаете?<i aria-hidden="true"></i></summary><p>Для начала большинству школ хватает панели заявок: все заявки с сайта в одном месте, письмо о каждой. Если вы уже работаете в amoCRM или Битрикс24 — подключу сайт к ним. Своя CRM под школу — отдельный большой проект: от 3 месяцев, цена после обсуждения задач. Демо в кейсах показывает, как это может выглядеть.</p></details>
           <details class="qa"><summary>Что, если я не приму работу?<i aria-hidden="true"></i></summary><p>Если после согласованных правок я не смогу довести проект до зафиксированного перед стартом результата и вы не примете сайт — верну 100% внесённой оплаты. Гарантия действует до подтверждения приёмки.</p></details>
         </div>
       </div>
