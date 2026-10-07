@@ -335,7 +335,7 @@
           <span class="src__l">Откуда</span><b>${esc(l.source)}</b>
           <details class="src__more"><summary>Подробнее</summary><dl>${more.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></details>
         </div>
-        <label class="note"><span>Заметка</span><textarea id="note" rows="2" placeholder="Например: перезвонить после 18:00">${esc(l.note)}</textarea><em id="noteSaved" aria-live="polite"></em></label>
+        <label class="note"><span>Заметка</span><textarea id="note" rows="2" placeholder="${esc(C.notePh || 'Например: перезвонить после 18:00')}">${esc(l.note)}</textarea><em id="noteSaved" aria-live="polite"></em></label>
         <p class="consent">${I.shield}Согласие на обработку данных получено ${full(l.at)} · политика v${C.policy || '2'}</p>
       </div>`;
   }
