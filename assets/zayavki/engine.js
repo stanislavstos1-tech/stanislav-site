@@ -114,7 +114,7 @@
         choice: String(x.choice || C.choices[0]).slice(0, 80),
         extra: Array.isArray(x.extra) ? x.extra.slice(0, 6).map(e => [String(e[0]).slice(0, 40), String(e[1]).slice(0, 120)]) : [],
         message: String(x.message || '').slice(0, 1000),
-        source: 'Демо-сайт — ваша заявка', utm: null, page: C.page, device: matchMedia('(pointer:coarse)').matches ? 'Телефон' : 'Компьютер',
+        source: x.source ? String(x.source).slice(0, 60) : 'Демо-сайт — ваша заявка', utm: null, page: C.page, device: matchMedia('(pointer:coarse)').matches ? 'Телефон' : 'Компьютер',
         state: 'wait', doneAt: 0, spamAt: 0, note: '', read: false, mine: true,
       };
       S.leads.push(l);

@@ -191,6 +191,12 @@ button{cursor:pointer}
 .qres__lvl{font-family:var(--head);font-weight:800;font-size:clamp(90px,12vw,180px);line-height:.85;letter-spacing:-.05em;color:var(--pink)}
 .qres p{margin:0;color:var(--txt-light);max-width:520px}
 .qres__acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.qres__can{margin:0;padding:0;list-style:none;display:grid;gap:6px;color:var(--txt-light);font-size:15px}
+.qres__can li::before{content:"✓";color:var(--pink);margin-right:10px;font-weight:700}
+.qres__note{font-size:13px!important;opacity:.75}
+.qlvl{color:var(--pink);font-weight:700}
+.form__lvl{display:none;margin:-4px 0 4px;padding:10px 14px;border-radius:14px;background:rgba(255,155,180,.18);font-size:14px;color:var(--navy)}
+.form__lvl.is-on{display:block}
 .qin{animation:qin .45s var(--ease) both}
 @keyframes qin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
@@ -508,8 +514,8 @@ button{cursor:pointer}
     <div class="quiz">
       <div>
         <span class="tag rv"><b>04</b> Тест на уровень</span>
-        <h2 class="h2"><span class="ln"><span>Узнайте уровень</span></span><span class="ln"><span class="pk">за 1 минуту</span></span></h2>
-        <p class="lead rv" style="margin-top:26px">Пять коротких вопросов — и мы подскажем, с какого курса начать. Точный уровень преподаватель определит на бесплатном пробном уроке.</p>
+        <h2 class="h2"><span class="ln"><span>Узнайте уровень</span></span><span class="ln"><span class="pk">за 2–3 минуты</span></span></h2>
+        <p class="lead rv" style="margin-top:26px">12 коротких вопросов — от простых к сложным. Если вопросы станут слишком трудными, тест закончится раньше. Это примерная оценка по грамматике и словам — точный уровень преподаватель определит на бесплатном пробном уроке.</p>
       </div>
       <div class="qbox rv" id="quiz" aria-live="polite"></div>
     </div>
@@ -603,6 +609,7 @@ button{cursor:pointer}
       <div class="book__img rv"><img loading="lazy" decoding="async" width="900" height="1100" src="https://images.unsplash.com/photo-1514369118554-e20d93546b30?auto=format&fit=crop&w=900&h=1100&q=75" alt="Девушка делает записи в тетради"><span>Ответим в течение <b>15 минут</b> в рабочее время: ежедневно 9:00–21:00</span></div>
       <form class="form rv" id="form" novalidate>
         <h3>Запись на пробный урок</h3>
+        <p class="form__lvl" id="f-level"></p>
         <div class="form__row">
           <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" placeholder="Как к вам обращаться"></div>
           <div class="field"><label for="f-phone">Телефон</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="18"></div>
@@ -694,29 +701,59 @@ button{cursor:pointer}
     items.forEach(i => io.observe(i));
   }
 
-  /* quiz */
-  const Q = [
-    {q:'She <em>___</em> in Moscow since 2019.', o:['lives','is living','has lived','lived'], a:2},
-    {q:'If I <em>___</em> more time, I would travel more.', o:['have','had','will have','would have'], a:1},
-    {q:'Выберите синоним к слову <em>crucial</em>', o:['essential','optional','curious','careful'], a:0},
-    {q:'The report <em>___</em> by the manager tomorrow.', o:['will review','is reviewing','will be reviewed','reviews'], a:2},
-    {q:'Hardly <em>___</em> the house when it started to rain.', o:['I had left','had I left','I left','did I leave'], a:1}
+  /* quiz: 12 своих вопросов от A1 до C1, по блокам уровней.
+     Блок пройден, если верно хотя бы половина ответов; не пройден — тест заканчивается, сложнее не мучаем. */
+  const LV = [
+    { id: 'A1', name: 'Начальный', can: ['Представиться и рассказать о себе парой фраз', 'Понять простые вопросы: имя, откуда, сколько лет'], tip: 'Начнём с General English с нуля — мини-группа, 3–4 месяца до уверенного A2.', goal: 'Общий английский', Q: [
+      { q: 'I <em>___</em> a student.', o: ['am', 'is', 'are', 'be'], a: 0, k: 'Грамматика' },
+      { q: 'Where <em>___</em> you from?', o: ['is', 'do', 'are', 'does'], a: 2, k: 'Грамматика' } ] },
+    { id: 'A2', name: 'Элементарный', can: ['Объясниться в магазине, кафе, аэропорту', 'Рассказать, что делали вчера и что планируете'], tip: 'Рекомендуем General English на 2–3 месяца, а затем — подготовку к IELTS.', goal: 'Общий английский', Q: [
+      { q: 'Yesterday we <em>___</em> to the cinema.', o: ['go', 'gone', 'went', 'goes'], a: 2, k: 'Грамматика' },
+      { q: 'There aren\'t <em>___</em> apples in the fridge.', o: ['some', 'any', 'much', 'a'], a: 1, k: 'Грамматика' } ] },
+    { id: 'B1', name: 'Средний', can: ['Поддержать разговор на знакомые темы', 'Понять главное в несложном тексте или видео'], tip: 'Можно начинать подготовку к IELTS. Оптимально — мини-группа на 12 недель.', goal: 'IELTS', Q: [
+      { q: 'She <em>___</em> in Moscow since 2019.', o: ['lives', 'is living', 'has lived', 'lived'], a: 2, k: 'Грамматика' },
+      { q: 'If it rains tomorrow, we <em>___</em> at home.', o: ['stay', 'will stay', 'would stay', 'stayed'], a: 1, k: 'Грамматика' },
+      { q: '«Tom usually takes the bus, but today he walked because the drivers were on strike.»<br>Why did Tom walk?', o: ['He wanted some exercise', 'The buses weren\'t running', 'He missed the bus', 'The weather was nice'], a: 1, k: 'Понимание текста' } ] },
+    { id: 'B2', name: 'Выше среднего', can: ['Свободно обсуждать работу и новости', 'Писать письма и эссе с аргументами'], tip: 'Отличный уровень для IELTS 6.5–7.0. Сосредоточимся на стратегиях и Writing.', goal: 'IELTS', Q: [
+      { q: 'I wish I <em>___</em> harder at school.', o: ['studied', 'had studied', 'would study', 'study'], a: 1, k: 'Грамматика' },
+      { q: 'The report <em>___</em> by the manager tomorrow.', o: ['will review', 'is reviewing', 'will be reviewed', 'reviews'], a: 2, k: 'Грамматика' },
+      { q: 'Выберите синоним к слову <em>crucial</em>', o: ['essential', 'optional', 'curious', 'careful'], a: 0, k: 'Лексика' } ] },
+    { id: 'C1', name: 'Продвинутый', can: ['Понимать сложные тексты и скрытый смысл', 'Говорить бегло и точно, в том числе на работе'], tip: 'Вы близки к 7.5+. Индивидуальные занятия помогут добрать баллы в Writing и Speaking.', goal: 'IELTS', Q: [
+      { q: 'Hardly <em>___</em> the house when it started to rain.', o: ['I had left', 'had I left', 'I left', 'did I leave'], a: 1, k: 'Грамматика' },
+      { q: 'Not only <em>___</em> late, but he also forgot the tickets.', o: ['he arrived', 'arrived he', 'did he arrive', 'he did arrive'], a: 2, k: 'Грамматика' } ] },
   ];
-  const box = $('#quiz'); let qi = 0, score = 0;
-  const lvl = s => s <= 1 ? ['A2','Хорошая база для старта. Рекомендуем General English на 2–3 месяца, а затем — подготовку к IELTS.'] : s === 2 ? ['B1','Можно начинать подготовку к IELTS. Оптимально — мини-группа на 12 недель.'] : s <= 4 ? ['B2','Отличный уровень для IELTS 6.5–7.0. Сосредоточимся на стратегиях и Writing.'] : ['C1','Вы близки к 7.5+. Индивидуальные занятия помогут добрать баллы в Writing и Speaking.'];
+  const TOTAL = LV.reduce((n, l) => n + l.Q.length, 0);
+  const box = $('#quiz'); let li = 0, qi = 0, done = 0, right = 0, ok = [], level = null;
+  const finish = () => {
+    let top = -1; for (let i = 0; i < ok.length && ok[i]; i++) top = i;
+    const L = top < 0 ? { id: 'A0', name: 'Самое начало', can: ['Знаете алфавит и отдельные слова — это уже старт'], tip: 'Начнём с нуля в мини-группе: первые фразы уже на втором занятии.', goal: 'Общий английский' } : LV[top];
+    level = L;
+    box.innerHTML = `<div class="qbar"><i style="transform:scaleX(1)"></i></div><div class="qres qin"><span style="font-size:13px;color:var(--txt-light)">Ваш примерный уровень · верно ${right} из ${done}</span><div class="qres__lvl">${L.id === 'A0' ? 'A0' : L.id}</div><p><b class="qlvl">${L.name}.</b> Вы можете:</p><ul class="qres__can">${L.can.map(c => `<li>${c}</li>`).join('')}</ul><p>${L.tip}</p><p class="qres__note">Тест проверяет грамматику и слова. Говорение и понимание на слух преподаватель оценит на пробном уроке.</p><div class="qres__acts"><a href="#book" class="btn btn--pink" id="qBook">Записаться на пробный урок <span class="ar">→</span></a><button class="btn btn--line" type="button" id="qAgain">Пройти ещё раз</button></div></div>`;
+    $('#qAgain').addEventListener('click', () => { li = 0; qi = 0; done = 0; right = 0; ok = []; level = null; $('#f-level').classList.remove('is-on'); renderQ(); });
+    $('#qBook').addEventListener('click', () => {
+      // уровень и подходящая цель — сразу в форму записи
+      const g = form.querySelector(`[name=goal][value="${L.goal}"]`); if (g) g.checked = true;
+      const fl = $('#f-level'); fl.textContent = `Уровень по тесту: ${L.id} · ${L.name} — передадим преподавателю`; fl.classList.add('is-on');
+    });
+  };
+  let blockRight = 0;
   const renderQ = () => {
-    if (qi >= Q.length) {
-      const [l, t] = lvl(score);
-      box.innerHTML = `<div class="qbar"><i style="transform:scaleX(1)"></i></div><div class="qres qin"><span style="font-size:13px;color:var(--txt-light)">Ваш примерный уровень · ${score} из ${Q.length}</span><div class="qres__lvl">${l}</div><p>${t}</p><div class="qres__acts"><a href="#book" class="btn btn--pink">Записаться на пробный урок <span class="ar">→</span></a><button class="btn btn--line" type="button" id="qAgain">Пройти ещё раз</button></div></div>`;
-      $('#qAgain').addEventListener('click', () => { qi = 0; score = 0; renderQ(); });
-      return;
-    }
-    const it = Q[qi];
-    box.innerHTML = `<div class="qbar"><i style="transform:scaleX(${qi / Q.length})"></i></div><div class="qstep"><span>Вопрос ${qi + 1} из ${Q.length}</span><span>Грамматика и лексика</span></div><div class="qin"><p class="qq">${it.q}</p><div class="qopts">${it.o.map((o, i) => `<button type="button" class="qopt" data-i="${i}">${o}</button>`).join('')}</div></div>`;
+    if (li >= LV.length) return finish();
+    const lv = LV[li], it = lv.Q[qi];
+    box.innerHTML = `<div class="qbar"><i style="transform:scaleX(${done / TOTAL})"></i></div><div class="qstep"><span>Вопрос ${done + 1} из ${TOTAL}</span><span>${lv.id} · ${it.k}</span></div><div class="qin"><p class="qq">${it.q}</p><div class="qopts">${it.o.map((o, i) => `<button type="button" class="qopt" data-i="${i}">${o}</button>`).join('')}</div></div>`;
     box.querySelectorAll('.qopt').forEach(b => b.addEventListener('click', () => {
-      b.classList.add('is-pick'); if (+b.dataset.i === it.a) score++;
+      b.classList.add('is-pick'); const hit = +b.dataset.i === it.a; if (hit) { right++; blockRight++; }
       box.querySelectorAll('.qopt').forEach(x => x.disabled = true);
-      setTimeout(() => { qi++; renderQ(); }, 350);
+      done++;
+      setTimeout(() => {
+        qi++;
+        if (qi >= lv.Q.length) {
+          const pass = blockRight >= Math.ceil(lv.Q.length / 2);
+          ok.push(pass); li++; qi = 0; blockRight = 0;
+          if (!pass) return finish();
+        }
+        renderQ();
+      }, 350);
     }));
   };
   renderQ();
@@ -764,7 +801,7 @@ button{cursor:pointer}
       // демо: кладём заявку в браузер, её подхватит демо-панель заявок
       try {
         const k = 'demo-leads:fluent', q = JSON.parse(localStorage.getItem(k) || '[]');
-        q.push({ at: Date.now(), name: n.value.trim(), phone: p.value, choice: (form.querySelector('[name=goal]:checked') || {}).value, extra: [['Удобное время', form.time.value]] });
+        q.push({ at: Date.now(), name: n.value.trim(), phone: p.value, choice: (form.querySelector('[name=goal]:checked') || {}).value, extra: [['Удобное время', form.time.value]].concat(level ? [['Уровень по тесту', level.id + ' · ' + level.name]] : []), source: level ? 'Демо-сайт — тест на уровень' : '' });
         localStorage.setItem(k, JSON.stringify(q.slice(-20)));
       } catch (_) {}
     }
