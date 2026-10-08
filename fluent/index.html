@@ -125,7 +125,6 @@ button{cursor:pointer}
 .who__grid{display:grid;gap:20px}
 @media (min-width:900px){.who__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .who{background:#fff;border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease)}
-.who:hover{transform:translateY(-4px)}
 .who__img{aspect-ratio:4/3;overflow:hidden;background:var(--cream-2)}
 .who__img img{width:100%;height:100%;object-fit:cover}
 .who__b{padding:26px 26px 30px;display:flex;flex-direction:column;gap:12px;flex:1}
@@ -204,7 +203,6 @@ button{cursor:pointer}
 .tch__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.6vw,24px)}
 @media (min-width:1000px){.tch__grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .tch{background:#fff;border-radius:24px;overflow:hidden;transition:transform .4s var(--ease)}
-.tch:hover{transform:translateY(-4px)}
 .tch__img{position:relative;aspect-ratio:4/5;background:var(--cream-2)}
 .tch__img img{width:100%;height:100%;object-fit:cover}
 .tch__score{position:absolute;left:12px;top:12px;padding:6px 12px;border-radius:999px;background:var(--navy);color:var(--pink);font-family:var(--head);font-weight:700;font-size:13px}
@@ -407,9 +405,7 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
 .js-reveal .who__img img,.js-reveal .tch__img img,.js-reveal .book__img img{transform:scale(1.25);transition:transform 1.6s var(--ease)}
 .js-reveal .who.is-in .who__img,.js-reveal .tch.is-in .tch__img,.js-reveal .book__img.is-in{clip-path:inset(0 0 0 0 round 0)}
 .js-reveal .who.is-in .who__img img,.js-reveal .tch.is-in .tch__img img,.js-reveal .book__img.is-in img{transform:scale(1)}
-.who:hover .who__img img,.tch:hover .tch__img img{transform:scale(1.06)!important}
 .tch__score{transition:transform .5s var(--ease)}
-.tch:hover .tch__score{transform:rotate(-6deg) scale(1.08)}
 /* подсветка за курсором */
 .spot{position:relative;isolation:isolate}
 .spot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(255,155,180,.22),transparent 60%);z-index:-1}
