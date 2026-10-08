@@ -85,10 +85,6 @@
     .nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:var(--acc);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
     .nav a:hover{color:var(--ink)} .nav a:hover::after{transform:scaleX(1);transform-origin:left}
     .hdr__end{display:flex;align-items:center;gap:22px}
-    .status{display:flex;align-items:center;gap:8px;color:var(--mute)}
-    .status i{position:relative;width:7px;height:7px;border-radius:50%;background:var(--acc)}
-    .status i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--acc);animation:pulse 2.2s infinite}
-    @keyframes pulse{0%{transform:scale(1);opacity:.6}70%,100%{transform:scale(3.4);opacity:0}}
     .burger{display:none;align-items:center;gap:10px;height:44px;padding:0 18px;border:1px solid var(--line-2);border-radius:99px;font-size:14px}
     .burger b{display:grid;gap:4px} .burger b i{display:block;width:16px;height:1.5px;background:currentColor;transition:transform .4s var(--ease)}
     .menu-open .burger b i:first-child{transform:translateY(2.75px) rotate(45deg)}
@@ -424,7 +420,7 @@
       .case__proof strong{font-size:18px}.case__proof li{padding:10px 12px}
     }
     @media (max-width:1180px){
-      .nav{display:none}.status{display:none}
+      .nav{display:none}
     }
     @media (max-width:1023px){
       .case{grid-template-columns:1fr;min-height:0}
@@ -497,7 +493,6 @@
         <a href="#faq">Вопросы</a>
       </nav>
       <div class="hdr__end">
-        <span class="status mono"><i></i>Принимаю заявки</span>
         <a class="btn btn--acc btn--sm" href="#contact" data-magnetic>
           <span class="btn__txt"><span>Бесплатный разбор</span><span>Бесплатный разбор</span></span>
           <span class="btn__ico" aria-hidden="true">↗</span>
