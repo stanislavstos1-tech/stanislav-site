@@ -113,12 +113,6 @@ button{cursor:pointer}
 .stat span{display:block;margin-top:8px;font-size:clamp(12px,1vw,14px);color:var(--txt-light)}
 
 /* marquee */
-.mq{background:var(--pink);color:var(--navy);overflow:hidden;contain:layout paint;padding:clamp(18px,2vw,28px) 0}
-.mq__track{display:flex;width:max-content;animation:mq 34s linear infinite}
-.js-mq .mq__track{animation-play-state:paused}.js-mq .mq.on .mq__track{animation-play-state:running}
-.mq__g{display:flex;align-items:center;gap:clamp(22px,3vw,48px);padding-right:clamp(22px,3vw,48px);font-family:var(--head);font-weight:800;font-size:clamp(28px,3.8vw,60px);letter-spacing:-.03em;white-space:nowrap}
-.mq__g i{font-style:normal;width:.42em;height:.42em;border-radius:50%;background:var(--navy);display:inline-block}
-@keyframes mq{to{transform:translate3d(-50%,0,0)}}
 
 /* who */
 .who__grid,.fmt__grid,.res__grid,.price__grid,.quiz,.book,.faq__grid,.foot__top{grid-template-columns:minmax(0,1fr)}
@@ -356,7 +350,7 @@ button{cursor:pointer}
 .sec.light{background:var(--cream)}
 main>.sec,.foot{border-radius:var(--rr) var(--rr) 0 0;margin-top:calc(var(--rr) * -1)}
 .foot{position:relative;background:var(--ink);border-top:0}
-.mq{position:relative;z-index:0;padding-bottom:calc(clamp(18px,2vw,28px) + var(--rr))}
+.hero{padding-bottom:calc(clamp(56px,6vw,90px) + var(--rr))}
 /* зерно плёнки */
 body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
@@ -396,7 +390,6 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
 @keyframes spin{to{transform:rotate(360deg)}}
 @media (max-width:999px){.spin{display:none}}
 /* бегущая строка: наклон от скорости прокрутки */
-.mq__g{transition:transform .5s var(--ease);will-change:transform}
 /* фото проявляются из рамки */
 /* появление карточек: шторка снизу вверх, фото доезжает из крупного плана, текст и бейдж — следом, карточки по очереди */
 .tch__grid>:nth-child(2),.who__grid>:nth-child(2){--d:.12s}.tch__grid>:nth-child(3),.who__grid>:nth-child(3){--d:.24s}.tch__grid>:nth-child(4){--d:.36s}
@@ -496,12 +489,6 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
   </div>
 </section>
 
-<div class="mq" aria-label="Направления школы">
-  <div class="mq__track">
-    <div class="mq__g"><span>IELTS Academic</span><i></i><span>General English</span><i></i><span>Speaking Club</span><i></i><span>Бизнес-английский</span><i></i><span>Подготовка к поступлению</span><i></i></div>
-    <div class="mq__g" aria-hidden="true"><span>IELTS Academic</span><i></i><span>General English</span><i></i><span>Speaking Club</span><i></i><span>Бизнес-английский</span><i></i><span>Подготовка к поступлению</span><i></i></div>
-  </div>
-</div>
 
 <!-- WHO -->
 <section class="sec light" id="who">
@@ -779,9 +766,6 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
 
   /* reveal once */
   const items = $$('.rv, .ln');
-  // бегущая строка крутится, только когда её видно
-  const mqEl = document.querySelector('.mq');
-  if (mqEl && 'IntersectionObserver' in window) { document.documentElement.classList.add('js-mq'); new IntersectionObserver(([e]) => mqEl.classList.toggle('on', e.isIntersecting)).observe(mqEl); }
   if (reduce || !('IntersectionObserver' in window)) items.forEach(i => i.classList.add('is-in'));
   else {
     // карточки со шторкой обрезаны clip-path и сами «не видны» наблюдателю — следим за их родителем
