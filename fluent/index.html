@@ -159,11 +159,11 @@ button{cursor:pointer}
 .prog h3{margin:0;font-family:var(--head);font-weight:800;font-size:clamp(40px,5.4vw,92px);letter-spacing:-.045em;line-height:.9;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .prog h3 small{font-family:var(--body);font-weight:500;font-size:14px;letter-spacing:0;color:rgba(29,36,64,.55)}
 .prog p{margin:0;color:rgba(29,36,64,.78)}
-.prog__facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.prog__facts span{font-size:13px;padding:5px 11px;border-radius:999px;background:var(--cream-2)}
-.prog__plus{font-family:var(--head);font-weight:700;font-size:15px;justify-self:start;padding:10px 16px;border-radius:14px;background:var(--navy);color:var(--cream)}
-@media (min-width:960px){.prog__plus{justify-self:end}}
-.prog__plus b{color:var(--pink)}
+.prog__facts{display:flex;flex-wrap:wrap;gap:4px 0;margin-top:14px}
+.prog__facts span{font-size:14px;color:rgba(29,36,64,.55)}.prog__facts span+span::before{content:"·";margin:0 10px}
+.prog__plus{font-family:var(--head);font-weight:600;font-size:14px;justify-self:start;color:rgba(29,36,64,.55)}
+@media (min-width:960px){.prog__plus{justify-self:end;text-align:right}}
+.prog__plus b{display:block;font-size:clamp(28px,2.4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:4px;color:var(--navy)}
 .ac-note{margin-top:34px;display:grid;gap:14px}
 @media (min-width:900px){.ac-note{grid-template-columns:1fr 1fr}}
 .ac-note div{padding:24px 26px;border-radius:22px;background:#fff}
@@ -416,10 +416,6 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
   .fmt h3{font-size:clamp(44px,4.4vw,76px)}
 }
 /* программа: строка заливается розовым при наведении */
-.prog{position:relative}
-.prog::before{content:"";position:absolute;inset:0 calc(var(--pad) * -.5);border-radius:28px;background:var(--pink);transform:scaleY(0);transform-origin:50% 100%;transition:transform .55s var(--ease);z-index:0}
-.prog>*{position:relative;z-index:1}
-@media (hover:hover){.prog:hover::before{transform:scaleY(1)}.prog:hover h3 small,.prog:hover p{color:var(--navy)}.prog:hover .prog__facts span{background:rgba(255,255,255,.55)}}
 /* цифры */
 .stat b{font-variant-numeric:tabular-nums}
 /* подвал: буквы поднимаются волной */
