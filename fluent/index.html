@@ -138,14 +138,12 @@ button{cursor:pointer}
 .fmt__grid{display:grid;gap:18px}
 @media (min-width:900px){.fmt__grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .fmt{position:relative;padding:32px 28px;border-radius:var(--r);background:var(--navy-2);border:1px solid var(--line-d);display:flex;flex-direction:column;gap:16px;transition:transform .4s var(--ease),background-color .4s}
-.fmt:hover{transform:translateY(-4px);background:var(--navy-3)}
 .fmt--hot{background:var(--pink);color:var(--navy);border-color:var(--pink)}
-.fmt--hot:hover{background:var(--pink-2)}
 .fmt__top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px}
 .fmt h3{margin:0;font-family:var(--head);font-weight:800;font-size:clamp(28px,2.6vw,40px);letter-spacing:-.03em;line-height:1}
 .badge{font-family:var(--head);font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;background:var(--lime);color:var(--navy);white-space:nowrap}
 .fmt__meta{display:flex;flex-wrap:wrap;gap:8px}
-.fmt__meta span{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid currentColor;opacity:.8}
+.fmt__meta{gap:4px 0}.fmt__meta span{font-size:15px;opacity:.75}.fmt__meta span+span::before{content:"·";margin:0 10px}
 .fmt ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .fmt li{display:flex;gap:10px;font-size:15px}
 .fmt li::before{content:"";flex:0 0 8px;height:8px;margin-top:8px;border-radius:50%;background:var(--pink)}
@@ -226,7 +224,6 @@ button{cursor:pointer}
 .price__grid{display:grid;gap:18px;margin-top:34px}
 @media (min-width:960px){.price__grid{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}}
 .plan{padding:32px 28px;border-radius:var(--r);background:#fff;display:flex;flex-direction:column;gap:18px;transition:transform .4s var(--ease)}
-.plan:hover{transform:translateY(-4px)}
 .plan--pop{background:var(--navy);color:var(--cream)}
 .plan__top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .plan h3{margin:0;font-family:var(--head);font-weight:700;font-size:24px}
@@ -417,7 +414,6 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
   .fmt{position:sticky;top:calc(110px + var(--i,0) * 26px);margin-bottom:26px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);grid-template-areas:"top list" "meta list" "note list";gap:18px 56px;padding:44px 48px;min-height:320px;box-shadow:0 -24px 60px -36px rgba(0,0,0,.6)}
   .fmt__top{grid-area:top}.fmt__meta{grid-area:meta;align-self:start}.fmt ul{grid-area:list;align-self:center;font-size:17px}.fmt__note{grid-area:note;align-self:end}
   .fmt h3{font-size:clamp(44px,4.4vw,76px)}
-  .fmt:hover{transform:none}
 }
 /* программа: строка заливается розовым при наведении */
 .prog{position:relative}
@@ -535,19 +531,19 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
       <p class="lead rv">Все форматы включают вводную диагностику, домашние задания с проверкой и пробный экзамен в условиях, приближенных к реальным.</p>
     </div>
     <div class="fmt__grid">
-      <article style="--i:0" class="spot fmt rv">
+      <article style="--i:0" class="fmt rv">
         <div class="fmt__top"><h3>Мини-группа</h3></div>
         <div class="fmt__meta"><span>до 6 человек</span><span>12 недель</span><span>2 раза в неделю</span></div>
         <ul><li>Занятия по 2 часа вечером или в выходные</li><li>Разбор всех четырёх частей экзамена</li><li>Письменные работы с подробной обратной связью</li><li>Пробный экзамен в середине и в конце курса</li></ul>
         <p class="fmt__note">Оптимально, если до экзамена 3–6 месяцев</p>
       </article>
-      <article style="--i:1" class="spot fmt fmt--hot rv">
+      <article style="--i:1" class="fmt fmt--hot rv">
         <div class="fmt__top"><h3>Индивидуально</h3><span class="badge">Чаще выбирают</span></div>
         <div class="fmt__meta"><span>1 на 1</span><span>свой график</span><span>от 8 недель</span></div>
         <ul><li>Программа под вашу дату экзамена и слабые места</li><li>Можно сосредоточиться на Writing или Speaking</li><li>Разговорная практика в каждом уроке</li><li>Преподаватель на связи между занятиями</li></ul>
         <p class="fmt__note">Для тех, кому нужен результат в сжатые сроки</p>
       </article>
-      <article style="--i:2" class="spot fmt rv">
+      <article style="--i:2" class="fmt rv">
         <div class="fmt__top"><h3>Интенсив</h3></div>
         <div class="fmt__meta"><span>до 6 человек</span><span>5 недель</span><span>3 раза в неделю</span></div>
         <ul><li>Занятия по 2,5 часа, плотный темп</li><li>Стратегии для каждого типа заданий</li><li>Speaking-практика с носителем языка</li><li>Два полных пробных экзамена</li></ul>
@@ -616,10 +612,10 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
       <p class="lead rv">У каждого преподавателя личный балл IELTS от 8.0 и международный сертификат CELTA или DELTA. Раз в год они пересдают экзамен, чтобы знать актуальные задания.</p>
     </div>
     <div class="tch__grid">
-      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-anna.jpg" alt="Преподаватель Анна Соколова"><span class="tch__score">IELTS 8.5</span></div><div class="tch__b"><h3>Анна Соколова</h3><p>Writing · 9 лет · магистратура в Эдинбурге</p></div></article>
-      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-daniel.jpg" alt="Преподаватель Даниэль Картер"><span class="tch__score">Native</span></div><div class="tch__b"><h3>Даниэль Картер</h3><p>Speaking · 7 лет · носитель, Великобритания</p></div></article>
-      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-maria.jpg" alt="Преподаватель Мария Лебедева"><span class="tch__score">IELTS 8.0</span></div><div class="tch__b"><h3>Мария Лебедева</h3><p>Reading, Listening · 6 лет · Торонто</p></div></article>
-      <article class="tch rv" data-cur="Привет!"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-ekaterina.jpg" alt="Преподаватель Екатерина Орлова"><span class="tch__score">IELTS 9.0</span></div><div class="tch__b"><h3>Екатерина Орлова</h3><p>Методист программы · 11 лет · Мельбурн</p></div></article>
+      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-anna.jpg" alt="Преподаватель Анна Соколова"><span class="tch__score">IELTS 8.5</span></div><div class="tch__b"><h3>Анна Соколова</h3><p>Writing · 9 лет · магистратура в Эдинбурге</p></div></article>
+      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-daniel.jpg" alt="Преподаватель Даниэль Картер"><span class="tch__score">Native</span></div><div class="tch__b"><h3>Даниэль Картер</h3><p>Speaking · 7 лет · носитель, Великобритания</p></div></article>
+      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-maria.jpg" alt="Преподаватель Мария Лебедева"><span class="tch__score">IELTS 8.0</span></div><div class="tch__b"><h3>Мария Лебедева</h3><p>Reading, Listening · 6 лет · Торонто</p></div></article>
+      <article class="tch rv"><div class="tch__img"><img loading="lazy" decoding="async" width="720" height="900" src="photos/teacher-ekaterina.jpg" alt="Преподаватель Екатерина Орлова"><span class="tch__score">IELTS 9.0</span></div><div class="tch__b"><h3>Екатерина Орлова</h3><p>Методист программы · 11 лет · Мельбурн</p></div></article>
     </div>
   </div>
 </section>
@@ -632,9 +628,9 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
       <p class="lead rv">Истории выпускников последнего года. Имена изменены, баллы — из официальных сертификатов.</p>
     </div>
     <div class="res__grid">
-      <article class="res spot rv"><div class="res__sc"><s>5.5</s><span>→</span><b>7.5</b></div><q>Боялась Speaking до дрожи. На экзамене поймала себя на мысли, что просто разговариваю — как на наших уроках.</q><footer><b>Полина, 17 лет</b><span>5 месяцев · поступила в Манчестер</span></footer></article>
-      <article class="res spot rv"><div class="res__sc"><s>6.0</s><span>→</span><b>7.0</b></div><q>Нужен был Writing 7 для магистратуры. Разобрали 30 моих эссе — и я наконец поняла, за что снимают баллы.</q><footer><b>Дарья, 24 года</b><span>3 месяца · магистратура в Нидерландах</span></footer></article>
-      <article class="res spot rv"><div class="res__sc"><s>5.0</s><span>→</span><b>6.5</b></div><q>Занимался после работы по вечерам. Сдал General с первого раза и подал документы на рабочую визу.</q><footer><b>Алексей, 31 год</b><span>6 месяцев · переезд в Канаду</span></footer></article>
+      <article class="res rv"><div class="res__sc"><s>5.5</s><span>→</span><b>7.5</b></div><q>Боялась Speaking до дрожи. На экзамене поймала себя на мысли, что просто разговариваю — как на наших уроках.</q><footer><b>Полина, 17 лет</b><span>5 месяцев · поступила в Манчестер</span></footer></article>
+      <article class="res rv"><div class="res__sc"><s>6.0</s><span>→</span><b>7.0</b></div><q>Нужен был Writing 7 для магистратуры. Разобрали 30 моих эссе — и я наконец поняла, за что снимают баллы.</q><footer><b>Дарья, 24 года</b><span>3 месяца · магистратура в Нидерландах</span></footer></article>
+      <article class="res rv"><div class="res__sc"><s>5.0</s><span>→</span><b>6.5</b></div><q>Занимался после работы по вечерам. Сдал General с первого раза и подал документы на рабочую визу.</q><footer><b>Алексей, 31 год</b><span>6 месяцев · переезд в Канаду</span></footer></article>
     </div>
   </div>
 </section>
@@ -646,19 +642,19 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
       <div><span class="tag rv"><b>07</b> Стоимость</span><h2 class="h2"><span class="ln"><span>Прозрачные цены</span></span></h2></div>
     </div>
     <div class="price__grid">
-      <article class="plan spot rv">
+      <article class="plan rv">
         <div class="plan__top"><h3>Мини-группа</h3></div>
         <div class="plan__p">14 900 ₽<small>/ месяц</small></div>
         <ul><li>8 занятий по 2 часа</li><li>Проверка домашних заданий</li><li>Пробный экзамен в конце курса</li><li>Доступ к библиотеке материалов</li></ul>
         <a href="#book" class="btn btn--line">Записаться</a>
       </article>
-      <article class="plan plan--pop spot rv">
+      <article class="plan plan--pop rv">
         <div class="plan__top"><h3>Индивидуально</h3><span class="badge">Популярный</span></div>
         <div class="plan__p">2 500 ₽<small>/ урок 60 мин</small></div>
         <ul><li>Программа под дату экзамена</li><li>Разбор каждого эссе</li><li>Пробные Speaking-интервью</li><li>Связь с преподавателем в мессенджере</li></ul>
         <a href="#book" class="btn btn--pink">Записаться <span class="ar">→</span></a>
       </article>
-      <article class="plan spot rv">
+      <article class="plan rv">
         <div class="plan__top"><h3>Интенсив</h3></div>
         <div class="plan__p">32 000 ₽<small>/ курс</small></div>
         <ul><li>15 занятий по 2,5 часа</li><li>Практика с носителем</li><li>Два полных пробных экзамена</li><li>План подготовки на месяц после курса</li></ul>
