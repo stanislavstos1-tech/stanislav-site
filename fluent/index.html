@@ -377,14 +377,6 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
 .cur.is-label{width:96px;height:96px;margin:-48px 0 0 -48px;background:var(--pink);border-color:var(--pink)}
 @media (pointer:coarse){.cur{display:none}}
 /* hero */
-.hero h1 .h-pill{display:inline-block;vertical-align:-.06em;width:1.7em;height:.74em;border-radius:999px;overflow:hidden;margin-left:.12em;transition:width .7s var(--ease)}
-.hero h1 .h-pill{position:relative;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(120deg,var(--pink),var(--pink-2));color:var(--navy)}
-.h-pill__a{position:relative;width:.46em;height:.46em;overflow:hidden}
-.h-pill__a svg{position:absolute;inset:0;width:100%;height:100%;animation:hpA 2.6s cubic-bezier(.7,0,.2,1) infinite}
-.h-pill__a svg+svg{animation-name:hpB}
-@keyframes hpA{0%,50%{transform:translateX(0)}78%,100%{transform:translateX(170%)}}
-@keyframes hpB{0%,50%{transform:translateX(-170%)}78%,100%{transform:translateX(0)}}
-.hero h1 .h-pill:hover,.hero h1 .h-pill:focus-visible{width:2.3em}
 .hero__big{will-change:transform}
 .spin{position:absolute;right:clamp(80px,14vw,240px);top:clamp(330px,30vw,450px);width:clamp(140px,12vw,190px);aspect-ratio:1;display:grid;place-items:center;color:var(--cream);border-radius:50%}
 .spin svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite}
@@ -472,7 +464,7 @@ body::after{content:"";position:fixed;inset:-50%;z-index:70;pointer-events:none;
     <h1 aria-label="Английский, который открывает двери">
       <span class="ln"><span>Английский,</span></span>
       <span class="ln"><span>который <span class="pk">открывает</span></span></span>
-      <span class="ln"><span>двери<a class="h-pill" href="#book" aria-label="Записаться на бесплатный пробный урок"><span class="h-pill__a" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17M13 5l7 7-7 7"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17M13 5l7 7-7 7"/></svg></span></a></span></span>
+      <span class="ln"><span>двери</span></span>
     </h1>
     <div class="hero__row">
       <p class="lead rv">Готовим к IELTS на 7+ за 4–6 месяцев: мини-группы до 6 человек, пробные экзамены каждый месяц и разбор каждого вашего эссе. В нашем центре в Москве или онлайн из любого города России.</p>
